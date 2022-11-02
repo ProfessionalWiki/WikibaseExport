@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jeroen De Dauw"
+		]
+	},
+	"wikibase-export-name": "Wikibase Export",
+	"wikibase-export-description": "Adds a user-friendly Wikibase export page"
+}

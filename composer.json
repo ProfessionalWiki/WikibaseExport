@@ -1,0 +1,37 @@
+{
+	"name": "professional-wiki/wikibase-export",
+	"type": "mediawiki-extension",
+	"description": "Adds a user-friendly Wikibase export page",
+	"keywords": [
+		"MediaWiki",
+		"Wikibase",
+		"export",
+		"csv"
+	],
+	"homepage": "https://github.com/ProfessionalWiki/WikibaseExport",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Professional.Wiki",
+			"email": "info@Professional.Wiki",
+			"homepage": "https://Professional.Wiki"
+		}
+	],
+	"require": {
+		"php": ">=8.0",
+		"composer/installers": "^2|^1.0.1"
+	},
+	"require-dev": {
+		"vimeo/psalm": "^4.22.0",
+		"phpstan/phpstan": "^1.8.11",
+		"mediawiki/mediawiki-codesniffer": "^40.0.0"
+	},
+	"extra": {
+		"installer-name": "WikibaseExport"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	}
+}

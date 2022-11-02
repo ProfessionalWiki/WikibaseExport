@@ -1,0 +1,54 @@
+{
+	"name": "Wikibase Export",
+	"type": "wikibase",
+
+	"version": "1.0.0-alpha",
+
+	"author": [
+		"[https://Professional.Wiki/ Professional.Wiki]",
+		"[https://www.EntropyWins.wtf/mediawiki Jeroen De Dauw]"
+	],
+
+	"license-name": "GPL-2.0-or-later",
+
+	"url": "https://github.com/ProfessionalWiki/WikibaseExport",
+
+	"descriptionmsg": "wikibase-export-description",
+
+	"requires": {
+		"MediaWiki": ">= 1.37.0",
+		"extensions": {
+			"WikibaseRepository": "*"
+		}
+	},
+
+	"MessagesDirs": {
+		"WikibaseExport": [
+			"i18n"
+		]
+	},
+
+	"AutoloadNamespaces": {
+		"ProfessionalWiki\\WikibaseExport\\": "src/",
+		"ProfessionalWiki\\WikibaseExport\\Tests\\": "tests/"
+	},
+
+	"Hooks": {
+	},
+
+	"config": {
+	},
+
+	"SpecialPages": {
+	},
+
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "WikibaseExport/resources"
+	},
+
+	"ResourceModules": {
+	},
+
+	"manifest_version": 2
+}

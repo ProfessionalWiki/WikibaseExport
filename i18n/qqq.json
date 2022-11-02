@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jeroen De Dauw",
+			"Kghbln"
+		]
+	},
+	"wikibase-rdf-name": "{{notranslate}}",
+	"wikibase-rdf-description": "{{Desc|name=Wikibase Export|url=https://github.com/ProfessionalWiki/WikibaseExport}}"
+}
