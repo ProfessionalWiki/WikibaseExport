@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config ../../vendor/vimeo/psalm/config.xsd"
+	hideExternalErrors="true"
+    errorBaseline="psalm-baseline.xml"
+>
+    <projectFiles>
+        <directory name="src" />
+		<directory name="tests" />
+    </projectFiles>
+
+	<extraFiles>
+		<directory name="../../includes" />
+		<directory name="../../tests/phpunit" />
+		<directory name="../../vendor/wikimedia" />
+		<directory name="../../vendor/data-values" />
+		<directory name="../../vendor/psr" />
+		<directory name="../../vendor/phpunit/phpunit" />
+		<directory name="../../extensions/Wikibase" />
+	</extraFiles>
+
+	<issueHandlers>
+		<PropertyNotSetInConstructor>
+			<errorLevel type="suppress">
+				<directory name="src" />
+				<directory name="tests" />
+			</errorLevel>
+		</PropertyNotSetInConstructor>
+	</issueHandlers>
+</psalm>

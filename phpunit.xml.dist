@@ -1,0 +1,17 @@
+<phpunit colors="true">
+	<testsuites>
+		<testsuite name="WikibaseExport">
+			<directory>tests/</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src</directory>
+		</whitelist>
+	</filter>
+	<groups>
+		<exclude>
+			<group>Performance</group>
+		</exclude>
+	</groups>
+</phpunit>
