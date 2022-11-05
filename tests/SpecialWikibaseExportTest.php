@@ -17,6 +17,7 @@ class SpecialWikibaseExportTest extends SpecialPageTestBase {
 	}
 
 	public function testStub(): void {
+		/** @var string $output */
 		list( $output ) = $this->executeSpecialPage();
 
 		$this->assertStringContainsString(
