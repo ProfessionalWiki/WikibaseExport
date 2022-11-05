@@ -40,6 +40,7 @@
 	},
 
 	"SpecialPages": {
+		"WikibaseExport": "ProfessionalWiki\\WikibaseExport\\SpecialWikibaseExport"
 	},
 
 	"ResourceFileModulePaths": {
@@ -48,6 +49,10 @@
 	},
 
 	"ResourceModules": {
+	},
+
+	"ExtensionMessagesFiles": {
+		"WikibaseExportAlias": "WikibaseExport.i18n.alias.php"
 	},
 
 	"manifest_version": 2
