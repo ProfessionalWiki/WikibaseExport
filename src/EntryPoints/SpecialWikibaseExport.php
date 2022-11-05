@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseExport;
+namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use SpecialPage;
 

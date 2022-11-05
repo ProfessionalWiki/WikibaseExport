@@ -40,7 +40,7 @@
 	},
 
 	"SpecialPages": {
-		"WikibaseExport": "ProfessionalWiki\\WikibaseExport\\SpecialWikibaseExport"
+		"WikibaseExport": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\SpecialWikibaseExport"
 	},
 
 	"ResourceFileModulePaths": {
