@@ -6,5 +6,6 @@
 		]
 	},
 	"wikibase-rdf-name": "{{notranslate}}",
-	"wikibase-rdf-description": "{{Desc|name=Wikibase Export|url=https://github.com/ProfessionalWiki/WikibaseExport}}"
+	"wikibase-rdf-description": "{{Desc|name=Wikibase Export|url=https://github.com/ProfessionalWiki/WikibaseExport}}",
+	"special-wikibase-export": "This is the label on \"Special:WikibaseExport\"."
 }
