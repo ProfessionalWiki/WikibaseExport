@@ -4,11 +4,11 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests;
 
-use ProfessionalWiki\WikibaseExport\SpecialWikibaseExport;
+use ProfessionalWiki\WikibaseExport\EntryPoints\SpecialWikibaseExport;
 use SpecialPageTestBase;
 
 /**
- * @covers \ProfessionalWiki\WikibaseExport\SpecialWikibaseExport
+ * @covers \ProfessionalWiki\WikibaseExport\EntryPoints\SpecialWikibaseExport
  */
 class SpecialWikibaseExportTest extends SpecialPageTestBase {
 
@@ -18,7 +18,7 @@ class SpecialWikibaseExportTest extends SpecialPageTestBase {
 
 	public function testStub(): void {
 		/** @var string $output */
-		list( $output ) = $this->executeSpecialPage();
+		[ $output ] = $this->executeSpecialPage();
 
 		$this->assertStringContainsString(
 			'TODO',
