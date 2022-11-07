@@ -14,7 +14,10 @@ class SpecialWikibaseExport extends SpecialPage {
 
 	public function execute( $subPage ): void {
 		parent::execute( $subPage );
-		$this->getOutput()->addHTML( 'TODO' );
+		$output = $this->getOutput();
+		$output->enableOOUI();
+		$output->addModules( 'ext.wikibase.export' );
+		$output->addHTML( '<div id="wikibase-export"></div>' );
 	}
 
 	public function getGroupName(): string {

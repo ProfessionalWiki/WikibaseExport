@@ -57,6 +57,19 @@
 	},
 
 	"ResourceModules": {
+		"ext.wikibase.export": {
+			"dependencies": [
+				"oojs-ui-core",
+				"oojs-ui-widgets"
+			],
+			"styles": [
+				"ext.wikibase.export.less"
+			],
+			"scripts": [
+				"mw.widgets.EntitiesMultiselectWidget.js",
+				"ext.wikibase.export.js"
+			]
+		}
 	},
 
 	"ExtensionMessagesFiles": {
