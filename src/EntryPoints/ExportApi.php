@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
+use MediaWiki\Rest\StringStream;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ExportApi extends SimpleHandler {
@@ -18,8 +19,10 @@ class ExportApi extends SimpleHandler {
 
 	public function run(): Response {
 		// TOOD: get use case
-		$response = new Response( "foo,bar\n123,456" );
+		$response = $this->getResponseFactory()->create();
 		$response->setHeader( 'Content-Disposition', 'attachment; filename=export.csv;' );
+		$response->setHeader( 'Content-Type', 'text/csv' );
+		$response->setBody( new StringStream( "foo,bar\n123,456" ) );
 		return $response;
 	}
 
