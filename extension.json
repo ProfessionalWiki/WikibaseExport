@@ -40,7 +40,7 @@
 		{
 			"path": "/wikibase-export/v0/export",
 			"method": [ "GET" ],
-			"factory": "ProfessionalWiki\\WikibaseExport\\WikibaseExportExtension::getExportApiFactory"
+			"factory": "ProfessionalWiki\\WikibaseExport\\WikibaseExportExtension::exportApiFactory"
 		}
 	],
 

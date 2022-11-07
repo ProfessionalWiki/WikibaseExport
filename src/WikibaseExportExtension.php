@@ -18,7 +18,7 @@ class WikibaseExportExtension {
 		return $instance;
 	}
 
-	public static function getExportApiFactory(): ExportApi {
+	public static function exportApiFactory(): ExportApi {
 		return self::getInstance()->newExportApi();
 	}
 

@@ -18,7 +18,7 @@ class ExportApiTest extends MediaWikiIntegrationTestCase {
 
 	public function testHappyPathStub(): void {
 		$response = $this->executeHandler(
-			WikibaseExportExtension::getExportApiFactory(),
+			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
 				'queryParams' => [
 					'subject_ids' => 'Q1|Q2|Q3',
