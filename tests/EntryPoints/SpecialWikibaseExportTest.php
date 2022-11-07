@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseExport\Tests;
+namespace ProfessionalWiki\WikibaseExport\Tests\EntryPoints;
 
 use ProfessionalWiki\WikibaseExport\EntryPoints\SpecialWikibaseExport;
 use SpecialPageTestBase;
