@@ -11,10 +11,10 @@ use Wikimedia\ParamValidator\ParamValidator;
 
 class ExportApi extends SimpleHandler {
 
-	private const PARAM_SUBJECT_IDS = 'subjectIds';
-	private const PARAM_STATEMENT_PROPERTY_IDS = 'statementPropertyIds';
-	private const PARAM_START_TIME = 'startTime';
-	private const PARAM_END_TIME = 'endTime';
+	private const PARAM_SUBJECT_IDS = 'subject_ids';
+	private const PARAM_STATEMENT_PROPERTY_IDS = 'statement_property_ids';
+	private const PARAM_START_TIME = 'start_time';
+	private const PARAM_END_TIME = 'end_time';
 	private const PARAM_FORMAT = 'format';
 
 	public function run(): Response {

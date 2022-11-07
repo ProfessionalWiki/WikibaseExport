@@ -21,10 +21,10 @@ class ExportApiTest extends MediaWikiIntegrationTestCase {
 			WikibaseExportExtension::getExportApiFactory(),
 			new RequestData( [
 				'queryParams' => [
-					'subjectIds' => 'Q1|Q2|Q3',
-					'statementPropertyIds' => 'P1|P2',
-					'startTime' => '2021',
-					'endTime' => '2022',
+					'subject_ids' => 'Q1|Q2|Q3',
+					'statement_property_ids' => 'P1|P2',
+					'start_time' => '2021',
+					'end_time' => '2022',
 					'format' => 'csvwide'
 				]
 			] )
