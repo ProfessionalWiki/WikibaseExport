@@ -7,6 +7,11 @@ namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\StringStream;
+use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
+use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
+use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
+use ProfessionalWiki\WikibaseExport\Persistence\InMemoryEntitySource;
+use ProfessionalWiki\WikibaseExport\Presentation\NullPresenter;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ExportApi extends SimpleHandler {
@@ -18,12 +23,36 @@ class ExportApi extends SimpleHandler {
 	private const PARAM_FORMAT = 'format';
 
 	public function run(): Response {
-		// TOOD: get use case
+		$exporter = $this->newExportUseCase();
+
+		$exporter->export();
+
 		$response = $this->getResponseFactory()->create();
 		$response->setHeader( 'Content-Disposition', 'attachment; filename=export.csv;' );
 		$response->setHeader( 'Content-Type', 'text/csv' );
 		$response->setBody( new StringStream( "foo,bar\n123,456" ) );
 		return $response;
+	}
+
+	private function newExportUseCase(): ExportUseCase {
+		$params = $this->getValidatedParams();
+
+		return new ExportUseCase(
+			entitySource: new InMemoryEntitySource(), // TODO: use subject IDs
+			entityMapper: $this->newEntityMapper( $params ),
+			presenter: new NullPresenter() // TODO: use format
+		);
+	}
+
+	/**
+	 * @param array<string, mixed> $params
+	 */
+	private function newEntityMapper( array $params ): EntityMapper {
+		return new EntityMapper(
+			statementPropertyIds: [], // $params[self::PARAM_STATEMENT_PROPERTY_IDS], // TODO: parse
+			startTime: new \DateTimeImmutable(), // $params[self::PARAM_START_TIME], // TODO: parse
+			endTime: new \DateTimeImmutable(), // $params[self::PARAM_END_TIME], // TODO: parse
+		);
 	}
 
 	/**

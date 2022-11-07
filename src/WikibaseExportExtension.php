@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport;
 
+use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
 
 /**
