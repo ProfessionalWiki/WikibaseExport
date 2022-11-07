@@ -16,12 +16,12 @@ class SpecialWikibaseExportTest extends SpecialPageTestBase {
 		return new SpecialWikibaseExport();
 	}
 
-	public function testStub(): void {
+	public function testWrapperIsPresent(): void {
 		/** @var string $output */
 		[ $output ] = $this->executeSpecialPage();
 
 		$this->assertStringContainsString(
-			'TODO',
+			'<div id="wikibase-export"></div>',
 			$output
 		);
 	}
