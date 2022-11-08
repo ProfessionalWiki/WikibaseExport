@@ -8,4 +8,9 @@
       <code>$params</code>
     </UnusedParam>
   </file>
+  <file src="src/Persistence/IdListEntitySource.php">
+    <InvalidReturnType occurrences="1">
+      <code>?EntityDocument</code>
+    </InvalidReturnType>
+  </file>
 </files>
