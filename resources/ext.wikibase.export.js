@@ -74,6 +74,35 @@ $( function () {
 
 		wikibaseExport.append( filtersPanel.$element );
 
+		/* Statements */
+		var statements = new mw.widgets.EntitiesMultiselectWidget( {
+			inputPosition: 'outline',
+			placeholder: 'Search properties',
+			// TODO: get default values somewhere
+			selected: [],
+			options: [],
+			entityType: 'property'
+		} );
+
+		var statementsFieldset = new OO.ui.FieldsetLayout( {
+			label: 'Choose variables',
+			items: [
+				statements
+			]
+		} );
+
+		var statementsPanel = new OO.ui.PanelLayout( {
+			expanded: false,
+			framed: true,
+			padded: true,
+			$content: statementsFieldset.$element,
+			classes: [
+				'container'
+			]
+		} );
+
+		wikibaseExport.append( statementsPanel.$element );
+
 		/* Actions */
 		var submitButton = new OO.ui.ButtonWidget({
 			label: 'Download',
@@ -87,11 +116,12 @@ $( function () {
 			const subjectIds = subjects.getValue().join( '|' );
 			const startTime = dateStart.getValue();
 			const endTime = dateEnd.getValue();
+			const propertyIds = statements.getValue().join( '|' );
 
 			// TODO: build the correct URL
 			window.location = '/rest.php/wikibase-export/v0/export' +
-				'?subject_ids=' + subjectIds + '' +
-				'&statement_property_ids=P1|P2' +
+				'?subject_ids=' + subjectIds +
+				'&statement_property_ids=' + propertyIds +
 				'&start_time=' + startTime +
 				'&end_time=' + endTime +
 				'&format=csvwide';
