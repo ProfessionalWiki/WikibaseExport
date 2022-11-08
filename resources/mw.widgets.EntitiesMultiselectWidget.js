@@ -78,6 +78,7 @@
 			action: 'wbsearchentities',
 			type: 'item',
 			language: 'en',
+			uselang: 'en',
 			search: this.getQueryValue()
 		} );
 	}
