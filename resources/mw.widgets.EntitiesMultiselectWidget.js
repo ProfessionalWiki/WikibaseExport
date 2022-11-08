@@ -46,6 +46,8 @@
 			}.bind( this ) );
 		}
 
+		this.language = config.language || 'en';
+		this.entityType = config.entityType || 'item';
 	};
 
 	/* Setup */
@@ -76,8 +78,9 @@
 	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestData = function () {
 		return new mw.Api().get( {
 			action: 'wbsearchentities',
-			type: 'item',
-			language: 'en',
+			type: this.entityType,
+			language: this.language,
+			uselang: this.language,
 			search: this.getQueryValue()
 		} );
 	}
