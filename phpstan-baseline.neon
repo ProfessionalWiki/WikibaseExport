@@ -14,18 +14,3 @@ parameters:
 			message: "#^Property ProfessionalWiki\\\\WikibaseExport\\\\Application\\\\Export\\\\EntityMapper\\:\\:\\$statementPropertyIds is never read, only written\\.$#"
 			count: 1
 			path: src/Application/Export/EntityMapper.php
-
-		-
-			message: "#^Parameter \\$endTime of class ProfessionalWiki\\\\WikibaseExport\\\\Application\\\\Export\\\\EntityMapper constructor expects DateTimeImmutable, DateTimeImmutable\\|null given\\.$#"
-			count: 1
-			path: src/Application/Export/ExportUseCase.php
-
-		-
-			message: "#^Parameter \\$startTime of class ProfessionalWiki\\\\WikibaseExport\\\\Application\\\\Export\\\\EntityMapper constructor expects DateTimeImmutable, DateTimeImmutable\\|null given\\.$#"
-			count: 1
-			path: src/Application/Export/ExportUseCase.php
-
-		-
-			message: "#^Parameter \\$statementPropertyIds of class ProfessionalWiki\\\\WikibaseExport\\\\Application\\\\Export\\\\EntityMapper constructor expects array\\<int, Wikibase\\\\DataModel\\\\Entity\\\\PropertyId\\>, array\\<int, string\\> given\\.$#"
-			count: 1
-			path: src/Application/Export/ExportUseCase.php

@@ -9,18 +9,19 @@ use ProfessionalWiki\WikibaseExport\Application\EntitySource;
 class ExportUseCase {
 
 	public function __construct(
-		private ExportPresenter $presenter,
 		private EntitySource $entitySource,
+		private EntityMapper $entityMapper,
+		private ExportPresenter $presenter,
 	) {
 	}
 
-	public function export( ExportRequest $exportRequest ): void {
+	public function export(): void {
 		// TODO: auth
 
-		$this->presenter->present( $this->buildResponse( $this->newEntityMapper( $exportRequest ) ) );
+		$this->presenter->present( $this->buildResponse() );
 	}
 
-	private function buildResponse( EntityMapper $mapper ): ExportResponse {
+	private function buildResponse(): ExportResponse {
 		$response = new ExportResponse();
 
 		while ( true ) {
@@ -30,18 +31,10 @@ class ExportUseCase {
 				break;
 			}
 
-			$response->add( $mapper->map( $entity ) );
+			$response->add( $this->entityMapper->map( $entity ) );
 		}
 
 		return $response;
-	}
-
-	private function newEntityMapper( ExportRequest $exportRequest ): EntityMapper {
-		return new EntityMapper(
-			statementPropertyIds: $exportRequest->statementPropertyIds,
-			startTime: $exportRequest->startTime,
-			endTime: $exportRequest->endTime
-		);
 	}
 
 }
