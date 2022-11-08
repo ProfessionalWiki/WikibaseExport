@@ -42,13 +42,9 @@ $( function () {
 		wikibaseExport.append( subjectsPanel.$element );
 
 		/* Filters */
-		var dateStart = new OO.ui.TextInputWidget( {
-			validate: 'integer'
-		} );
+		var dateStart = new OO.ui.NumberInputWidget();
 
-		var dateEnd = new OO.ui.TextInputWidget( {
-			validate: 'integer'
-		} );
+		var dateEnd = new OO.ui.NumberInputWidget();
 
 		var filtersFieldset = new OO.ui.FieldsetLayout( {
 			label: 'Choose time range',
