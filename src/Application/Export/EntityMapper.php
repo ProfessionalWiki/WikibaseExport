@@ -21,7 +21,9 @@ class EntityMapper {
 	}
 
 	public function map( EntityDocument $entity ): MappedEntity {
-		return new MappedEntity(); // TODO
+		return new MappedEntity(
+			id: (string)$entity->getId()
+		);
 	}
 
 }

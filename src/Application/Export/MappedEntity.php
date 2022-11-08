@@ -6,4 +6,9 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
 class MappedEntity {
 
+	public function __construct(
+		public /* readonly */ string $id
+	) {
+	}
+
 }
