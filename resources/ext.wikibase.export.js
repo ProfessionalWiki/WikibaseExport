@@ -99,6 +99,41 @@ $( function () {
 
 		wikibaseExport.append( statementsPanel.$element );
 
+		/* Format */
+		var formats = new OO.ui.RadioSelectWidget( {
+			items: [
+				new OO.ui.RadioOptionWidget( {
+					data: 'csvwide',
+					label: 'CSV (Wide)'
+				} ),
+				new OO.ui.RadioOptionWidget( {
+					data: 'csvnarrow',
+					label: 'CSV (Narrow)'
+				} )
+			],
+		} );
+		formats.selectItemByData( 'csvwide' );
+
+		var formatsFieldset = new OO.ui.FieldsetLayout( {
+			label: 'Choose export format',
+			items: [
+				formats
+			]
+		} );
+
+		var formatsPanel = new OO.ui.PanelLayout( {
+			expanded: false,
+			framed: true,
+			padded: true,
+			$content: formatsFieldset.$element,
+			classes: [
+				'container'
+			]
+		} );
+
+		wikibaseExport.append( formatsPanel.$element );
+
+
 		/* Actions */
 		var submitButton = new OO.ui.ButtonWidget({
 			label: 'Download',
@@ -113,6 +148,7 @@ $( function () {
 			const startTime = dateStart.getValue();
 			const endTime = dateEnd.getValue();
 			const propertyIds = statements.getValue().join( '|' );
+			const format = formats.findSelectedItem().data;
 
 			// TODO: build the correct URL
 			window.location = '/rest.php/wikibase-export/v0/export' +
@@ -120,7 +156,7 @@ $( function () {
 				'&statement_property_ids=' + propertyIds +
 				'&start_time=' + startTime +
 				'&end_time=' + endTime +
-				'&format=csvwide';
+				'&format=' + format;
 		} );
 
 		wikibaseExport.append( submitButton.$element );
