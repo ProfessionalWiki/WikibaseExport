@@ -64,13 +64,13 @@
 	 * @inheritdoc OO.ui.MenuTagMultiselectWidget
 	 */
 	mw.widgets.EntitiesMultiselectWidget.prototype.onInputChange = function () {
-		var widget = this;
+		const widget = this;
 
 		this.getRequestData()
 			.then( function ( data ) {
 				widget.menu.clearItems();
 				widget.menu.addItems( widget.getOptionsFromData( data ) );
-			} ).always( function() {
+			} ).always( function () {
 				mw.widgets.EntitiesMultiselectWidget.parent.prototype.onInputChange.call( widget );
 			} );
 	};
@@ -83,12 +83,12 @@
 			uselang: this.language,
 			search: this.getQueryValue()
 		} );
-	}
+	};
 
 	mw.widgets.EntitiesMultiselectWidget.prototype.getOptionsFromData = function ( data ) {
-		var items = [];
+		const items = [];
 
-		for ( var i = 0; i < data.search.length; i++ ) {
+		for ( let i = 0; i < data.search.length; i++ ) {
 			items.push( new OO.ui.MenuOptionWidget( {
 				data: data.search[ i ].id,
 				label: data.search[ i ].label
@@ -96,6 +96,6 @@
 		}
 
 		return items;
-	}
+	};
 
 }() );
