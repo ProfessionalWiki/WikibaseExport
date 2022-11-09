@@ -11,4 +11,8 @@ class MappedEntity {
 	) {
 	}
 
+	public function addPropertyValue( string $propertyId,  ) {
+
+	}
+
 }
