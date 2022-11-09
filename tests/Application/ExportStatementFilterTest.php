@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use ProfessionalWiki\WikibaseExport\Application\StatementListFilter;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
@@ -13,14 +12,14 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 
 /**
- * @covers \ProfessionalWiki\WikibaseExport\Application\StatementListFilter
+ * @covers \ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter
  */
-class StatementListFilterTest extends TestCase {
+class ExportStatementFilterTest extends TestCase {
 
 	public function testFilterPropertiesOnEmptyList(): void {
 		$this->assertEquals(
 			new StatementList(),
-			( new StatementListFilter() )->onlyPropertyIds(
+			( new StatementListFilter() )->onlyPropertyIds( // TODO
 				new StatementList(),
 				[ new NumericPropertyId( 'P1' ), new NumericPropertyId( 'P3' ) ]
 			)
@@ -33,7 +32,7 @@ class StatementListFilterTest extends TestCase {
 				new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P3' ) ) ),
 				new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P3' ) ) ),
 			),
-			( new StatementListFilter() )->onlyPropertyIds(
+			( new StatementListFilter() )->onlyPropertyIds( // TODO
 				new StatementList(
 					new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ) ),
 					new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P2' ) ) ),
