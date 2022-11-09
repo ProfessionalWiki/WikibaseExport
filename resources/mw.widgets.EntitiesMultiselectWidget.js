@@ -88,12 +88,12 @@
 	mw.widgets.EntitiesMultiselectWidget.prototype.getOptionsFromData = function ( data ) {
 		const items = [];
 
-		for ( let i = 0; i < data.search.length; i++ ) {
+		data.search.forEach( function ( entity ) {
 			items.push( new OO.ui.MenuOptionWidget( {
-				data: data.search[ i ].id,
-				label: data.search[ i ].label
+				data: entity.id,
+				label: entity.label
 			} ) );
-		}
+		} );
 
 		return items;
 	};
