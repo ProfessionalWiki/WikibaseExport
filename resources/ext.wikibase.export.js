@@ -5,147 +5,169 @@
 $( function () {
 	'use strict';
 
-	function createSection( idPrefix, label, items ) {
-		const fieldset = new OO.ui.FieldsetLayout( {
-			id: idPrefix + '-fieldset',
-			label: label,
-			items: items
-		} );
+	mw.WikibaseExport = {
+		init: function () {
+			this.$wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
 
-		return new OO.ui.PanelLayout( {
-			id: idPrefix + '-panel',
-			expanded: false,
-			framed: true,
-			padded: true,
-			$content: fieldset.$element,
-			classes: [
-				'container'
-			]
-		} );
-	}
+			this.createSubjectsSection();
+			this.createFiltersSection();
+			this.createStatementsSection();
+			this.createFormatsSection();
+			this.createActions();
+		},
 
-	function init() {
-		const $wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
+		createSection: function ( idPrefix, label, items ) {
+			const fieldset = new OO.ui.FieldsetLayout( {
+				id: idPrefix + '-fieldset',
+				label: label,
+				items: items
+			} );
 
-		/* Subjects */
-		const subjects = new mw.widgets.EntitiesMultiselectWidget( {
-			id: 'subjects',
-			inputPosition: 'outline',
-			placeholder: 'Search companies',
-			// TODO: get default values somewhere
-			selected: [
-				'Q100', 'Q200'
-			],
-			options: [
-				{ data: 'Q100', label: 'Foo Bar' },
-				{ data: 'Q200', label: 'Bar Baz' }
-			]
-		} );
+			return new OO.ui.PanelLayout( {
+				id: idPrefix + '-panel',
+				expanded: false,
+				framed: true,
+				padded: true,
+				$content: fieldset.$element,
+				classes: [
+					'container'
+				]
+			} );
+		},
 
-		const subjectsSection = createSection(
-			'subjects',
-			'Choose companies',
-			[ subjects ]
-		);
+		createSubjectsSection: function () {
+			this.subjects = new mw.widgets.EntitiesMultiselectWidget( {
+				id: 'subjects',
+				inputPosition: 'outline',
+				placeholder: 'Search companies',
+				// TODO: get default values somewhere
+				selected: [
+					'Q100', 'Q200'
+				],
+				options: [
+					{ data: 'Q100', label: 'Foo Bar' },
+					{ data: 'Q200', label: 'Bar Baz' }
+				]
+			} );
 
-		$wikibaseExport.append( subjectsSection.$element );
+			const subjectsSection = this.createSection(
+				'subjects',
+				'Choose companies',
+				[ this.subjects ]
+			);
 
-		/* Filters */
-		const dateStart = new OO.ui.NumberInputWidget( {
-			id: 'dateStart'
-		} );
+			this.$wikibaseExport.append( subjectsSection.$element );
+		},
 
-		const dateEnd = new OO.ui.NumberInputWidget( {
-			id: 'dateEnd'
-		} );
+		createFiltersSection: function () {
+			this.dateStart = new OO.ui.NumberInputWidget( {
+				id: 'dateStart'
+			} );
 
-		const filtersSection = createSection(
-			'filters',
-			'Choose time range',
-			[
-				new OO.ui.FieldLayout( dateStart, {
-					label: 'Start date'
-				} ),
-				new OO.ui.FieldLayout( dateEnd, {
-					label: 'End date'
-				} )
-			]
-		);
+			this.dateEnd = new OO.ui.NumberInputWidget( {
+				id: 'dateEnd'
+			} );
 
-		$wikibaseExport.append( filtersSection.$element );
+			const filtersSection = this.createSection(
+				'filters',
+				'Choose time range',
+				[
+					new OO.ui.FieldLayout( this.dateStart, {
+						label: 'Start date'
+					} ),
+					new OO.ui.FieldLayout( this.dateEnd, {
+						label: 'End date'
+					} )
+				]
+			);
 
-		/* Statements */
-		const statements = new mw.widgets.EntitiesMultiselectWidget( {
-			id: 'statements',
-			inputPosition: 'outline',
-			placeholder: 'Search properties',
-			// TODO: get default values somewhere
-			selected: [],
-			options: [],
-			entityType: 'property'
-		} );
+			this.$wikibaseExport.append( filtersSection.$element );
+		},
 
-		const statementsSection = createSection(
-			'statements',
-			'Choose variables',
-			[ statements ]
-		);
+		createStatementsSection: function () {
+			this.statements = new mw.widgets.EntitiesMultiselectWidget( {
+				id: 'statements',
+				inputPosition: 'outline',
+				placeholder: 'Search properties',
+				// TODO: get default values somewhere
+				selected: [],
+				options: [],
+				entityType: 'property'
+			} );
 
-		$wikibaseExport.append( statementsSection.$element );
+			const statementsSection = this.createSection(
+				'statements',
+				'Choose variables',
+				[ this.statements ]
+			);
 
-		/* Format */
-		const formats = new OO.ui.RadioSelectWidget( {
-			id: 'formats',
-			items: [
-				new OO.ui.RadioOptionWidget( {
-					data: 'csvwide',
-					label: 'CSV (Wide)'
-				} ),
-				new OO.ui.RadioOptionWidget( {
-					data: 'csvnarrow',
-					label: 'CSV (Narrow)'
-				} )
-			]
-		} );
-		formats.selectItemByData( 'csvwide' );
+			this.$wikibaseExport.append( statementsSection.$element );
+		},
 
-		const formatsSection = createSection(
-			'formats',
-			'Choose export format',
-			[ formats ]
-		);
+		createFormatsSection: function () {
+			this.formats = new OO.ui.RadioSelectWidget( {
+				id: 'formats',
+				items: [
+					new OO.ui.RadioOptionWidget( {
+						data: 'csvwide',
+						label: 'CSV (Wide)'
+					} ),
+					new OO.ui.RadioOptionWidget( {
+						data: 'csvnarrow',
+						label: 'CSV (Narrow)'
+					} )
+				]
+			} );
+			this.formats.selectItemByData( 'csvwide' );
 
-		$wikibaseExport.append( formatsSection.$element );
+			const formatsSection = this.createSection(
+				'formats',
+				'Choose export format',
+				[ this.formats ]
+			);
 
-		/* Actions */
-		const submitButton = new OO.ui.ButtonWidget( {
-			id: 'download',
-			label: 'Download',
-			flags: [
-				'primary',
-				'progressive'
-			]
-		} );
+			this.$wikibaseExport.append( formatsSection.$element );
+		},
 
-		submitButton.on( 'click', function () {
-			const subjectIds = subjects.getValue().join( '|' );
-			const startTime = dateStart.getValue();
-			const endTime = dateEnd.getValue();
-			const propertyIds = statements.getValue().join( '|' );
-			const format = formats.findSelectedItem().data;
+		createActions: function () {
+			const submitButton = new OO.ui.ButtonWidget( {
+				id: 'download',
+				label: 'Download',
+				flags: [
+					'primary',
+					'progressive'
+				]
+			} );
 
+			submitButton.on( 'click', this.onSubmit );
+
+			this.$wikibaseExport.append( submitButton.$element );
+		},
+
+		onSubmit: function () {
 			// TODO: build the correct URL
-			window.location = '/rest.php/wikibase-export/v0/export' +
-				'?subject_ids=' + subjectIds +
-				'&statement_property_ids=' + propertyIds +
-				'&start_time=' + startTime +
-				'&end_time=' + endTime +
-				'&format=' + format;
-		} );
+			window.location = '/rest.php/wikibase-export/v0/export?' + this.getQueryParams().toString();
+		},
 
-		$wikibaseExport.append( submitButton.$element );
-	}
+		getQueryParams: function () {
+			const subjectIds = this.subjects.getValue().join( '|' );
+			const startTime = this.dateStart.getValue();
+			const endTime = this.dateEnd.getValue();
+			const propertyIds = this.statements.getValue().join( '|' );
+			const format = this.formats.findSelectedItem().data;
 
-	init();
+			/* eslint-disable camelcase */
+			return new URLSearchParams( {
+				subject_ids: subjectIds,
+				statement_property_ids: propertyIds,
+				start_time: startTime,
+				end_time: endTime,
+				format: format
+			} );
+			/* eslint-enable camelcase */
+		}
+	};
+
+	mw.WikibaseExport.init();
 
 } );
