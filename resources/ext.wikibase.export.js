@@ -5,11 +5,31 @@
 $( function () {
 	'use strict';
 
+	function createSection( idPrefix, label, items ) {
+		let fieldset = new OO.ui.FieldsetLayout( {
+			id: idPrefix + '-fieldset',
+			label: label,
+			items: items
+		} );
+
+		return new OO.ui.PanelLayout( {
+			id: idPrefix + '-panel',
+			expanded: false,
+			framed: true,
+			padded: true,
+			$content: fieldset.$element,
+			classes: [
+				'container'
+			]
+		} );
+	}
+
 	function init() {
 		var wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
 
 		/* Subjects */
 		var subjects = new mw.widgets.EntitiesMultiselectWidget( {
+			id: 'subjects',
 			inputPosition: 'outline',
 			placeholder: 'Search companies',
 			// TODO: get default values somewhere
@@ -22,33 +42,27 @@ $( function () {
 			]
 		} );
 
-		var subjectsFieldset = new OO.ui.FieldsetLayout( {
-			label: 'Choose companies',
-			items: [
-				subjects
-			]
-		} );
+		var subjectsSection = createSection(
+			'subjects',
+			'Choose companies',
+			[ subjects ]
+		);
 
-		var subjectsPanel = new OO.ui.PanelLayout( {
-			expanded: false,
-			framed: true,
-			padded: true,
-			$content: subjectsFieldset.$element,
-			classes: [
-				'container'
-			]
-		} );
-
-		wikibaseExport.append( subjectsPanel.$element );
+		wikibaseExport.append( subjectsSection.$element );
 
 		/* Filters */
-		var dateStart = new OO.ui.NumberInputWidget();
+		var dateStart = new OO.ui.NumberInputWidget( {
+			id: 'dateStart'
+		} );
 
-		var dateEnd = new OO.ui.NumberInputWidget();
+		var dateEnd = new OO.ui.NumberInputWidget( {
+			id: 'dateEnd'
+		} );
 
-		var filtersFieldset = new OO.ui.FieldsetLayout( {
-			label: 'Choose time range',
-			items: [
+		var filtersSection = createSection(
+			'filters',
+			'Choose time range',
+			[
 				new OO.ui.FieldLayout( dateStart, {
 					label: 'Start date'
 				} ),
@@ -56,22 +70,13 @@ $( function () {
 					label: 'End date'
 				} ),
 			]
-		} );
+		);
 
-		var filtersPanel = new OO.ui.PanelLayout( {
-			expanded: false,
-			framed: true,
-			padded: true,
-			$content: filtersFieldset.$element,
-			classes: [
-				'container'
-			]
-		} );
-
-		wikibaseExport.append( filtersPanel.$element );
+		wikibaseExport.append( filtersSection.$element );
 
 		/* Statements */
 		var statements = new mw.widgets.EntitiesMultiselectWidget( {
+			id: 'statements',
 			inputPosition: 'outline',
 			placeholder: 'Search properties',
 			// TODO: get default values somewhere
@@ -80,27 +85,17 @@ $( function () {
 			entityType: 'property'
 		} );
 
-		var statementsFieldset = new OO.ui.FieldsetLayout( {
-			label: 'Choose variables',
-			items: [
-				statements
-			]
-		} );
+		var statementsSection = createSection(
+			'statements',
+			'Choose variables',
+			[ statements ]
+		)
 
-		var statementsPanel = new OO.ui.PanelLayout( {
-			expanded: false,
-			framed: true,
-			padded: true,
-			$content: statementsFieldset.$element,
-			classes: [
-				'container'
-			]
-		} );
-
-		wikibaseExport.append( statementsPanel.$element );
+		wikibaseExport.append( statementsSection.$element );
 
 		/* Format */
 		var formats = new OO.ui.RadioSelectWidget( {
+			id: 'formats',
 			items: [
 				new OO.ui.RadioOptionWidget( {
 					data: 'csvwide',
@@ -114,28 +109,17 @@ $( function () {
 		} );
 		formats.selectItemByData( 'csvwide' );
 
-		var formatsFieldset = new OO.ui.FieldsetLayout( {
-			label: 'Choose export format',
-			items: [
-				formats
-			]
-		} );
+		var formatsSection = createSection(
+			'formats',
+			'Choose export format',
+			[ formats ]
+		)
 
-		var formatsPanel = new OO.ui.PanelLayout( {
-			expanded: false,
-			framed: true,
-			padded: true,
-			$content: formatsFieldset.$element,
-			classes: [
-				'container'
-			]
-		} );
-
-		wikibaseExport.append( formatsPanel.$element );
-
+		wikibaseExport.append( formatsSection.$element );
 
 		/* Actions */
 		var submitButton = new OO.ui.ButtonWidget({
+			id: 'download',
 			label: 'Download',
 			flags: [
 				'primary',
