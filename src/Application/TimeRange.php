@@ -14,4 +14,9 @@ class TimeRange {
 	) {
 	}
 
+	public function contains( DateTimeImmutable $time ): bool {
+		return $time->getTimestamp() >= $this->start->getTimestamp()
+			&& $time->getTimestamp() <= $this->end->getTimestamp();
+	}
+
 }

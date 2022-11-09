@@ -34,6 +34,4 @@ class EntityMapperTest extends TestCase {
 		);
 	}
 
-
-
 }

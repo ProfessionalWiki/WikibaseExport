@@ -5,44 +5,36 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
+use ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
-use Wikibase\DataModel\Snak\PropertySomeValueSnak;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Snak\SnakList;
 use Wikibase\DataModel\Statement\Statement;
-use Wikibase\DataModel\Statement\StatementList;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter
  */
 class ExportStatementFilterTest extends TestCase {
 
-	public function testFilterPropertiesOnEmptyList(): void {
-		$this->assertEquals(
-			new StatementList(),
-			( new StatementListFilter() )->onlyPropertyIds( // TODO
-				new StatementList(),
-				[ new NumericPropertyId( 'P1' ), new NumericPropertyId( 'P3' ) ]
-			)
+	public function testMatchingStatement(): void {
+		$filter = new ExportStatementFilter(
+			[ new NumericPropertyId( 'P1' ), new NumericPropertyId( 'P2' ) ],
+			TimeQualifierStatementFilterTest::newJan2000ToDec2005(),
+			TimeQualifierStatementFilterTest::newTimeQualifierProperties()
 		);
-	}
 
-	public function testFilterProperties(): void {
-		$this->assertEquals(
-			new StatementList(
-				new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P3' ) ) ),
-				new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P3' ) ) ),
-			),
-			( new StatementListFilter() )->onlyPropertyIds( // TODO
-				new StatementList(
-					new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ) ),
-					new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P2' ) ) ),
-					new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P3' ) ) ),
-					new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P3' ) ) ),
-					new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P4' ) ) ),
-				),
-				[ new NumericPropertyId( 'P1' ), new NumericPropertyId( 'P3' ) ]
-			)
+		$statement = new Statement(
+			mainSnak: new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ),
+			qualifiers: new SnakList( [
+				new PropertyValueSnak(
+					new NumericPropertyId( TimeQualifierStatementFilterTest::POINT_IN_TIME_ID ),
+					TimeQualifierStatementFilterTest::newDay( '+2001-01-01T00:00:00Z' )
+				)
+			] )
 		);
+
+		$this->assertTrue( $filter->statementMatches( $statement ) );
 	}
 
 }

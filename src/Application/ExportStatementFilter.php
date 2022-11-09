@@ -14,6 +14,9 @@ class ExportStatementFilter implements StatementFilter {
 	private StatementFilter $idFilter;
 	private StatementFilter $timeFilter;
 
+	/**
+	 * @param PropertyId[] $propertyIds
+	 */
 	public function __construct(
 		array $propertyIds,
 		TimeRange $timeRange,
