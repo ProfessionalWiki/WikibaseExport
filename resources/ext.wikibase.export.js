@@ -70,23 +70,23 @@ $( function () {
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createFiltersSection: function () {
-			this.dateStart = new OO.ui.NumberInputWidget( {
-				id: 'dateStart'
+			this.yearStart = new OO.ui.NumberInputWidget( {
+				id: 'yearStart'
 			} );
 
-			this.dateEnd = new OO.ui.NumberInputWidget( {
-				id: 'dateEnd'
+			this.yearEnd = new OO.ui.NumberInputWidget( {
+				id: 'yearEnd'
 			} );
 
 			return this.createSection(
 				'filters',
 				mw.msg( 'wikibase-export-filters-heading' ),
 				[
-					new OO.ui.FieldLayout( this.dateStart, {
-						label: mw.msg( 'wikibase-export-start-date' )
+					new OO.ui.FieldLayout( this.yearStart, {
+						label: mw.msg( 'wikibase-export-start-year' )
 					} ),
-					new OO.ui.FieldLayout( this.dateEnd, {
-						label: mw.msg( 'wikibase-export-end-date' )
+					new OO.ui.FieldLayout( this.yearEnd, {
+						label: mw.msg( 'wikibase-export-end-year' )
 					} )
 				]
 			);
@@ -164,8 +164,8 @@ $( function () {
 
 		getQueryParams: function () {
 			const subjectIds = this.subjects.getValue().join( '|' );
-			const startTime = this.dateStart.getValue();
-			const endTime = this.dateEnd.getValue();
+			const startTime = this.yearStart.getValue();
+			const endTime = this.yearEnd.getValue();
 			const propertyIds = this.statements.getValue().join( '|' );
 			const format = this.formats.findSelectedItem().data;
 
