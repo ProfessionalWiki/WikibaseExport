@@ -86,16 +86,9 @@
 	};
 
 	mw.widgets.EntitiesMultiselectWidget.prototype.getOptionsFromData = function ( data ) {
-		const items = [];
-
-		data.search.forEach( function ( entity ) {
-			items.push( new OO.ui.MenuOptionWidget( {
-				data: entity.id,
-				label: entity.label
-			} ) );
-		} );
-
-		return items;
+		return data.search.map(
+			( entity ) => new OO.ui.MenuOptionWidget( { data: entity.id, label: entity.label } )
+		);
 	};
 
 }() );
