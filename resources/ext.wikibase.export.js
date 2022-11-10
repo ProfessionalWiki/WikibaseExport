@@ -152,14 +152,14 @@ $( function () {
 				]
 			} );
 
-			submitButton.on( 'click', this.onSubmit );
+			const widget = this;
+
+			submitButton.on( 'click', function () {
+				// TODO: build the correct URL
+				window.location = '/rest.php/wikibase-export/v0/export?' + widget.getQueryParams().toString();
+			} );
 
 			return submitButton;
-		},
-
-		onSubmit: function () {
-			// TODO: build the correct URL
-			window.location = '/rest.php/wikibase-export/v0/export?' + this.getQueryParams().toString();
 		},
 
 		getQueryParams: function () {
