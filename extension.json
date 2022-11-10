@@ -68,6 +68,19 @@
 			"scripts": [
 				"mw.widgets.EntitiesMultiselectWidget.js",
 				"ext.wikibase.export.js"
+			],
+			"messages": [
+				"wikibase-export-subjects-heading",
+				"wikibase-export-subjects-placeholder",
+				"wikibase-export-filters-heading",
+				"wikibase-export-start-year",
+				"wikibase-export-end-year",
+				"wikibase-export-statements-heading",
+				"wikibase-export-statements-placeholder",
+				"wikibase-export-formats-heading",
+				"wikibase-export-format-csv-wide",
+				"wikibase-export-format-csv-long",
+				"wikibase-export-download"
 			]
 		}
 	},

@@ -7,5 +7,17 @@
 	"wikibase-export-name": "Wikibase Export",
 	"wikibase-export-description": "Adds a user-friendly Wikibase export page",
 
-	"special-wikibase-export": "Wikibase Export"
+	"special-wikibase-export": "Wikibase Export",
+
+	"wikibase-export-subjects-heading": "Choose companies",
+	"wikibase-export-subjects-placeholder": "Search companies",
+	"wikibase-export-filters-heading": "Choose time range",
+	"wikibase-export-start-year": "Start year",
+	"wikibase-export-end-year": "End year",
+	"wikibase-export-statements-heading": "Choose variables",
+	"wikibase-export-statements-placeholder": "Search variables",
+	"wikibase-export-formats-heading": "Choose format",
+	"wikibase-export-format-csv-wide": "CSV (Wide)",
+	"wikibase-export-format-csv-long": "CSV (Long)",
+	"wikibase-export-download": "Download"
 }
