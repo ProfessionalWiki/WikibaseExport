@@ -39,7 +39,7 @@ $( function () {
 			this.subjects = new mw.widgets.EntitiesMultiselectWidget( {
 				id: 'subjects',
 				inputPosition: 'outline',
-				placeholder: 'Search companies',
+				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' ),
 				// TODO: get default values somewhere
 				selected: [
 					'Q100', 'Q200'
@@ -52,7 +52,7 @@ $( function () {
 
 			const subjectsSection = this.createSection(
 				'subjects',
-				'Choose companies',
+				mw.msg( 'wikibase-export-subjects-heading' ),
 				[ this.subjects ]
 			);
 
@@ -70,13 +70,13 @@ $( function () {
 
 			const filtersSection = this.createSection(
 				'filters',
-				'Choose time range',
+				mw.msg( 'wikibase-export-filters-heading' ),
 				[
 					new OO.ui.FieldLayout( this.dateStart, {
-						label: 'Start date'
+						label: mw.msg( 'wikibase-export-start-date' )
 					} ),
 					new OO.ui.FieldLayout( this.dateEnd, {
-						label: 'End date'
+						label: mw.msg( 'wikibase-export-end-date' )
 					} )
 				]
 			);
@@ -88,7 +88,7 @@ $( function () {
 			this.statements = new mw.widgets.EntitiesMultiselectWidget( {
 				id: 'statements',
 				inputPosition: 'outline',
-				placeholder: 'Search properties',
+				placeholder: mw.msg( 'wikibase-export-statements-placeholder' ),
 				// TODO: get default values somewhere
 				selected: [],
 				options: [],
@@ -97,7 +97,7 @@ $( function () {
 
 			const statementsSection = this.createSection(
 				'statements',
-				'Choose variables',
+				mw.msg( 'wikibase-export-statements-heading' ),
 				[ this.statements ]
 			);
 
@@ -110,11 +110,11 @@ $( function () {
 				items: [
 					new OO.ui.RadioOptionWidget( {
 						data: 'csvwide',
-						label: 'CSV (Wide)'
+						label: mw.msg( 'wikibase-export-format-csv-wide' )
 					} ),
 					new OO.ui.RadioOptionWidget( {
-						data: 'csvnarrow',
-						label: 'CSV (Narrow)'
+						data: 'csvlong',
+						label: mw.msg( 'wikibase-export-format-csv-long' )
 					} )
 				]
 			} );
@@ -122,7 +122,7 @@ $( function () {
 
 			const formatsSection = this.createSection(
 				'formats',
-				'Choose export format',
+				mw.msg( 'wikibase-export-formats-heading' ),
 				[ this.formats ]
 			);
 
@@ -132,7 +132,7 @@ $( function () {
 		createActions: function () {
 			const submitButton = new OO.ui.ButtonWidget( {
 				id: 'download',
-				label: 'Download',
+				label: mw.msg( 'wikibase-export-download' ),
 				flags: [
 					'primary',
 					'progressive'

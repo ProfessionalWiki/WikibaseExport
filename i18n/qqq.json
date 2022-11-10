@@ -7,5 +7,17 @@
 	},
 	"wikibase-export-name": "{{notranslate}}",
 	"wikibase-export-description": "{{Desc|name=Wikibase Export|url=https://github.com/ProfessionalWiki/WikibaseExport}}",
-	"special-wikibase-export": "This is the label on \"Special:WikibaseExport\"."
+	"special-wikibase-export": "This is the label on \"Special:WikibaseExport\".",
+
+	"wikibase-export-subjects-heading": "This is a section header.",
+	"wikibase-export-subjects-placeholder": "This is the text used as a placeholder.",
+	"wikibase-export-filters-heading": "This is a section header.",
+	"wikibase-export-start-date": "This is the text used as a label.",
+	"wikibase-export-end-date": "This is the text used as a label.",
+	"wikibase-export-statements-heading": "This is a section header.",
+	"wikibase-export-statements-placeholder": "This is the text used as a placeholder.",
+	"wikibase-export-formats-heading": "This is a section header.",
+	"wikibase-export-format-csv-wide": "This is the text of an option.",
+	"wikibase-export-format-csv-long": "This is the text of an option",
+	"wikibase-export-download": "This is the text on a button."
 }
