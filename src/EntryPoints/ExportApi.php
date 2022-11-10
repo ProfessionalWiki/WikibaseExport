@@ -9,8 +9,12 @@ use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\StringStream;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
+use ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter;
+use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
+use ProfessionalWiki\WikibaseExport\Application\TimeRange;
 use ProfessionalWiki\WikibaseExport\Persistence\InMemoryEntitySource;
 use ProfessionalWiki\WikibaseExport\Presentation\NullPresenter;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ExportApi extends SimpleHandler {
@@ -48,9 +52,18 @@ class ExportApi extends SimpleHandler {
 	 */
 	private function newEntityMapper( array $params ): EntityMapper {
 		return new EntityMapper(
-			statementPropertyIds: [], // $params[self::PARAM_STATEMENT_PROPERTY_IDS], // TODO: parse
-			startTime: new \DateTimeImmutable(), // $params[self::PARAM_START_TIME], // TODO: parse
-			endTime: new \DateTimeImmutable(), // $params[self::PARAM_END_TIME], // TODO: parse
+			statementFilter: new ExportStatementFilter(
+				propertyIds: [], // $params[self::PARAM_STATEMENT_PROPERTY_IDS], // TODO: parse
+				timeRange: new TimeRange(
+					start: new \DateTimeImmutable(), // $params[self::PARAM_START_TIME], // TODO: parse
+					end: new \DateTimeImmutable(), // $params[self::PARAM_END_TIME], // TODO: parse
+				),
+				qualifierProperties: new TimeQualifierProperties(
+					pointInTime: new NumericPropertyId( 'P1' ), // TODO: get from config
+					startTime: new NumericPropertyId( 'P1' ), // TODO: get from config
+					endTime: new NumericPropertyId( 'P1' ), // TODO: get from config
+				)
+			)
 		);
 	}
 
