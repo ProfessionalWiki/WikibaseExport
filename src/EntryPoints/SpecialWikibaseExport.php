@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
+use MediaWiki\MediaWikiServices;
 use SpecialPage;
 
 class SpecialWikibaseExport extends SpecialPage {
@@ -18,6 +19,7 @@ class SpecialWikibaseExport extends SpecialPage {
 		$output->enableOOUI();
 		$output->addModules( 'ext.wikibase.export' );
 		$output->addHTML( '<div id="wikibase-export"></div>' );
+		$output->addJsConfigVars( $this->getJsConfigVars() );
 	}
 
 	public function getGroupName(): string {
@@ -26,6 +28,17 @@ class SpecialWikibaseExport extends SpecialPage {
 
 	public function getDescription(): string {
 		return $this->msg( 'special-wikibase-export' )->escaped();
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	private function getJsConfigVars(): array {
+		// TODO: create extension config retrieval service
+		$properties = (array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportProperties' );
+		return [
+			'wgWikibaseExportProperties' => $properties,
+		];
 	}
 
 }

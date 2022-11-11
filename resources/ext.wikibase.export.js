@@ -42,6 +42,25 @@ $( function () {
 		},
 
 		/**
+		 * @param {string} value
+		 * @param {string} label
+		 * @param {boolean} selected
+		 * @return {OO.ui.FieldLayout}
+		 */
+		createCheckbox: function ( value, label, selected = false ) {
+			return new OO.ui.FieldLayout(
+				new OO.ui.CheckboxInputWidget( {
+					value: value,
+					selected: selected
+				} ),
+				{
+					label: label,
+					align: 'inline'
+				}
+			);
+		},
+
+		/**
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createSubjectsSection: function () {
@@ -96,21 +115,69 @@ $( function () {
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createStatementsSection: function () {
-			this.statements = new mw.widgets.EntitiesMultiselectWidget( {
+			const widget = this;
+
+			const allStatementsLayout = this.createCheckbox( 'all', mw.msg( 'wikibase-export-statement-group-all' ), true );
+			this.allStatements = allStatementsLayout.getField();
+
+			this.statements = new OO.ui.MenuTagMultiselectWidget( {
 				id: 'statements',
 				inputPosition: 'outline',
-				placeholder: mw.msg( 'wikibase-export-statements-placeholder' ),
-				// TODO: get default values somewhere
-				selected: [],
-				options: [],
-				entityType: 'property'
+				placeholder: mw.msg( 'wikibase-export-statements-placeholder' )
 			} );
+			this.statements.toggle( false );
+
+			this.allStatements.on( 'change', function ( selected ) {
+				if ( selected ) {
+					widget.statements.toggle( false );
+					widget.statements.setValue( widget.statements.menu.getItems() );
+				} else {
+					widget.statements.toggle( true );
+				}
+			} );
+
+			this.addAllowedProperties();
 
 			return this.createSection(
 				'statements',
 				mw.msg( 'wikibase-export-statements-heading' ),
-				[ this.statements ]
+				[ allStatementsLayout, this.statements ]
 			);
+		},
+
+		addAllowedProperties: function () {
+			const widget = this;
+
+			new mw.Api().get( {
+				action: 'wbgetentities',
+				ids: mw.config.get( 'wgWikibaseExportProperties' )
+			} ).then( function ( data ) {
+				const options = widget.getPropertyOptionsFromData( data );
+				widget.statements.addOptions( options );
+				widget.statements.setValue( options );
+			} );
+		},
+
+		/**
+		 * @param {Object} data
+		 * @return {{data: *, label: *}[]}
+		 */
+		getPropertyOptionsFromData: function ( data ) {
+			return Object.keys( data.entities ).map(
+				( key ) => this.getPropertyOptionFromEntity( data.entities[ key ] )
+			);
+		},
+
+		/**
+		 * @param {Object} entity
+		 * @return {{data: string, label: string}}
+		 */
+		getPropertyOptionFromEntity: function ( entity ) {
+			return {
+				data: entity.id,
+				// TODO: try current language, then fallback to default
+				label: entity.labels.en.value || entity.id
+			};
 		},
 
 		/**

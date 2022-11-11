@@ -45,6 +45,10 @@
 	],
 
 	"config": {
+		"WikibaseExportProperties": {
+			"description": "List of property IDs allowed in the export.",
+			"value": []
+		}
 	},
 
 	"SpecialPages": {
@@ -76,6 +80,7 @@
 				"wikibase-export-start-year",
 				"wikibase-export-end-year",
 				"wikibase-export-statements-heading",
+				"wikibase-export-statement-group-all",
 				"wikibase-export-statements-placeholder",
 				"wikibase-export-formats-heading",
 				"wikibase-export-format-csv-wide",
