@@ -8,7 +8,6 @@ use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\StringStream;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
-use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Persistence\InMemoryEntitySource;
 use ProfessionalWiki\WikibaseExport\Presentation\NullPresenter;
