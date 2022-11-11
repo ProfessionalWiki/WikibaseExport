@@ -45,7 +45,7 @@ $( function () {
 		 * @param {string} value
 		 * @param {string} label
 		 * @param {boolean} selected
-		 * @return OO.ui.FieldLayout
+		 * @return {OO.ui.FieldLayout}
 		 */
 		createCheckbox: function ( value, label, selected = false ) {
 			return new OO.ui.FieldLayout(
