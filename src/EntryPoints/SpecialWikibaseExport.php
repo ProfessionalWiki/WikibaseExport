@@ -35,7 +35,7 @@ class SpecialWikibaseExport extends SpecialPage {
 	 */
 	private function getJsConfigVars(): array {
 		// TODO: create extension config retrieval service
-		$properties = MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportProperties' );
+		$properties = (array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportProperties' );
 		return [
 			'wgWikibaseExportProperties' => $properties,
 		];
