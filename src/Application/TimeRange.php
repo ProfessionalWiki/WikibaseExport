@@ -6,6 +6,9 @@ namespace ProfessionalWiki\WikibaseExport\Application;
 
 use DateTimeImmutable;
 
+/**
+ * @psalm-immutable
+ */
 class TimeRange {
 
 	public function __construct(

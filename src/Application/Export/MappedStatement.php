@@ -7,14 +7,10 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 /**
  * @psalm-immutable
  */
-class MappedEntity {
+class MappedStatement {
 
-	/**
-	 * @param MappedStatement[] $statements
-	 */
 	public function __construct(
-		public /* readonly */ string $id,
-		public /* readonly */ array $statements
+		public /* readonly */ string $mainValue
 	) {
 	}
 

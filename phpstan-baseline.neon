@@ -1,16 +1,3 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Property ProfessionalWiki\\\\WikibaseExport\\\\Application\\\\Export\\\\EntityMapper\\:\\:\\$endTime is never read, only written\\.$#"
-			count: 1
-			path: src/Application/Export/EntityMapper.php
 
-		-
-			message: "#^Property ProfessionalWiki\\\\WikibaseExport\\\\Application\\\\Export\\\\EntityMapper\\:\\:\\$startTime is never read, only written\\.$#"
-			count: 1
-			path: src/Application/Export/EntityMapper.php
-
-		-
-			message: "#^Property ProfessionalWiki\\\\WikibaseExport\\\\Application\\\\Export\\\\EntityMapper\\:\\:\\$statementPropertyIds is never read, only written\\.$#"
-			count: 1
-			path: src/Application/Export/EntityMapper.php
