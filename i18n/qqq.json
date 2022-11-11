@@ -15,6 +15,7 @@
 	"wikibase-export-start-year": "This is the text used as a label.",
 	"wikibase-export-end-year": "This is the text used as a label.",
 	"wikibase-export-statements-heading": "This is a section header.",
+	"wikibase-export-statement-group-all": "This is the text of an option.",
 	"wikibase-export-statements-placeholder": "This is the text used as a placeholder.",
 	"wikibase-export-formats-heading": "This is a section header.",
 	"wikibase-export-format-csv-wide": "This is the text of an option.",

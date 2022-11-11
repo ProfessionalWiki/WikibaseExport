@@ -15,6 +15,7 @@
 	"wikibase-export-start-year": "Start year",
 	"wikibase-export-end-year": "End year",
 	"wikibase-export-statements-heading": "Choose variables",
+	"wikibase-export-statement-group-all": "All variables",
 	"wikibase-export-statements-placeholder": "Search variables",
 	"wikibase-export-formats-heading": "Choose format",
 	"wikibase-export-format-csv-wide": "CSV (Wide)",
