@@ -226,11 +226,19 @@ $( function () {
 			const widget = this;
 
 			submitButton.on( 'click', function () {
-				// TODO: build the correct URL
-				window.location = '/rest.php/wikibase-export/v0/export?' + widget.getQueryParams().toString();
+				window.location = widget.buildDownloadUrl();
 			} );
 
 			return submitButton;
+		},
+
+		/**
+		 * @return {string}
+		 */
+		buildDownloadUrl: function () {
+			return mw.util.wikiScript( 'rest' ) +
+				'/wikibase-export/v0/export?' +
+				this.getQueryParams().toString();
 		},
 
 		getQueryParams: function () {
