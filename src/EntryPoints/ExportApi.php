@@ -102,4 +102,11 @@ class ExportApi extends SimpleHandler {
 		];
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function needsWriteAccess() {
+		return false;
+	}
+
 }
