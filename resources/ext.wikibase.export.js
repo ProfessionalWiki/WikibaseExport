@@ -132,10 +132,7 @@ $( function () {
 					widget.statements.toggle( false );
 					widget.statements.setValue( widget.statements.menu.getItems() );
 				} else {
-					// TODO: is there an OOUI way to clear everything?
-					widget.statements.getValue().forEach(
-						( statement ) => widget.statements.removeTagByData( statement )
-					);
+					widget.statements.removeItems( widget.statements.getItems() );
 					widget.statements.toggle( true );
 				}
 			} );
