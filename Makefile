@@ -5,7 +5,11 @@ test: phpunit
 cs: phpcs stan psalm
 
 phpunit:
+ifdef filter
+	php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist --filter $(filter)
+else
 	php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist
+endif
 
 perf:
 	php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist --group Performance

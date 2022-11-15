@@ -10,12 +10,24 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 class MappedEntity {
 
 	/**
-	 * @param MappedStatement[] $statements
+	 * @var MappedYear[]
+	 */
+	private array $years;
+
+	/**
+	 * @param MappedYear[] $statementsByYear
 	 */
 	public function __construct(
 		public /* readonly */ string $id,
-		public /* readonly */ array $statements
+		array $statementsByYear
 	) {
+		foreach ( $statementsByYear as $year ) {
+			$this->years[$year->year] = $year;
+		}
+	}
+
+	public function getYear( int $year ): MappedYear {
+		return $this->years[$year] ?? new MappedYear( year: $year, statements: [] );
 	}
 
 }

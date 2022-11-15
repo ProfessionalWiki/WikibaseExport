@@ -7,8 +7,10 @@ namespace ProfessionalWiki\WikibaseExport\Tests\Application\Export;
 use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
-use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedStatement;
+use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubStatementGrouper;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -25,25 +27,26 @@ use Wikibase\DataModel\Statement\StatementList;
  */
 class EntityMapperTest extends TestCase {
 
-	public function testEmptyItem(): void {
+	public function testMapsId(): void {
 		$mapper = new EntityMapper(
-			statementFilter: new NullStatementFilter()
+			statementFilter: new NullStatementFilter(),
+			statementGrouper: new StubStatementGrouper(),
+			statementMapper: new StatementMapper()
 		);
 
-		$this->assertEquals(
-			new MappedEntity(
-				id: 'Q42',
-				statements: []
-			),
+		$this->assertSame(
+			'Q42',
 			$mapper->map(
 				new Item( new ItemId( 'Q42' ) )
-			)
+			)->id
 		);
 	}
 
 	public function testUsesFilter(): void {
 		$mapper = new EntityMapper(
-			statementFilter: new PropertySetStatementFilter( [ 'P4', 'P2' ] )
+			statementFilter: new PropertySetStatementFilter( [ 'P4', 'P2' ] ),
+			statementGrouper: new StubStatementGrouper(),
+			statementMapper: new StatementMapper()
 		);
 
 		$this->assertEquals(
@@ -62,13 +65,15 @@ class EntityMapperTest extends TestCase {
 						new Statement( new PropertyValueSnak( new NumericPropertyId( 'P5' ), new StringValue( '555' ) ) ),
 					)
 				)
-			)->statements
+			)->getYear( StubStatementGrouper::YEAR )->statements
 		);
 	}
 
 	public function testMapsMainValues(): void {
 		$mapper = new EntityMapper(
-			statementFilter: new NullStatementFilter()
+			statementFilter: new NullStatementFilter(),
+			statementGrouper: new StubStatementGrouper(),
+			statementMapper: new StatementMapper()
 		);
 
 		$this->assertEquals(
@@ -85,7 +90,7 @@ class EntityMapperTest extends TestCase {
 						new Statement( new PropertyValueSnak( new NumericPropertyId( 'P2' ), new StringValue( 'bar' ) ) ),
 					)
 				)
-			)->statements
+			)->getYear( StubStatementGrouper::YEAR )->statements
 		);
 	}
 
