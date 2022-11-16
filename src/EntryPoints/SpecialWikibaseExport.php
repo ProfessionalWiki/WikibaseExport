@@ -4,7 +4,8 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
-use MediaWiki\MediaWikiServices;
+use ProfessionalWiki\WikibaseExport\Domain\Config;
+use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use SpecialPage;
 
 class SpecialWikibaseExport extends SpecialPage {
@@ -34,10 +35,25 @@ class SpecialWikibaseExport extends SpecialPage {
 	 * @return array<string, mixed>
 	 */
 	private function getJsConfigVars(): array {
-		// TODO: create extension config retrieval service
-		$properties = (array)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportProperties' );
+		$config = WikibaseExportExtension::getInstance()->getConfigLookup()->getConfig();
+
 		return [
-			'wgWikibaseExportProperties' => $properties,
+			'wgWikibaseExport' => $this->configToVars( $config )
+		];
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	private function configToVars( Config $config ): array {
+		return [
+			'entityLabelLanguage' => $config->entityLabelLanguage,
+			'chooseSubjectsLabel' => $config->chooseSubjectsLabel,
+			'filterSubjectsLabel' => $config->filterSubjectsLabel,
+			'defaultSubjects' => $config->defaultSubjects,
+			'defaultStartYear' => $config->defaultStartYear,
+			'defaultEndYear' => $config->defaultEndYear,
+			'properties' => $config->properties
 		];
 	}
 

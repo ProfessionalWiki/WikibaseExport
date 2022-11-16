@@ -34,7 +34,10 @@
 	},
 
 	"Hooks": {
-		"ContentHandlerDefaultModelFor": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\MediaWikiHooks::onContentHandlerDefaultModelFor"
+		"AlternateEdit": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\MediaWikiHooks::onAlternateEdit",
+		"ContentHandlerDefaultModelFor": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\MediaWikiHooks::onContentHandlerDefaultModelFor",
+		"EditFilter": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\MediaWikiHooks::onEditFilter",
+		"EditFormPreloadText": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\MediaWikiHooks::onEditFormPreloadText"
 	},
 
 	"RestRoutes": [
@@ -46,9 +49,13 @@
 	],
 
 	"config": {
-		"WikibaseExportProperties": {
-			"description": "List of property IDs allowed in the export.",
-			"value": []
+		"WikibaseExportEnableInWikiConfig": {
+			"description": "If it should be possible to define configuration via MediaWiki:WikibaseExport",
+			"value": true
+		},
+		"WikibaseExport": {
+			"description": "Config in JSON format, following the JSON Schema at schema.json. Gets combined with config defined on MediaWiki:WikibaseExport",
+			"value": ""
 		}
 	},
 
