@@ -9,8 +9,10 @@ use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\StringStream;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
+use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
+use ProfessionalWiki\WikibaseExport\Application\TimeQualifierStatementGrouper;
 use ProfessionalWiki\WikibaseExport\Application\TimeRange;
 use ProfessionalWiki\WikibaseExport\Persistence\InMemoryEntitySource;
 use ProfessionalWiki\WikibaseExport\Presentation\NullPresenter;
@@ -51,6 +53,8 @@ class ExportApi extends SimpleHandler {
 	 * @param array<string, mixed> $params
 	 */
 	private function newEntityMapper( array $params ): EntityMapper {
+		$timeQualifierProperties = $this->newTimeQualifierProperties();
+
 		return new EntityMapper(
 			statementFilter: new ExportStatementFilter(
 				propertyIds: [], // $params[self::PARAM_STATEMENT_PROPERTY_IDS], // TODO: parse
@@ -58,12 +62,22 @@ class ExportApi extends SimpleHandler {
 					start: new \DateTimeImmutable(), // $params[self::PARAM_START_TIME], // TODO: parse
 					end: new \DateTimeImmutable(), // $params[self::PARAM_END_TIME], // TODO: parse
 				),
-				qualifierProperties: new TimeQualifierProperties(
-					pointInTime: new NumericPropertyId( 'P1' ), // TODO: get from config
-					startTime: new NumericPropertyId( 'P1' ), // TODO: get from config
-					endTime: new NumericPropertyId( 'P1' ), // TODO: get from config
-				)
-			)
+				qualifierProperties: $timeQualifierProperties
+			),
+			statementGrouper: TimeQualifierStatementGrouper::newForYearRange(
+				timeQualifierProperties: $timeQualifierProperties,
+				startYear: 2000, // $params[self::PARAM_START_TIME], // TODO: parse
+				endYear: 2022 // $params[self::PARAM_END_TIME], // TODO: parse
+			),
+			statementMapper: new StatementMapper()
+		);
+	}
+
+	private function newTimeQualifierProperties(): TimeQualifierProperties {
+		return new TimeQualifierProperties(
+			pointInTime: new NumericPropertyId( 'P1' ), // TODO: get from config
+			startTime: new NumericPropertyId( 'P1' ), // TODO: get from config
+			endTime: new NumericPropertyId( 'P1' ), // TODO: get from config
 		);
 	}
 
