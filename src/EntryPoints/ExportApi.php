@@ -7,28 +7,27 @@ namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\StringStream;
-use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
-use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
-use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
-use ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter;
-use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
-use ProfessionalWiki\WikibaseExport\Application\TimeQualifierStatementGrouper;
-use ProfessionalWiki\WikibaseExport\Application\TimeRange;
-use ProfessionalWiki\WikibaseExport\Persistence\InMemoryEntitySource;
+use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
+use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
+use ProfessionalWiki\WikibaseExport\Application\Export\ExportUcFactory;
 use ProfessionalWiki\WikibaseExport\Presentation\NullPresenter;
-use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ExportApi extends SimpleHandler {
 
 	private const PARAM_SUBJECT_IDS = 'subject_ids';
 	private const PARAM_STATEMENT_PROPERTY_IDS = 'statement_property_ids';
-	private const PARAM_START_TIME = 'start_time';
-	private const PARAM_END_TIME = 'end_time';
+	private const PARAM_START_YEAR = 'start_year';
+	private const PARAM_END_YEAR = 'end_year';
 	private const PARAM_FORMAT = 'format';
 
 	public function run(): Response {
-		$exporter = $this->newExportUseCase();
+		$presenter = $this->newPresenter();
+
+		$exporter = ( new ExportUcFactory() )->buildUseCase(
+			request: $this->buildExportRequest(),
+			presenter: $presenter
+		);
 
 		$exporter->export();
 
@@ -39,45 +38,18 @@ class ExportApi extends SimpleHandler {
 		return $response;
 	}
 
-	private function newExportUseCase(): ExportUseCase {
+	private function newPresenter(): ExportPresenter {
+		return new NullPresenter(); // TODO: use format
+	}
+
+	private function buildExportRequest(): ExportRequest {
 		$params = $this->getValidatedParams();
 
-		return new ExportUseCase(
-			entitySource: new InMemoryEntitySource(), // TODO: use subject IDs
-			entityMapper: $this->newEntityMapper( $params ),
-			presenter: new NullPresenter() // TODO: use format
-		);
-	}
-
-	/**
-	 * @param array<string, mixed> $params
-	 */
-	private function newEntityMapper( array $params ): EntityMapper {
-		$timeQualifierProperties = $this->newTimeQualifierProperties();
-
-		return new EntityMapper(
-			statementFilter: new ExportStatementFilter(
-				propertyIds: [], // $params[self::PARAM_STATEMENT_PROPERTY_IDS], // TODO: parse
-				timeRange: new TimeRange(
-					start: new \DateTimeImmutable(), // $params[self::PARAM_START_TIME], // TODO: parse
-					end: new \DateTimeImmutable(), // $params[self::PARAM_END_TIME], // TODO: parse
-				),
-				qualifierProperties: $timeQualifierProperties
-			),
-			statementGrouper: TimeQualifierStatementGrouper::newForYearRange(
-				timeQualifierProperties: $timeQualifierProperties,
-				startYear: 2000, // $params[self::PARAM_START_TIME], // TODO: parse
-				endYear: 2022 // $params[self::PARAM_END_TIME], // TODO: parse
-			),
-			statementMapper: new StatementMapper()
-		);
-	}
-
-	private function newTimeQualifierProperties(): TimeQualifierProperties {
-		return new TimeQualifierProperties(
-			pointInTime: new NumericPropertyId( 'P1' ), // TODO: get from config
-			startTime: new NumericPropertyId( 'P1' ), // TODO: get from config
-			endTime: new NumericPropertyId( 'P1' ), // TODO: get from config
+		return new ExportRequest(
+			subjectIds: [], // $params[self::PARAM_SUBJECT_IDS], // TODO: parse
+			statementPropertyIds: [], // $params[self::PARAM_STATEMENT_PROPERTY_IDS], // TODO: parse
+			startYear: (int)$params[self::PARAM_START_YEAR],
+			endYear: (int)$params[self::PARAM_END_YEAR]
 		);
 	}
 
@@ -98,14 +70,14 @@ class ExportApi extends SimpleHandler {
 				ParamValidator::PARAM_REQUIRED => true,
 				ParamValidator::PARAM_ISMULTI => true
 			],
-			self::PARAM_START_TIME => [
+			self::PARAM_START_YEAR => [
 				self::PARAM_SOURCE => 'query',
-				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_TYPE => 'integer',
 				ParamValidator::PARAM_REQUIRED => false,
 			],
-			self::PARAM_END_TIME => [
+			self::PARAM_END_YEAR => [
 				self::PARAM_SOURCE => 'query',
-				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_TYPE => 'integer',
 				ParamValidator::PARAM_REQUIRED => false,
 			],
 			self::PARAM_FORMAT => [

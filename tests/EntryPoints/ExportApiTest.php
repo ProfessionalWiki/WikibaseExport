@@ -23,8 +23,8 @@ class ExportApiTest extends MediaWikiIntegrationTestCase {
 				'queryParams' => [
 					'subject_ids' => 'Q1|Q2|Q3',
 					'statement_property_ids' => 'P1|P2',
-					'start_time' => '2021',
-					'end_time' => '2022',
+					'start_year' => 2021,
+					'end_year' => 2022,
 					'format' => 'csvwide'
 				]
 			] )

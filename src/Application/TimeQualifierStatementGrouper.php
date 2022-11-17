@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application;
 
-use DateTimeImmutable;
 use Wikibase\DataModel\Statement\StatementFilter;
 use Wikibase\DataModel\Statement\StatementList;
 
@@ -44,10 +43,7 @@ class TimeQualifierStatementGrouper implements StatementGrouper {
 
 	private function newFilter( int $year ): StatementFilter {
 		return new TimeQualifierStatementFilter(
-			timeRange: new TimeRange(
-				start: new DateTimeImmutable( $year . '-01-01' ),
-				end: new DateTimeImmutable( $year . '-12-31' ),
-			),
+			timeRange: TimeRange::newFromStartAndEndYear( $year, $year ),
 			qualifierProperties: $this->timeQualifierProperties
 		);
 	}

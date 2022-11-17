@@ -12,12 +12,12 @@ use Wikibase\DataModel\Services\Lookup\EntityLookup;
 class IdListEntitySource implements EntitySource {
 
 	/**
-	 * @var array<int, EntityId>
+	 * @var EntityId[]
 	 */
 	private array $subjectIds;
 
 	/**
-	 * @param array<int, EntityId> $subjectIds
+	 * @param EntityId[] $subjectIds
 	 */
 	public function __construct(
 		private EntityLookup $entityLookup,

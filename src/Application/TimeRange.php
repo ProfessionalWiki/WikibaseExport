@@ -22,4 +22,13 @@ class TimeRange {
 			&& $time->getTimestamp() <= $this->end->getTimestamp();
 	}
 
+	public static function newFromStartAndEndYear( int $startYear, int $endYear ): self {
+		$endTime = new DateTimeImmutable( ( $endYear + 1 ) . '-01-01' );
+
+		return new self(
+			start: new DateTimeImmutable( $startYear . '-01-01' ),
+			end: $endTime->setTimestamp( $endTime->getTimestamp() - 1 )
+		);
+	}
+
 }
