@@ -10,7 +10,6 @@ use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedStatement;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubStatementGrouper;
-use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -51,8 +50,8 @@ class EntityMapperTest extends TestCase {
 
 		$this->assertEquals(
 			[
-				new MappedStatement( '222' ),
-				new MappedStatement( '444' ),
+				new MappedStatement( 'P2', '222' ),
+				new MappedStatement( 'P4', '444' ),
 			],
 			$mapper->map(
 				new Item(
@@ -78,8 +77,8 @@ class EntityMapperTest extends TestCase {
 
 		$this->assertEquals(
 			[
-				new MappedStatement( 'foo1' ),
-				new MappedStatement( 'bar' ),
+				new MappedStatement( 'P1', 'foo1' ),
+				new MappedStatement( 'P2', 'bar' ),
 			],
 			$mapper->map(
 				new Item(
@@ -94,8 +93,7 @@ class EntityMapperTest extends TestCase {
 		);
 	}
 
-	// TODO: test NoValue and SomeValue
-	// TODO: implement and test best rank filter
-	// TODO: test non-string values
+	// TODO: implement and test best rank filter?
+	// TODO: test multiple values
 
 }

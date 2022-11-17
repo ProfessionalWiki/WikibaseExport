@@ -10,6 +10,7 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 class MappedStatement {
 
 	public function __construct(
+		public /* readonly */ string $propertyId,
 		public /* readonly */ string $mainValue
 	) {
 	}
