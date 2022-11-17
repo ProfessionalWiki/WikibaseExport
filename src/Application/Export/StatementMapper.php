@@ -11,6 +11,7 @@ class StatementMapper {
 
 	public function mapStatement( Statement $statement ): MappedStatement {
 		return new MappedStatement(
+			propertyId: $statement->getPropertyId()->getSerialization(),
 			mainValue: $this->statementToString( $statement )
 		);
 	}

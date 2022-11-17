@@ -19,7 +19,7 @@ class MappedEntityTest extends TestCase {
 	public function testGetExistingYear(): void {
 		$year = new MappedYear(
 			year: 2022,
-			statements: [ new MappedStatement( 'FooBar' ) ]
+			statements: [ new MappedStatement( 'P1', 'FooBar' ) ]
 		);
 
 		$entity = new MappedEntity(
@@ -39,7 +39,7 @@ class MappedEntityTest extends TestCase {
 			statementsByYear: [
 				new MappedYear(
 					year: 2022,
-					statements: [ new MappedStatement( 'FooBar' ) ]
+					statements: [ new MappedStatement( 'P1', 'FooBar' ) ]
 				)
 			]
 		);

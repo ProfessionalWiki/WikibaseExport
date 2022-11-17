@@ -20,13 +20,12 @@ use Wikibase\DataModel\Statement\Statement;
 class StatementMapperTest extends TestCase {
 
 	// TODO: test non-string values
-	// TODO: test multiple values
 
 	public function testMapsStringValue(): void {
 		$mapper = new StatementMapper();
 
 		$this->assertEquals(
-			new MappedStatement( 'foo' ),
+			new MappedStatement( 'P1', 'foo' ),
 			$mapper->mapStatement(
 				new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) ) )
 			)
@@ -37,14 +36,14 @@ class StatementMapperTest extends TestCase {
 		$mapper = new StatementMapper();
 
 		$this->assertEquals(
-			new MappedStatement( '' ),
+			new MappedStatement( 'P1', '' ),
 			$mapper->mapStatement(
 				new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
 			)
 		);
 
 		$this->assertEquals(
-			new MappedStatement( '' ),
+			new MappedStatement( 'P1', '' ),
 			$mapper->mapStatement(
 				new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P1' ) ) )
 			)

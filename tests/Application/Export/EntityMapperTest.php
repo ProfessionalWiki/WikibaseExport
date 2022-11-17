@@ -50,8 +50,8 @@ class EntityMapperTest extends TestCase {
 
 		$this->assertEquals(
 			[
-				new MappedStatement( '222' ),
-				new MappedStatement( '444' ),
+				new MappedStatement( 'P2', '222' ),
+				new MappedStatement( 'P4', '444' ),
 			],
 			$mapper->map(
 				new Item(
@@ -77,8 +77,8 @@ class EntityMapperTest extends TestCase {
 
 		$this->assertEquals(
 			[
-				new MappedStatement( 'foo1' ),
-				new MappedStatement( 'bar' ),
+				new MappedStatement( 'P1', 'foo1' ),
+				new MappedStatement( 'P2', 'bar' ),
 			],
 			$mapper->map(
 				new Item(
@@ -94,5 +94,6 @@ class EntityMapperTest extends TestCase {
 	}
 
 	// TODO: implement and test best rank filter?
+	// TODO: test multiple values
 
 }
