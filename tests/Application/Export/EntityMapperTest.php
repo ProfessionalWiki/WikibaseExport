@@ -10,7 +10,6 @@ use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedStatement;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubStatementGrouper;
-use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -94,8 +93,6 @@ class EntityMapperTest extends TestCase {
 		);
 	}
 
-	// TODO: test NoValue and SomeValue
-	// TODO: implement and test best rank filter
-	// TODO: test non-string values
+	// TODO: implement and test best rank filter?
 
 }
