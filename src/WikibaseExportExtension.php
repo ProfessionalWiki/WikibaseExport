@@ -48,7 +48,7 @@ class WikibaseExportExtension {
 		);
 
 		return new CombiningConfigLookup(
-			baseConfig: MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExport' ),
+			baseConfig: (string)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExport' ),
 			deserializer: $deserializer,
 			wikiConfigLookup: new WikiConfigLookup(
 				contentFetcher: new PageContentFetcher(
@@ -58,7 +58,7 @@ class WikibaseExportExtension {
 				deserializer: $deserializer,
 				pageName: self::CONFIG_PAGE_TITLE
 			),
-			enableWikiRules: MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' )
+			enableWikiRules: (bool)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' )
 		);
 	}
 
