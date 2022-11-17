@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
+use DataValues\DataValue;
+use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 
@@ -20,14 +22,22 @@ class StatementMapper {
 		$snak = $statement->getMainSnak();
 
 		if ( $snak instanceof PropertyValueSnak ) {
-			/**
-			 * @var string $serialization
-			 */
-			$serialization = $snak->getDataValue()->serialize();
-			return $serialization; // TODO: maybe need to serialize in another manner
+			return $this->valueToString( $snak->getDataValue() );
 		}
 
 		return ''; // TODO: empty string for NoValue and SomeValue?
+	}
+
+	private function valueToString( DataValue $value ): string {
+		if ( $value instanceof EntityIdValue ) {
+			return $value->getEntityId()->getSerialization();
+		}
+
+		/**
+		 * @var string $serialization
+		 */
+		$serialization = $value->serialize();
+		return $serialization; // TODO: maybe need to serialize in another manner
 	}
 
 }
