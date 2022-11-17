@@ -71,6 +71,26 @@ class TimeQualifierStatementFilterTest extends TestCase {
 		$this->assertFalse( $filter->statementMatches( $statement ) );
 	}
 
-	// TODO: test partial overlap is match
+	public function testRangeWithOnlyLowerBoundIncludedDoesMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 2004, endYear: 2022 )
+		) );
+	}
+
+	public function testRangeWithOnlyUpperBoundIncludedDoesMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 1990, endYear: 2001 )
+		) );
+	}
 
 }

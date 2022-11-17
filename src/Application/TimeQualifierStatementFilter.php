@@ -47,7 +47,7 @@ class TimeQualifierStatementFilter implements StatementFilter {
 		);
 
 		return $qualifierRange->contains( $this->timeRange->start )
-			&& $qualifierRange->contains( $this->timeRange->end );
+			|| $qualifierRange->contains( $this->timeRange->end );
 	}
 
 }
