@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedStatement;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Snak\PropertyNoValueSnak;
+use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 
@@ -17,7 +19,6 @@ use Wikibase\DataModel\Statement\Statement;
  */
 class StatementMapperTest extends TestCase {
 
-	// TODO: test NoValue and SomeValue
 	// TODO: test non-string values
 	// TODO: test multiple values
 
@@ -25,9 +26,27 @@ class StatementMapperTest extends TestCase {
 		$mapper = new StatementMapper();
 
 		$this->assertEquals(
-			new MappedStatement( 'foo1' ),
+			new MappedStatement( 'foo' ),
 			$mapper->mapStatement(
-				new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo1' ) ) )
+				new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) ) )
+			)
+		);
+	}
+
+	public function testMapsSomeValueAndNoValueToEmptyString(): void {
+		$mapper = new StatementMapper();
+
+		$this->assertEquals(
+			new MappedStatement( '' ),
+			$mapper->mapStatement(
+				new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
+			)
+		);
+
+		$this->assertEquals(
+			new MappedStatement( '' ),
+			$mapper->mapStatement(
+				new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P1' ) ) )
 			)
 		);
 	}
