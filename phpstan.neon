@@ -10,3 +10,6 @@ parameters:
 		- ../../tests/phpunit
 		- ../../vendor
 		- ../../extensions/Wikibase
+	excludePaths:
+		analyse:
+			- src/Persistence/ConfigDeserializer.php

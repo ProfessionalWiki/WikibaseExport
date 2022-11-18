@@ -16,7 +16,7 @@ class CombiningConfigLookup implements ConfigLookup {
 	) {
 	}
 
-	public function getConfig(): Config	{
+	public function getConfig(): Config {
 		$config = $this->deserializer->deserialize( $this->baseConfig );
 
 		if ( !$this->enableWikiRules ) {

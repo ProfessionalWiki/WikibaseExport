@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport;
 
 use MediaWiki\MediaWikiServices;
-use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
 use ProfessionalWiki\WikibaseExport\Persistence\CombiningConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigDeserializer;

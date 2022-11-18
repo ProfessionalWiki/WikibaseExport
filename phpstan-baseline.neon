@@ -1,3 +1,7 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
+			count: 1
+			path: src/WikibaseExportExtension.php
 
