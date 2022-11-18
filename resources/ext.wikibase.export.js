@@ -100,13 +100,13 @@ $( function () {
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createFiltersSection: function () {
-			this.yearStart = new OO.ui.NumberInputWidget( {
-				id: 'yearStart',
+			this.startYear = new OO.ui.NumberInputWidget( {
+				id: 'startYear',
 				value: this.config.defaultStartYear
 			} );
 
-			this.yearEnd = new OO.ui.NumberInputWidget( {
-				id: 'yearEnd',
+			this.endYear = new OO.ui.NumberInputWidget( {
+				id: 'endYear',
 				value: this.config.defaultEndYear
 			} );
 
@@ -114,10 +114,10 @@ $( function () {
 				'filters',
 				mw.msg( 'wikibase-export-filters-heading' ),
 				[
-					new OO.ui.FieldLayout( this.yearStart, {
+					new OO.ui.FieldLayout( this.startYear, {
 						label: mw.msg( 'wikibase-export-start-year' )
 					} ),
-					new OO.ui.FieldLayout( this.yearEnd, {
+					new OO.ui.FieldLayout( this.endYear, {
 						label: mw.msg( 'wikibase-export-end-year' )
 					} )
 				]
@@ -261,8 +261,8 @@ $( function () {
 
 		getQueryParams: function () {
 			const subjectIds = this.subjects.getValue().join( '|' );
-			const startTime = this.yearStart.getValue();
-			const endTime = this.yearEnd.getValue();
+			const startYear = this.startYear.getValue();
+			const endYear = this.endYear.getValue();
 			const propertyIds = this.statements.getValue().join( '|' );
 			const format = this.formats.findSelectedItem().data;
 
@@ -270,8 +270,8 @@ $( function () {
 			return new URLSearchParams( {
 				subject_ids: subjectIds,
 				statement_property_ids: propertyIds,
-				start_year: startTime,
-				end_year: endTime,
+				start_year: startYear,
+				end_year: endYear,
 				format: format
 			} );
 			/* eslint-enable camelcase */
