@@ -44,7 +44,7 @@ class ConfigTest extends TestCase {
 		);
 	}
 
-	public function testOriginalValuesAreKept(): void {
+	public function testOriginalValuesAreKeptWhenCombined(): void {
 		$original = $this->createOriginalConfig();
 		$new = new Config();
 
@@ -96,7 +96,7 @@ class ConfigTest extends TestCase {
 		);
 	}
 
-	public function testOriginalValuesAreReplaced(): void {
+	public function testOriginalValuesAreReplacedWhenCombined(): void {
 		$original = $this->createOriginalConfig();
 		$new = $this->createNewConfig();
 
