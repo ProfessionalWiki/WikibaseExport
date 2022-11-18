@@ -12,8 +12,8 @@ use TitleParser;
 class PageContentFetcher {
 
 	public function __construct(
-		private /* readonly */ TitleParser $titleParser,
-		private /* readonly */ RevisionLookup $revisionLookup
+		private TitleParser $titleParser,
+		private RevisionLookup $revisionLookup
 	) {
 	}
 

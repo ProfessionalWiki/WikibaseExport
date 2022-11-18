@@ -10,9 +10,9 @@ use ProfessionalWiki\WikibaseExport\Domain\Config;
 class WikiConfigLookup implements ConfigLookup {
 
 	public function __construct(
-		private /* readonly */ PageContentFetcher $contentFetcher,
-		private /* readonly */ ConfigDeserializer $deserializer,
-		private /* readonly */ string $pageName
+		private PageContentFetcher $contentFetcher,
+		private ConfigDeserializer $deserializer,
+		private string $pageName
 	) {
 	}
 
