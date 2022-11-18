@@ -24,7 +24,7 @@ stan-baseline:
 	vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=2G --generate-baseline
 
 psalm:
-	vendor/bin/psalm --config=psalm.xml
+	vendor/bin/psalm --config=psalm.xml --no-diff
 
 psalm-baseline:
 	vendor/bin/psalm --config=psalm.xml --set-baseline=psalm-baseline.xml
