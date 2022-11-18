@@ -249,8 +249,8 @@ $( function () {
 			return new URLSearchParams( {
 				subject_ids: subjectIds,
 				statement_property_ids: propertyIds,
-				start_time: startTime,
-				end_time: endTime,
+				start_year: startTime,
+				end_year: endTime,
 				format: format
 			} );
 			/* eslint-enable camelcase */
