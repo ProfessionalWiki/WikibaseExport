@@ -70,7 +70,7 @@ $( function () {
 				id: 'subjects',
 				inputPosition: 'outline',
 				// TODO: use config
-				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' ),
+				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' )
 			} );
 
 			this.addDefaultSubjects();
@@ -193,7 +193,7 @@ $( function () {
 			if ( entity.labels[ this.config.entityLabelLanguage ] !== undefined ) {
 				label = entity.labels[ this.config.entityLabelLanguage ].value;
 			} else if ( entity.labels.en !== undefined ) {
-				label = entity.labels.en.value
+				label = entity.labels.en.value;
 			}
 
 			return {
