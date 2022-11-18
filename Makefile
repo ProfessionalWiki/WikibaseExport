@@ -15,7 +15,7 @@ perf:
 	php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist --group Performance
 
 phpcs:
-	cd ../.. && vendor/bin/phpcs -p -s --standard=$(shell pwd)/phpcs.xml
+	vendor/bin/phpcs -p -s --standard=$(shell pwd)/phpcs.xml
 
 stan:
 	vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=2G
