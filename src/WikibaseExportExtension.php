@@ -19,7 +19,7 @@ use Title;
  */
 class WikibaseExportExtension {
 
-	private const CONFIG_PAGE_TITLE = 'WikibaseExport';
+	public const CONFIG_PAGE_TITLE = 'WikibaseExport';
 
 	public static function getInstance(): self {
 		/** @var ?WikibaseExportExtension $instance */
@@ -41,23 +41,29 @@ class WikibaseExportExtension {
 			&& $title->getText() === self::CONFIG_PAGE_TITLE;
 	}
 
-	public function getConfigLookup(): ConfigLookup {
-		$deserializer = new ConfigDeserializer(
-			ConfigJsonValidator::newInstance()
-		);
-
+	public function newConfigLookup(): ConfigLookup {
 		return new CombiningConfigLookup(
 			baseConfig: (string)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExport' ),
-			deserializer: $deserializer,
-			wikiConfigLookup: new WikiConfigLookup(
-				contentFetcher: new PageContentFetcher(
-					MediaWikiServices::getInstance()->getTitleParser(),
-					MediaWikiServices::getInstance()->getRevisionLookup()
-				),
-				deserializer: $deserializer,
-				pageName: self::CONFIG_PAGE_TITLE
-			),
+			deserializer: $this->newConfigDeserializer(),
+			wikiConfigLookup: $this->newWikiConfigLookup(),
 			enableWikiRules: (bool)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' )
+		);
+	}
+
+	public function newWikiConfigLookup(): WikiConfigLookup {
+		return new WikiConfigLookup(
+			contentFetcher: new PageContentFetcher(
+				MediaWikiServices::getInstance()->getTitleParser(),
+				MediaWikiServices::getInstance()->getRevisionLookup()
+			),
+			deserializer: $this->newConfigDeserializer(),
+			pageName: self::CONFIG_PAGE_TITLE
+		);
+	}
+
+	public function newConfigDeserializer(): ConfigDeserializer {
+		return new ConfigDeserializer(
+			ConfigJsonValidator::newInstance()
 		);
 	}
 

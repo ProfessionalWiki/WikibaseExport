@@ -35,7 +35,7 @@ class SpecialWikibaseExport extends SpecialPage {
 	 * @return array<string, mixed>
 	 */
 	private function getJsConfigVars(): array {
-		$config = WikibaseExportExtension::getInstance()->getConfigLookup()->getConfig();
+		$config = WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig();
 
 		return [
 			'wgWikibaseExport' => $this->configToVars( $config )

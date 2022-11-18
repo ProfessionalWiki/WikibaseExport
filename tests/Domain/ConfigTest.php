@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
-
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Domain\Config;
 
@@ -48,6 +47,7 @@ class ConfigTest extends TestCase {
 	public function testOriginalValuesAreKept(): void {
 		$original = $this->createOriginalConfig();
 		$new = new Config();
+
 		$combined = $original->combine( $new );
 
 		$this->assertSame(
@@ -99,6 +99,7 @@ class ConfigTest extends TestCase {
 	public function testOriginalValuesAreReplaced(): void {
 		$original = $this->createOriginalConfig();
 		$new = $this->createNewConfig();
+
 		$combined = $original->combine( $new );
 
 		$this->assertSame(
