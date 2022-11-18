@@ -7,6 +7,8 @@ $( function () {
 
 	mw.WikibaseExport = {
 		init: function () {
+			this.config = mw.config.get( 'wgWikibaseExport' );
+
 			this.$wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
 
 			this.$wikibaseExport.append( this.createSubjectsSection().$element );
@@ -67,44 +69,55 @@ $( function () {
 			this.subjects = new mw.widgets.EntitiesMultiselectWidget( {
 				id: 'subjects',
 				inputPosition: 'outline',
-				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' ),
-				// TODO: get default values somewhere
-				selected: [
-					'Q100', 'Q200'
-				],
-				options: [
-					{ data: 'Q100', label: 'Foo Bar' },
-					{ data: 'Q200', label: 'Bar Baz' }
-				]
+				// TODO: use config
+				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' )
 			} );
+
+			this.addDefaultSubjects();
 
 			return this.createSection(
 				'subjects',
+				// TODO: use config
 				mw.msg( 'wikibase-export-subjects-heading' ),
 				[ this.subjects ]
 			);
+		},
+
+		addDefaultSubjects: function () {
+			const widget = this;
+
+			new mw.Api().get( {
+				action: 'wbgetentities',
+				ids: widget.config.defaultSubjects
+			} ).then( function ( data ) {
+				const options = widget.getOptionsFromEntityData( data );
+				widget.subjects.addOptions( options );
+				widget.subjects.setValue( options );
+			} );
 		},
 
 		/**
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createFiltersSection: function () {
-			this.yearStart = new OO.ui.NumberInputWidget( {
-				id: 'yearStart'
+			this.startYear = new OO.ui.NumberInputWidget( {
+				id: 'startYear',
+				value: this.config.defaultStartYear
 			} );
 
-			this.yearEnd = new OO.ui.NumberInputWidget( {
-				id: 'yearEnd'
+			this.endYear = new OO.ui.NumberInputWidget( {
+				id: 'endYear',
+				value: this.config.defaultEndYear
 			} );
 
 			return this.createSection(
 				'filters',
 				mw.msg( 'wikibase-export-filters-heading' ),
 				[
-					new OO.ui.FieldLayout( this.yearStart, {
+					new OO.ui.FieldLayout( this.startYear, {
 						label: mw.msg( 'wikibase-export-start-year' )
 					} ),
-					new OO.ui.FieldLayout( this.yearEnd, {
+					new OO.ui.FieldLayout( this.endYear, {
 						label: mw.msg( 'wikibase-export-end-year' )
 					} )
 				]
@@ -151,9 +164,9 @@ $( function () {
 
 			new mw.Api().get( {
 				action: 'wbgetentities',
-				ids: mw.config.get( 'wgWikibaseExportProperties' )
+				ids: widget.config.properties
 			} ).then( function ( data ) {
-				const options = widget.getPropertyOptionsFromData( data );
+				const options = widget.getOptionsFromEntityData( data );
 				widget.statements.addOptions( options );
 				widget.statements.setValue( options );
 			} );
@@ -163,9 +176,9 @@ $( function () {
 		 * @param {Object} data
 		 * @return {{data: *, label: *}[]}
 		 */
-		getPropertyOptionsFromData: function ( data ) {
+		getOptionsFromEntityData: function ( data ) {
 			return Object.keys( data.entities ).map(
-				( key ) => this.getPropertyOptionFromEntity( data.entities[ key ] )
+				( key ) => this.getOptionFromEntity( data.entities[ key ] )
 			);
 		},
 
@@ -173,11 +186,19 @@ $( function () {
 		 * @param {Object} entity
 		 * @return {{data: string, label: string}}
 		 */
-		getPropertyOptionFromEntity: function ( entity ) {
+		getOptionFromEntity: function ( entity ) {
+			let label = entity.id;
+
+			// TODO: try specific language, then fallback
+			if ( entity.labels[ this.config.entityLabelLanguage ] !== undefined ) {
+				label = entity.labels[ this.config.entityLabelLanguage ].value;
+			} else if ( entity.labels.en !== undefined ) {
+				label = entity.labels.en.value;
+			}
+
 			return {
 				data: entity.id,
-				// TODO: try current language, then fallback to default
-				label: entity.labels.en.value || entity.id
+				label: label
 			};
 		},
 
@@ -240,8 +261,8 @@ $( function () {
 
 		getQueryParams: function () {
 			const subjectIds = this.subjects.getValue().join( '|' );
-			const startTime = this.yearStart.getValue();
-			const endTime = this.yearEnd.getValue();
+			const startYear = this.startYear.getValue();
+			const endYear = this.endYear.getValue();
 			const propertyIds = this.statements.getValue().join( '|' );
 			const format = this.formats.findSelectedItem().data;
 
@@ -249,8 +270,8 @@ $( function () {
 			return new URLSearchParams( {
 				subject_ids: subjectIds,
 				statement_property_ids: propertyIds,
-				start_year: startTime,
-				end_year: endTime,
+				start_year: startYear,
+				end_year: endYear,
 				format: format
 			} );
 			/* eslint-enable camelcase */

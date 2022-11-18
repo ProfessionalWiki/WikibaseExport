@@ -19,7 +19,10 @@
 	</rule>
 
 	<rule ref="Generic.Formatting.NoSpaceAfterCast" />
-	<rule ref="Generic.Metrics.CyclomaticComplexity" />
+	<rule ref="Generic.Metrics.CyclomaticComplexity">
+		<exclude-pattern>src/Domain/Config.php</exclude-pattern>
+		<exclude-pattern>src/Persistence/ConfigDeserializer.php</exclude-pattern>
+	</rule>
 	<rule ref="Generic.Metrics.NestingLevel" />
 	<rule ref="Squiz.Operators.ValidLogicalOperators" />
 </ruleset>

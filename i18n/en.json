@@ -8,6 +8,7 @@
 	"wikibase-export-description": "Adds a user-friendly Wikibase export page",
 
 	"special-wikibase-export": "Wikibase Export",
+	"special-wikibase-export-config": "Wikibase Export Config",
 
 	"wikibase-export-subjects-heading": "Choose companies",
 	"wikibase-export-subjects-placeholder": "Search companies",

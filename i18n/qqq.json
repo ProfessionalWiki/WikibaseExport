@@ -8,6 +8,7 @@
 	"wikibase-export-name": "{{notranslate}}",
 	"wikibase-export-description": "{{Desc|name=Wikibase Export|url=https://github.com/ProfessionalWiki/WikibaseExport}}",
 	"special-wikibase-export": "This is the label on \"Special:WikibaseExport\".",
+	"special-wikibase-export-config": "This is the label on \"Special:WikibaseExportConfig\" linking to \"MediaWiki:WikibaseExport\".",
 
 	"wikibase-export-subjects-heading": "This is a section header.",
 	"wikibase-export-subjects-placeholder": "This is the text used as a placeholder.",
