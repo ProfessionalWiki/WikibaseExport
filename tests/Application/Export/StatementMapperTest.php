@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\Application\Export;
 
+use DataValues\BooleanValue;
 use DataValues\DataValue;
 use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
@@ -74,8 +75,22 @@ class StatementMapperTest extends TestCase {
 			new EntityIdValue( new ItemId( 'Q42' ) ),
 			'Q42'
 		];
+		yield [
+			new BooleanValue( true ),
+			'1'
+		];
+		yield [
+			new BooleanValue( false ),
+			'0'
+		];
 
-		// TODO: test other types
+		// TODO: GlobeCoordinateValue
+		// TODO: LatLongValue
+		// TODO: TimeValue
+		// TODO: QuantityValue
+		// TODO: MonolingualTextValue
+		// TODO: MultilingualTextValue
+		// TODO: NumberValue
 	}
 
 }
