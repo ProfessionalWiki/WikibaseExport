@@ -11,6 +11,10 @@ use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUcFactory;
 use ProfessionalWiki\WikibaseExport\Presentation\NullPresenter;
+use Wikibase\DataModel\Entity\BasicEntityIdParser;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\EntityIdParsingException;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ExportApi extends SimpleHandler {
@@ -46,10 +50,41 @@ class ExportApi extends SimpleHandler {
 		$params = $this->getValidatedParams();
 
 		return new ExportRequest(
-			subjectIds: [], // $params[self::PARAM_SUBJECT_IDS], // TODO: parse
-			statementPropertyIds: [], // $params[self::PARAM_STATEMENT_PROPERTY_IDS], // TODO: parse
+			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
+			statementPropertyIds: $this->parsePropertyIds( $params[self::PARAM_STATEMENT_PROPERTY_IDS] ),
 			startYear: (int)$params[self::PARAM_START_YEAR],
 			endYear: (int)$params[self::PARAM_END_YEAR]
+		);
+	}
+
+	/**
+	 * @param string[] $ids
+	 * @return EntityId[]
+	 */
+	private function parseIds( array $ids ): array {
+		$idObjects = [];
+
+		$parser = new BasicEntityIdParser();
+
+		foreach ( $ids as $id ) {
+			try {
+				$idObjects[] = $parser->parse( $id );
+			}
+			catch ( EntityIdParsingException ) {
+			}
+		}
+
+		return $idObjects;
+	}
+
+	/**
+	 * @param string[] $ids
+	 * @return PropertyId[]
+	 */
+	private function parsePropertyIds( array $ids ): array {
+		return array_filter(
+			$this->parseIds( $ids ),
+			fn( EntityId $id ) => $id instanceof PropertyId
 		);
 	}
 
