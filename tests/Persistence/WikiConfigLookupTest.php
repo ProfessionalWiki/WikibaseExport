@@ -16,6 +16,7 @@ use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 class WikiConfigLookupTest extends WikibaseExportIntegrationTest {
 
 	public function testEmptyPageConfig(): void {
+		$this->editConfigPage( '{}' );
 		$lookup = WikibaseExportExtension::getInstance()->newWikiConfigLookup();
 
 		$config = $lookup->getConfig();
