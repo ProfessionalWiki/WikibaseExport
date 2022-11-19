@@ -18,12 +18,6 @@ class ExportUseCase {
 	public function export(): void {
 		// TODO: auth
 
-		$this->presenter->present( $this->buildResponse() );
-	}
-
-	private function buildResponse(): ExportResponse {
-		$response = new ExportResponse();
-
 		while ( true ) {
 			$entity = $this->entitySource->next();
 
@@ -31,10 +25,8 @@ class ExportUseCase {
 				break;
 			}
 
-			$response->add( $this->entityMapper->map( $entity ) );
+			$this->presenter->present( $this->entityMapper->map( $entity ) );
 		}
-
-		return $response;
 	}
 
 }
