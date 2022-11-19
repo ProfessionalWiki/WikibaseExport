@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseExport\Domain;
+namespace ProfessionalWiki\WikibaseExport\Application;
 
 class Config {
 

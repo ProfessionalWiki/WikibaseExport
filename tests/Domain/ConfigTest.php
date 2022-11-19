@@ -5,10 +5,10 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use ProfessionalWiki\WikibaseExport\Domain\Config;
+use ProfessionalWiki\WikibaseExport\Application\Config;
 
 /**
- * @covers \ProfessionalWiki\WikibaseExport\Domain\Config
+ * @covers \ProfessionalWiki\WikibaseExport\Application\Config
  */
 class ConfigTest extends TestCase {
 
