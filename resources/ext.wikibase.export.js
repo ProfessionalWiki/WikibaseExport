@@ -187,7 +187,7 @@ $( function () {
 		 * @return {{data: string, label: string}}
 		 */
 		getOptionFromEntity: function ( entity ) {
-			let label = entity.id;
+			let label = '';
 
 			// TODO: try specific language, then fallback
 			if ( entity.labels[ this.config.entityLabelLanguage ] !== undefined ) {
@@ -196,9 +196,11 @@ $( function () {
 				label = entity.labels.en.value;
 			}
 
+			label += ' (' + entity.id + ') ';
+
 			return {
 				data: entity.id,
-				label: label
+				label: label.trim()
 			};
 		},
 
