@@ -9,15 +9,16 @@
 >
     <projectFiles>
         <directory name="src" />
-		<directory name="tests" />
 		<ignoreFiles>
 			<file name="src/EntryPoints/MediaWikiHooks.php" />
 			<file name="src/Persistence/ConfigDeserializer.php" />
+			<file name="src/Persistence/ConfigJsonValidator.php" />
 		</ignoreFiles>
     </projectFiles>
 
 	<stubs>
 		<file name="src/Persistence/ConfigDeserializer.php" />
+		<file name="src/Persistence/ConfigJsonValidator.php" />
 	</stubs>
 
 	<extraFiles>
@@ -33,42 +34,11 @@
 	<issueHandlers>
 		<UndefinedConstant errorLevel="suppress" />
 
-		<PossiblyNullReference>
-			<errorLevel type="suppress">
-				<directory name="tests" />
-			</errorLevel>
-		</PossiblyNullReference>
-
 		<PropertyNotSetInConstructor>
 			<errorLevel type="suppress">
 				<directory name="src" />
-				<directory name="tests" />
 			</errorLevel>
 		</PropertyNotSetInConstructor>
-
-		<UndefinedClass>
-			<errorLevel type="suppress">
-				<directory name="tests" />
-			</errorLevel>
-		</UndefinedClass>
-
-		<MixedArrayAccess>
-			<errorLevel type="suppress">
-				<directory name="tests" />
-			</errorLevel>
-		</MixedArrayAccess>
-
-		<MixedArgument>
-			<errorLevel type="suppress">
-				<directory name="tests" />
-			</errorLevel>
-		</MixedArgument>
-
-		<PossiblyNullArgument>
-			<errorLevel type="suppress">
-				<directory name="tests" />
-			</errorLevel>
-		</PossiblyNullArgument>
 
 		<UndefinedFunction>
 			<errorLevel type="suppress">
