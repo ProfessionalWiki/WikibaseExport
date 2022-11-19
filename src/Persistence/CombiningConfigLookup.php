@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Persistence;
 
-use ProfessionalWiki\WikibaseExport\Domain\Config;
+use ProfessionalWiki\WikibaseExport\Application\Config;
 
 class CombiningConfigLookup implements ConfigLookup {
 
