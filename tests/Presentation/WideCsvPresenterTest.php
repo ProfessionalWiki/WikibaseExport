@@ -15,10 +15,7 @@ use ProfessionalWiki\WikibaseExport\Presentation\WideCsvPresenter;
  */
 class WideCsvPresenterTest extends TestCase {
 
-	// TODO: test multiple values for one statement
-	// TODO: test multiple years
-
-	public function testFoo(): void {
+	public function testMultipleEntities(): void {
 		$presenter = new WideCsvPresenter(
 			years: [ 2022 ],
 			properties: [ 'P1', 'P2' ]
@@ -66,5 +63,41 @@ CSV
 		rewind( $presenter->getStream() );
 		return stream_get_contents( $presenter->getStream() );
 	}
+
+	public function testMultipleValuesPerProperty(): void {
+		$presenter = new WideCsvPresenter(
+			years: [ 2022 ],
+			properties: [ 'P1', 'P2' ]
+		);
+
+		$presenter->presentEntity( new MappedEntity(
+			id: 'Q42',
+			statementsByYear: [
+				new MappedYear(
+					year: 2022,
+					statements: [
+						new MappedStatement( 'P1', 'One' ),
+						new MappedStatement( 'P2', 'Two' ),
+						new MappedStatement( 'P2', 'Three' ),
+						new MappedStatement( 'P1', 'Four' ),
+					]
+				),
+			]
+		) );
+
+		$this->assertSame(
+			<<<CSV
+ID,P1,P2
+Q42,"One
+Four","Two
+Three"
+
+CSV
+			,
+			$this->getCsvString( $presenter )
+		);
+	}
+
+	// TODO: test multiple years
 
 }
