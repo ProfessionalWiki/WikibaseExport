@@ -6,17 +6,25 @@ namespace ProfessionalWiki\WikibaseExport\Tests\EntryPoints;
 
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
-use MediaWikiIntegrationTestCase;
+use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi
  * @group Database
  */
-class ExportApiTest extends MediaWikiIntegrationTestCase {
+class ExportApiTest extends WikibaseExportIntegrationTest {
 	use HandlerTestTrait;
 
 	public function testHappyPathStub(): void {
+		$this->editConfigPage( '
+{
+    "startYearPropertyId": "P100",
+    "endYearPropertyId": "P200",
+    "pointInTimePropertyId": "P300"
+}
+' );
+
 		$response = $this->executeHandler(
 			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
