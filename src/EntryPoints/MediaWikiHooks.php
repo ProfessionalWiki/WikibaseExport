@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use EditPage;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
+use ProfessionalWiki\WikibaseExport\Presentation\ConfigJsonErrorFormatter;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Title;
 
@@ -24,7 +25,11 @@ class MediaWikiHooks {
 			&& WikibaseExportExtension::getInstance()->isConfigTitle( $editPage->getTitle() )
 			&& !$validator->validate( $text )
 		) {
-			$error = \Html::errorBox( wfMessage( $validator->getError() )->escaped() );
+			$errors = $validator->getErrors();
+			$error = \Html::errorBox(
+				wfMessage( 'wikibase-export-config-invalid', count( $errors ) )->escaped() .
+				ConfigJsonErrorFormatter::format( $errors )
+			);
 		}
 	}
 

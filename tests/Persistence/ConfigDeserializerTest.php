@@ -5,6 +5,8 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Persistence;
 
 use PHPUnit\Framework\TestCase;
+use ProfessionalWiki\WikibaseExport\Domain\Config;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 
 /**
@@ -15,7 +17,7 @@ class ConfigDeserializerTest extends TestCase {
 	public function testValidJsonReturnsConfig(): void {
 		$deserializer = WikibaseExportExtension::getInstance()->newConfigDeserializer();
 
-		$config = $deserializer->deserialize( $this->createValidConfig() );
+		$config = $deserializer->deserialize( Valid::configJson() );
 
 		$this->assertSame(
 			'en',
@@ -64,31 +66,55 @@ class ConfigDeserializerTest extends TestCase {
 	}
 
 	public function testInvalidJsonReturnsEmptyConfig(): void {
-		// TODO: implement validator
-	}
+		$deserializer = WikibaseExportExtension::getInstance()->newConfigDeserializer();
 
-	private function createValidConfig(): string {
-		return '
-{
-    "entityLabelLanguage": "en",
-    "chooseSubjectsLabel": "choose foo",
-    "filterSubjectsLabel": "filter foo",
-    "defaultSubjects": [
-        "Q1",
-        "Q2"
-    ],
-    "defaultStartYear": 2010,
-    "defaultEndYear": 2022,
-    "startYearPropertyId": "P1",
-    "endYearPropertyId": "P2",
-    "pointInTimePropertyId": "P3",
-    "properties": [
-        "P4",
-        "P5"
-    ],
-    "introText": "Lorem ipsum"
-}
-';
+		$config = $deserializer->deserialize( '}{' );
+		$emptyConfig = new Config();
+
+		$this->assertSame(
+			$emptyConfig->entityLabelLanguage,
+			$config->entityLabelLanguage
+		);
+		$this->assertSame(
+			$emptyConfig->chooseSubjectsLabel,
+			$config->chooseSubjectsLabel
+		);
+		$this->assertSame(
+			$emptyConfig->filterSubjectsLabel,
+			$config->filterSubjectsLabel
+		);
+		$this->assertSame(
+			$emptyConfig->defaultSubjects,
+			$config->defaultSubjects
+		);
+		$this->assertSame(
+			$emptyConfig->defaultStartYear,
+			$config->defaultStartYear
+		);
+		$this->assertSame(
+			$emptyConfig->defaultEndYear,
+			$config->defaultEndYear
+		);
+		$this->assertSame(
+			$emptyConfig->startYearPropertyId,
+			$config->startYearPropertyId
+		);
+		$this->assertSame(
+			$emptyConfig->endYearPropertyId,
+			$config->endYearPropertyId
+		);
+		$this->assertSame(
+			$emptyConfig->pointInTimePropertyId,
+			$config->pointInTimePropertyId
+		);
+		$this->assertSame(
+			$emptyConfig->properties,
+			$config->properties
+		);
+		$this->assertSame(
+			$emptyConfig->introText,
+			$config->introText
+		);
 	}
 
 }

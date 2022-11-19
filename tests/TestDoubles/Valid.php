@@ -22,4 +22,28 @@ class Valid {
 		);
 	}
 
+	public static function configJson(): string {
+		return '
+{
+    "entityLabelLanguage": "en",
+    "chooseSubjectsLabel": "choose foo",
+    "filterSubjectsLabel": "filter foo",
+    "defaultSubjects": [
+        "Q1",
+        "Q2"
+    ],
+    "defaultStartYear": 2010,
+    "defaultEndYear": 2022,
+    "startYearPropertyId": "P1",
+    "endYearPropertyId": "P2",
+    "pointInTimePropertyId": "P3",
+    "properties": [
+        "P4",
+        "P5"
+    ],
+    "introText": "Lorem ipsum"
+}
+';
+	}
+
 }

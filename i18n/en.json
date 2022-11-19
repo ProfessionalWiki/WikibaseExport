@@ -21,5 +21,7 @@
 	"wikibase-export-formats-heading": "Choose format",
 	"wikibase-export-format-csv-wide": "CSV (Wide)",
 	"wikibase-export-format-csv-long": "CSV (Long)",
-	"wikibase-export-download": "Download"
+	"wikibase-export-download": "Download",
+
+	"wikibase-export-config-invalid": "Your changes were not saved. It contains the following {{PLURAL:$1|error|errors}}:"
 }

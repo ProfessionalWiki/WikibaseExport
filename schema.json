@@ -1,0 +1,52 @@
+{
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"entityLabelLanguage": {
+			"type": "string"
+		},
+		"chooseSubjectsLabel": {
+			"type": "string"
+		},
+		"filterSubjectsLabel": {
+			"type": "string"
+		},
+		"defaultSubjects": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"pattern": "^[qQ][1-9]\\d{0,9}$"
+			}
+		},
+		"defaultStartYear": {
+			"type": "integer"
+		},
+		"defaultEndYear": {
+			"type": "integer"
+		},
+		"startYearPropertyId": {
+			"$ref": "#/$defs/property"
+		},
+		"endYearPropertyId": {
+			"$ref": "#/$defs/property"
+		},
+		"pointInTimePropertyId": {
+			"$ref": "#/$defs/property"
+		},
+		"properties": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/property"
+			}
+		},
+		"introText": {
+			"type": "string"
+		}
+	},
+	"$defs": {
+		"property": {
+			"type": "string",
+			"pattern": "^[pP][1-9]\\d{0,9}$"
+		}
+	}
+}

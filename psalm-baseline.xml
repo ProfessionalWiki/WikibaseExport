@@ -6,4 +6,15 @@
       <code>$params[self::PARAM_SUBJECT_IDS]</code>
     </MixedArgument>
   </file>
+  <file src="src/Persistence/ConfigJsonValidator.php">
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>( new ErrorFormatter() )-&gt;format( $error, false )</code>
+      <code>string[]</code>
+    </MixedReturnTypeCoercion>
+  </file>
+  <file src="src/Presentation/ConfigJsonErrorFormatter.php">
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$key</code>
+    </MixedArgumentTypeCoercion>
+  </file>
 </files>

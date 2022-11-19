@@ -21,5 +21,7 @@
 	"wikibase-export-formats-heading": "This is a section header.",
 	"wikibase-export-format-csv-wide": "This is the text of an option.",
 	"wikibase-export-format-csv-long": "This is the text of an option",
-	"wikibase-export-download": "This is the text on a button."
+	"wikibase-export-download": "This is the text on a button.",
+
+	"wikibase-export-config-invalid": "Error message shown when attempting to save invalid configuration on MediaWiki:WikibaseExport"
 }
