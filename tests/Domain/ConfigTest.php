@@ -50,50 +50,7 @@ class ConfigTest extends TestCase {
 
 		$combined = $original->combine( $new );
 
-		$this->assertSame(
-			$original->entityLabelLanguage,
-			$combined->entityLabelLanguage
-		);
-		$this->assertSame(
-			$original->chooseSubjectsLabel,
-			$combined->chooseSubjectsLabel
-		);
-		$this->assertSame(
-			$original->filterSubjectsLabel,
-			$combined->filterSubjectsLabel
-		);
-		$this->assertSame(
-			$original->defaultSubjects,
-			$combined->defaultSubjects
-		);
-		$this->assertSame(
-			$original->defaultStartYear,
-			$combined->defaultStartYear
-		);
-		$this->assertSame(
-			$original->defaultEndYear,
-			$combined->defaultEndYear
-		);
-		$this->assertSame(
-			$original->startYearPropertyId,
-			$combined->startYearPropertyId
-		);
-		$this->assertSame(
-			$original->endYearPropertyId,
-			$combined->endYearPropertyId
-		);
-		$this->assertSame(
-			$original->pointInTimePropertyId,
-			$combined->pointInTimePropertyId
-		);
-		$this->assertSame(
-			$original->properties,
-			$combined->properties
-		);
-		$this->assertSame(
-			$original->introText,
-			$combined->introText
-		);
+		$this->assertEquals( $original, $combined );
 	}
 
 	public function testOriginalValuesAreReplacedWhenCombined(): void {
@@ -102,50 +59,7 @@ class ConfigTest extends TestCase {
 
 		$combined = $original->combine( $new );
 
-		$this->assertSame(
-			$new->entityLabelLanguage,
-			$combined->entityLabelLanguage
-		);
-		$this->assertSame(
-			$new->chooseSubjectsLabel,
-			$combined->chooseSubjectsLabel
-		);
-		$this->assertSame(
-			$new->filterSubjectsLabel,
-			$combined->filterSubjectsLabel
-		);
-		$this->assertSame(
-			$new->defaultSubjects,
-			$combined->defaultSubjects
-		);
-		$this->assertSame(
-			$new->defaultStartYear,
-			$combined->defaultStartYear
-		);
-		$this->assertSame(
-			$new->defaultEndYear,
-			$combined->defaultEndYear
-		);
-		$this->assertSame(
-			$new->startYearPropertyId,
-			$combined->startYearPropertyId
-		);
-		$this->assertSame(
-			$new->endYearPropertyId,
-			$combined->endYearPropertyId
-		);
-		$this->assertSame(
-			$new->pointInTimePropertyId,
-			$combined->pointInTimePropertyId
-		);
-		$this->assertSame(
-			$new->properties,
-			$combined->properties
-		);
-		$this->assertSame(
-			$new->introText,
-			$combined->introText
-		);
+		$this->assertEquals( $new, $combined );
 	}
 
 }
