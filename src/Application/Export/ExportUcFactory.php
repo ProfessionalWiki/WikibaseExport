@@ -11,6 +11,7 @@ use ProfessionalWiki\WikibaseExport\Application\TimeQualifierStatementGrouper;
 use ProfessionalWiki\WikibaseExport\Application\TimeRange;
 use ProfessionalWiki\WikibaseExport\Persistence\IdListEntitySource;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
+use RuntimeException;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -54,6 +55,10 @@ class ExportUcFactory {
 
 	private function newTimeQualifierProperties(): TimeQualifierProperties {
 		$config = WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig();
+
+		if ( !$config->hasRequiredValues() ) {
+			throw new RuntimeException( 'Config is incomplete.' );
+		}
 
 		return new TimeQualifierProperties(
 			pointInTime: new NumericPropertyId( $config->pointInTimePropertyId ),

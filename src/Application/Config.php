@@ -41,4 +41,10 @@ class Config {
 		);
 	}
 
+	public function hasRequiredValues(): bool {
+		return $this->startYearPropertyId !== null &&
+			$this->endYearPropertyId !== null &&
+			$this->pointInTimePropertyId !== null;
+	}
+
 }
