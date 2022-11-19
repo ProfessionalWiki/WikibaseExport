@@ -6,6 +6,6 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
 interface ExportPresenter {
 
-	public function present( MappedEntity $entity ): void;
+	public function presentEntity( MappedEntity $entity ): void;
 
 }

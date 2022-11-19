@@ -25,7 +25,7 @@ class ExportUseCase {
 				break;
 			}
 
-			$this->presenter->present( $this->entityMapper->map( $entity ) );
+			$this->presenter->presentEntity( $this->entityMapper->map( $entity ) );
 		}
 	}
 

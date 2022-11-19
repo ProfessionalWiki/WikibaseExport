@@ -41,10 +41,9 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->assertSame( 200, $response->getStatusCode() );
 		$this->assertSame( 'attachment; filename=export.csv;', $response->getHeaderLine( 'Content-Disposition' ) );
 
+		// TODO: setup fake data and test it is included
 		$this->assertSame(
 			<<<CSV
-foo,bar
-123,456
 CSV
 ,
 			$response->getBody()->getContents()

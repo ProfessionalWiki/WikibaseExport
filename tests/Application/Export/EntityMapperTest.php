@@ -50,8 +50,8 @@ class EntityMapperTest extends TestCase {
 
 		$this->assertEquals(
 			[
-				new MappedStatement( 'P2', '222' ),
-				new MappedStatement( 'P4', '444' ),
+				'P2' => [ '222' ],
+				'P4' => [ '444' ],
 			],
 			$mapper->map(
 				new Item(
@@ -64,7 +64,7 @@ class EntityMapperTest extends TestCase {
 						new Statement( new PropertyValueSnak( new NumericPropertyId( 'P5' ), new StringValue( '555' ) ) ),
 					)
 				)
-			)->getYear( StubStatementGrouper::YEAR )->statements
+			)->getYear( StubStatementGrouper::YEAR )->getAllValuesPerProperty()
 		);
 	}
 
@@ -77,8 +77,8 @@ class EntityMapperTest extends TestCase {
 
 		$this->assertEquals(
 			[
-				new MappedStatement( 'P1', 'foo1' ),
-				new MappedStatement( 'P2', 'bar' ),
+				'P1' => [ 'foo1' ],
+				'P2' => [ 'bar' ],
 			],
 			$mapper->map(
 				new Item(
@@ -89,7 +89,7 @@ class EntityMapperTest extends TestCase {
 						new Statement( new PropertyValueSnak( new NumericPropertyId( 'P2' ), new StringValue( 'bar' ) ) ),
 					)
 				)
-			)->getYear( StubStatementGrouper::YEAR )->statements
+			)->getYear( StubStatementGrouper::YEAR )->getAllValuesPerProperty()
 		);
 	}
 

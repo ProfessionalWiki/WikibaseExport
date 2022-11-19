@@ -6,11 +6,11 @@ namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
+use MediaWiki\Rest\Stream;
 use MediaWiki\Rest\StringStream;
-use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUcFactory;
-use ProfessionalWiki\WikibaseExport\Presentation\NullPresenter;
+use ProfessionalWiki\WikibaseExport\Presentation\WideCsvPresenter;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
@@ -38,12 +38,20 @@ class ExportApi extends SimpleHandler {
 		$response = $this->getResponseFactory()->create();
 		$response->setHeader( 'Content-Disposition', 'attachment; filename=export.csv;' );
 		$response->setHeader( 'Content-Type', 'text/csv' );
-		$response->setBody( new StringStream( "foo,bar\n123,456" ) );
+		$response->setBody( new Stream( $presenter->getStream() ) );
+
 		return $response;
 	}
 
-	private function newPresenter(): ExportPresenter {
-		return new NullPresenter(); // TODO: use format
+	private function newPresenter(): WideCsvPresenter {
+		// TODO: use format
+
+		$params = $this->getValidatedParams();
+
+		return new WideCsvPresenter(
+			years: range( (int)$params[self::PARAM_START_YEAR], (int)$params[self::PARAM_END_YEAR] ),
+			properties: $params[self::PARAM_STATEMENT_PROPERTY_IDS]
+		);
 	}
 
 	private function buildExportRequest(): ExportRequest {

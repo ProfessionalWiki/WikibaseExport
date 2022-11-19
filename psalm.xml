@@ -10,23 +10,21 @@
     <projectFiles>
         <directory name="src" />
 		<ignoreFiles>
-			<file name="src/EntryPoints/MediaWikiHooks.php" />
+			<directory name="src/EntryPoints" />
 			<file name="src/Persistence/ConfigDeserializer.php" />
 			<file name="src/Persistence/ConfigJsonValidator.php" />
 		</ignoreFiles>
     </projectFiles>
 
-	<stubs>
-		<file name="src/Persistence/ConfigDeserializer.php" />
-		<file name="src/Persistence/ConfigJsonValidator.php" />
-	</stubs>
-
 	<extraFiles>
+		<directory name="src/EntryPoints" />
+		<directory name="src/Persistence" />
 		<directory name="../../includes" />
 		<directory name="../../tests/phpunit" />
 		<directory name="../../vendor/wikimedia" />
 		<directory name="../../vendor/data-values" />
 		<directory name="../../vendor/psr" />
+		<directory name="../../vendor/guzzlehttp" />
 		<directory name="../../vendor/phpunit/phpunit" />
 		<directory name="../../extensions/Wikibase" />
 	</extraFiles>
