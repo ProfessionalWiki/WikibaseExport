@@ -10,6 +10,7 @@ use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierStatementGrouper;
 use ProfessionalWiki\WikibaseExport\Application\TimeRange;
 use ProfessionalWiki\WikibaseExport\Persistence\IdListEntitySource;
+use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -52,10 +53,12 @@ class ExportUcFactory {
 	}
 
 	private function newTimeQualifierProperties(): TimeQualifierProperties {
+		$config = WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig();
+
 		return new TimeQualifierProperties(
-			pointInTime: new NumericPropertyId( 'P1' ), // TODO: get from config
-			startTime: new NumericPropertyId( 'P1' ), // TODO: get from config
-			endTime: new NumericPropertyId( 'P1' ), // TODO: get from config
+			pointInTime: new NumericPropertyId( $config->pointInTimePropertyId ),
+			startTime: new NumericPropertyId( $config->startYearPropertyId ),
+			endTime: new NumericPropertyId( $config->endYearPropertyId ),
 		);
 	}
 
