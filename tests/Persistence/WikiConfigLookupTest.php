@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Persistence;
 
 use ProfessionalWiki\WikibaseExport\Domain\Config;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 
@@ -67,7 +68,7 @@ class WikiConfigLookupTest extends WikibaseExportIntegrationTest {
 	}
 
 	public function testSavedPageConfig(): void {
-		$this->editConfigPage( $this->createValidConfig() );
+		$this->editConfigPage( Valid::configJson() );
 		$lookup = WikibaseExportExtension::getInstance()->newWikiConfigLookup();
 
 		$config = $lookup->getConfig();
@@ -116,30 +117,6 @@ class WikiConfigLookupTest extends WikibaseExportIntegrationTest {
 			'Lorem ipsum',
 			$config->introText
 		);
-	}
-
-	private function createValidConfig(): string {
-		return '
-{
-    "entityLabelLanguage": "en",
-    "chooseSubjectsLabel": "choose foo",
-    "filterSubjectsLabel": "filter foo",
-    "defaultSubjects": [
-        "Q1",
-        "Q2"
-    ],
-    "defaultStartYear": 2010,
-    "defaultEndYear": 2022,
-    "startYearPropertyId": "P1",
-    "endYearPropertyId": "P2",
-    "pointInTimePropertyId": "P3",
-    "properties": [
-        "P4",
-        "P5"
-    ],
-    "introText": "Lorem ipsum"
-}
-';
 	}
 
 }

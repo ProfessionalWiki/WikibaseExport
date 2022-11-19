@@ -33,14 +33,14 @@ class ConfigDeserializer {
 			$configArray['entityLabelLanguage'] ?? null,
 			$configArray['chooseSubjectsLabel'] ?? null,
 			$configArray['filterSubjectsLabel'] ?? null,
-			$configArray['defaultSubjects'] ?? [],
+			$configArray['defaultSubjects'] ?? null,
 			$configArray['defaultStartYear'] ?? null,
 			$configArray['defaultEndYear'] ?? null,
 			$configArray['startYearPropertyId'] ?? null,
 			$configArray['endYearPropertyId'] ?? null,
 			$configArray['pointInTimePropertyId'] ?? null,
-			$configArray['properties'] ?? [],
-			$configArray['introText'] ?? '',
+			$configArray['properties'] ?? null,
+			$configArray['introText'] ?? null,
 		);
 	}
 

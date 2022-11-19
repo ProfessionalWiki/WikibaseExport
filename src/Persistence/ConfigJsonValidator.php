@@ -4,25 +4,66 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Persistence;
 
+use Opis\JsonSchema\Errors\ErrorFormatter;
+use Opis\JsonSchema\Errors\ValidationError;
+use Opis\JsonSchema\Validator;
+use RuntimeException;
+
 class ConfigJsonValidator {
 
+	/**
+	 * @var string[]
+	 */
+	private array $errors = [];
+
 	public static function newInstance(): self {
-		// TODO load schema
+		$json = file_get_contents( __DIR__ . '/../../schema.json' );
 
-		return new self();
+		if ( !is_string( $json ) ) {
+			throw new RuntimeException( 'Could not obtain JSON Schema' );
+		}
+
+		$schema = json_decode( $json );
+
+		if ( !is_object( $schema ) ) {
+			throw new RuntimeException( 'Failed to deserialize JSON Schema' );
+		}
+
+		return new self( $schema );
 	}
 
-	private function __construct() {
+	private function __construct(
+		private object $jsonSchema
+	) {
 	}
 
-	public function validate( string $configJson ): bool {
-		// TOOD: implement validation
-		return true;
+	public function validate( string $config ): bool {
+		$validator = new Validator();
+		$validator->setMaxErrors( 10 );
+
+		$validationResult = $validator->validate( json_decode( $config ), $this->jsonSchema );
+
+		$error = $validationResult->error();
+
+		if ( $error !== null ) {
+			$this->errors = $this->formatErrors( $error );
+		}
+
+		return $error === null;
 	}
 
-	public function getError(): string {
-		// TODO: return message string
-		return '';
+	/**
+	 * @return string[]
+	 */
+	public function getErrors(): array {
+		return $this->errors;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private function formatErrors( ValidationError $error ): array {
+		return ( new ErrorFormatter() )->format( $error, false );
 	}
 
 }

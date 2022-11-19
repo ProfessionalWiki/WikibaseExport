@@ -1,0 +1,19 @@
+{
+	"entityLabelLanguage": "en",
+	"chooseSubjectsLabel": "choose foo",
+	"filterSubjectsLabel": "filter foo",
+	"defaultSubjects": [
+		"Q1",
+		"Q2"
+	],
+	"defaultStartYear": 2010,
+	"defaultEndYear": 2022,
+	"startYearPropertyId": "P100",
+	"endYearPropertyId": "P200",
+	"pointInTimePropertyId": "P300",
+	"properties": [
+		"P1",
+		"P2"
+	],
+	"introText": "Lorem ipsum"
+}
