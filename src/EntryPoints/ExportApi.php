@@ -97,13 +97,17 @@ class ExportApi extends SimpleHandler {
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
-				ParamValidator::PARAM_ISMULTI => true
+				ParamValidator::PARAM_ISMULTI => true,
+				ParamValidator::PARAM_ISMULTI_LIMIT1 => 256,
+				ParamValidator::PARAM_ISMULTI_LIMIT2 => 1024,
 			],
 			self::PARAM_STATEMENT_PROPERTY_IDS => [
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
-				ParamValidator::PARAM_ISMULTI => true
+				ParamValidator::PARAM_ISMULTI => true,
+				ParamValidator::PARAM_ISMULTI_LIMIT1 => 256,
+				ParamValidator::PARAM_ISMULTI_LIMIT2 => 1024,
 			],
 			self::PARAM_START_YEAR => [
 				self::PARAM_SOURCE => 'query',
