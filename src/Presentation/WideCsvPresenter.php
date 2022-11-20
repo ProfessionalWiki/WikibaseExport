@@ -25,17 +25,19 @@ class WideCsvPresenter implements ExportPresenter {
 		private array $years,
 		private array $properties
 	) {
+		arsort( $this->years );
 	}
 
 	public function presentEntity( MappedEntity $entity ): void {
 		$rowValues = [ $entity->id ];
 
 		foreach ( $this->properties as $propertyId ) {
-			// TODO: handle all years
-			$rowValues[] = implode(
-				"\n",
-				$entity->getYear( $this->years[0] )->getValuesForProperty( $propertyId )
-			);
+			foreach ( $this->years as $year ) {
+				$rowValues[] = implode(
+					"\n",
+					$entity->getYear( $year )->getValuesForProperty( $propertyId )
+				);
+			}
 		}
 
 		$this->writeRow( $rowValues );
@@ -67,7 +69,30 @@ class WideCsvPresenter implements ExportPresenter {
 	}
 
 	private function writeHeader(): void {
-		fputcsv( $this->stream, array_merge( [ 'ID' ], $this->properties ) ); // TODO: labels instead of IDs
+		fputcsv(
+			$this->stream,
+			array_merge(
+				[ 'ID' ],
+				...$this->buildHeadersForEachProperty()
+			)
+		);
+	}
+
+	/**
+	 * @return array<mixed, string[]>
+	 */
+	private function buildHeadersForEachProperty(): array {
+		return array_map(
+			fn( string $propertyId ) => array_map(
+				fn( int $year ) => $this->buildPropertyHeader( $propertyId, $year ),
+				$this->years
+			),
+			$this->properties
+		);
+	}
+
+	private function buildPropertyHeader( string $propertyId, int $year ): string {
+		return "$propertyId $year";
 	}
 
 	/**
