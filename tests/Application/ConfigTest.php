@@ -62,12 +62,4 @@ class ConfigTest extends TestCase {
 		$this->assertEquals( $new, $combined );
 	}
 
-	public function testRequiredValuesArePresent(): void {
-		$this->assertTrue( $this->createOriginalConfig()->hasRequiredValues() );
-	}
-
-	public function testRequiredValuesAreMissing(): void {
-		$this->assertFalse( ( new Config() )->hasRequiredValues() );
-	}
-
 }

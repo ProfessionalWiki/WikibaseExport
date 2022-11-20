@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application;
 
+use RuntimeException;
+
 class Config {
 
 	/**
@@ -41,10 +43,28 @@ class Config {
 		);
 	}
 
-	public function hasRequiredValues(): bool {
-		return $this->startYearPropertyId !== null &&
-			$this->endYearPropertyId !== null &&
-			$this->pointInTimePropertyId !== null;
+	public function getStartYearPropertyId(): string {
+		if ( $this->startYearPropertyId === null ) {
+			throw new RuntimeException( 'Config is incomplete' );
+		}
+
+		return $this->startYearPropertyId;
+	}
+
+	public function getEndYearPropertyId(): string {
+		if ( $this->endYearPropertyId === null ) {
+			throw new RuntimeException( 'Config is incomplete' );
+		}
+
+		return $this->endYearPropertyId;
+	}
+
+	public function getPointInTimePropertyId(): string {
+		if ( $this->pointInTimePropertyId === null ) {
+			throw new RuntimeException( 'Config is incomplete' );
+		}
+
+		return $this->pointInTimePropertyId;
 	}
 
 }
