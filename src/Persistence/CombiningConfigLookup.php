@@ -7,26 +7,33 @@ namespace ProfessionalWiki\WikibaseExport\Persistence;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use WMDE\Clock\Clock;
 
+/**
+ * Combines these config sources, with the latter overriding the former:
+ * * Defaults
+ * * $baseConfig (LocalSettings.php)
+ * * ConfigLookup (MediaWiki:WikibaseExport)
+ */
 class CombiningConfigLookup implements ConfigLookup {
 
 	public function __construct(
 		private string $baseConfig,
 		private ConfigDeserializer $deserializer,
-		private WikiConfigLookup $wikiConfigLookup,
-		private bool $enableWikiRules,
+		private ConfigLookup $configLookup,
+		private bool $enableWikiConfig,
 		private Clock $clock
 	) {
 	}
 
 	public function getConfig(): Config {
-		$config = $this->deserializer->deserialize( $this->baseConfig )
-			->combine( $this->createDefaultConfig() );
+		$config = $this->createDefaultConfig()->combine(
+			$this->deserializer->deserialize( $this->baseConfig )
+		);
 
-		if ( !$this->enableWikiRules ) {
+		if ( !$this->enableWikiConfig ) {
 			return $config;
 		}
 
-		return $config->combine( $this->wikiConfigLookup->getConfig() );
+		return $config->combine( $this->configLookup->getConfig() );
 	}
 
 	private function createDefaultConfig(): Config {

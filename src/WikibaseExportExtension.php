@@ -53,8 +53,8 @@ class WikibaseExportExtension {
 		return new CombiningConfigLookup(
 			baseConfig: (string)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExport' ),
 			deserializer: $this->newConfigDeserializer(),
-			wikiConfigLookup: $this->newWikiConfigLookup(),
-			enableWikiRules: (bool)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' ),
+			configLookup: $this->newWikiConfigLookup(),
+			enableWikiConfig: (bool)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' ),
 			clock: new SystemClock()
 		);
 	}
