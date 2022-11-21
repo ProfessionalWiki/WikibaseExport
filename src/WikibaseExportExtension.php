@@ -20,6 +20,7 @@ use ValueFormatters\FormatterOptions;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Repo\WikibaseRepo;
+use WMDE\Clock\SystemClock;
 
 /**
  * Top level factory for the WikibaseExportExtension extension
@@ -53,7 +54,8 @@ class WikibaseExportExtension {
 			baseConfig: (string)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExport' ),
 			deserializer: $this->newConfigDeserializer(),
 			wikiConfigLookup: $this->newWikiConfigLookup(),
-			enableWikiRules: (bool)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' )
+			enableWikiRules: (bool)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' ),
+			clock: new SystemClock()
 		);
 	}
 
