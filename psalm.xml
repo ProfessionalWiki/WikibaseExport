@@ -26,6 +26,7 @@
 		<directory name="../../vendor/psr" />
 		<directory name="../../vendor/guzzlehttp" />
 		<directory name="../../vendor/phpunit/phpunit" />
+		<directory name="../../vendor/wmde" />
 		<directory name="../../extensions/Wikibase" />
 	</extraFiles>
 
