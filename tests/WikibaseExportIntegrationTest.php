@@ -14,4 +14,12 @@ class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+//	private function saveEntity( EntityDocument $entity ): void {
+//		WikibaseRepo::getEntityStore()->saveEntity(
+//			entity: $entity,
+//			summary: __CLASS__,
+//			user: self::getTestSysop()->getUser()
+//		);
+//	}
+
 }

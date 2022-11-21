@@ -7,8 +7,8 @@ namespace ProfessionalWiki\WikibaseExport\Tests\Application\Export;
 use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
-use ProfessionalWiki\WikibaseExport\Application\Export\MappedStatement;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FakeSnakFormatter;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubStatementGrouper;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -17,6 +17,7 @@ use Wikibase\DataModel\Services\Statement\Filter\NullStatementFilter;
 use Wikibase\DataModel\Services\Statement\Filter\PropertySetStatementFilter;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
+use Wikibase\DataModel\Statement\StatementFilter;
 use Wikibase\DataModel\Statement\StatementList;
 
 /**
@@ -27,26 +28,24 @@ use Wikibase\DataModel\Statement\StatementList;
 class EntityMapperTest extends TestCase {
 
 	public function testMapsId(): void {
-		$mapper = new EntityMapper(
-			statementFilter: new NullStatementFilter(),
-			statementGrouper: new StubStatementGrouper(),
-			statementMapper: new StatementMapper()
-		);
-
 		$this->assertSame(
 			'Q42',
-			$mapper->map(
+			$this->newMapper()->map(
 				new Item( new ItemId( 'Q42' ) )
 			)->id
 		);
 	}
 
-	public function testUsesFilter(): void {
-		$mapper = new EntityMapper(
-			statementFilter: new PropertySetStatementFilter( [ 'P4', 'P2' ] ),
+	private function newMapper( StatementFilter $statementFilter = null ): EntityMapper {
+		return new EntityMapper(
+			statementFilter: $statementFilter ?? new NullStatementFilter(),
 			statementGrouper: new StubStatementGrouper(),
-			statementMapper: new StatementMapper()
+			statementMapper: new StatementMapper( new FakeSnakFormatter() )
 		);
+	}
+
+	public function testUsesFilter(): void {
+		$mapper = $this->newMapper( statementFilter: new PropertySetStatementFilter( [ 'P4', 'P2' ] ) );
 
 		$this->assertEquals(
 			[
@@ -69,18 +68,12 @@ class EntityMapperTest extends TestCase {
 	}
 
 	public function testMapsMainValues(): void {
-		$mapper = new EntityMapper(
-			statementFilter: new NullStatementFilter(),
-			statementGrouper: new StubStatementGrouper(),
-			statementMapper: new StatementMapper()
-		);
-
 		$this->assertEquals(
 			[
 				'P1' => [ 'foo1' ],
 				'P2' => [ 'bar' ],
 			],
-			$mapper->map(
+			$this->newMapper()->map(
 				new Item(
 					id: new ItemId( 'Q42' ),
 					statements: new StatementList(

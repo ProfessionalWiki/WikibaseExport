@@ -6,13 +6,10 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
 use ProfessionalWiki\WikibaseExport\Application\EntitySource;
 use ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter;
-use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierStatementGrouper;
 use ProfessionalWiki\WikibaseExport\Application\TimeRange;
 use ProfessionalWiki\WikibaseExport\Persistence\IdListEntitySource;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
-use RuntimeException;
-use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\Repo\WikibaseRepo;
 
 class ExportUcFactory {
@@ -36,7 +33,7 @@ class ExportUcFactory {
 	}
 
 	private function newEntityMapper( ExportRequest $request ): EntityMapper {
-		$timeQualifierProperties = $this->newTimeQualifierProperties();
+		$timeQualifierProperties = WikibaseExportExtension::getInstance()->newTimeQualifierProperties();
 
 		return new EntityMapper(
 			statementFilter: new ExportStatementFilter(
@@ -49,21 +46,7 @@ class ExportUcFactory {
 				startYear: $request->startYear,
 				endYear: $request->endYear
 			),
-			statementMapper: new StatementMapper()
-		);
-	}
-
-	private function newTimeQualifierProperties(): TimeQualifierProperties {
-		$config = WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig();
-
-		if ( !$config->hasRequiredValues() ) {
-			throw new RuntimeException( 'Config is incomplete.' );
-		}
-
-		return new TimeQualifierProperties(
-			pointInTime: new NumericPropertyId( $config->pointInTimePropertyId ),
-			startTime: new NumericPropertyId( $config->startYearPropertyId ),
-			endTime: new NumericPropertyId( $config->endYearPropertyId ),
+			statementMapper: WikibaseExportExtension::getInstance()->newStatementMapper()
 		);
 	}
 
