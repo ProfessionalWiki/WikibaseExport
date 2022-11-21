@@ -19,6 +19,7 @@ class SpecialWikibaseExport extends SpecialPage {
 		$output = $this->getOutput();
 		$output->enableOOUI();
 		$output->addModules( 'ext.wikibase.export' );
+		$output->addHTML( $this->getIntroText() );
 		$output->addHTML( '<div id="wikibase-export"></div>' );
 		$output->addJsConfigVars( $this->getJsConfigVars() );
 	}
@@ -29,6 +30,17 @@ class SpecialWikibaseExport extends SpecialPage {
 
 	public function getDescription(): string {
 		return $this->msg( 'special-wikibase-export' )->escaped();
+	}
+
+	private function getIntroText(): string {
+		$output = $this->getOutput();
+
+		return '<div class="container">' .
+			$output->msg(
+				'wikibase-export-intro',
+				$output->msg( 'wikibase-export-download' )->text()
+			)->text() .
+			'</div>';
 	}
 
 	/**
