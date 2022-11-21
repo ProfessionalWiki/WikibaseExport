@@ -11,11 +11,28 @@ $( function () {
 
 			this.$wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
 
-			this.$wikibaseExport.append( this.createSubjectsSection().$element );
-			this.$wikibaseExport.append( this.createFiltersSection().$element );
-			this.$wikibaseExport.append( this.createStatementsSection().$element );
-			this.$wikibaseExport.append( this.createFormatsSection().$element );
-			this.$wikibaseExport.append( this.createActions().$element );
+			this.$wikibaseExport.append( this.createForm().$element );
+		},
+
+		/**
+		 * @return {OO.ui.FormLayout}
+		 */
+		createForm: function () {
+			this.form = new OO.ui.FormLayout( {
+				id: 'wikibase-export-form',
+				action: '',
+				method: 'get'
+			} );
+
+			this.form.addItems( [
+				this.createSubjectsSection(),
+				this.createFiltersSection(),
+				this.createStatementsSection(),
+				this.createFormatsSection(),
+				this.createActions()
+			] );
+
+			return this.form;
 		},
 
 		/**
@@ -100,14 +117,28 @@ $( function () {
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createFiltersSection: function () {
+			const widget = this;
+			const yearDiff = 100;
+
 			this.startYear = new OO.ui.NumberInputWidget( {
 				id: 'startYear',
-				value: this.config.defaultStartYear
+				value: this.config.defaultStartYear,
+				required: true
 			} );
 
 			this.endYear = new OO.ui.NumberInputWidget( {
 				id: 'endYear',
-				value: this.config.defaultEndYear
+				value: this.config.defaultEndYear,
+				min: this.config.defaultStartYear,
+				max: this.config.defaultStartYear + yearDiff,
+				required: true
+			} );
+
+			this.startYear.on( 'change', function () {
+				const startYear = widget.startYear.getValue();
+				if ( widget.startYear.validate( startYear ) ) {
+					widget.endYear.setRange( startYear, parseInt( startYear ) + yearDiff );
+				}
 			} );
 
 			return this.createSection(
@@ -234,7 +265,7 @@ $( function () {
 		 * @return {OO.ui.ButtonWidget}
 		 */
 		createActions: function () {
-			const submitButton = new OO.ui.ButtonWidget( {
+			const submitButton = new OO.ui.ButtonInputWidget( {
 				id: 'download',
 				label: mw.msg( 'wikibase-export-download' ),
 				flags: [
@@ -246,7 +277,9 @@ $( function () {
 			const widget = this;
 
 			submitButton.on( 'click', function () {
-				window.location = widget.buildDownloadUrl();
+				if ( widget.form.$element[ 0 ].reportValidity() ) {
+					window.location = widget.buildDownloadUrl();
+				}
 			} );
 
 			return submitButton;
