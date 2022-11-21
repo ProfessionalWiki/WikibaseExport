@@ -10,6 +10,7 @@
 	"special-wikibase-export": "Wikibase Export",
 	"special-wikibase-export-config": "Wikibase Export Config",
 
+	"wikibase-export-intro": "First, choose the items for which you need data. Second, choose the time range for which you need the data. Third, choose the variables you need in the CSV file. Finally, click \"$1\" to retrieve the CSV file.",
 	"wikibase-export-subjects-heading": "Choose companies",
 	"wikibase-export-subjects-placeholder": "Search companies",
 	"wikibase-export-filters-heading": "Choose time range",
