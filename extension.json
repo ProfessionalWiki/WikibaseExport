@@ -94,7 +94,10 @@
 				"wikibase-export-formats-heading",
 				"wikibase-export-format-csv-wide",
 				"wikibase-export-format-csv-long",
-				"wikibase-export-download"
+				"wikibase-export-download",
+				"wikibase-export-year-validation-empty",
+				"wikibase-export-year-validation-smaller",
+				"wikibase-export-year-validation-larger"
 			]
 		}
 	},

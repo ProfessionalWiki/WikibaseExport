@@ -8,6 +8,7 @@ $( function () {
 	mw.WikibaseExport = {
 		init: function () {
 			this.config = mw.config.get( 'wgWikibaseExport' );
+			this.yearRange = 100;
 
 			this.$wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
 
@@ -117,9 +118,6 @@ $( function () {
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createFiltersSection: function () {
-			const widget = this;
-			const yearDiff = 100;
-
 			this.startYear = new OO.ui.NumberInputWidget( {
 				id: 'startYear',
 				value: this.config.defaultStartYear,
@@ -130,16 +128,13 @@ $( function () {
 				id: 'endYear',
 				value: this.config.defaultEndYear,
 				min: this.config.defaultStartYear,
-				max: this.config.defaultStartYear + yearDiff,
+				max: this.config.defaultStartYear + this.yearRange,
 				required: true
 			} );
 
-			this.startYear.on( 'change', function () {
-				const startYear = widget.startYear.getValue();
-				if ( widget.startYear.validate( startYear ) ) {
-					widget.endYear.setRange( startYear, parseInt( startYear ) + yearDiff );
-				}
-			} );
+			this.startYear.on( 'change', this.onChangeStartYear.bind( this ) );
+			this.endYear.on( 'change', this.onChangeEndYear.bind( this ) );
+			this.endYear.$input.on( 'focus', this.onFocusEndYear.bind( this ) );
 
 			return this.createSection(
 				'filters',
@@ -153,6 +148,80 @@ $( function () {
 					} )
 				]
 			);
+		},
+
+		onChangeStartYear: function () {
+			const startYear = this.startYear.getValue();
+			console.log('startYearOnChange',startYear);
+			if ( this.startYear.validate( startYear ) ) {
+				this.endYear.setRange( startYear, parseInt( startYear ) + this.yearRange );
+			}
+			this.validateStartYear();
+			this.validateEndYear( false );
+		},
+
+		validateStartYear: function () {
+			const input = this.startYear.$input[ 0 ];
+			const validityState = input.validity;
+
+			if ( validityState.valueMissing ) {
+				input.setCustomValidity(
+					mw.msg( 'wikibase-export-year-validation-empty', mw.msg( 'wikibase-export-start-year' ) )
+				);
+			} else {
+				input.setCustomValidity( '' );
+			}
+
+			input.reportValidity();
+		},
+
+		onFocusEndYear: function () {
+			console.log('onFocusEndYear',this.endYear.getValue());
+			this.validateEndYear( true );
+		},
+
+		onChangeEndYear: function () {
+			console.log('onChangeEndYear',this.endYear.getValue());
+			this.validateEndYear( true );
+		},
+
+		/**
+		 * @param {boolean} showError
+		 */
+		validateEndYear: function ( showError ) {
+			const input = this.endYear.$input[ 0 ];
+			const validityState = input.validity;
+
+			console.log('validityState',validityState);
+
+			if ( validityState.valueMissing ) {
+				input.setCustomValidity(
+					mw.msg( 'wikibase-export-year-validation-empty', mw.msg( 'wikibase-export-end-year' ) )
+				);
+			} else if ( validityState.rangeUnderflow ) {
+				input.setCustomValidity(
+					mw.msg(
+						'wikibase-export-year-validation-smaller',
+						mw.msg( 'wikibase-export-end-year' ),
+						mw.msg( 'wikibase-export-start-year' )
+					)
+				);
+			} else if ( validityState.rangeOverflow ) {
+				input.setCustomValidity(
+					mw.msg( 'wikibase-export-year-validation-larger', this.yearRange )
+				);
+			} else if ( validityState.customError ) {
+				// Clear previous custom error.
+				console.log('good');
+				input.setCustomValidity( '' );
+				this.endYear.$input.blur();
+				// this.endYear.$input.focus();
+			}
+
+			if ( showError ) {
+				// console.log('report', input.reportValidity() );
+				this.form.$element[ 0 ].reportValidity()
+			}
 		},
 
 		/**

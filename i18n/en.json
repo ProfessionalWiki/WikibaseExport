@@ -24,5 +24,9 @@
 	"wikibase-export-format-csv-long": "CSV (Long)",
 	"wikibase-export-download": "Download",
 
+	"wikibase-export-year-validation-empty": "$1 cannot be empty.",
+	"wikibase-export-year-validation-smaller": "$1 cannot be before $2.",
+	"wikibase-export-year-validation-larger": "Time range cannot be larger than $1 years.",
+
 	"wikibase-export-config-invalid": "Your changes were not saved. It contains the following {{PLURAL:$1|error|errors}}:"
 }
