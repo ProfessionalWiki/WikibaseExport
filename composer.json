@@ -20,7 +20,8 @@
 	"require": {
 		"php": ">=8.0",
 		"composer/installers": "^2|^1.0.1",
-		"opis/json-schema": "^2.3.0"
+		"opis/json-schema": "^2.3.0",
+		"wmde/clock": "^1.0.0"
 	},
 	"require-dev": {
 		"vimeo/psalm": "^4.22.0",
