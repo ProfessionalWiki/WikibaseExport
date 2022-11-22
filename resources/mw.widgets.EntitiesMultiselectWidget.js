@@ -44,6 +44,10 @@
 	mw.widgets.EntitiesMultiselectWidget.prototype.onInputChange = function () {
 		const widget = this;
 
+		if ( this.getQueryValue() === '' ) {
+			return;
+		}
+
 		this.getRequestData()
 			.then( function ( data ) {
 				widget.menu.clearItems();
