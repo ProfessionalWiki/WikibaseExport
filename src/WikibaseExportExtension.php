@@ -81,8 +81,8 @@ class WikibaseExportExtension {
 
 		return new TimeQualifierProperties(
 			pointInTime: new NumericPropertyId( $config->getPointInTimePropertyId() ),
-			startTime: new NumericPropertyId( $config->getStartYearPropertyId() ),
-			endTime: new NumericPropertyId( $config->getEndYearPropertyId() ),
+			startTime: new NumericPropertyId( $config->getStartTimePropertyId() ),
+			endTime: new NumericPropertyId( $config->getEndTimePropertyId() ),
 		);
 	}
 

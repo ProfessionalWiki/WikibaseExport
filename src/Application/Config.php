@@ -19,8 +19,8 @@ class Config {
 		public /* readonly */ ?array $defaultSubjects = null,
 		public /* readonly */ ?int $defaultStartYear = null,
 		public /* readonly */ ?int $defaultEndYear = null,
-		public /* readonly */ ?string $startYearPropertyId = null,
-		public /* readonly */ ?string $endYearPropertyId = null,
+		public /* readonly */ ?string $startTimePropertyId = null,
+		public /* readonly */ ?string $endTimePropertyId = null,
 		public /* readonly */ ?string $pointInTimePropertyId = null,
 		public /* readonly */ ?array $properties = null,
 		public /* readonly */ ?string $introText = null
@@ -35,28 +35,28 @@ class Config {
 			$config->defaultSubjects ?? $this->defaultSubjects,
 			$config->defaultStartYear ?? $this->defaultStartYear,
 			$config->defaultEndYear ?? $this->defaultEndYear,
-			$config->startYearPropertyId ?? $this->startYearPropertyId,
-			$config->endYearPropertyId ?? $this->endYearPropertyId,
+			$config->startTimePropertyId ?? $this->startTimePropertyId,
+			$config->endTimePropertyId ?? $this->endTimePropertyId,
 			$config->pointInTimePropertyId ?? $this->pointInTimePropertyId,
 			$config->properties ?? $this->properties,
 			$config->introText ?? $this->introText,
 		);
 	}
 
-	public function getStartYearPropertyId(): string {
-		if ( $this->startYearPropertyId === null ) {
+	public function getStartTimePropertyId(): string {
+		if ( $this->startTimePropertyId === null ) {
 			throw new RuntimeException( 'Config is incomplete' );
 		}
 
-		return $this->startYearPropertyId;
+		return $this->startTimePropertyId;
 	}
 
-	public function getEndYearPropertyId(): string {
-		if ( $this->endYearPropertyId === null ) {
+	public function getEndTimePropertyId(): string {
+		if ( $this->endTimePropertyId === null ) {
 			throw new RuntimeException( 'Config is incomplete' );
 		}
 
-		return $this->endYearPropertyId;
+		return $this->endTimePropertyId;
 	}
 
 	public function getPointInTimePropertyId(): string {

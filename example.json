@@ -8,8 +8,8 @@
 	],
 	"defaultStartYear": 2010,
 	"defaultEndYear": 2022,
-	"startYearPropertyId": "P100",
-	"endYearPropertyId": "P200",
+	"startTimePropertyId": "P100",
+	"endTimePropertyId": "P200",
 	"pointInTimePropertyId": "P300",
 	"properties": [
 		"P1",

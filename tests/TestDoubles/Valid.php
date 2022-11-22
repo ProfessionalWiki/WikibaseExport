@@ -34,8 +34,8 @@ class Valid {
     ],
     "defaultStartYear": 2010,
     "defaultEndYear": 2022,
-    "startYearPropertyId": "P1",
-    "endYearPropertyId": "P2",
+    "startTimePropertyId": "P1",
+    "endTimePropertyId": "P2",
     "pointInTimePropertyId": "P3",
     "properties": [
         "P4",

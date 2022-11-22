@@ -24,10 +24,10 @@
 		"defaultEndYear": {
 			"type": "integer"
 		},
-		"startYearPropertyId": {
+		"startTimePropertyId": {
 			"$ref": "#/$defs/property"
 		},
-		"endYearPropertyId": {
+		"endTimePropertyId": {
 			"$ref": "#/$defs/property"
 		},
 		"pointInTimePropertyId": {

@@ -50,8 +50,8 @@ class MediaWikiHooks {
 	],
 	"defaultStartYear": null,
 	"defaultEndYear": null,
-	"startYearPropertyId": null,
-	"endYearPropertyId": null,
+	"startTimePropertyId": null,
+	"endTimePropertyId": null,
 	"pointInTimePropertyId": null,
 	"properties": [
 	],
