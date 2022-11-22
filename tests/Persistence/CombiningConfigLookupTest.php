@@ -84,4 +84,22 @@ class CombiningConfigLookupTest extends WikibaseExportIntegrationTest {
 		);
 	}
 
+	public function testCombinedConfigHasInvalidDateRange(): void {
+		$lookup = $this->newLookup(
+			baseConfig: '{ "defaultStartYear": 2020 }',
+			wikiConfig: new Config( defaultEndYear: 1010 ),
+			enableWikiConfig: true
+		);
+
+		$this->assertSame(
+			2020,
+			$lookup->getConfig()->defaultStartYear
+		);
+
+		$this->assertSame(
+			1010,
+			$lookup->getConfig()->defaultEndYear
+		);
+	}
+
 }
