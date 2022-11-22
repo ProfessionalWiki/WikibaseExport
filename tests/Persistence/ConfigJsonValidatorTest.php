@@ -13,6 +13,12 @@ use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
  */
 class ConfigJsonValidatorTest extends TestCase {
 
+	public function testEmptyJsonPassesValidation(): void {
+		$this->assertTrue(
+			ConfigJsonValidator::newInstance()->validate( '{}' )
+		);
+	}
+
 	public function testValidJsonPassesValidation(): void {
 		$this->assertTrue(
 			ConfigJsonValidator::newInstance()->validate( Valid::configJson() )
@@ -40,6 +46,51 @@ class ConfigJsonValidatorTest extends TestCase {
 			[ '/defaultStartYear' => 'The data (string) must match the type: integer' ],
 			$validator->getErrors()
 		);
+	}
+
+	public function testEndDateGreaterThanStartDatePassesValidation(): void {
+		$validator = ConfigJsonValidator::newInstance();
+
+		$result = $validator->validate( '{ "defaultStartYear": 2021, "defaultEndYear": 2022 }' );
+
+		$this->assertTrue( $result );
+	}
+
+	public function testEndDateSameAsStartDatePassesValidation(): void {
+		$validator = ConfigJsonValidator::newInstance();
+
+		$result = $validator->validate( '{ "defaultStartYear": 2022, "defaultEndYear": 2022 }' );
+
+		$this->assertTrue( $result );
+	}
+
+	public function testStartDateGreaterThanEndDateFailsValidation(): void {
+		$validator = ConfigJsonValidator::newInstance();
+
+		$result = $validator->validate( '{ "defaultStartYear": 2022, "defaultEndYear": 2021 }' );
+
+		$this->assertFalse( $result );
+
+		$this->assertSame(
+			[ '/defaultEndYear' => 'Number must be greater than or equal to 2022' ],
+			$validator->getErrors()
+		);
+	}
+
+	public function testMissingStartDatePassesValidation(): void {
+		$validator = ConfigJsonValidator::newInstance();
+
+		$result = $validator->validate( '{ "defaultEndYear": 2022 }' );
+
+		$this->assertTrue( $result );
+	}
+
+	public function testMissingEndDatePassesValidation(): void {
+		$validator = ConfigJsonValidator::newInstance();
+
+		$result = $validator->validate( '{ "defaultStartYear": 2022 }' );
+
+		$this->assertTrue( $result );
 	}
 
 }
