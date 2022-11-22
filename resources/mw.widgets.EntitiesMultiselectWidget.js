@@ -24,28 +24,6 @@
 		this.$element
 			.addClass( 'mw-widgets-EntitiesMultiselectWidget' );
 
-		if ( 'name' in config ) {
-			// Use this instead of <input type="hidden">, because hidden inputs do not have separate
-			// 'value' and 'defaultValue' properties.
-			this.$hiddenInput = $( '<textarea>' )
-				.addClass( 'oo-ui-element-hidden' )
-				.attr( 'name', config.name )
-				.appendTo( this.$element );
-			// Update with preset values
-			// Set the default value (it might be different from just being empty)
-			this.$hiddenInput.prop( 'defaultValue', this.getItems().map( function ( item ) {
-				return item.getData();
-			} ).join( '\n' ) );
-			this.on( 'change', function ( items ) {
-				this.$hiddenInput.val( items.map( function ( item ) {
-					return item.getData();
-				} ).join( '\n' ) );
-				// Trigger a 'change' event as if a user edited the text
-				// (it is not triggered when changing the value from JS code).
-				this.$hiddenInput.trigger( 'change' );
-			}.bind( this ) );
-		}
-
 		this.language = config.language || 'en';
 		this.entityType = config.entityType || 'item';
 	};
