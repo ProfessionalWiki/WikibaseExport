@@ -69,8 +69,21 @@
 
 	mw.widgets.EntitiesMultiselectWidget.prototype.getOptionsFromData = function ( data ) {
 		return data.search.map(
-			( entity ) => new OO.ui.MenuOptionWidget( { data: entity.id, label: entity.label } )
+			( entity ) => new OO.ui.MenuOptionWidget( {
+				data: entity.id,
+				label: this.getEntityOptionLabel( entity )
+			} )
 		);
+	};
+
+	mw.widgets.EntitiesMultiselectWidget.prototype.getEntityOptionLabel = function ( entity ) {
+		const id = '(' + entity.id + ')';
+
+		if ( entity.label !== undefined ) {
+			return entity.label + ' ' + id;
+		}
+
+		return id;
 	};
 
 }() );
