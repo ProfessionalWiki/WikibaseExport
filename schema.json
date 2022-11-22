@@ -43,6 +43,17 @@
 			"type": "string"
 		}
 	},
+	"dependentSchemas": {
+		"defaultStartYear": {
+			"properties": {
+				"defaultEndYear": {
+					"minimum": {
+						"$data": "1/defaultStartYear"
+					}
+				}
+			}
+		}
+	},
 	"$defs": {
 		"property": {
 			"type": "string",
