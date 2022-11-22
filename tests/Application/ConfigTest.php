@@ -20,8 +20,8 @@ class ConfigTest extends TestCase {
 			defaultSubjects: [ 'Q1', 'Q2' ],
 			defaultStartYear: 2000,
 			defaultEndYear: 2022,
-			startYearPropertyId: 'P1',
-			endYearPropertyId: 'P2',
+			startTimePropertyId: 'P1',
+			endTimePropertyId: 'P2',
 			pointInTimePropertyId: 'P3',
 			properties: [ 'P10', 'P11' ],
 			introText: 'foo bar'
@@ -36,8 +36,8 @@ class ConfigTest extends TestCase {
 			defaultSubjects: [ 'Q3', 'Q4' ],
 			defaultStartYear: 1990,
 			defaultEndYear: 2000,
-			startYearPropertyId: 'P4',
-			endYearPropertyId: 'P5',
+			startTimePropertyId: 'P4',
+			endTimePropertyId: 'P5',
 			pointInTimePropertyId: 'P6',
 			properties: [ 'P20', 'P21' ],
 			introText: 'lorem ipsum'

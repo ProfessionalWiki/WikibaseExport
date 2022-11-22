@@ -19,8 +19,8 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 	public function testHappyPathStub(): void {
 		$this->editConfigPage( '
 {
-    "startYearPropertyId": "P100",
-    "endYearPropertyId": "P200",
+    "startTimePropertyId": "P100",
+    "endTimePropertyId": "P200",
     "pointInTimePropertyId": "P300"
 }
 ' );

@@ -2,9 +2,9 @@
 <files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
   <file src="src/Application/Export/ExportUcFactory.php">
     <PossiblyNullArgument occurrences="3">
-      <code>$config-&gt;endYearPropertyId</code>
+      <code>$config-&gt;endTimePropertyId</code>
       <code>$config-&gt;pointInTimePropertyId</code>
-      <code>$config-&gt;startYearPropertyId</code>
+      <code>$config-&gt;startTimePropertyId</code>
     </PossiblyNullArgument>
   </file>
   <file src="src/EntryPoints/ExportApi.php">
