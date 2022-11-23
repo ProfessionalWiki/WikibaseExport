@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\EntryPoints;
 
+use MediaWiki\Rest\HttpException;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
@@ -47,6 +48,23 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 CSV
 ,
 			$response->getBody()->getContents()
+		);
+	}
+
+	public function testInvalidRequestThrowsException(): void {
+		$this->expectException( HttpException::class );
+
+		$this->executeHandler(
+			WikibaseExportExtension::exportApiFactory(),
+			new RequestData( [
+				'queryParams' => [
+					'subject_ids' => 'Q1|Q2|Q3',
+					'statement_property_ids' => 'P1|P2',
+					'start_year' => 2022,
+					'end_year' => 2020,
+					'format' => 'csvwide'
+				]
+			] )
 		);
 	}
 

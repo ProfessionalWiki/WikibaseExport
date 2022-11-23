@@ -27,9 +27,27 @@ class ExportUserCaseTest extends TestCase {
 			)
 		);
 
-		$this->assertSame(
+		$this->assertCount(
 			0,
-			$presenter->presentedEntitiesCount()
+			$presenter->presentedEntitiesById
+		);
+	}
+
+	public function testInvalidRequestIsPresented(): void {
+		$presenter = new SpyExportPresenter();
+		$useCase = WikibaseExportExtension::getInstance()->newExportUseCase( $presenter );
+
+		$useCase->export(
+			new ExportRequest(
+				subjectIds: [],
+				statementPropertyIds: [],
+				startYear: 2022,
+				endYear: 2020
+			)
+		);
+
+		$this->assertTrue(
+			$presenter->presentedInvalidRequest
 		);
 	}
 

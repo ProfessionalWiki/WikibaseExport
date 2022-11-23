@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
+use MediaWiki\Rest\HttpException;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\Stream;
@@ -30,6 +31,10 @@ class ExportApi extends SimpleHandler {
 		$exporter = WikibaseExportExtension::getInstance()->newExportUseCase( $presenter );
 
 		$exporter->export( $this->buildExportRequest() );
+
+		if ( !$presenter->isValid() ) {
+			throw new HttpException( 'invalid-request', 400 );
+		}
 
 		$response = $this->getResponseFactory()->create();
 		$response->setHeader( 'Content-Disposition', 'attachment; filename=export.csv;' );

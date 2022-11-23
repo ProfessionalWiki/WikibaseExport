@@ -12,14 +12,16 @@ class SpyExportPresenter implements ExportPresenter {
 	/**
 	 * @var array<int, MappedEntity>
 	 */
-	private array $presentedEntitiesById = [];
+	public array $presentedEntitiesById = [];
+
+	public bool $presentedInvalidRequest = false;
 
 	public function presentEntity( MappedEntity $entity ): void {
 		$this->presentedEntitiesById[$entity->id] = $entity;
 	}
 
-	public function entityWasPresented( string $id ): bool {
-		return array_key_exists( $id, $this->presentedEntitiesById );
+	public function presentInvalidRequest(): void {
+		$this->presentedInvalidRequest = true;
 	}
 
 	public function presentedEntitiesCount(): int {

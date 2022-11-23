@@ -18,7 +18,10 @@ class ExportUseCase {
 	}
 
 	public function export( ExportRequest $request ): void {
-		// TODO: validate request
+		if ( !$this->requestIsValid( $request ) ) {
+			$this->presenter->presentInvalidRequest();
+			return;
+		}
 
 		// TODO: auth
 
@@ -46,6 +49,11 @@ class ExportUseCase {
 			$request->startYear,
 			$request->endYear
 		);
+	}
+
+	private function requestIsValid( ExportRequest $request ): bool {
+		return $request->startYear <= $request->endYear
+			&& $request->endYear - $request->startYear <= 100;
 	}
 
 }
