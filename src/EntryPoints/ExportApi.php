@@ -7,10 +7,9 @@ namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\Stream;
-use MediaWiki\Rest\StringStream;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
-use ProfessionalWiki\WikibaseExport\Application\Export\ExportUcFactory;
 use ProfessionalWiki\WikibaseExport\Presentation\WideCsvPresenter;
+use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
@@ -28,12 +27,9 @@ class ExportApi extends SimpleHandler {
 	public function run(): Response {
 		$presenter = $this->newPresenter();
 
-		$exporter = ( new ExportUcFactory() )->buildUseCase(
-			request: $this->buildExportRequest(),
-			presenter: $presenter
-		);
+		$exporter = WikibaseExportExtension::getInstance()->newExportUseCase( $presenter );
 
-		$exporter->export();
+		$exporter->export( $this->buildExportRequest() );
 
 		$response = $this->getResponseFactory()->create();
 		$response->setHeader( 'Content-Disposition', 'attachment; filename=export.csv;' );

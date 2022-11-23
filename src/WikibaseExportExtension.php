@@ -5,6 +5,10 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport;
 
 use MediaWiki\MediaWikiServices;
+use ProfessionalWiki\WikibaseExport\Application\EntityMapperBuilder;
+use ProfessionalWiki\WikibaseExport\Application\EntitySourceBuilder;
+use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
+use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
 use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
@@ -92,6 +96,19 @@ class WikibaseExportExtension {
 				SnakFormatter::FORMAT_PLAIN,
 				new FormatterOptions()
 			)
+		);
+	}
+
+	public function newExportUseCase( ExportPresenter $presenter ): ExportUseCase {
+		return new ExportUseCase(
+			entitySourceBuilder: new EntitySourceBuilder(
+				lookup: WikibaseRepo::getEntityLookup()
+			),
+			entityMapperBuilder: new EntityMapperBuilder(
+				timeQualifierProperties: $this->newTimeQualifierProperties(),
+				statementMapper: $this->newStatementMapper()
+			),
+			presenter: $presenter
 		);
 	}
 
