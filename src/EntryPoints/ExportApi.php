@@ -33,7 +33,7 @@ class ExportApi extends SimpleHandler {
 		$exporter->export( $this->buildExportRequest() );
 
 		if ( !$presenter->isValid() ) {
-			throw new HttpException( 'invalid-request', 400 );
+			return $this->getResponseFactory()->createHttpError( 400 );
 		}
 
 		$response = $this->getResponseFactory()->create();

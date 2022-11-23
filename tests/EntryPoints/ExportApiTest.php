@@ -51,10 +51,8 @@ CSV
 		);
 	}
 
-	public function testInvalidRequestThrowsException(): void {
-		$this->expectException( HttpException::class );
-
-		$this->executeHandler(
+	public function testInvalidRequestReturns400(): void {
+		$response = $this->executeHandler(
 			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
 				'queryParams' => [
@@ -66,6 +64,8 @@ CSV
 				]
 			] )
 		);
+
+		$this->assertSame( 400, $response->getStatusCode() );
 	}
 
 }
