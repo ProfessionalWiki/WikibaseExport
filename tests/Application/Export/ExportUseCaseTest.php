@@ -19,7 +19,7 @@ use Wikibase\Repo\WikibaseRepo;
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase
  */
-class ExportUserCaseTest extends TestCase {
+class ExportUseCaseTest extends TestCase {
 
 	public function newExportUseCase( Config $wikiConfig, ExportPresenter $presenter ): ExportUseCase {
 		return new ExportUseCase(
