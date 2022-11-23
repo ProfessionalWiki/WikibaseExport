@@ -80,8 +80,8 @@ class WikibaseExportExtension {
 		);
 	}
 
-	public function newTimeQualifierProperties(): TimeQualifierProperties {
-		$config = $this->newConfigLookup()->getConfig();
+	public function newTimeQualifierProperties( ConfigLookup $configLookup ): TimeQualifierProperties {
+		$config = $configLookup->getConfig();
 
 		return new TimeQualifierProperties(
 			pointInTime: new NumericPropertyId( $config->getPointInTimePropertyId() ),
@@ -105,7 +105,9 @@ class WikibaseExportExtension {
 				lookup: WikibaseRepo::getEntityLookup()
 			),
 			entityMapperBuilder: new EntityMapperBuilder(
-				timeQualifierProperties: $this->newTimeQualifierProperties(),
+				timeQualifierProperties: $this->newTimeQualifierProperties(
+					$this->newConfigLookup()
+				),
 				statementMapper: $this->newStatementMapper()
 			),
 			presenter: $presenter
