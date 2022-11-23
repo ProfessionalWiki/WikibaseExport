@@ -5,16 +5,15 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Application\Export;
 
 use PHPUnit\Framework\TestCase;
-use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntityMapperBuilder;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceBuilder;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
+use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\SpyExportPresenter;
-use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubConfigLookup;
-use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -22,14 +21,16 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class ExportUseCaseTest extends TestCase {
 
-	private function newExportUseCase( Config $wikiConfig, ExportPresenter $presenter ): ExportUseCase {
+	private function newExportUseCase( ExportPresenter $presenter ): ExportUseCase {
 		return new ExportUseCase(
 			entitySourceBuilder: new EntitySourceBuilder(
 				lookup: WikibaseRepo::getEntityLookup()
 			),
 			entityMapperBuilder: new EntityMapperBuilder(
-				timeQualifierProperties: WikibaseExportExtension::getInstance()->newTimeQualifierProperties(
-					new StubConfigLookup( $wikiConfig )
+				timeQualifierProperties: new TimeQualifierProperties(
+					pointInTime: new NumericPropertyId( 'P1' ),
+					startTime: new NumericPropertyId( 'P2' ),
+					endTime: new NumericPropertyId( 'P3' ),
 				),
 				statementMapper: WikibaseExportExtension::getInstance()->newStatementMapper()
 			),
@@ -39,10 +40,7 @@ class ExportUseCaseTest extends TestCase {
 
 	public function testNothingIsPresented(): void {
 		$presenter = new SpyExportPresenter();
-		$useCase = $this->newExportUseCase(
-			Valid::validConfig(),
-			$presenter
-		);
+		$useCase = $this->newExportUseCase( $presenter );
 
 		$useCase->export(
 			new ExportRequest(
@@ -61,10 +59,7 @@ class ExportUseCaseTest extends TestCase {
 
 	public function testInvalidRequestIsPresented(): void {
 		$presenter = new SpyExportPresenter();
-		$useCase = $this->newExportUseCase(
-			Valid::validConfig(),
-			$presenter
-		);
+		$useCase = $this->newExportUseCase( $presenter );
 
 		$useCase->export(
 			new ExportRequest(

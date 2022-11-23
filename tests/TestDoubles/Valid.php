@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\TestDoubles;
 
-use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedYear;
 
@@ -45,19 +44,6 @@ class Valid {
     "introText": "Lorem ipsum"
 }
 ';
-	}
-
-	public static function validConfig(): Config {
-		return new Config(
-			entityLabelLanguage: "en",
-			defaultSubjects: [ 'Q1', 'Q2' ],
-			defaultStartYear: 2010,
-			defaultEndYear: 2022,
-			startTimePropertyId: 'P1',
-			endTimePropertyId: 'P2',
-			pointInTimePropertyId: 'P3',
-			properties: [ 'P4', 'P5' ]
-		);
 	}
 
 }
