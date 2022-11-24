@@ -17,8 +17,7 @@ use ProfessionalWiki\WikibaseExport\Persistence\ConfigDeserializer;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentFetcher;
-use ProfessionalWiki\WikibaseExport\Persistence\WikiConfigLookup;
-use RuntimeException;
+use ProfessionalWiki\WikibaseExport\Persistence\PageContentConfigLookup;
 use Title;
 use ValueFormatters\FormatterOptions;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -57,14 +56,14 @@ class WikibaseExportExtension {
 		return new CombiningConfigLookup(
 			baseConfig: (string)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExport' ),
 			deserializer: $this->newConfigDeserializer(),
-			configLookup: $this->newWikiConfigLookup(),
+			configLookup: $this->newPageContentConfigLookup(),
 			enableWikiConfig: (bool)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' ),
 			clock: new SystemClock()
 		);
 	}
 
-	public function newWikiConfigLookup(): WikiConfigLookup {
-		return new WikiConfigLookup(
+	public function newPageContentConfigLookup(): PageContentConfigLookup {
+		return new PageContentConfigLookup(
 			contentFetcher: new PageContentFetcher(
 				MediaWikiServices::getInstance()->getTitleParser(),
 				MediaWikiServices::getInstance()->getRevisionLookup()

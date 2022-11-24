@@ -7,7 +7,7 @@ namespace ProfessionalWiki\WikibaseExport\Persistence;
 use JsonContent;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 
-class WikiConfigLookup implements ConfigLookup {
+class PageContentConfigLookup implements ConfigLookup {
 
 	public function __construct(
 		private PageContentFetcher $contentFetcher,
