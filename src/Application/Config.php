@@ -13,33 +13,25 @@ class Config {
 	 * @param string[]|null $properties
 	 */
 	public function __construct(
-		public /* readonly */ ?string $entityLabelLanguage = null,
-		public /* readonly */ ?string $chooseSubjectsLabel = null,
-		public /* readonly */ ?string $filterSubjectsLabel = null,
 		public /* readonly */ ?array $defaultSubjects = null,
 		public /* readonly */ ?int $defaultStartYear = null,
 		public /* readonly */ ?int $defaultEndYear = null,
 		public /* readonly */ ?string $startTimePropertyId = null,
 		public /* readonly */ ?string $endTimePropertyId = null,
 		public /* readonly */ ?string $pointInTimePropertyId = null,
-		public /* readonly */ ?array $properties = null,
-		public /* readonly */ ?string $introText = null
+		public /* readonly */ ?array $properties = null
 	) {
 	}
 
 	public function combine( Config $config ): self {
 		return new Config(
-			$config->entityLabelLanguage ?? $this->entityLabelLanguage,
-			$config->chooseSubjectsLabel ?? $this->chooseSubjectsLabel,
-			$config->filterSubjectsLabel ?? $this->filterSubjectsLabel,
 			$config->defaultSubjects ?? $this->defaultSubjects,
 			$config->defaultStartYear ?? $this->defaultStartYear,
 			$config->defaultEndYear ?? $this->defaultEndYear,
 			$config->startTimePropertyId ?? $this->startTimePropertyId,
 			$config->endTimePropertyId ?? $this->endTimePropertyId,
 			$config->pointInTimePropertyId ?? $this->pointInTimePropertyId,
-			$config->properties ?? $this->properties,
-			$config->introText ?? $this->introText,
+			$config->properties ?? $this->properties
 		);
 	}
 

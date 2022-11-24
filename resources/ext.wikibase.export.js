@@ -86,15 +86,14 @@ $( function () {
 			this.subjects = new mw.widgets.EntitiesMultiselectWidget( {
 				id: 'subjects',
 				inputPosition: 'outline',
-				// TODO: use config
-				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' )
+				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' ),
+				language: mw.config.get( 'wgUserLanguage' )
 			} );
 
 			this.addDefaultSubjects();
 
 			return this.createSection(
 				'subjects',
-				// TODO: use config
 				mw.msg( 'wikibase-export-subjects-heading' ),
 				[ this.subjects ]
 			);
@@ -220,11 +219,13 @@ $( function () {
 		getOptionFromEntity: function ( entity ) {
 			let label = '';
 
-			// TODO: try specific language, then fallback
-			if ( entity.labels[ this.config.entityLabelLanguage ] !== undefined ) {
-				label = entity.labels[ this.config.entityLabelLanguage ].value;
-			} else if ( entity.labels.en !== undefined ) {
-				label = entity.labels.en.value;
+			const userLanguage = mw.config.get( 'wgUserLanguage' );
+			const siteLanguage = mw.config.get( 'wgContentLanguage' );
+
+			if ( entity.labels[ userLanguage ] !== undefined ) {
+				label = entity.labels[ userLanguage ].value;
+			} else if ( entity.labels[ siteLanguage ] !== undefined ) {
+				label = entity.labels[ siteLanguage ].value;
 			}
 
 			label += ' (' + entity.id + ') ';

@@ -30,17 +30,13 @@ class ConfigDeserializer {
 	 */
 	private function newConfig( array $configArray ): Config {
 		return new Config(
-			$configArray['entityLabelLanguage'] ?? null,
-			$configArray['chooseSubjectsLabel'] ?? null,
-			$configArray['filterSubjectsLabel'] ?? null,
 			$configArray['defaultSubjects'] ?? null,
 			$configArray['defaultStartYear'] ?? null,
 			$configArray['defaultEndYear'] ?? null,
 			$configArray['startTimePropertyId'] ?? null,
 			$configArray['endTimePropertyId'] ?? null,
 			$configArray['pointInTimePropertyId'] ?? null,
-			$configArray['properties'] ?? null,
-			$configArray['introText'] ?? null,
+			$configArray['properties'] ?? null
 		);
 	}
 

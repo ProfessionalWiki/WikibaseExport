@@ -1,7 +1,4 @@
 {
-	"entityLabelLanguage": "en",
-	"chooseSubjectsLabel": "choose foo",
-	"filterSubjectsLabel": "filter foo",
 	"defaultSubjects": [
 		"Q1",
 		"Q2"
@@ -14,6 +11,5 @@
 	"properties": [
 		"P1",
 		"P2"
-	],
-	"introText": "Lorem ipsum"
+	]
 }

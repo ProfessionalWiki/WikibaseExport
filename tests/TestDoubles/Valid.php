@@ -25,9 +25,6 @@ class Valid {
 	public static function configJson(): string {
 		return '
 {
-    "entityLabelLanguage": "en",
-    "chooseSubjectsLabel": "choose foo",
-    "filterSubjectsLabel": "filter foo",
     "defaultSubjects": [
         "Q1",
         "Q2"
@@ -40,8 +37,7 @@ class Valid {
     "properties": [
         "P4",
         "P5"
-    ],
-    "introText": "Lorem ipsum"
+    ]
 }
 ';
 	}

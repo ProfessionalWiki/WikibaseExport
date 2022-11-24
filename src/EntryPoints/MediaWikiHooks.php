@@ -45,9 +45,6 @@ class MediaWikiHooks {
 		if ( WikibaseExportExtension::getInstance()->isConfigTitle( $title ) ) {
 			$text = trim( '
 {
-	"entityLabelLanguage": null,
-	"chooseSubjectsLabel": null,
-	"filterSubjectsLabel": null,
 	"defaultSubjects": [
 	],
 	"defaultStartYear": null,
@@ -56,8 +53,7 @@ class MediaWikiHooks {
 	"endTimePropertyId": null,
 	"pointInTimePropertyId": null,
 	"properties": [
-	],
-	"introText": null
+	]
 }' );
 		}
 	}

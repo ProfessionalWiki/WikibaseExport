@@ -24,7 +24,7 @@
 		this.$element
 			.addClass( 'mw-widgets-EntitiesMultiselectWidget' );
 
-		this.language = config.language || 'en';
+		this.language = config.language;
 		this.entityType = config.entityType || 'item';
 	};
 

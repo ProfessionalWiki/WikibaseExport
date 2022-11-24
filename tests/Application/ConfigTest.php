@@ -14,33 +14,25 @@ class ConfigTest extends TestCase {
 
 	private function createOriginalConfig(): Config {
 		return new Config(
-			entityLabelLanguage: null,
-			chooseSubjectsLabel: 'choose foo',
-			filterSubjectsLabel: 'filter foo',
 			defaultSubjects: [ 'Q1', 'Q2' ],
 			defaultStartYear: 2000,
 			defaultEndYear: 2022,
 			startTimePropertyId: 'P1',
 			endTimePropertyId: 'P2',
 			pointInTimePropertyId: 'P3',
-			properties: [ 'P10', 'P11' ],
-			introText: 'foo bar'
+			properties: [ 'P10', 'P11' ]
 		);
 	}
 
 	private function createNewConfig(): Config {
 		return new Config(
-			entityLabelLanguage: 'de',
-			chooseSubjectsLabel: 'choose bar',
-			filterSubjectsLabel: 'filter bar',
 			defaultSubjects: [ 'Q3', 'Q4' ],
 			defaultStartYear: 1990,
 			defaultEndYear: 2000,
 			startTimePropertyId: 'P4',
 			endTimePropertyId: 'P5',
 			pointInTimePropertyId: 'P6',
-			properties: [ 'P20', 'P21' ],
-			introText: 'lorem ipsum'
+			properties: [ 'P20', 'P21' ]
 		);
 	}
 
