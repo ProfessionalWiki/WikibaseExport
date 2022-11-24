@@ -33,9 +33,8 @@ class TimeQualifierStatementFilterTest extends TestCase {
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = TimeHelper::newPointInTimeStatement( day: '2001-01-01' );
-
-		$this->assertTrue( $filter->statementMatches( $statement ) );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2000-01-01' ) ) );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2005-12-31' ) ) );
 	}
 
 	public function testMonthPrecisionPointInTimeWithinRangeMatches(): void {
@@ -44,7 +43,7 @@ class TimeQualifierStatementFilterTest extends TestCase {
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = TimeHelper::newPointInTimeStatement( day: '2001-01-00' );
+		$statement = TimeHelper::newPointInTimeStatement( day: '2000-01-00' );
 
 		$this->assertTrue( $filter->statementMatches( $statement ) );
 	}
@@ -55,9 +54,8 @@ class TimeQualifierStatementFilterTest extends TestCase {
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = TimeHelper::newPointInTimeStatement( day: '2001-00-00' );
-
-		$this->assertTrue( $filter->statementMatches( $statement ) );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2000-00-00' ) ) );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2005-00-00' ) ) );
 	}
 
 	public function testDayPrecisionPointInTimeOutsideOfRangeDoesNotMatch(): void {
@@ -66,9 +64,8 @@ class TimeQualifierStatementFilterTest extends TestCase {
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = TimeHelper::newPointInTimeStatement( day: '9042-01-01' );
-
-		$this->assertFalse( $filter->statementMatches( $statement ) );
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '1999-12-31' ) ) );
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2006-01-01' ) ) );
 	}
 
 	public function testMonthPrecisionPointInTimeOutsideOfRangeDoesNotMatch(): void {
@@ -88,9 +85,8 @@ class TimeQualifierStatementFilterTest extends TestCase {
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = TimeHelper::newPointInTimeStatement( day: '2006-00-00' );
-
-		$this->assertFalse( $filter->statementMatches( $statement ) );
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '1999-00-00' ) ) );
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2006-00-00' ) ) );
 	}
 
 	public function testRangeQualifiersContainingTheTimeRangeMatch(): void {
