@@ -64,9 +64,9 @@ class TimeHelper {
 		);
 	}
 
-	public static function newPointInTimeStatement( string $day, string $value = 'FooBar' ): Statement {
+	public static function newPointInTimeStatement( string $day, string $pId = 'P1', string $value = 'FooBar' ): Statement {
 		return new Statement(
-			mainSnak: new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( $value ) ),
+			mainSnak: new PropertyValueSnak( new NumericPropertyId( $pId ), new StringValue( $value ) ),
 			qualifiers: new SnakList( [
 				new PropertyValueSnak(
 					new NumericPropertyId( self::POINT_IN_TIME_ID ),
