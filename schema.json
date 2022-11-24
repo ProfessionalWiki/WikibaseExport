@@ -3,13 +3,13 @@
 	"additionalProperties": false,
 	"properties": {
 		"entityLabelLanguage": {
-			"type": "string"
+			"type": [ "string", "null" ]
 		},
 		"chooseSubjectsLabel": {
-			"type": "string"
+			"type": [ "string", "null" ]
 		},
 		"filterSubjectsLabel": {
-			"type": "string"
+			"type": [ "string", "null" ]
 		},
 		"defaultSubjects": {
 			"type": "array",
@@ -19,10 +19,10 @@
 			}
 		},
 		"defaultStartYear": {
-			"type": "integer"
+			"type": [ "integer", "null" ]
 		},
 		"defaultEndYear": {
-			"type": "integer"
+			"type": [ "integer", "null" ]
 		},
 		"startTimePropertyId": {
 			"$ref": "#/$defs/property"
@@ -40,7 +40,7 @@
 			}
 		},
 		"introText": {
-			"type": "string"
+			"type": [ "string", "null" ]
 		}
 	},
 	"dependentSchemas": {
@@ -56,7 +56,7 @@
 	},
 	"$defs": {
 		"property": {
-			"type": "string",
+			"type": [ "string", "null" ],
 			"pattern": "^[pP][1-9]\\d{0,9}$"
 		}
 	}
