@@ -8,7 +8,7 @@ use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use Wikibase\DataModel\Entity\PropertyId;
 
-class EntityMapperBuilder {
+class EntityMapperFactory {
 
 	public function __construct(
 		private TimeQualifierProperties $timeQualifierProperties,
