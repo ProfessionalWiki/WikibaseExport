@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
+use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierStatementGrouper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\TimeHelper;
@@ -76,8 +77,6 @@ class TimeQualifierStatementGrouperTest extends TestCase {
 		);
 	}
 
-	// TODO: test group with range qualifiers
-
 	public function testBuildFromYearRange(): void {
 		$grouper = TimeQualifierStatementGrouper::newForYearRange(
 			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
@@ -110,6 +109,45 @@ class TimeQualifierStatementGrouperTest extends TestCase {
 					TimeHelper::newPointInTimeStatement( day: '2022-11-16' ),
 					TimeHelper::newPointInTimeStatement( day: '2023-01-01' ),
 					TimeHelper::newPointInTimeStatement( day: '2024-01-01' ),
+				)
+			)
+		);
+	}
+
+	public function testGroupsTimeRangeStatements(): void {
+		$grouper = new TimeQualifierStatementGrouper(
+			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
+			years: [ 2000, 2022, 2258, 2259, 3000 ]
+		);
+
+		$this->assertEquals(
+			[
+				2022 => new StatementList(
+					TimeHelper::newTimeRangeStatement( 2022, 2022, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newDayRangeStatement( '2021-12-31', '2022-01-01', 'P1', new StringValue( 'After lower bound' ) ),
+					TimeHelper::newDayRangeStatement( '2022-12-31', '2023-01-01', 'P1', new StringValue( 'Before upper bound' ) ),
+				),
+				2258 => new StatementList(
+					TimeHelper::newTimeRangeStatement( 2258, 2262, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newTimeRangeStatement( 2150, 3000, 'P1', new StringValue( 'Earth' ) )
+				),
+				2259 => new StatementList(
+					TimeHelper::newTimeRangeStatement( 2258, 2262, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newTimeRangeStatement( 2150, 3000, 'P1', new StringValue( 'Earth' ) )
+				),
+				3000 => new StatementList(
+					TimeHelper::newTimeRangeStatement( 2150, 3000, 'P1', new StringValue( 'Earth' ) )
+				),
+			],
+			$grouper->groupByYear(
+				new StatementList(
+					TimeHelper::newTimeRangeStatement( 2022, 2022, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newTimeRangeStatement( 2258, 2262, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newTimeRangeStatement( 2150, 3000, 'P1', new StringValue( 'Earth' ) ),
+					TimeHelper::newDayRangeStatement( '2021-12-31', '2021-12-31', 'P1', new StringValue( 'Before lower bound' ) ),
+					TimeHelper::newDayRangeStatement( '2021-12-31', '2022-01-01', 'P1', new StringValue( 'After lower bound' ) ),
+					TimeHelper::newDayRangeStatement( '2022-12-31', '2023-01-01', 'P1', new StringValue( 'Before upper bound' ) ),
+					TimeHelper::newDayRangeStatement( '2023-01-01', '2023-01-01', 'P1', new StringValue( 'After upper bound' ) ),
 				)
 			)
 		);
