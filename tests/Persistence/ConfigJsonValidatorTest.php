@@ -43,7 +43,7 @@ class ConfigJsonValidatorTest extends TestCase {
 		$validator->validate( '{ "defaultStartYear": "2022" }' );
 
 		$this->assertSame(
-			[ '/defaultStartYear' => 'The data (string) must match the type: integer' ],
+			[ '/defaultStartYear' => 'The data (string) must match the type: integer, null' ],
 			$validator->getErrors()
 		);
 	}
