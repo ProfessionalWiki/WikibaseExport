@@ -10,14 +10,14 @@ use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 
 /**
- * @covers \ProfessionalWiki\WikibaseExport\Persistence\WikiConfigLookup
+ * @covers \ProfessionalWiki\WikibaseExport\Persistence\PageContentConfigLookup
  * @group Database
  */
-class WikiConfigLookupTest extends WikibaseExportIntegrationTest {
+class PageContentConfigLookupTest extends WikibaseExportIntegrationTest {
 
 	public function testEmptyPageConfig(): void {
 		$this->editConfigPage( '{}' );
-		$lookup = WikibaseExportExtension::getInstance()->newWikiConfigLookup();
+		$lookup = WikibaseExportExtension::getInstance()->newPageContentConfigLookup();
 
 		$config = $lookup->getConfig();
 		$emptyConfig = new Config();
@@ -27,7 +27,7 @@ class WikiConfigLookupTest extends WikibaseExportIntegrationTest {
 
 	public function testSavedPageConfig(): void {
 		$this->editConfigPage( Valid::configJson() );
-		$lookup = WikibaseExportExtension::getInstance()->newWikiConfigLookup();
+		$lookup = WikibaseExportExtension::getInstance()->newPageContentConfigLookup();
 
 		$config = $lookup->getConfig();
 
