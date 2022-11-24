@@ -37,7 +37,7 @@ class TimeQualifierStatementFilter implements StatementFilter {
 	}
 
 	private function timeValueToDateTimeImmutable( TimeValue $timeValue ): DateTimeImmutable {
-		return new DateTimeImmutable( $timeValue->getTime() );
+		return new DateTimeImmutable( str_replace( '-00', '-01', $timeValue->getTime() ) );
 	}
 
 	private function qualifierRangeContainsTimeRange( TimeValue $startTime, TimeValue $endTime ): bool {

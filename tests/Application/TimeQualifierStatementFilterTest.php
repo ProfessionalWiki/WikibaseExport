@@ -27,26 +27,66 @@ class TimeQualifierStatementFilterTest extends TestCase {
 		);
 	}
 
-	public function testPointInTimeWithinRangeMatches(): void {
+	public function testDayPrecisionPointInTimeWithinRangeMatches(): void {
 		$filter = new TimeQualifierStatementFilter(
 			TimeHelper::newJan2000ToDec2005(),
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = TimeHelper::newPointInTimeStatement( day: '2001-01-01' );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2000-01-01' ) ) );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2005-12-31' ) ) );
+	}
+
+	public function testMonthPrecisionPointInTimeWithinRangeMatches(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$statement = TimeHelper::newPointInTimeStatement( day: '2000-01-00' );
 
 		$this->assertTrue( $filter->statementMatches( $statement ) );
 	}
 
-	public function testPointInTimeOutsideOfRangeDoesNotMatch(): void {
+	public function testYearPrecisionPointInTimeWithinRangeMatches(): void {
 		$filter = new TimeQualifierStatementFilter(
 			TimeHelper::newJan2000ToDec2005(),
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = TimeHelper::newPointInTimeStatement( day: '9042-01-01' );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2000-00-00' ) ) );
+		$this->assertTrue( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2005-00-00' ) ) );
+	}
+
+	public function testDayPrecisionPointInTimeOutsideOfRangeDoesNotMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '1999-12-31' ) ) );
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2006-01-01' ) ) );
+	}
+
+	public function testMonthPrecisionPointInTimeOutsideOfRangeDoesNotMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$statement = TimeHelper::newPointInTimeStatement( day: '2006-01-00' );
 
 		$this->assertFalse( $filter->statementMatches( $statement ) );
+	}
+
+	public function testYearPrecisionPointInTimeOutsideOfRangeDoesNotMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '1999-00-00' ) ) );
+		$this->assertFalse( $filter->statementMatches( TimeHelper::newPointInTimeStatement( day: '2006-00-00' ) ) );
 	}
 
 	public function testRangeQualifiersContainingTheTimeRangeMatch(): void {
