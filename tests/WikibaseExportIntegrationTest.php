@@ -41,4 +41,10 @@ class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	protected function skipOnPhp81AndLater(): void {
+		if ( version_compare( PHP_VERSION, '8.1.0' ) >= 0 ) {
+			$this->markTestSkipped( 'Wikibase does not yet work with PHP 8.1' );
+		}
+	}
+
 }
