@@ -5,9 +5,11 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use EditPage;
+use OutputPage;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Presentation\ConfigJsonErrorFormatter;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
+use Skin;
 use Title;
 
 class MediaWikiHooks {
@@ -58,6 +60,30 @@ class MediaWikiHooks {
 	"introText": null
 }' );
 		}
+	}
+
+	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ): void {
+		$title = $out->getTitle();
+
+		if ( $title === null ) {
+			return;
+		}
+
+		if ( WikibaseExportExtension::getInstance()->isConfigTitle( $title ) ) {
+			$html = $out->getHTML();
+			$out->clearHTML();
+			$out->addHTML( self::getConfigPageHtml( $html ) );
+		}
+	}
+
+	private static function getConfigPageHtml( string $html ): string {
+		$jsonTablePosition = strpos( $html, '<table class="mw-json">' );
+
+		if ( !$jsonTablePosition ) {
+			return $html;
+		}
+
+		return substr( $html, $jsonTablePosition );
 	}
 
 }
