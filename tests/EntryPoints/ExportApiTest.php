@@ -23,7 +23,9 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 
 	private const LEGAL_NAME_ID = 'P100';
 
-	public function testEdgeToEdge(): void {
+	public function setUp(): void {
+		parent::setUp();
+
 		$this->editConfigPage(
 			'
 {
@@ -33,6 +35,10 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 }
 '
 		);
+	}
+
+	public function testEdgeToEdge(): void {
+		$this->skipOnPhp81AndLater();
 
 		$this->saveProperty( TimeHelper::POINT_IN_TIME_ID, 'time', 'Point in time' );
 		$this->saveProperty( self::LEGAL_NAME_ID, 'string', 'Legal name' );
