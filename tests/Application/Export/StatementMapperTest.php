@@ -19,7 +19,6 @@ use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\InMemoryDataTypeLookup;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
@@ -123,7 +122,7 @@ class StatementMapperTest extends MediaWikiIntegrationTestCase {
 		];
 		yield [
 			'P3',
-			new EntityIdValue( new PropertyId( 'P1' ) ),
+			new EntityIdValue( new NumericPropertyId( 'P1' ) ),
 			'P1'
 		];
 		yield [
