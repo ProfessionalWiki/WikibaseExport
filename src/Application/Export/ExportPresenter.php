@@ -8,4 +8,6 @@ interface ExportPresenter {
 
 	public function presentEntity( MappedEntity $entity ): void;
 
+	public function presentInvalidRequest(): void;
+
 }

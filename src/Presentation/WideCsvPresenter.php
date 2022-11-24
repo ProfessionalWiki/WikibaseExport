@@ -103,4 +103,8 @@ class WideCsvPresenter implements ExportPresenter {
 		return $this->stream;
 	}
 
+	public function presentInvalidRequest(): void {
+		// Do nothing.
+	}
+
 }
