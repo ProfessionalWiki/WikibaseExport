@@ -8,6 +8,7 @@ $( function () {
 	mw.WikibaseExport = {
 		init: function () {
 			this.config = mw.config.get( 'wgWikibaseExport' );
+			this.config.language = mw.config.get( 'wgContentLanguage' );
 
 			this.$wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
 
@@ -87,7 +88,7 @@ $( function () {
 				id: 'subjects',
 				inputPosition: 'outline',
 				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' ),
-				language: mw.config.get( 'wgUserLanguage' )
+				language: this.config.language
 			} );
 
 			this.addDefaultSubjects();
@@ -105,7 +106,7 @@ $( function () {
 			new mw.Api().get( {
 				action: 'wbgetentities',
 				ids: widget.config.defaultSubjects,
-				languages: mw.config.get( 'wgUserLanguage' ),
+				languages: this.config.language,
 				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
@@ -197,7 +198,7 @@ $( function () {
 			new mw.Api().get( {
 				action: 'wbgetentities',
 				ids: widget.config.properties,
-				languages: mw.config.get( 'wgUserLanguage' ),
+				languages: this.config.language,
 				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
@@ -223,10 +224,8 @@ $( function () {
 		getOptionFromEntity: function ( entity ) {
 			let label = '';
 
-			const userLanguage = mw.config.get( 'wgUserLanguage' );
-
-			if ( entity.labels[ userLanguage ] !== undefined ) {
-				label = entity.labels[ userLanguage ].value;
+			if ( entity.labels[ this.config.language ] !== undefined ) {
+				label = entity.labels[ this.config.language ].value;
 			}
 
 			label += ' (' + entity.id + ') ';
