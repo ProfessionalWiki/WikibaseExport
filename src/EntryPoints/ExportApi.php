@@ -4,11 +4,10 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
-use MediaWiki\Rest\HttpException;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
-use MediaWiki\Rest\Stream;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
+use ProfessionalWiki\WikibaseExport\Presentation\HttpExportPresenter;
 use ProfessionalWiki\WikibaseExport\Presentation\WideCsvPresenter;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
@@ -26,32 +25,28 @@ class ExportApi extends SimpleHandler {
 	private const PARAM_FORMAT = 'format';
 
 	public function run(): Response {
-		$presenter = $this->newPresenter();
+		$presenter = $this->newHttpPresenter();
 
 		$exporter = WikibaseExportExtension::getInstance()->newExportUseCase( $presenter );
 
 		$exporter->export( $this->buildExportRequest() );
 
-		if ( !$presenter->isValid() ) {
-			return $this->getResponseFactory()->createHttpError( 400 );
-		}
-
-		$response = $this->getResponseFactory()->create();
-		$response->setHeader( 'Content-Disposition', 'attachment; filename=export.csv;' );
-		$response->setHeader( 'Content-Type', 'text/csv' );
-		$response->setBody( new Stream( $presenter->getStream() ) );
-
-		return $response;
+		return $presenter->getResponse();
 	}
 
-	private function newPresenter(): WideCsvPresenter {
-		// TODO: use format
-
+	private function newWideCsvPresenter(): WideCsvPresenter {
 		$params = $this->getValidatedParams();
 
 		return new WideCsvPresenter(
 			years: range( (int)$params[self::PARAM_START_YEAR], (int)$params[self::PARAM_END_YEAR] ),
 			properties: $params[self::PARAM_STATEMENT_PROPERTY_IDS]
+		);
+	}
+
+	private function newHttpPresenter(): HttpExportPresenter {
+		return new HttpExportPresenter(
+			presenter: $this->newWideCsvPresenter(),
+			responseFactory: $this->getResponseFactory()
 		);
 	}
 

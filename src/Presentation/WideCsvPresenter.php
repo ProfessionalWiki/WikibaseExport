@@ -17,8 +17,6 @@ class WideCsvPresenter implements ExportPresenter {
 	 */
 	private $stream;
 
-	private bool $isValid = true;
-
 	/**
 	 * @param int[] $years
 	 * @param string[] $properties
@@ -106,11 +104,7 @@ class WideCsvPresenter implements ExportPresenter {
 	}
 
 	public function presentInvalidRequest(): void {
-		$this->isValid = false;
-	}
-
-	public function isValid(): bool {
-		return $this->isValid;
+		// Do nothing.
 	}
 
 }
