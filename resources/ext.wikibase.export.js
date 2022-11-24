@@ -104,7 +104,9 @@ $( function () {
 
 			new mw.Api().get( {
 				action: 'wbgetentities',
-				ids: widget.config.defaultSubjects
+				ids: widget.config.defaultSubjects,
+				languages: mw.config.get( 'wgUserLanguage' ),
+				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
 				widget.subjects.addOptions( options );
@@ -194,7 +196,9 @@ $( function () {
 
 			new mw.Api().get( {
 				action: 'wbgetentities',
-				ids: widget.config.properties
+				ids: widget.config.properties,
+				languages: mw.config.get( 'wgUserLanguage' ),
+				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
 				widget.statements.addOptions( options );
@@ -220,12 +224,9 @@ $( function () {
 			let label = '';
 
 			const userLanguage = mw.config.get( 'wgUserLanguage' );
-			const siteLanguage = mw.config.get( 'wgContentLanguage' );
 
 			if ( entity.labels[ userLanguage ] !== undefined ) {
 				label = entity.labels[ userLanguage ].value;
-			} else if ( entity.labels[ siteLanguage ] !== undefined ) {
-				label = entity.labels[ siteLanguage ].value;
 			}
 
 			label += ' (' + entity.id + ') ';
