@@ -5,8 +5,8 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport;
 
 use MediaWiki\MediaWikiServices;
-use ProfessionalWiki\WikibaseExport\Application\EntityMapperBuilder;
-use ProfessionalWiki\WikibaseExport\Application\EntitySourceBuilder;
+use ProfessionalWiki\WikibaseExport\Application\EntityMapperFactory;
+use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
@@ -101,10 +101,10 @@ class WikibaseExportExtension {
 
 	public function newExportUseCase( ExportPresenter $presenter ): ExportUseCase {
 		return new ExportUseCase(
-			entitySourceBuilder: new EntitySourceBuilder(
+			entitySourceFactory: new EntitySourceFactory(
 				lookup: WikibaseRepo::getEntityLookup()
 			),
-			entityMapperBuilder: new EntityMapperBuilder(
+			entityMapperFactory: new EntityMapperFactory(
 				timeQualifierProperties: $this->newTimeQualifierProperties(),
 				statementMapper: $this->newStatementMapper()
 			),

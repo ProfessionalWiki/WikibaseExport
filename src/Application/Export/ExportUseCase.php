@@ -4,15 +4,15 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
-use ProfessionalWiki\WikibaseExport\Application\EntityMapperBuilder;
+use ProfessionalWiki\WikibaseExport\Application\EntityMapperFactory;
 use ProfessionalWiki\WikibaseExport\Application\EntitySource;
-use ProfessionalWiki\WikibaseExport\Application\EntitySourceBuilder;
+use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 
 class ExportUseCase {
 
 	public function __construct(
-		private EntitySourceBuilder $entitySourceBuilder,
-		private EntityMapperBuilder $entityMapperBuilder,
+		private EntitySourceFactory $entitySourceFactory,
+		private EntityMapperFactory $entityMapperFactory,
 		private ExportPresenter $presenter,
 	) {
 	}
@@ -40,11 +40,11 @@ class ExportUseCase {
 	}
 
 	private function newEntitySource( ExportRequest $request ): EntitySource {
-		return $this->entitySourceBuilder->newEntitySource( $request->subjectIds );
+		return $this->entitySourceFactory->newEntitySource( $request->subjectIds );
 	}
 
 	private function newEntityMapper( ExportRequest $request ): EntityMapper {
-		return $this->entityMapperBuilder->newEntityMapper(
+		return $this->entityMapperFactory->newEntityMapper(
 			$request->statementPropertyIds,
 			$request->startYear,
 			$request->endYear

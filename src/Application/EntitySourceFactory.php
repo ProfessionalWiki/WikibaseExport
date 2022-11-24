@@ -8,7 +8,7 @@ use ProfessionalWiki\WikibaseExport\Persistence\IdListEntitySource;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 
-class EntitySourceBuilder {
+class EntitySourceFactory {
 
 	public function __construct(
 		private EntityLookup $lookup
