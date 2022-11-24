@@ -59,9 +59,6 @@ class SpecialWikibaseExport extends SpecialPage {
 	 */
 	private function configToVars( Config $config ): array {
 		return [
-			'entityLabelLanguage' => $config->entityLabelLanguage,
-			'chooseSubjectsLabel' => $config->chooseSubjectsLabel,
-			'filterSubjectsLabel' => $config->filterSubjectsLabel,
 			'defaultSubjects' => $config->defaultSubjects,
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,

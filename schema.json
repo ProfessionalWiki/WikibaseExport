@@ -2,15 +2,6 @@
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
-		"entityLabelLanguage": {
-			"type": [ "string", "null" ]
-		},
-		"chooseSubjectsLabel": {
-			"type": [ "string", "null" ]
-		},
-		"filterSubjectsLabel": {
-			"type": [ "string", "null" ]
-		},
 		"defaultSubjects": {
 			"type": "array",
 			"items": {
@@ -38,9 +29,6 @@
 			"items": {
 				"$ref": "#/$defs/property"
 			}
-		},
-		"introText": {
-			"type": [ "string", "null" ]
 		}
 	},
 	"dependentSchemas": {

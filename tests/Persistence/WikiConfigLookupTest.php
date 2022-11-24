@@ -33,17 +33,13 @@ class WikiConfigLookupTest extends WikibaseExportIntegrationTest {
 
 		$this->assertEquals(
 			new Config(
-				entityLabelLanguage: 'en',
-				chooseSubjectsLabel: 'choose foo',
-				filterSubjectsLabel: 'filter foo',
 				defaultSubjects: [ 'Q1', 'Q2' ],
 				defaultStartYear: 2010,
 				defaultEndYear: 2022,
 				startTimePropertyId: 'P1',
 				endTimePropertyId: 'P2',
 				pointInTimePropertyId: 'P3',
-				properties: [ 'P4', 'P5' ],
-				introText: 'Lorem ipsum',
+				properties: [ 'P4', 'P5' ]
 			),
 			$config
 		);
