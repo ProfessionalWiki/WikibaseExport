@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Presentation;
 
+use Html;
 use IContextSource;
 use Title;
 
@@ -111,7 +112,7 @@ class ExportConfigEditPageTextBuilder {
 
 	private function createExampleSection(): string {
 		return '<h3>' . $this->context->msg( 'wikibase-export-config-help-example' )->escaped() . '</h3>' .
-			'<pre>' . $this->getExampleContents() . '</pre>';
+			Html::element( 'pre', [], $this->getExampleContents() );
 	}
 
 	private function getExampleContents(): string {
