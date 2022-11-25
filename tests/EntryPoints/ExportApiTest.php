@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\EntryPoints;
 
+use DataValues\DecimalValue;
+use DataValues\QuantityValue;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
@@ -21,7 +23,8 @@ use Wikibase\DataModel\Statement\StatementList;
 class ExportApiTest extends WikibaseExportIntegrationTest {
 	use HandlerTestTrait;
 
-	private const LEGAL_NAME_ID = 'P100';
+	private const LEGAL_NAME_ID = 'P1';
+	private const EMPLOYEE_COUNT_ID = 'P2';
 
 	public function setUp(): void {
 		parent::setUp();
@@ -29,8 +32,8 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->editConfigPage(
 			'
 {
-    "startTimePropertyId": "P100",
-    "endTimePropertyId": "P200",
+    "startTimePropertyId": "' . TimeHelper::START_TIME_ID . '",
+    "endTimePropertyId": "' . TimeHelper::END_TIME_ID . '",
     "pointInTimePropertyId": "' . TimeHelper::POINT_IN_TIME_ID . '"
 }
 '
@@ -40,48 +43,44 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 	public function testEdgeToEdge(): void {
 		$this->skipOnPhp81AndLater();
 
+		$this->saveProperty( TimeHelper::START_TIME_ID, 'time', 'Start time' );
+		$this->saveProperty( TimeHelper::END_TIME_ID, 'time', 'End time' );
 		$this->saveProperty( TimeHelper::POINT_IN_TIME_ID, 'time', 'Point in time' );
 		$this->saveProperty( self::LEGAL_NAME_ID, 'string', 'Legal name' );
+		$this->saveProperty( self::EMPLOYEE_COUNT_ID, 'quantity', 'Revenue' );
 
 		$this->saveEntity(
 			new Item(
 				id: new ItemId( 'Q42' ),
 				statements: new StatementList(
-					TimeHelper::newPointInTimeStatement(
-						day: '2022-11-24',
-						pId: self::LEGAL_NAME_ID,
-						value: 'Hello future'
-					),
-					TimeHelper::newPointInTimeStatement(
-						day: '2023-01-01',
-						pId: self::LEGAL_NAME_ID,
-						value: 'Above upper bound'
-					),
-					TimeHelper::newPointInTimeStatement(
-						day: '2020-12-30',
-						pId: self::LEGAL_NAME_ID,
-						value: 'Below lower bound'
-					),
-					TimeHelper::newPointInTimeStatement(
-						day: '2021-01-01',
-						pId: self::LEGAL_NAME_ID,
-						value: 'Included lower bound'
-					),
-					TimeHelper::newPointInTimeStatement(
-						day: '2022-12-31',
-						pId: self::LEGAL_NAME_ID,
-						value: 'Included upper bound'
-					),
+					TimeHelper::newPointInTimeStatement( '2022-11-24', self::LEGAL_NAME_ID, 'Hello future' ),
+					TimeHelper::newPointInTimeStatement( '2023-01-01', self::LEGAL_NAME_ID, 'Above upper bound' ),
+					TimeHelper::newPointInTimeStatement( '2020-12-30', self::LEGAL_NAME_ID, 'Below lower bound' ),
+					TimeHelper::newPointInTimeStatement( '2021-01-01', self::LEGAL_NAME_ID, 'Included lower bound' ),
+					TimeHelper::newPointInTimeStatement( '2022-12-31', self::LEGAL_NAME_ID, 'Included upper bound' ),
 				)
 			)
 		);
+
+		$this->saveEntity(
+			new Item(
+				id: new ItemId( 'Q43' ),
+				statements: new StatementList(
+					TimeHelper::newTimeRangeStatement( 2000, 2021, self::EMPLOYEE_COUNT_ID, $this->newQuantity( 1337 ) ),
+					TimeHelper::newTimeRangeStatement( 2021, 2022, self::EMPLOYEE_COUNT_ID, $this->newQuantity( 5000 ) ),
+					TimeHelper::newTimeRangeStatement( 2022, 2050, self::EMPLOYEE_COUNT_ID, $this->newQuantity( 9001 ) ),
+				)
+			)
+		);
+
+		$this->saveEntity( new Item( new ItemId( 'Q45' ) ) );
 
 		$response = $this->executeHandler(
 			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
 				'queryParams' => [
-					'subject_ids' => 'Q42',
-					'statement_property_ids' => self::LEGAL_NAME_ID . '|P2',
+					'subject_ids' => 'Q42|Q43|Q44|Q45',
+					'statement_property_ids' => self::LEGAL_NAME_ID . '|' . self::EMPLOYEE_COUNT_ID,
 					'start_year' => 2021,
 					'end_year' => 2022,
 					'format' => 'csvwide'
@@ -95,10 +94,23 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->assertResponseHasContent(
 			$response,
 			<<<CSV
-ID,"P100 2022","P100 2021","P2 2022","P2 2021"
+ID,"P1 2022","P1 2021","P2 2022","P2 2021"
 Q42,"Hello future
 Included upper bound","Included lower bound",,
+Q43,,,"5,000±0 EUR
+9,001±0 EUR","1,337±0 EUR
+5,000±0 EUR"
+Q45,,,,
 CSV
+		);
+	}
+
+	private function newQuantity( int $quantity ): QuantityValue {
+		return new QuantityValue(
+			new DecimalValue( $quantity ),
+			'EUR',
+			new DecimalValue( $quantity ),
+			new DecimalValue( $quantity ),
 		);
 	}
 
@@ -119,7 +131,7 @@ CSV
 					'subject_ids' => 'Q1|Q2|Q3',
 					'statement_property_ids' => 'P1|P2',
 					'start_year' => 2022,
-					'end_year' => 2020,
+					'end_year' => 2020, // Lower end-year makes the request invalid
 					'format' => 'csvwide'
 				]
 			] )

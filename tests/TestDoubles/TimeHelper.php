@@ -4,17 +4,16 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\TestDoubles;
 
+use DataValues\DataValue;
 use DataValues\StringValue;
 use DataValues\TimeValue;
 use DateTimeImmutable;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
 use ProfessionalWiki\WikibaseExport\Application\TimeRange;
 use Wikibase\DataModel\Entity\NumericPropertyId;
-use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Snak\SnakList;
 use Wikibase\DataModel\Statement\Statement;
-use Wikibase\DataModel\Statement\StatementList;
 
 class TimeHelper {
 
@@ -48,17 +47,39 @@ class TimeHelper {
 		);
 	}
 
-	public static function newTimeRangeStatement( int $startYear, int $endYear ): Statement {
+	public static function newTimeRangeStatement( int $startYear, int $endYear, string $pId = 'P1', DataValue $value = null ): Statement {
 		return new Statement(
-			mainSnak: new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'Foo' ) ),
+			mainSnak: new PropertyValueSnak(
+				new NumericPropertyId( $pId ),
+				$value ?? new StringValue( 'Foo' )
+			),
 			qualifiers: new SnakList( [
 				new PropertyValueSnak(
 					new NumericPropertyId( self::START_TIME_ID ),
-					self::newDay( '+' . $startYear . '-01-01T00:00:00Z' )
+					self::newDay( '+' . $startYear . '-00-00T00:00:00Z' )
 				),
 				new PropertyValueSnak(
 					new NumericPropertyId( self::END_TIME_ID ),
-					self::newDay( '+' . $endYear . '-01-01T00:00:00Z' )
+					self::newDay( '+' . $endYear . '-00-00T00:00:00Z' )
+				)
+			] )
+		);
+	}
+
+	public static function newDayRangeStatement( string $startDay, string $endDay, string $pId = 'P1', DataValue $value = null ): Statement {
+		return new Statement(
+			mainSnak: new PropertyValueSnak(
+				new NumericPropertyId( $pId ),
+				$value ?? new StringValue( 'Foo' )
+			),
+			qualifiers: new SnakList( [
+				new PropertyValueSnak(
+					new NumericPropertyId( self::START_TIME_ID ),
+					self::newDay( '+' . $startDay . 'T00:00:00Z' )
+				),
+				new PropertyValueSnak(
+					new NumericPropertyId( self::END_TIME_ID ),
+					self::newDay( '+' . $endDay . 'T00:00:00Z' )
 				)
 			] )
 		);
