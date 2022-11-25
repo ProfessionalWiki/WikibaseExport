@@ -8,8 +8,11 @@ use EditPage;
 use OutputPage;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Presentation\ConfigJsonErrorFormatter;
+use ProfessionalWiki\WikibaseExport\Presentation\ExportConfigEditPagePresenter;
+use ProfessionalWiki\WikibaseExport\Presentation\ExportConfigEditPageTextBuilder;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Skin;
+use SpecialPage;
 use Title;
 
 class MediaWikiHooks {
@@ -38,6 +41,9 @@ class MediaWikiHooks {
 	public static function onAlternateEdit( EditPage $editPage ): void {
 		if ( WikibaseExportExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
 			$editPage->suppressIntro = true;
+
+			$textBuilder = new ExportConfigEditPageTextBuilder( $editPage->getContext() );
+			$editPage->editFormTextBottom = $textBuilder->createHtml();
 		}
 	}
 

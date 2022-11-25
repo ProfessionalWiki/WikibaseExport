@@ -11,8 +11,8 @@
 	"special-wikibase-export-config": "Wikibase Export Config",
 
 	"wikibase-export-intro": "First, choose the items for which you need data. Second, choose the time range for which you need the data. Third, choose the variables you need in the CSV file. Finally, click \"$1\" to retrieve the CSV file.",
-	"wikibase-export-subjects-heading": "Choose companies",
-	"wikibase-export-subjects-placeholder": "Search companies",
+	"wikibase-export-subjects-heading": "Choose subjects",
+	"wikibase-export-subjects-placeholder": "Search subjects",
 	"wikibase-export-filters-heading": "Choose time range",
 	"wikibase-export-start-year": "Start year",
 	"wikibase-export-end-year": "End year",
@@ -24,5 +24,13 @@
 	"wikibase-export-format-csv-long": "CSV (Long)",
 	"wikibase-export-download": "Download",
 
-	"wikibase-export-config-invalid": "Your changes were not saved. It contains the following {{PLURAL:$1|error|errors}}:"
+	"wikibase-export-config-invalid": "Your changes were not saved. It contains the following {{PLURAL:$1|error|errors}}:",
+
+	"wikibase-export-config-help": "Configuration help",
+	"wikibase-export-config-help-variables": "Configuration variables:",
+	"wikibase-export-config-help-example": "Full example:",
+	"wikibase-export-config-help-messages": "The following export page labels can be changed:",
+	"wikibase-export-config-help-intro": "[[MediaWiki:wikibase-export-intro|Introductory text shown before the form]]",
+	"wikibase-export-config-help-subjects-heading": "[[MediaWiki:wikibase-export-subjects-heading|Choose subjects heading]]",
+	"wikibase-export-config-help-subjects-placeholder": "[[MediaWiki:wikibase-export-subjects-placeholder|Search subjects placeholder]]"
 }
