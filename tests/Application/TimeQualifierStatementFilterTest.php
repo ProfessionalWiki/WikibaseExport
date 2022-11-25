@@ -100,6 +100,28 @@ class TimeQualifierStatementFilterTest extends TestCase {
 		$this->assertTrue( $filter->statementMatches( $statement ) );
 	}
 
+	public function testRangeQualifiersContainedByTheTimeRangeMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 2001, endYear: 2004 )
+		) );
+	}
+
+	public function testRangeQualifiersWithTheSameBoundsAsTheTimeRangeMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 2000, endYear: 2005 )
+		) );
+	}
+
 	public function testRangeQualifiersWithNoOverlapToTimeRangeDoNotMatch(): void {
 		$filter = new TimeQualifierStatementFilter(
 			TimeHelper::newJan2000ToDec2005(),
