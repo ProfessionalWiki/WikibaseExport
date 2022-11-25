@@ -27,10 +27,20 @@
 	"wikibase-export-config-invalid": "Error message shown when attempting to save invalid configuration on MediaWiki:WikibaseExport",
 
 	"wikibase-export-config-help": "Help text heading displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-variables": "Help text displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-example": "Help text displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-messages": "Help text displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-intro": "Link to a message page displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-subjects-heading": "Link to a message page displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-subjects-placeholder": "Link to a message page displayed on \"MediaWiki:WikibaseExport\""
+	"wikibase-export-config-help-variables": "Help text heading displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-example": "Help text heading displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-messages": "Help text heading displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-message-intro": "Help text for a system message displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-message-subjects-heading": "Help text for a system message displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-message-subjects-placeholder": "Help text for a system message displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-table-variable": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-table-description": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-table-example": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-default-subjects": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-default-start-year": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-default-end-year": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-start-time-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-end-time-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-point-in-time-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-properties": "Help text displayed on \"MediaWiki:WikibaseExport\""
 }
