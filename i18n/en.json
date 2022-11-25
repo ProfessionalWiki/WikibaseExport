@@ -27,10 +27,20 @@
 	"wikibase-export-config-invalid": "Your changes were not saved. It contains the following {{PLURAL:$1|error|errors}}:",
 
 	"wikibase-export-config-help": "Configuration help",
-	"wikibase-export-config-help-variables": "Configuration variables:",
+	"wikibase-export-config-help-variables": "Variables:",
 	"wikibase-export-config-help-example": "Full example:",
 	"wikibase-export-config-help-messages": "The following export page labels can be changed:",
-	"wikibase-export-config-help-intro": "[[MediaWiki:wikibase-export-intro|Introductory text shown before the form]]",
-	"wikibase-export-config-help-subjects-heading": "[[MediaWiki:wikibase-export-subjects-heading|Choose subjects heading]]",
-	"wikibase-export-config-help-subjects-placeholder": "[[MediaWiki:wikibase-export-subjects-placeholder|Search subjects placeholder]]"
+	"wikibase-export-config-help-message-intro": "Introductory text shown before the form",
+	"wikibase-export-config-help-message-subjects-heading": "Choose subjects heading",
+	"wikibase-export-config-help-message-subjects-placeholder": "Search subjects placeholder",
+	"wikibase-export-config-help-table-variable": "Variable",
+	"wikibase-export-config-help-table-description": "Description",
+	"wikibase-export-config-help-table-example": "Example",
+	"wikibase-export-config-help-variable-default-subjects": "A list of item IDs to be selected by default on the form.",
+	"wikibase-export-config-help-variable-default-start-year": "The default start year on the form.",
+	"wikibase-export-config-help-variable-default-end-year": "The default end year on the form.",
+	"wikibase-export-config-help-variable-start-time-property-id": "Property ID of the qualifier used for the start of a time range.",
+	"wikibase-export-config-help-variable-end-time-property-id": "Property ID of the qualifier used for the end of a time range.",
+	"wikibase-export-config-help-variable-point-in-time-property-id": "Property ID of the qualifier used for a specific point in time.",
+	"wikibase-export-config-help-variable-properties": "A list of property IDs for statements that may be included in the export."
 }
