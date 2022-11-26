@@ -5,8 +5,6 @@
 	 *
 	 * @class
 	 * @extends OO.ui.MenuTagMultiselectWidget
-	 * @mixins OO.ui.mixin.RequestManager
-	 * @mixins OO.ui.mixin.PendingElement
 	 *
 	 * @constructor
 	 * @param {Object} [config] Configuration options
@@ -97,11 +95,11 @@
 	 * @inheritdoc OO.ui.mixin.RequestManager
 	 */
 	mw.widgets.EntitiesMultiselectWidget.prototype.getRequest = function () {
-		var promiseAbortObject = { abort: function () {
-				// Do nothing. This is just so OOUI doesn't break due to abort being undefined.
-			} };
+		const promiseAbortObject = { abort: function () {
+			// Do nothing. This is just so OOUI doesn't break due to abort being undefined.
+		} };
 
-		var req = new mw.Api().get( {
+		const req = new mw.Api().get( {
 			action: 'wbsearchentities',
 			type: this.entityType,
 			language: this.language,
