@@ -5,6 +5,7 @@
 	 *
 	 * @class
 	 * @extends OO.ui.MenuTagMultiselectWidget
+	 * @mixins OO.ui.mixin.PendingElement
 	 *
 	 * @constructor
 	 * @param {Object} [config] Configuration options
@@ -20,6 +21,11 @@
 			config
 		) );
 
+		// Mixin constructors
+		OO.ui.mixin.PendingElement.call( this, $.extend( true, {}, config, {
+			$pending: this.$handle
+		} ) );
+
 		// Initialization
 		this.$element
 			.addClass( 'mw-widgets-EntitiesMultiselectWidget' );
@@ -31,6 +37,7 @@
 	/* Setup */
 
 	OO.inheritClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.MenuTagMultiselectWidget );
+	OO.mixinClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.mixin.PendingElement );
 
 	/* Methods */
 
