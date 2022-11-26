@@ -15,7 +15,7 @@
 		// Parent constructor
 		mw.widgets.EntitiesMultiselectWidget.parent.call( this, $.extend( true,
 			{
-				clearInputOnChoose: false,
+				clearInputOnChoose: true,
 				inputPosition: 'inline',
 				allowEditTags: false
 			},
@@ -67,18 +67,8 @@
 			} );
 	};
 
-	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestData = function () {
-		return new mw.Api().get( {
-			action: 'wbsearchentities',
-			type: this.entityType,
-			language: this.language,
-			uselang: this.language,
-			search: this.getQueryValue()
-		} );
-	};
-
 	mw.widgets.EntitiesMultiselectWidget.prototype.getOptionsFromData = function ( data ) {
-		return data.search.map(
+		return data.map(
 			( entity ) => new OO.ui.MenuOptionWidget( {
 				data: entity.id,
 				label: this.getEntityOptionLabel( entity )
@@ -100,7 +90,6 @@
 	 * @inheritdoc OO.ui.mixin.RequestManager
 	 */
 	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestQuery = function () {
-		console.log('getRequestQuery');
 		return this.getQueryValue();
 	};
 
@@ -108,16 +97,28 @@
 	 * @inheritdoc OO.ui.mixin.RequestManager
 	 */
 	mw.widgets.EntitiesMultiselectWidget.prototype.getRequest = function () {
-		console.log('getRequest');
-		return this.getSuggestionsPromise();
+		var promiseAbortObject = { abort: function () {
+				// Do nothing. This is just so OOUI doesn't break due to abort being undefined.
+			} };
+
+		var req = new mw.Api().get( {
+			action: 'wbsearchentities',
+			type: this.entityType,
+			language: this.language,
+			uselang: this.language,
+			search: this.getQueryValue()
+		} );
+
+		promiseAbortObject.abort = req.abort.bind( req );
+
+		return req.promise( promiseAbortObject );
 	};
 
 	/**
 	 * @inheritdoc OO.ui.mixin.RequestManager
 	 */
 	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestCacheDataFromResponse = function ( response ) {
-		console.log('getRequestCacheDataFromResponse');
-		return response.query || {};
+		return response.search || [];
 	};
 
 }() );
