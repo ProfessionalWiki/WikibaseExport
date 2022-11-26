@@ -5,6 +5,7 @@
 	 *
 	 * @class
 	 * @extends OO.ui.MenuTagMultiselectWidget
+	 * @mixins OO.ui.mixin.RequestManager
 	 * @mixins OO.ui.mixin.PendingElement
 	 *
 	 * @constructor
@@ -22,6 +23,7 @@
 		) );
 
 		// Mixin constructors
+		OO.ui.mixin.RequestManager.call( this, config );
 		OO.ui.mixin.PendingElement.call( this, $.extend( true, {}, config, {
 			$pending: this.$handle
 		} ) );
@@ -37,6 +39,7 @@
 	/* Setup */
 
 	OO.inheritClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.MenuTagMultiselectWidget );
+	OO.mixinClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.mixin.RequestManager );
 	OO.mixinClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.mixin.PendingElement );
 
 	/* Methods */
@@ -91,6 +94,30 @@
 		}
 
 		return id;
+	};
+
+	/**
+	 * @inheritdoc OO.ui.mixin.RequestManager
+	 */
+	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestQuery = function () {
+		console.log('getRequestQuery');
+		return this.getQueryValue();
+	};
+
+	/**
+	 * @inheritdoc OO.ui.mixin.RequestManager
+	 */
+	mw.widgets.EntitiesMultiselectWidget.prototype.getRequest = function () {
+		console.log('getRequest');
+		return this.getSuggestionsPromise();
+	};
+
+	/**
+	 * @inheritdoc OO.ui.mixin.RequestManager
+	 */
+	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestCacheDataFromResponse = function ( response ) {
+		console.log('getRequestCacheDataFromResponse');
+		return response.query || {};
 	};
 
 }() );
