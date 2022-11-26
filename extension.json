@@ -71,13 +71,15 @@
 	},
 
 	"ResourceModules": {
+		"ext.wikibase.export.styles": {
+			"styles": [
+				"ext.wikibase.export.less"
+			]
+		},
 		"ext.wikibase.export": {
 			"dependencies": [
 				"oojs-ui-core",
 				"oojs-ui-widgets"
-			],
-			"styles": [
-				"ext.wikibase.export.less"
 			],
 			"scripts": [
 				"mw.widgets.EntitiesMultiselectWidget.js",

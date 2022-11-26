@@ -54,10 +54,7 @@ $( function () {
 				expanded: false,
 				framed: true,
 				padded: true,
-				$content: fieldset.$element,
-				classes: [
-					'container'
-				]
+				$content: fieldset.$element
 			} );
 		},
 
