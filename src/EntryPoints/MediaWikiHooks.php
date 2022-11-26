@@ -43,7 +43,8 @@ class MediaWikiHooks {
 			$editPage->suppressIntro = true;
 
 			$textBuilder = new ExportConfigEditPageTextBuilder( $editPage->getContext() );
-			$editPage->editFormTextBottom = $textBuilder->createHtml();
+			$editPage->editFormTextTop = $textBuilder->createTopHtml();
+			$editPage->editFormTextBottom = $textBuilder->createBottomHtml();
 		}
 	}
 

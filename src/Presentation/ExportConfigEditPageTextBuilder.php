@@ -15,13 +15,25 @@ class ExportConfigEditPageTextBuilder {
 	) {
 	}
 
-	public function createHtml(): string {
-		return '<div class="wikibase-export-config-help">' .
+	public function createTopHtml(): string {
+		return '<div id="wikibase-export-config-help-top">' .
+			$this->createMessagesSection() .
+			$this->createDocumentationLink() .
+			'</div>';
+	}
+
+	public function createBottomHtml(): string {
+		return '<div id="wikibase-export-config-help-bottom">' .
 			'<h2>' . $this->context->msg( 'wikibase-export-config-help' )->escaped() . '</h2>' .
 			$this->creatVariablesSection() .
 			$this->createExampleSection() .
-			$this->createMessagesSection() .
 			'</div>';
+	}
+
+	private function createDocumentationLink(): string {
+		return '<p><a href="#wikibase-export-config-help-bottom">' .
+			$this->context->msg( 'wikibase-export-config-help-documentation' )->escaped() .
+			'</a></p>';
 	}
 
 	private function creatVariablesSection(): string {
@@ -81,7 +93,7 @@ class ExportConfigEditPageTextBuilder {
 	}
 
 	private function createMessagesSection(): string {
-		return '<h3>' . $this->context->msg( 'wikibase-export-config-help-messages' )->escaped() . '</h3>' .
+		return '<p>' . $this->context->msg( 'wikibase-export-config-help-messages' )->escaped() . '</p>' .
 			'<ul>' .
 			$this->createMessageLinkItem(
 				'wikibase-export-intro',
