@@ -13,12 +13,18 @@
 		// Parent constructor
 		mw.widgets.EntitiesMultiselectWidget.parent.call( this, $.extend( true,
 			{
-				clearInputOnChoose: false,
+				clearInputOnChoose: true,
 				inputPosition: 'inline',
 				allowEditTags: false
 			},
 			config
 		) );
+
+		// Mixin constructors
+		OO.ui.mixin.RequestManager.call( this, config );
+		OO.ui.mixin.PendingElement.call( this, $.extend( true, {}, config, {
+			$pending: this.$handle
+		} ) );
 
 		// Initialization
 		this.$element
@@ -31,6 +37,8 @@
 	/* Setup */
 
 	OO.inheritClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.MenuTagMultiselectWidget );
+	OO.mixinClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.mixin.RequestManager );
+	OO.mixinClass( mw.widgets.EntitiesMultiselectWidget, OO.ui.mixin.PendingElement );
 
 	/* Methods */
 
@@ -57,18 +65,8 @@
 			} );
 	};
 
-	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestData = function () {
-		return new mw.Api().get( {
-			action: 'wbsearchentities',
-			type: this.entityType,
-			language: this.language,
-			uselang: this.language,
-			search: this.getQueryValue()
-		} );
-	};
-
 	mw.widgets.EntitiesMultiselectWidget.prototype.getOptionsFromData = function ( data ) {
-		return data.search.map(
+		return data.map(
 			( entity ) => new OO.ui.MenuOptionWidget( {
 				data: entity.id,
 				label: this.getEntityOptionLabel( entity )
@@ -84,6 +82,41 @@
 		}
 
 		return id;
+	};
+
+	/**
+	 * @inheritdoc OO.ui.mixin.RequestManager
+	 */
+	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestQuery = function () {
+		return this.getQueryValue();
+	};
+
+	/**
+	 * @inheritdoc OO.ui.mixin.RequestManager
+	 */
+	mw.widgets.EntitiesMultiselectWidget.prototype.getRequest = function () {
+		const promiseAbortObject = { abort: function () {
+			// Do nothing. This is just so OOUI doesn't break due to abort being undefined.
+		} };
+
+		const req = new mw.Api().get( {
+			action: 'wbsearchentities',
+			type: this.entityType,
+			language: this.language,
+			uselang: this.language,
+			search: this.getQueryValue()
+		} );
+
+		promiseAbortObject.abort = req.abort.bind( req );
+
+		return req.promise( promiseAbortObject );
+	};
+
+	/**
+	 * @inheritdoc OO.ui.mixin.RequestManager
+	 */
+	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestCacheDataFromResponse = function ( response ) {
+		return response.search || [];
 	};
 
 }() );
