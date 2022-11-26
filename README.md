@@ -60,24 +60,48 @@ You can verify the extension was enabled successfully by opening your wikis Spec
 
 Configuration can be changed via [LocalSettings.php].
 
-### Export properties
+### Export configuration
 
-You can choose which properties to include values for in your exports. This configuration specifies which
-properties can be chosen from, and which properties are included when selecting "all properties".
+In JSON format, following the JSON Schema at [schema.json].
+Gets combined with rules defined on page `MediaWiki:WikibaseExportConfig`.
 
-Variable: `$wgWikibaseExportProperties`
+Variable: `$wgWikibaseExport`
 
-Default: `[]`
+Default: `""`
 
-Example:
+Example: [example.json]
 
-```php
-$wgWikibaseExportProperties = [
-	'P2',
-	'P3',
-	'P5'
-];
-```
+Caution: invalid JSON will be ignored. No error will be shown, the intended config will just not be applied.
+
+#### JSON Variables
+
+| Variable                | Description                                                                  | Example          |
+|-------------------------|------------------------------------------------------------------------------|------------------|
+| `defaultSubjects`       | List of IDs of items that should be selected by default.                     | `[ "Q1", "Q2" ]` |
+| `defaultStartYear`      | The default start year.                                                      | `2010`           |
+| `defaultEndYear`        | The default end year.                                                        | `2022`           |
+| `startTimePropertyId`   | Property ID of the qualifier used for the start of a time range.             | `P100`           |
+| `endTimePropertyId`     | Property ID of the qualifier used for the end of a time range.               | `P200`           |
+| `pointInTimePropertyId` | Property ID of the qualifier used for a specific point in time.              | `P300`           |
+| `properties`            | List of IDs of properties for statements that may be included in the export. | `[ "P1", "P2" ]` |
+
+The following variables are required and must be defined in either [LocalSettings.php] or using the in-wiki configuration page:
+* `startTimePropertyId`
+* `endTimePropertyId`
+* `pointInTimePropertyId`
+* `properties`
+
+### Enable in-wiki configuration
+
+If it should be possible to configure this extension via `MediaWiki:WikibaseExportConfig`.
+
+Variable: `$wgWikibaseExportEnableInWikiConfig`
+
+Default: `true`
+
+Example: `false`
+
+The page `MediaWiki:WikibaseExportConfig` will always be available. If this configuration is set to `false`, its contents will be ignored.
 
 ## Development
 
@@ -121,9 +145,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 TODO
 
 * Special page with export UI
-  * TODO
-* Configuration that can be set via PHP and a configuration UI on `MediaWiki:WikibaseExport`
-  * TODO
+* Configuration that can be set via PHP and a configuration UI on `MediaWiki:WikibaseExportConfig`
 * API endpoint for export
 * TranslateWiki integration
 * Support for PHP 8.0 and 8.1
@@ -139,3 +161,5 @@ TODO
 [Composer install]: https://professional.wiki/en/articles/installing-mediawiki-extensions-with-composer
 [LocalSettings.php]: https://www.pro.wiki/help/mediawiki-localsettings-php-guide
 [Wikibase Stakeholder Group]:https://wbstakeholder.group/
+[schema.json]: https://github.com/ProfessionalWiki/WikibaseExport/blob/master/schema.json
+[example.json]: https://github.com/ProfessionalWiki/WikibaseExport/blob/master/example.json
