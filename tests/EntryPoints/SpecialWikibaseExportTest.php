@@ -21,7 +21,7 @@ class SpecialWikibaseExportTest extends SpecialPageTestBase {
 		[ $output ] = $this->executeSpecialPage();
 
 		$this->assertStringContainsString(
-			'<div id="wikibase-export"></div>',
+			'<div id="wikibase-export" class="container"></div>',
 			$output
 		);
 	}
