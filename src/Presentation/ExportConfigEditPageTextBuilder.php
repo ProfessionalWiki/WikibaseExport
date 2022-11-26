@@ -74,9 +74,9 @@ class ExportConfigEditPageTextBuilder {
 
 	private function createTableRow( string $variable, string $messagePart, string $example ): string {
 		return '<tr>' .
-			'<td><code>' . $variable . '</code></td>' .
+			'<td>' . Html::element( 'code', [], $variable ) . '</td>' .
 			'<td>' . $this->context->msg( "$messagePart" )->escaped() . '</td>' .
-			'<td><code>' . $example . '</code></td>' .
+			'<td>' . Html::element( 'code', [], $example ) . '</td>' .
 			'</tr>';
 	}
 
