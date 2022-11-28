@@ -9,6 +9,7 @@ use DataValues\QuantityValue;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
+use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\TimeHelper;
 use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
@@ -22,6 +23,7 @@ use Wikibase\DataModel\Statement\StatementList;
  */
 class ExportApiTest extends WikibaseExportIntegrationTest {
 	use HandlerTestTrait;
+	use MockAuthorityTrait;
 
 	private const LEGAL_NAME_ID = 'P1';
 	private const EMPLOYEE_COUNT_ID = 'P2';
@@ -138,6 +140,24 @@ CSV
 		);
 
 		$this->assertSame( 400, $response->getStatusCode() );
+	}
+
+	public function testUserWithoutPermissionReturns403(): void {
+		$response = $this->executeHandler(
+			WikibaseExportExtension::exportApiFactory(),
+			new RequestData( [
+				'queryParams' => [
+					'subject_ids' => 'Q1|Q2|Q3',
+					'statement_property_ids' => 'P1|P2',
+					'start_year' => 2020,
+					'end_year' => 2022,
+					'format' => 'csvwide'
+				]
+			] ),
+			authority: $this->mockAnonNullAuthority()
+		);
+
+		$this->assertSame( 403, $response->getStatusCode() );
 	}
 
 }

@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\Authority;
 use ProfessionalWiki\WikibaseExport\Application\EntityMapperFactory;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
@@ -18,6 +19,7 @@ use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentFetcher;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentConfigLookup;
+use ProfessionalWiki\WikibaseExport\Persistence\AuthorityBasedExportAuthorizer;
 use Title;
 use ValueFormatters\FormatterOptions;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -98,7 +100,7 @@ class WikibaseExportExtension {
 		);
 	}
 
-	public function newExportUseCase( ExportPresenter $presenter ): ExportUseCase {
+	public function newExportUseCase( ExportPresenter $presenter, Authority $authority ): ExportUseCase {
 		return new ExportUseCase(
 			entitySourceFactory: new EntitySourceFactory(
 				lookup: WikibaseRepo::getEntityLookup()
@@ -107,7 +109,10 @@ class WikibaseExportExtension {
 				timeQualifierProperties: $this->newTimeQualifierProperties(),
 				statementMapper: $this->newStatementMapper()
 			),
-			presenter: $presenter
+			presenter: $presenter,
+			authorizer: new AuthorityBasedExportAuthorizer(
+				authority: $authority
+			)
 		);
 	}
 

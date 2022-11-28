@@ -12,7 +12,7 @@ use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
 
 class HttpExportPresenter implements ExportPresenter {
 
-	private bool $isValid = true;
+	private ?Response $response = null;
 
 	public function __construct(
 		private WideCsvPresenter $presenter,
@@ -25,15 +25,19 @@ class HttpExportPresenter implements ExportPresenter {
 	}
 
 	public function presentInvalidRequest(): void {
-		$this->isValid = false;
+		$this->response = $this->responseFactory->createHttpError( 400 );
+	}
+
+	public function presentPermissionDenied(): void {
+		$this->response = $this->responseFactory->createHttpError( 403 );
 	}
 
 	public function getResponse(): Response {
-		if ( !$this->isValid ) {
-			return $this->responseFactory->createHttpError( 400 );
+		if ( $this->response === null ) {
+			$this->response = $this->createFileResponse();
 		}
 
-		return $this->createFileResponse();
+		return $this->response;
 	}
 
 	private function createFileResponse(): Response {

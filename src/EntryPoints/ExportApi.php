@@ -27,7 +27,7 @@ class ExportApi extends SimpleHandler {
 	public function run(): Response {
 		$presenter = $this->newHttpPresenter();
 
-		$exporter = WikibaseExportExtension::getInstance()->newExportUseCase( $presenter );
+		$exporter = WikibaseExportExtension::getInstance()->newExportUseCase( $presenter, $this->getAuthority() );
 
 		$exporter->export( $this->buildExportRequest() );
 

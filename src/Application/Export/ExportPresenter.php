@@ -10,4 +10,6 @@ interface ExportPresenter {
 
 	public function presentInvalidRequest(): void;
 
+	public function presentPermissionDenied(): void;
+
 }

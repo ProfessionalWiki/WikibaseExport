@@ -14,16 +14,20 @@ class ExportUseCase {
 		private EntitySourceFactory $entitySourceFactory,
 		private EntityMapperFactory $entityMapperFactory,
 		private ExportPresenter $presenter,
+		private ExportAuthorizer $authorizer
 	) {
 	}
 
 	public function export( ExportRequest $request ): void {
+		if ( !$this->authorizer->canExport() ) {
+			$this->presenter->presentPermissionDenied();
+			return;
+		}
+
 		if ( !$this->requestIsValid( $request ) ) {
 			$this->presenter->presentInvalidRequest();
 			return;
 		}
-
-		// TODO: auth
 
 		$entitySource = $this->newEntitySource( $request );
 		$entityMapper = $this->newEntityMapper( $request );

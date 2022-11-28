@@ -15,6 +15,7 @@ class SpyExportPresenter implements ExportPresenter {
 	public array $presentedEntitiesById = [];
 
 	public bool $presentedInvalidRequest = false;
+	public bool $presentedPermissionDenied = false;
 
 	public function presentEntity( MappedEntity $entity ): void {
 		$this->presentedEntitiesById[$entity->id] = $entity;
@@ -24,8 +25,8 @@ class SpyExportPresenter implements ExportPresenter {
 		$this->presentedInvalidRequest = true;
 	}
 
-	public function presentedEntitiesCount(): int {
-		return count( $this->presentedEntitiesById );
+	public function presentPermissionDenied(): void {
+		$this->presentedPermissionDenied = true;
 	}
 
 }
