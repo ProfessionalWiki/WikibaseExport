@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
+use Html;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use SpecialPage;
@@ -22,10 +23,17 @@ class SpecialWikibaseExport extends SpecialPage {
 		$output = $this->getOutput();
 		$output->enableOOUI();
 		$output->addModuleStyles( 'ext.wikibase.export.styles' );
-		$output->addModules( 'ext.wikibase.export' );
-		$output->addHTML( $this->getIntroText() );
-		$output->addHTML( '<div id="wikibase-export" class="container"></div>' );
-		$output->addJsConfigVars( $this->getJsConfigVars() );
+		$output->addHTML( '<div id="wikibase-export" class="container">' );
+
+		if ( $this->configIsComplete() ) {
+			$output->addModules( 'ext.wikibase.export' );
+			$output->addHTML( $this->getIntroText() );
+			$output->addJsConfigVars( $this->getJsConfigVars() );
+		} else {
+			$output->addHTML( $this->getConfigIncompleteWarning() );
+		}
+
+		$output->addHTML( '</div>' );
 	}
 
 	public function getGroupName(): string {
@@ -36,15 +44,21 @@ class SpecialWikibaseExport extends SpecialPage {
 		return $this->msg( 'special-wikibase-export' )->escaped();
 	}
 
+	private function configIsComplete(): bool {
+		return WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig()->isComplete();
+	}
+
+	private function getConfigIncompleteWarning(): string {
+		return Html::errorBox( $this->msg( 'wikibase-export-config-incomplete' )->parse() );
+	}
+
 	private function getIntroText(): string {
 		$output = $this->getOutput();
 
-		return '<div class="container">' .
-			$output->msg(
-				'wikibase-export-intro',
-				$output->msg( 'wikibase-export-download' )->text()
-			)->text() .
-			'</div>';
+		return $output->msg(
+			'wikibase-export-intro',
+			$output->msg( 'wikibase-export-download' )->text()
+		)->text();
 	}
 
 	/**

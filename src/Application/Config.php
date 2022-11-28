@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application;
 
+use Exception;
 use RuntimeException;
 
 class Config {
@@ -57,6 +58,17 @@ class Config {
 		}
 
 		return $this->pointInTimePropertyId;
+	}
+
+	public function isComplete(): bool {
+		try {
+			$this->getStartTimePropertyId();
+			$this->getEndTimePropertyId();
+			$this->getPointInTimePropertyId();
+			return true;
+		} catch ( Exception ) {
+			return false;
+		}
 	}
 
 }
