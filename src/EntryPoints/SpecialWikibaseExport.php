@@ -11,7 +11,10 @@ use SpecialPage;
 class SpecialWikibaseExport extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct( 'WikibaseExport' );
+		parent::__construct(
+			'WikibaseExport',
+			restriction: 'read'
+		);
 	}
 
 	public function execute( $subPage ): void {
