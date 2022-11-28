@@ -24,6 +24,17 @@
 
 TODO
 
+This extension provides a special page `Special:WikibaseExport` that can be used to export statement values applicable
+to a specific date range.
+
+Statement date qualifiers can be defined in two ways:
+* Using a single "Point in time" property; or
+* As a range, using two "Point in time" properties for "start date" and "end date"
+
+When exporting, statement qualifiers are compared against the export date range. For single point qualifiers the
+statement value will be included if the date is contained in the export date range. For qualifier ranges the statements
+will be included for the period where the qualifier range overlaps with the export range.
+
 ### REST API
 
 This extension provides a REST API endpoint for exporting Wikibase items.
