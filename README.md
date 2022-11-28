@@ -26,7 +26,9 @@ TODO
 
 ### REST API
 
-TODO
+This extension provides a REST API endpoint for exporting Wikibase items.
+
+For more information, refer to the [REST API documentation].
 
 ## Installation
 
@@ -163,3 +165,4 @@ TODO
 [Wikibase Stakeholder Group]:https://wbstakeholder.group/
 [schema.json]: https://github.com/ProfessionalWiki/WikibaseExport/blob/master/schema.json
 [example.json]: https://github.com/ProfessionalWiki/WikibaseExport/blob/master/example.json
+[Rest API Documentation]: docs/rest.md
