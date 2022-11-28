@@ -107,4 +107,8 @@ class WideCsvPresenter implements ExportPresenter {
 		// Do nothing.
 	}
 
+	public function presentPermissionDenied(): void {
+		// Do nothing.
+	}
+
 }
