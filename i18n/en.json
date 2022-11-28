@@ -25,7 +25,7 @@
 	"wikibase-export-download": "Download",
 
 	"wikibase-export-config-invalid": "Your changes were not saved. It contains the following {{PLURAL:$1|error|errors}}:",
-	"wikibase-export-config-incomplete": "Some configuration is incomplete and the export will not work.",
+	"wikibase-export-config-incomplete": "Wikibase Export needs to be configured by an administrator before it can be used. [[Special:WikibaseExportConfig|Configure now]]",
 
 	"wikibase-export-config-help-documentation": "View configuration documentation",
 	"wikibase-export-config-help": "Configuration documentation",
