@@ -1,15 +1,15 @@
 {
-	"defaultSubjects": [
-		"Q1",
-		"Q2"
-	],
-	"defaultStartYear": 2010,
-	"defaultEndYear": 2022,
 	"startTimePropertyId": "P100",
 	"endTimePropertyId": "P200",
 	"pointInTimePropertyId": "P300",
 	"properties": [
 		"P1",
 		"P2"
-	]
+	],
+	"defaultSubjects": [
+		"Q1",
+		"Q2"
+	],
+	"defaultStartYear": 2010,
+	"defaultEndYear": 2022
 }

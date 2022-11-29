@@ -47,24 +47,6 @@ class ExportConfigEditPageTextBuilder {
 			'</tr></thead>' .
 			'<tbody>' .
 			$this->createTableRow(
-				'defaultSubjects',
-				'wikibase-export-config-help-variable-default-subjects',
-				'[ "Q1", "Q2" ]',
-				false
-			) .
-			$this->createTableRow(
-				'defaultStartYear',
-				'wikibase-export-config-help-variable-default-start-year',
-				'2010',
-				false
-			) .
-			$this->createTableRow(
-				'defaultEndYear',
-				'wikibase-export-config-help-variable-default-end-year',
-				'2022',
-				false
-			) .
-			$this->createTableRow(
 				'startTimePropertyId',
 				'wikibase-export-config-help-variable-start-time-property-id',
 				'"P100"',
@@ -87,6 +69,24 @@ class ExportConfigEditPageTextBuilder {
 				'wikibase-export-config-help-variable-properties',
 				'[ "P1", "P2" ]',
 				true
+			) .
+			$this->createTableRow(
+				'defaultSubjects',
+				'wikibase-export-config-help-variable-default-subjects',
+				'[ "Q1", "Q2" ]',
+				false
+			) .
+			$this->createTableRow(
+				'defaultStartYear',
+				'wikibase-export-config-help-variable-default-start-year',
+				'2010',
+				false
+			) .
+			$this->createTableRow(
+				'defaultEndYear',
+				'wikibase-export-config-help-variable-default-end-year',
+				'2022',
+				false
 			) .
 			'</tbody>' .
 			'</table>';

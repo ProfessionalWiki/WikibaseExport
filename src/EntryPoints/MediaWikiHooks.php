@@ -52,15 +52,15 @@ class MediaWikiHooks {
 		if ( WikibaseExportExtension::getInstance()->isConfigTitle( $title ) ) {
 			$text = trim( '
 {
-	"defaultSubjects": [
-	],
-	"defaultStartYear": null,
-	"defaultEndYear": null,
 	"startTimePropertyId": null,
 	"endTimePropertyId": null,
 	"pointInTimePropertyId": null,
 	"properties": [
-	]
+	],
+	"defaultSubjects": [
+	],
+	"defaultStartYear": null,
+	"defaultEndYear": null
 }' );
 		}
 	}
