@@ -12,6 +12,7 @@ use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
+use ProfessionalWiki\WikibaseExport\EntryPoints\SearchEntitiesApi;
 use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
 use ProfessionalWiki\WikibaseExport\Persistence\CombiningConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigDeserializer;
@@ -115,6 +116,14 @@ class WikibaseExportExtension {
 				authority: $authority
 			)
 		);
+	}
+
+	public static function searchEntitiesApiFactory(): SearchEntitiesApi {
+		return self::getInstance()->newSearchEntitiesApi();
+	}
+
+	private function newSearchEntitiesApi(): SearchEntitiesApi {
+		return new SearchEntitiesApi();
 	}
 
 }
