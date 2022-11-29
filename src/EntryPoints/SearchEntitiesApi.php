@@ -17,27 +17,27 @@ class SearchEntitiesApi extends SimpleHandler {
 	private const PARAM_SEARCH = 'search';
 
 	public function run(): Response {
-		$lang = MediaWikiServices::getInstance()->getMainConfig()->get( 'LanguageCode' );
+		// API: wbsearchentities
+		$searchData = $this->getSearchData();
 
-		$params = new DerivativeRequest(
-			RequestContext::getMain()->getRequest(),
-			array(
-				'action' => 'wbsearchentities',
-				'type' => 'item',
-				'language' => $lang,
-				'uselang' => $lang,
-				'search' => $this->getValidatedParams()[self::PARAM_SEARCH]
+		// API: wbgetentities
+		$entityData = $this->getEntityData(
+			array_map(
+				fn( $entity ) => $entity['id'],
+				$searchData['search']
 			)
 		);
 
-		$api = new ApiMain( $params );
-		$api->execute();
-
-		$data = $api->getResult()->getResultData(
-			transforms: [ 'Strip' => 'all' ]
+		// Filter matches
+		$validIds = $this->filterIds( $entityData['entities'] );
+		$searchData['search'] = array_values(
+			array_filter(
+				$searchData['search'],
+				fn( $entity ) => in_array( $entity['id'], $validIds )
+			)
 		);
 
-		return $this->getResponseFactory()->createJson( $data );
+		return $this->getResponseFactory()->createJson( $searchData );
 	}
 
 	/**
@@ -58,6 +58,74 @@ class SearchEntitiesApi extends SimpleHandler {
 	 */
 	public function needsWriteAccess() {
 		return false;
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	private function getSearchData(): array {
+		$lang = MediaWikiServices::getInstance()->getMainConfig()->get( 'LanguageCode' );
+
+		$api = new ApiMain(
+			new DerivativeRequest(
+				RequestContext::getMain()->getRequest(),
+				array(
+					'action' => 'wbsearchentities',
+					'type' => 'item',
+					'language' => $lang,
+					'uselang' => $lang,
+					'search' => $this->getValidatedParams()[self::PARAM_SEARCH]
+				)
+			)
+		);
+		$api->execute();
+
+		return $api->getResult()->getResultData(
+			transforms: [ 'Strip' => 'all' ]
+		);
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	private function getEntityData( array $ids ): array {
+		$api = new ApiMain(
+			new DerivativeRequest(
+				RequestContext::getMain()->getRequest(),
+				array(
+					'action' => 'wbgetentities',
+					'ids' => implode( '|', $ids ),
+					'props' => 'claims'
+				)
+			)
+		);
+		$api->execute();
+
+		return $api->getResult()->getResultData(
+			transforms: [ 'Strip' => 'all' ]
+		);
+	}
+
+	/**
+	 * @param array<string, mixed> $entityData
+	 * @return string[]
+	 */
+	private function filterIds( array $entityData ): array {
+		$PID = 'P14';
+		$VALUE = 'company';
+
+		$ids = [];
+		foreach( $entityData as $id => $data ) {
+			if ( array_key_exists( 'P14', $data['claims'] ) ) {
+				$claims = $data['claims'][$PID];
+				foreach( $claims as $claim ) {
+					if ( $claim['mainsnak']['datavalue']['value'] === $VALUE ) {
+						$ids[] = $id;
+					}
+				}
+			}
+		}
+		return $ids;
 	}
 
 }
