@@ -91,13 +91,13 @@ Caution: invalid JSON will be ignored. No error will be shown, the intended conf
 
 | Variable                | Description                                                                  | Example          |
 |-------------------------|------------------------------------------------------------------------------|------------------|
-| `defaultSubjects`       | List of IDs of items that should be selected by default.                     | `[ "Q1", "Q2" ]` |
-| `defaultStartYear`      | The default start year.                                                      | `2010`           |
-| `defaultEndYear`        | The default end year.                                                        | `2022`           |
 | `startTimePropertyId`   | Property ID of the qualifier used for the start of a time range.             | `P100`           |
 | `endTimePropertyId`     | Property ID of the qualifier used for the end of a time range.               | `P200`           |
 | `pointInTimePropertyId` | Property ID of the qualifier used for a specific point in time.              | `P300`           |
 | `properties`            | List of IDs of properties for statements that may be included in the export. | `[ "P1", "P2" ]` |
+| `defaultSubjects`       | List of IDs of items that should be selected by default.                     | `[ "Q1", "Q2" ]` |
+| `defaultStartYear`      | The default start year.                                                      | `2010`           |
+| `defaultEndYear`        | The default end year.                                                        | `2022`           |
 
 The following variables are required and must be defined in either [LocalSettings.php] or using the in-wiki configuration page:
 * `startTimePropertyId`
