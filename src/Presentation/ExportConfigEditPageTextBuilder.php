@@ -88,6 +88,18 @@ class ExportConfigEditPageTextBuilder {
 				'2022',
 				false
 			) .
+			$this->createTableRow(
+				'subjectFilterPropertyId',
+				'wikibase-export-config-help-variable-subject-filter-property-id',
+				'"P50"',
+				false
+			) .
+			$this->createTableRow(
+				'subjectFilterPropertyValue',
+				'wikibase-export-config-help-variable-subject-filter-property-value',
+				'"company"',
+				false
+			) .
 			'</tbody>' .
 			'</table>';
 	}

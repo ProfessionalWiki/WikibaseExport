@@ -37,7 +37,9 @@ class Valid {
     "properties": [
         "P4",
         "P5"
-    ]
+    ],
+	"subjectFilterPropertyId": "P10",
+	"subjectFilterPropertyValue": "company"
 }
 ';
 	}
