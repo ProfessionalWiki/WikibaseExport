@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application;
 
-use Language;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -14,7 +13,7 @@ class EntityMapperFactory {
 	public function __construct(
 		private TimeQualifierProperties $timeQualifierProperties,
 		private StatementMapper $statementMapper,
-		private Language $contentLanguage
+		private string $contentLanguage
 	) {
 	}
 
