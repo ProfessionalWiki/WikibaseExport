@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\Application\Export;
 
+use LanguageEn;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\EntityMapperFactory;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
@@ -35,7 +36,8 @@ class ExportUseCaseTest extends TestCase {
 					startTime: new NumericPropertyId( 'P2' ),
 					endTime: new NumericPropertyId( 'P3' ),
 				),
-				statementMapper: WikibaseExportExtension::getInstance()->newStatementMapper()
+				statementMapper: WikibaseExportExtension::getInstance()->newStatementMapper(),
+				contentLanguage: new LanguageEn()
 			),
 			presenter: $presenter,
 			authorizer: $authorizer
