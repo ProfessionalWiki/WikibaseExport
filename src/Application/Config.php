@@ -20,7 +20,9 @@ class Config {
 		public /* readonly */ ?string $startTimePropertyId = null,
 		public /* readonly */ ?string $endTimePropertyId = null,
 		public /* readonly */ ?string $pointInTimePropertyId = null,
-		public /* readonly */ ?array $properties = null
+		public /* readonly */ ?array $properties = null,
+		public /* readonly */ ?string $subjectFilterPropertyId = null,
+		public /* readonly */ ?string $subjectFilterPropertyValue = null
 	) {
 	}
 
@@ -32,7 +34,9 @@ class Config {
 			$config->startTimePropertyId ?? $this->startTimePropertyId,
 			$config->endTimePropertyId ?? $this->endTimePropertyId,
 			$config->pointInTimePropertyId ?? $this->pointInTimePropertyId,
-			$config->properties ?? $this->properties
+			$config->properties ?? $this->properties,
+			$config->subjectFilterPropertyId ?? $this->subjectFilterPropertyId,
+			$config->subjectFilterPropertyValue ?? $this->subjectFilterPropertyValue
 		);
 	}
 

@@ -11,5 +11,7 @@
 		"Q2"
 	],
 	"defaultStartYear": 2010,
-	"defaultEndYear": 2022
+	"defaultEndYear": 2022,
+	"subjectFilterPropertyId": "P50",
+	"subjectFilterPropertyValue": "company"
 }

@@ -48,5 +48,7 @@
 	"wikibase-export-config-help-variable-start-time-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-variable-end-time-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-variable-point-in-time-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-variable-properties": "Help text displayed on \"MediaWiki:WikibaseExport\""
+	"wikibase-export-config-help-variable-properties": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-subject-filter-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-subject-filter-property-value": "Help text displayed on \"MediaWiki:WikibaseExport\""
 }

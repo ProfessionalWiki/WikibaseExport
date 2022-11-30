@@ -29,6 +29,12 @@
 			"items": {
 				"$ref": "#/$defs/property"
 			}
+		},
+		"subjectFilterPropertyId": {
+			"$ref": "#/$defs/property"
+		},
+		"subjectFilterPropertyValue": {
+			"type": [ "string", "null" ]
 		}
 	},
 	"dependentSchemas": {

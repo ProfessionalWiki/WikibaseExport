@@ -60,7 +60,9 @@ class MediaWikiHooks {
 	"defaultSubjects": [
 	],
 	"defaultStartYear": null,
-	"defaultEndYear": null
+	"defaultEndYear": null,
+	"subjectFilterPropertyId": null,
+	"subjectFilterPropertyValue": null
 }' );
 		}
 	}
