@@ -153,4 +153,76 @@ class TimeQualifierStatementGrouperTest extends TestCase {
 		);
 	}
 
+	public function testGroupsTimeRangeStatementsWithoutStartDate(): void {
+		$grouper = new TimeQualifierStatementGrouper(
+			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
+			years: [ 2000, 2021, 2023 ]
+		);
+
+		$this->assertEquals(
+			[
+				2000 => new StatementList(
+					TimeHelper::newTimeRangeStatement( null, 2022, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newTimeRangeStatement( null, 2023, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newDayRangeStatement( null, '2022-01-01', 'P1', new StringValue( 'Year with day' ) ),
+					TimeHelper::newDayRangeStatement( null, '2023-01-01', 'P1', new StringValue( 'C5' ) )
+				),
+				2021 => new StatementList(
+					TimeHelper::newTimeRangeStatement( null, 2022, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newTimeRangeStatement( null, 2023, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newDayRangeStatement( null, '2022-01-01', 'P1', new StringValue( 'Year with day' ) ),
+					TimeHelper::newDayRangeStatement( null, '2023-01-01', 'P1', new StringValue( 'C5' ) )
+				),
+				2023 => new StatementList(
+					TimeHelper::newTimeRangeStatement( null, 2023, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newDayRangeStatement( null, '2023-01-01', 'P1', new StringValue( 'C5' ) )
+				),
+			],
+			$grouper->groupByYear(
+				new StatementList(
+					TimeHelper::newTimeRangeStatement( null, 2022, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newTimeRangeStatement( null, 2023, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newDayRangeStatement( null, '2022-01-01', 'P1', new StringValue( 'Year with day' ) ),
+					TimeHelper::newDayRangeStatement( null, '2023-01-01', 'P1', new StringValue( 'C5' ) )
+				)
+			)
+		);
+	}
+
+	public function testGroupsTimeRangeStatementsWithoutEndDate(): void {
+		$grouper = new TimeQualifierStatementGrouper(
+			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
+			years: [ 2000, 2021, 2023 ]
+		);
+
+		$this->assertEquals(
+			[
+				2000 => new StatementList(
+					TimeHelper::newTimeRangeStatement( 2000, null, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newDayRangeStatement( '2000-01-01', null, 'P1', new StringValue( 'Year with day' ) ),
+				),
+				2021 => new StatementList(
+					TimeHelper::newTimeRangeStatement( 2000, null, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newTimeRangeStatement( 2001, null, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newDayRangeStatement( '2000-01-01', null, 'P1', new StringValue( 'Year with day' ) ),
+					TimeHelper::newDayRangeStatement( '2001-01-01', null, 'P1', new StringValue( 'C5' ) )
+				),
+				2023 => new StatementList(
+					TimeHelper::newTimeRangeStatement( 2000, null, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newTimeRangeStatement( 2001, null, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newDayRangeStatement( '2000-01-01', null, 'P1', new StringValue( 'Year with day' ) ),
+					TimeHelper::newDayRangeStatement( '2001-01-01', null, 'P1', new StringValue( 'C5' ) )
+				),
+			],
+			$grouper->groupByYear(
+				new StatementList(
+					TimeHelper::newTimeRangeStatement( 2000, null, 'P1', new StringValue( 'One year' ) ),
+					TimeHelper::newTimeRangeStatement( 2001, null, 'P1', new StringValue( 'B5' ) ),
+					TimeHelper::newDayRangeStatement( '2000-01-01', null, 'P1', new StringValue( 'Year with day' ) ),
+					TimeHelper::newDayRangeStatement( '2001-01-01', null, 'P1', new StringValue( 'C5' ) )
+				)
+			)
+		);
+	}
+
 }

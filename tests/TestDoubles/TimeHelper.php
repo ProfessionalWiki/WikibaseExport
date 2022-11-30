@@ -47,41 +47,55 @@ class TimeHelper {
 		);
 	}
 
-	public static function newTimeRangeStatement( int $startYear, int $endYear, string $pId = 'P1', DataValue $value = null ): Statement {
+	public static function newTimeRangeStatement( ?int $startYear, ?int $endYear, string $pId = 'P1', DataValue $value = null ): Statement {
+		$snaks = [];
+
+		if ( $startYear !== null ) {
+			$snaks[] = new PropertyValueSnak(
+				new NumericPropertyId( self::START_TIME_ID ),
+				self::newDay( '+' . $startYear . '-00-00T00:00:00Z' )
+			);
+		}
+
+		if ( $endYear !== null ) {
+			$snaks[] = new PropertyValueSnak(
+				new NumericPropertyId( self::END_TIME_ID ),
+				self::newDay( '+' . $endYear . '-00-00T00:00:00Z' )
+			);
+		}
+
 		return new Statement(
 			mainSnak: new PropertyValueSnak(
 				new NumericPropertyId( $pId ),
 				$value ?? new StringValue( 'Foo' )
 			),
-			qualifiers: new SnakList( [
-				new PropertyValueSnak(
-					new NumericPropertyId( self::START_TIME_ID ),
-					self::newDay( '+' . $startYear . '-00-00T00:00:00Z' )
-				),
-				new PropertyValueSnak(
-					new NumericPropertyId( self::END_TIME_ID ),
-					self::newDay( '+' . $endYear . '-00-00T00:00:00Z' )
-				)
-			] )
+			qualifiers: new SnakList( $snaks )
 		);
 	}
 
-	public static function newDayRangeStatement( string $startDay, string $endDay, string $pId = 'P1', DataValue $value = null ): Statement {
+	public static function newDayRangeStatement( ?string $startDay, ?string $endDay, string $pId = 'P1', DataValue $value = null ): Statement {
+		$snaks = [];
+
+		if ( $startDay !== null ) {
+			$snaks[] = new PropertyValueSnak(
+				new NumericPropertyId( self::START_TIME_ID ),
+				self::newDay( '+' . $startDay . 'T00:00:00Z' )
+			);
+		}
+
+		if ( $endDay !== null ) {
+			$snaks[] = new PropertyValueSnak(
+				new NumericPropertyId( self::END_TIME_ID ),
+				self::newDay( '+' . $endDay . 'T00:00:00Z' )
+			);
+		}
+
 		return new Statement(
 			mainSnak: new PropertyValueSnak(
 				new NumericPropertyId( $pId ),
 				$value ?? new StringValue( 'Foo' )
 			),
-			qualifiers: new SnakList( [
-				new PropertyValueSnak(
-					new NumericPropertyId( self::START_TIME_ID ),
-					self::newDay( '+' . $startDay . 'T00:00:00Z' )
-				),
-				new PropertyValueSnak(
-					new NumericPropertyId( self::END_TIME_ID ),
-					self::newDay( '+' . $endDay . 'T00:00:00Z' )
-				)
-			] )
+			qualifiers: new SnakList( $snaks )
 		);
 	}
 
