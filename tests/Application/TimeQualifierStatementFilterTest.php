@@ -155,7 +155,7 @@ class TimeQualifierStatementFilterTest extends TestCase {
 		) );
 	}
 
-	public function testRangeWithoutStartDateDoesMatch(): void {
+	public function testRangeWithoutStartDateWithEndDateBelowUpperBoundDoesMatch(): void {
 		$filter = new TimeQualifierStatementFilter(
 			TimeHelper::newJan2000ToDec2005(),
 			TimeHelper::newTimeQualifierProperties()
@@ -166,7 +166,29 @@ class TimeQualifierStatementFilterTest extends TestCase {
 		) );
 	}
 
-	public function testRangeWithoutEndDateDoesMatch(): void {
+	public function testRangeWithoutStartDateWithEndDateAboveUpperBoundDoesMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: null, endYear: 2006 )
+		) );
+	}
+
+	public function testRangeWithoutStartDateWithEndDateBelowLowerBoundDoesNotMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertFalse( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: null, endYear: 1999 )
+		) );
+	}
+
+	public function testRangeWithoutEndDateWithStartDateAboveLowerBoundDoesMatch(): void {
 		$filter = new TimeQualifierStatementFilter(
 			TimeHelper::newJan2000ToDec2005(),
 			TimeHelper::newTimeQualifierProperties()
@@ -174,6 +196,28 @@ class TimeQualifierStatementFilterTest extends TestCase {
 
 		$this->assertTrue( $filter->statementMatches(
 			TimeHelper::newTimeRangeStatement( startYear: 2001, endYear: null )
+		) );
+	}
+
+	public function testRangeWithoutEndDateWithStartDateBelowLowerBoundDoesMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 1999, endYear: null )
+		) );
+	}
+
+	public function testRangeWithoutEndDateWithStartDateAboveUpperBoundDoesNotMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertFalse( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 2006, endYear: null )
 		) );
 	}
 
