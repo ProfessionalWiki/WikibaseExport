@@ -26,6 +26,7 @@
 
 	"wikibase-export-config-invalid": "Error message shown when attempting to save invalid configuration on MediaWiki:WikibaseExport",
 	"wikibase-export-config-incomplete": "Error message shown on \"Special:WikibaseExport\" when required configuration is incomplete.",
+	"wikibase-export-config-incomplete-link": "Config page link shown on \"Special:WikibaseExport\" when required configuration is incomplete.",
 
 	"wikibase-export-config-help-documentation": "Link to documentation displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help": "Help text heading displayed on \"MediaWiki:WikibaseExport\"",
