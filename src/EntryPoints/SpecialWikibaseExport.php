@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use SpecialPage;
@@ -49,7 +50,18 @@ class SpecialWikibaseExport extends SpecialPage {
 	}
 
 	private function getConfigIncompleteWarning(): string {
-		return Html::errorBox( $this->msg( 'wikibase-export-config-incomplete' )->parse() );
+		$text = $this->msg( 'wikibase-export-config-incomplete' )->parse();
+
+		if ( $this->shouldShowConfigLink() ) {
+			$text .= '<br/>' . $this->msg( 'wikibase-export-config-incomplete-link' )->parse();
+		}
+
+		return Html::errorBox( $text );
+	}
+
+	private function shouldShowConfigLink(): bool {
+		return MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' ) === true
+			&& $this->getUser()->isAllowed( 'editinterface' );
 	}
 
 	private function getIntroText(): string {
