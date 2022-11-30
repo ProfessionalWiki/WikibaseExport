@@ -23,6 +23,7 @@ class WideCsvPresenterTest extends TestCase {
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q42',
+			label: 'Item One',
 			statementsByYear: [
 				new MappedYear(
 					year: 2022,
@@ -36,6 +37,7 @@ class WideCsvPresenterTest extends TestCase {
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q43',
+			label: 'Item Two',
 			statementsByYear: [
 				new MappedYear(
 					year: 2022,
@@ -49,9 +51,9 @@ class WideCsvPresenterTest extends TestCase {
 
 		$this->assertPresenterHasCsv(
 			<<<CSV
-ID,"P1 2022","P2 2022"
-Q42,Foo,Bar
-Q43,MoreFoo,MoreBar
+ID,Label,"P1 2022","P2 2022"
+Q42,"Item One",Foo,Bar
+Q43,"Item Two",MoreFoo,MoreBar
 
 CSV,
 			$presenter
@@ -71,6 +73,7 @@ CSV,
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q42',
+			label: 'Foo Bar',
 			statementsByYear: [
 				new MappedYear(
 					year: 2022,
@@ -86,8 +89,8 @@ CSV,
 
 		$this->assertPresenterHasCsv(
 			<<<CSV
-ID,"P1 2022","P2 2022"
-Q42,"One
+ID,Label,"P1 2022","P2 2022"
+Q42,"Foo Bar","One
 Four","Two
 Three"
 
@@ -111,6 +114,7 @@ CSV,
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q42',
+			label: 'Foo Bar',
 			statementsByYear: [
 				new MappedYear(
 					year: 2022,
@@ -131,8 +135,8 @@ CSV,
 
 		$this->assertPresenterHasCsv(
 			<<<CSV
-ID,"P1 2023","P1 2022","P2 2023","P2 2022"
-Q42,P1_2023,P1_2022,P2_2023,P2_2022
+ID,Label,"P1 2023","P1 2022","P2 2023","P2 2022"
+Q42,"Foo Bar",P1_2023,P1_2022,P2_2023,P2_2022
 
 CSV,
 			$presenter
@@ -147,6 +151,7 @@ CSV,
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q42',
+			label: 'Foo Bar',
 			statementsByYear: [
 				new MappedYear(
 					year: 2021,
@@ -167,14 +172,15 @@ CSV,
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q41',
+			label: 'Bar Baz',
 			statementsByYear: []
 		) );
 
 		$this->assertPresenterHasCsv(
 			<<<CSV
-ID,"P1 2022","P2 2022"
-Q42,,
-Q41,,
+ID,Label,"P1 2022","P2 2022"
+Q42,"Foo Bar",,
+Q41,"Bar Baz",,
 
 CSV,
 			$presenter

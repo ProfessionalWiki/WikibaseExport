@@ -29,7 +29,7 @@ class WideCsvPresenter implements ExportPresenter {
 	}
 
 	public function presentEntity( MappedEntity $entity ): void {
-		$rowValues = [ $entity->id ];
+		$rowValues = [ $entity->id, $entity->label ];
 
 		foreach ( $this->properties as $propertyId ) {
 			foreach ( $this->years as $year ) {
@@ -72,7 +72,7 @@ class WideCsvPresenter implements ExportPresenter {
 		fputcsv(
 			$this->stream,
 			array_merge(
-				[ 'ID' ],
+				[ 'ID', 'Label' ],
 				...$this->buildHeadersForEachProperty()
 			)
 		);

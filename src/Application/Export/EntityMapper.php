@@ -4,11 +4,14 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
+use MediaWiki\MediaWikiServices;
 use ProfessionalWiki\WikibaseExport\Application\StatementGrouper;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementFilter;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
+use Wikibase\DataModel\Term\LabelsProvider;
+use Wikibase\DataModel\Term\TermList;
 
 class EntityMapper {
 
@@ -22,6 +25,7 @@ class EntityMapper {
 	public function map( EntityDocument $entity ): MappedEntity {
 		return new MappedEntity(
 			id: (string)$entity->getId(),
+			label: $this->getLabel( $entity ),
 			statementsByYear: $this->buildYears( $entity )
 		);
 	}
@@ -51,6 +55,25 @@ class EntityMapper {
 		}
 
 		return new StatementList();
+	}
+
+	private function getLabels( EntityDocument $entity ): TermList {
+		if ( $entity instanceof LabelsProvider ) {
+			return $entity->getLabels();
+		}
+
+		return new TermList();
+	}
+
+	private function getLabel( EntityDocument $entity ): string {
+		$labels = $this->getLabels( $entity );
+		$language = MediaWikiServices::getInstance()->getContentLanguage();
+
+		if ( $labels->hasTermForLanguage( $language->getCode() ) ) {
+			return $labels->getByLanguage( $language->getCode() )->getText();
+		}
+
+		return '';
 	}
 
 }

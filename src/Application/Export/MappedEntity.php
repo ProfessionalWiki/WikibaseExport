@@ -19,6 +19,7 @@ class MappedEntity {
 	 */
 	public function __construct(
 		public /* readonly */ string $id,
+		public /* readonly */ string $label,
 		array $statementsByYear
 	) {
 		foreach ( $statementsByYear as $year ) {
