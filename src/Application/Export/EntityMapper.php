@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
-use MediaWiki\MediaWikiServices;
+use Language;
 use ProfessionalWiki\WikibaseExport\Application\StatementGrouper;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementFilter;
@@ -18,7 +18,8 @@ class EntityMapper {
 	public function __construct(
 		private StatementFilter $statementFilter,
 		private StatementGrouper $statementGrouper,
-		private StatementMapper $statementMapper
+		private StatementMapper $statementMapper,
+		private Language $contentLanguage
 	) {
 	}
 
@@ -67,10 +68,9 @@ class EntityMapper {
 
 	private function getLabel( EntityDocument $entity ): string {
 		$labels = $this->getLabels( $entity );
-		$language = MediaWikiServices::getInstance()->getContentLanguage();
 
-		if ( $labels->hasTermForLanguage( $language->getCode() ) ) {
-			return $labels->getByLanguage( $language->getCode() )->getText();
+		if ( $labels->hasTermForLanguage( $this->contentLanguage->getCode() ) ) {
+			return $labels->getByLanguage( $this->contentLanguage->getCode() )->getText();
 		}
 
 		return '';

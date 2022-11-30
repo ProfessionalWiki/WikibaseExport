@@ -107,7 +107,8 @@ class WikibaseExportExtension {
 			),
 			entityMapperFactory: new EntityMapperFactory(
 				timeQualifierProperties: $this->newTimeQualifierProperties(),
-				statementMapper: $this->newStatementMapper()
+				statementMapper: $this->newStatementMapper(),
+				contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()
 			),
 			presenter: $presenter,
 			authorizer: new AuthorityBasedExportAuthorizer(
