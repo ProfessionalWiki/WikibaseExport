@@ -24,6 +24,7 @@ class MappedEntityTest extends TestCase {
 
 		$entity = new MappedEntity(
 			id: 'Q42',
+			label: 'Foo Bar',
 			statementsByYear: [ $year ]
 		);
 
@@ -36,6 +37,7 @@ class MappedEntityTest extends TestCase {
 	public function testGetUnknownYear(): void {
 		$entity = new MappedEntity(
 			id: 'Q42',
+			label: 'Foo Bar',
 			statementsByYear: [
 				new MappedYear(
 					year: 2022,

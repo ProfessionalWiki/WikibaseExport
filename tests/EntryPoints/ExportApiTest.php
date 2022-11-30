@@ -96,13 +96,13 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->assertResponseHasContent(
 			$response,
 			<<<CSV
-ID,"P1 2022","P1 2021","P2 2022","P2 2021"
-Q42,"Hello future
+ID,Label,"P1 2022","P1 2021","P2 2022","P2 2021"
+Q42,,"Hello future
 Included upper bound","Included lower bound",,
-Q43,,,"5,000±0 EUR
+Q43,,,,"5,000±0 EUR
 9,001±0 EUR","1,337±0 EUR
 5,000±0 EUR"
-Q45,,,,
+Q45,,,,,
 CSV
 		);
 	}

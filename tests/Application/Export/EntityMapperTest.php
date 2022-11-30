@@ -19,6 +19,9 @@ use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementFilter;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Fingerprint;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper
@@ -83,6 +86,18 @@ class EntityMapperTest extends TestCase {
 					)
 				)
 			)->getYear( StubStatementGrouper::YEAR )->getAllValuesPerProperty()
+		);
+	}
+
+	public function testMapsLabel(): void {
+		$this->assertSame(
+			'Foo Bar',
+			$this->newMapper()->map(
+				new Item(
+					id: new ItemId( 'Q42' ),
+					fingerprint: new Fingerprint( new Termlist( [ new Term( 'en', 'Foo Bar' ) ] ) )
+				)
+			)->label
 		);
 	}
 
