@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Application\Export;
 
 use DataValues\StringValue;
-use LanguageEn;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
@@ -45,7 +44,7 @@ class EntityMapperTest extends TestCase {
 			statementFilter: $statementFilter ?? new NullStatementFilter(),
 			statementGrouper: new StubStatementGrouper(),
 			statementMapper: new StatementMapper( new FakeSnakFormatter() ),
-			contentLanguage: new LanguageEn()
+			contentLanguage: 'en'
 		);
 	}
 
