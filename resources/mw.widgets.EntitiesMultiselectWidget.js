@@ -115,6 +115,7 @@
 	/**
 	 * @inheritdoc OO.ui.mixin.RequestManager
 	 */
+	// eslint-disable-next-line max-len
 	mw.widgets.EntitiesMultiselectWidget.prototype.getRequestCacheDataFromResponse = function ( response ) {
 		return response.search || [];
 	};
