@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\Application;
 
 use DataValues\TimeValue;
 use DateTimeImmutable;
+use RuntimeException;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementFilter;
 
@@ -29,7 +30,13 @@ class TimeQualifierStatementFilter implements StatementFilter {
 		$startTime = $niceStatement->getQualifierValue( $this->qualifierProperties->startTime );
 		$endTime = $niceStatement->getQualifierValue( $this->qualifierProperties->endTime );
 
-		if ( $startTime instanceof TimeValue && $endTime instanceof TimeValue ) {
+		if ( $startTime === null && $endTime === null ) {
+			// TODO: #98
+			return false;
+		}
+
+		if ( ( $startTime === null || $startTime instanceof TimeValue )
+			&& ( $endTime === null || $endTime instanceof TimeValue ) ) {
 			return $this->qualifierRangeContainsTimeRange( $startTime, $endTime );
 		}
 
@@ -40,16 +47,54 @@ class TimeQualifierStatementFilter implements StatementFilter {
 		return new DateTimeImmutable( str_replace( '-00', '-01', $timeValue->getTime() ) );
 	}
 
-	private function qualifierRangeContainsTimeRange( TimeValue $startTime, TimeValue $endTime ): bool {
+	private function qualifierRangeContainsTimeRange( ?TimeValue $startTime, ?TimeValue $endTime ): bool {
 		$qualifierRange = new TimeRange(
-			start: $this->timeValueToDateTimeImmutable( $startTime ),
-			end: $this->timeValueToDateTimeImmutable( $endTime )
+			start: $this->getStartTime( $startTime, $endTime ),
+			end: $this->getEndTime( $startTime, $endTime )
 		);
 
 		return $qualifierRange->contains( $this->timeRange->start )
 			|| $qualifierRange->contains( $this->timeRange->end )
 			|| $this->timeRange->contains( $qualifierRange->start )
 			|| $this->timeRange->contains( $qualifierRange->end );
+	}
+
+	private function getStartTime( ?TimeValue $startTime, ?TimeValue $endTime ): DateTimeImmutable {
+		if ( $startTime !== null ) {
+			return $this->timeValueToDateTimeImmutable( $startTime );
+		}
+
+		if ( $endTime === null ) {
+			// TODO: #98
+			throw new RuntimeException( 'Statement without qualifier not supported' );
+		}
+
+		// When the qualifier start time is open-ended, allow any time not after the qualifier end time.
+		$endDateTime = $this->timeValueToDateTimeImmutable( $endTime );
+		if ( $this->timeRange->start <= $endDateTime ) {
+			return $this->timeRange->start;
+		}
+
+		return $endDateTime;
+	}
+
+	private function getEndTime( ?TimeValue $startTime, ?TimeValue $endTime ): DateTimeImmutable {
+		if ( $endTime !== null ) {
+			return $this->timeValueToDateTimeImmutable( $endTime );
+		}
+
+		if ( $startTime === null ) {
+			// TODO: #98
+			throw new RuntimeException( 'Statement without qualifier not supported' );
+		}
+
+		// When the qualifier end time is open-ended, allow any time not before the qualifier start time.
+		$startDateTime = $this->timeValueToDateTimeImmutable( $startTime );
+		if ( $this->timeRange->end >= $startDateTime ) {
+			return $this->timeRange->end;
+		}
+
+		return $startDateTime;
 	}
 
 }

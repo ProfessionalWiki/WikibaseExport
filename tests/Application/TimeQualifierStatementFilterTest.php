@@ -155,4 +155,26 @@ class TimeQualifierStatementFilterTest extends TestCase {
 		) );
 	}
 
+	public function testRangeWithoutStartDateDoesMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: null, endYear: 2001 )
+		) );
+	}
+
+	public function testRangeWithoutEndDateDoesMatch(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			TimeHelper::newTimeQualifierProperties()
+		);
+
+		$this->assertTrue( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 2001, endYear: null )
+		) );
+	}
+
 }
