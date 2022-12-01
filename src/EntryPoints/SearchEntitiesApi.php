@@ -28,18 +28,18 @@ class SearchEntitiesApi extends SimpleHandler {
 
 		// API: wbgetentities
 		$entityData = $this->getEntityData(
-			array_map(
-				fn( $entity ) => $entity['id'],
-				$searchData['search']
-			)
+			array_values( array_map(
+				fn( $entity ) => (string)$entity['id'],
+					(array)$searchData['search']
+			) )
 		);
 
 		// Filter matches
 		if ( $this->shouldFilter() ) {
-			$validIds = $this->filterIds( $entityData['entities'] );
+			$validIds = $this->filterIds( (array)( $entityData['entities'] ?? [] ) );
 			$searchData['search'] = array_values(
 				array_filter(
-					$searchData['search'],
+					(array)$searchData['search'],
 					fn( $entity ) => in_array( $entity['id'], $validIds )
 				)
 			);
@@ -77,39 +77,40 @@ class SearchEntitiesApi extends SimpleHandler {
 		$api = new ApiMain(
 			new DerivativeRequest(
 				RequestContext::getMain()->getRequest(),
-				array(
+				[
 					'action' => 'wbsearchentities',
 					'type' => 'item',
 					'language' => $lang,
 					'uselang' => $lang,
 					'search' => $this->getValidatedParams()[self::PARAM_SEARCH]
-				)
+				]
 			)
 		);
 		$api->execute();
 
-		return $api->getResult()->getResultData(
+		return (array)$api->getResult()->getResultData(
 			transforms: [ 'Strip' => 'all' ]
 		);
 	}
 
 	/**
+	 * @param string[] $ids
 	 * @return array<string, mixed>
 	 */
 	private function getEntityData( array $ids ): array {
 		$api = new ApiMain(
 			new DerivativeRequest(
 				RequestContext::getMain()->getRequest(),
-				array(
+				[
 					'action' => 'wbgetentities',
 					'ids' => implode( '|', $ids ),
 					'props' => 'claims'
-				)
+				]
 			)
 		);
 		$api->execute();
 
-		return $api->getResult()->getResultData(
+		return (array)$api->getResult()->getResultData(
 			transforms: [ 'Strip' => 'all' ]
 		);
 	}
@@ -120,10 +121,10 @@ class SearchEntitiesApi extends SimpleHandler {
 	 */
 	private function filterIds( array $entityData ): array {
 		$ids = [];
-		foreach( $entityData as $id => $data ) {
-			if ( array_key_exists( $this->config->subjectFilterPropertyId, $data['claims'] ) ) {
-				$claims = $data['claims'][$this->config->subjectFilterPropertyId];
-				foreach( $claims as $claim ) {
+		foreach ( $entityData as $id => $data ) {
+			if ( array_key_exists( $this->config->subjectFilterPropertyId ?? '', (array)$data['claims'] ) ) {
+				$claims = (array)$data['claims'][$this->config->subjectFilterPropertyId];
+				foreach ( $claims as $claim ) {
 					if ( $claim['mainsnak']['datavalue']['value'] === $this->config->subjectFilterPropertyValue ) {
 						$ids[] = $id;
 					}
