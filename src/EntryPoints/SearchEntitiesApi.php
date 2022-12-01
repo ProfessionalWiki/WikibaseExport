@@ -9,6 +9,8 @@ use DerivativeRequest;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
+use ProfessionalWiki\WikibaseExport\Application\Config;
+use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use RequestContext;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -16,7 +18,11 @@ class SearchEntitiesApi extends SimpleHandler {
 
 	private const PARAM_SEARCH = 'search';
 
+	private Config $config;
+
 	public function run(): Response {
+		$this->config = WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig();
+
 		// API: wbsearchentities
 		$searchData = $this->getSearchData();
 
@@ -111,21 +117,26 @@ class SearchEntitiesApi extends SimpleHandler {
 	 * @return string[]
 	 */
 	private function filterIds( array $entityData ): array {
-		$PID = 'P14';
-		$VALUE = 'company';
+		if ( !$this->shouldFilter() ) {
+			return $entityData;
+		}
 
 		$ids = [];
 		foreach( $entityData as $id => $data ) {
-			if ( array_key_exists( 'P14', $data['claims'] ) ) {
-				$claims = $data['claims'][$PID];
+			if ( array_key_exists( $this->config->subjectFilterPropertyId, $data['claims'] ) ) {
+				$claims = $data['claims'][$this->config->subjectFilterPropertyId];
 				foreach( $claims as $claim ) {
-					if ( $claim['mainsnak']['datavalue']['value'] === $VALUE ) {
+					if ( $claim['mainsnak']['datavalue']['value'] === $this->config->subjectFilterPropertyValue ) {
 						$ids[] = $id;
 					}
 				}
 			}
 		}
 		return $ids;
+	}
+
+	private function shouldFilter(): bool {
+		return $this->config->subjectFilterPropertyId !== null && $this->config->subjectFilterPropertyValue !== null;
 	}
 
 }
