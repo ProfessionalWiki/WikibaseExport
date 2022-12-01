@@ -11,6 +11,8 @@ use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
+use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
+use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
 use ProfessionalWiki\WikibaseExport\EntryPoints\SearchEntitiesApi;
 use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
@@ -124,6 +126,22 @@ class WikibaseExportExtension {
 
 	private function newSearchEntitiesApi(): SearchEntitiesApi {
 		return new SearchEntitiesApi();
+	}
+
+	public function newSearchEntitiesUseCase( SearchEntitiesPresenter $presenter ): SearchEntitiesUseCase {
+		return new SearchEntitiesUseCase(
+			config: $this->newConfigLookup()->getConfig(),
+			entitySourceFactory: new EntitySourceFactory(
+				lookup: WikibaseRepo::getEntityLookup()
+			),
+			contentLangugae: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
+			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
+			snakFormatter: WikibaseRepo::getSnakFormatterFactory()->getSnakFormatter(
+				SnakFormatter::FORMAT_PLAIN,
+				new FormatterOptions()
+			),
+			presenter: $presenter
+		);
 	}
 
 }

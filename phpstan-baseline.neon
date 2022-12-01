@@ -1,41 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot access offset 'claims' on mixed\\.$#"
-			count: 2
-			path: src/EntryPoints/SearchEntitiesApi.php
-
-		-
-			message: "#^Cannot access offset 'datavalue' on mixed\\.$#"
-			count: 1
-			path: src/EntryPoints/SearchEntitiesApi.php
-
-		-
-			message: "#^Cannot access offset 'id' on mixed\\.$#"
-			count: 2
-			path: src/EntryPoints/SearchEntitiesApi.php
-
-		-
-			message: "#^Cannot access offset 'mainsnak' on mixed\\.$#"
-			count: 1
-			path: src/EntryPoints/SearchEntitiesApi.php
-
-		-
-			message: "#^Cannot access offset 'value' on mixed\\.$#"
-			count: 1
-			path: src/EntryPoints/SearchEntitiesApi.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: src/EntryPoints/SearchEntitiesApi.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/EntryPoints/SearchEntitiesApi.php
-
-		-
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: src/WikibaseExportExtension.php
