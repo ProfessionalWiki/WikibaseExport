@@ -4,29 +4,23 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\SearchEntities;
 
-use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Services\Statement\Filter\PropertySetStatementFilter;
-use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementFilter;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
-use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Repo\Api\EntitySearchHelper;
 
 class SearchEntitiesUseCase {
 
-	private StatementFilter $propertyIdFilter;
-
 	public function __construct(
-		private Config $config,
-		private EntitySourceFactory $entitySourceFactory,
-		private string $contentLangugae,
+		private bool $shouldFilterSubjects,
 		private EntitySearchHelper $entitySearchHelper,
-		private SnakFormatter $snakFormatter,
+		private string $contentLanguage,
+		private EntitySourceFactory $entitySourceFactory,
+		private StatementFilter $subjectFilter,
 		private SearchEntitiesPresenter $presenter
 	) {
 	}
@@ -42,7 +36,7 @@ class SearchEntitiesUseCase {
 	private function getSearchResults( string $text ): array {
 		return $this->entitySearchHelper->getRankedSearchResults(
 			text: $text,
-			languageCode: $this->contentLangugae,
+			languageCode: $this->contentLanguage,
 			entityType: 'item',
 			limit: 50,
 			strictLanguage: false
@@ -53,13 +47,11 @@ class SearchEntitiesUseCase {
 	 * @param TermSearchResult[] $results
 	 */
 	private function filterSearchResults( array $results ): void {
+		// TODO: maybe don't waste time retrieving entities when the filtering is not configured?
+		// TODO: ID and label are already available
 		$entitySource = $this->entitySourceFactory->newEntitySource(
 			$this->getIdsFromSearchResults( $results )
 		);
-
-		// TOOD: maybe don't waste time retrieving entities when the filering is not configured
-
-		$this->propertyIdFilter = new PropertySetStatementFilter( $this->config->subjectFilterPropertyId ?? '' );
 
 		while ( true ) {
 			$entity = $entitySource->next();
@@ -87,36 +79,18 @@ class SearchEntitiesUseCase {
 
 	private function getStatements( EntityDocument $entity ): StatementList {
 		if ( $entity instanceof StatementListProvider ) {
-			return $entity->getStatements()->filter( $this->propertyIdFilter );
+			return $entity->getStatements()->filter( $this->subjectFilter );
 		}
 
 		return new StatementList();
 	}
 
-	private function statementToString( Statement $statement ): string {
-		return $this->snakFormatter->formatSnak( $statement->getMainSnak() );
-	}
-
 	private function entityMatches( EntityDocument $entity ): bool {
-		// Filtering is not configured.
-		if ( $this->config->subjectFilterPropertyId === null || $this->config->subjectFilterPropertyValue === null ) {
+		if ( !$this->shouldFilterSubjects ) {
 			return true;
 		}
 
-		$statements = $this->getStatements( $entity )->toArray();
-
-		// Entity does not have a statement value.
-		if ( count( $statements ) === 0 ) {
-			return false;
-		}
-
-		foreach ( $statements as $statement ) {
-			if ( $this->statementToString( $statement ) === $this->config->subjectFilterPropertyValue ) {
-				return true;
-			}
-		}
-
-		return false;
+		return count( $this->getStatements( $entity ) ) > 0;
 	}
 
 }
