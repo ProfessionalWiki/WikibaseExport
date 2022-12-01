@@ -35,13 +35,15 @@ class SearchEntitiesApi extends SimpleHandler {
 		);
 
 		// Filter matches
-		$validIds = $this->filterIds( $entityData['entities'] );
-		$searchData['search'] = array_values(
-			array_filter(
-				$searchData['search'],
-				fn( $entity ) => in_array( $entity['id'], $validIds )
-			)
-		);
+		if ( $this->shouldFilter() ) {
+			$validIds = $this->filterIds( $entityData['entities'] );
+			$searchData['search'] = array_values(
+				array_filter(
+					$searchData['search'],
+					fn( $entity ) => in_array( $entity['id'], $validIds )
+				)
+			);
+		}
 
 		return $this->getResponseFactory()->createJson( $searchData );
 	}
@@ -117,10 +119,6 @@ class SearchEntitiesApi extends SimpleHandler {
 	 * @return string[]
 	 */
 	private function filterIds( array $entityData ): array {
-		if ( !$this->shouldFilter() ) {
-			return $entityData;
-		}
-
 		$ids = [];
 		foreach( $entityData as $id => $data ) {
 			if ( array_key_exists( $this->config->subjectFilterPropertyId, $data['claims'] ) ) {
