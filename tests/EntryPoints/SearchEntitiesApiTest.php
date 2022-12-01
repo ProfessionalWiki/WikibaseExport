@@ -50,7 +50,7 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 	}
 
 	public function testEdgeToEdge(): void {
-//		$this->skipOnPhp81AndLater();
+		$this->skipOnPhp81AndLater();
 
 		$this->saveProperty( self::INSTANCE_OF_ID, 'string', 'instance of' );
 
