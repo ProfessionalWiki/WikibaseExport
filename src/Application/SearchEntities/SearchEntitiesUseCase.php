@@ -26,6 +26,7 @@ class SearchEntitiesUseCase {
 	}
 
 	public function search( string $text ): void {
+		// TOOD: check permission
 		$results = $this->getSearchResults( $text );
 		$this->filterSearchResults( $results );
 	}
@@ -38,6 +39,7 @@ class SearchEntitiesUseCase {
 			text: $text,
 			languageCode: $this->contentLanguage,
 			entityType: 'item',
+			// TODO: what is a sane limit for performance and UI?
 			limit: 50,
 			strictLanguage: false
 		);

@@ -58,4 +58,31 @@ class ConfigTest extends TestCase {
 		$this->assertEquals( $new, $combined );
 	}
 
+	public function testMissingSubjectFilterIdMeansShouldNotFilter(): void {
+		$config = new Config(
+			subjectFilterPropertyId: null,
+			subjectFilterPropertyValue: 'organization'
+		);
+
+		$this->assertFalse( $config->shouldFilterSubjects() );
+	}
+
+	public function testMissingSubjectFilterValueMeansShouldNotFilter(): void {
+		$config = new Config(
+			subjectFilterPropertyId: 'P101',
+			subjectFilterPropertyValue: null
+		);
+
+		$this->assertFalse( $config->shouldFilterSubjects() );
+	}
+
+	public function testShouldFilter(): void {
+		$config = new Config(
+			subjectFilterPropertyId: 'P101',
+			subjectFilterPropertyValue: 'company'
+		);
+
+		$this->assertTrue( $config->shouldFilterSubjects() );
+	}
+
 }

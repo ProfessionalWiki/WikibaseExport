@@ -16,8 +16,8 @@ class SearchEntitiesApi extends SimpleHandler {
 
 	public function run(): Response {
 		$presenter = $this->newHttpPresenter();
-		$uc = WikibaseExportExtension::getInstance()->newSearchEntitiesUseCase( $presenter );
-		$uc->search( $this->getValidatedParams()[self::PARAM_SEARCH] );
+		$searcher = WikibaseExportExtension::getInstance()->newSearchEntitiesUseCase( $presenter );
+		$searcher->search( $this->getValidatedParams()[self::PARAM_SEARCH] );
 
 		return $presenter->getResponse();
 	}
