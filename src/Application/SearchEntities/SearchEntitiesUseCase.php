@@ -79,20 +79,16 @@ class SearchEntitiesUseCase {
 		);
 	}
 
-	private function getStatements( EntityDocument $entity ): StatementList {
-		if ( $entity instanceof StatementListProvider ) {
-			return $entity->getStatements()->filter( $this->subjectFilter );
-		}
-
-		return new StatementList();
-	}
-
 	private function entityMatches( EntityDocument $entity ): bool {
 		if ( !$this->shouldFilterSubjects ) {
 			return true;
 		}
 
-		return count( $this->getStatements( $entity ) ) > 0;
+		if ( $entity instanceof StatementListProvider ) {
+			return !$entity->getStatements()->filter( $this->subjectFilter )->isEmpty();
+		}
+
+		return false;
 	}
 
 }

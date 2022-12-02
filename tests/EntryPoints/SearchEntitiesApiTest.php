@@ -49,40 +49,26 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 		);
 	}
 
+	private function saveCompany( string $id, string $label ): void {
+		$this->saveEntity(
+			new Item(
+				id: new ItemId( $id ),
+				fingerprint: EntityHelper::newLabelFingerprint( $label ),
+				statements: new StatementList(
+					self::newTextStatement( self::INSTANCE_OF_ID, self::INSTANCE_OF_VALUE )
+				)
+			)
+		);
+	}
+
 	public function testEdgeToEdge(): void {
 		$this->skipOnPhp81AndLater();
 
 		$this->saveProperty( self::INSTANCE_OF_ID, 'string', 'instance of' );
 
-		$this->saveEntity(
-			new Item(
-				id: new ItemId( 'Q10' ),
-				fingerprint: EntityHelper::newLabelFingerprint( 'Company Foo' ),
-				statements: new StatementList(
-					self::newTextStatement( self::INSTANCE_OF_ID, self::INSTANCE_OF_VALUE )
-				)
-			)
-		);
-
-		$this->saveEntity(
-			new Item(
-				id: new ItemId( 'Q12' ),
-				fingerprint: EntityHelper::newLabelFingerprint( 'Company Foo Bar' ),
-				statements: new StatementList(
-					self::newTextStatement( self::INSTANCE_OF_ID, self::INSTANCE_OF_VALUE )
-				)
-			)
-		);
-
-		$this->saveEntity(
-			new Item(
-				id: new ItemId( 'Q15' ),
-				fingerprint: EntityHelper::newLabelFingerprint( 'Business Foo' ),
-				statements: new StatementList(
-					self::newTextStatement( self::INSTANCE_OF_ID, self::INSTANCE_OF_VALUE )
-				)
-			)
-		);
+		$this->saveCompany( 'Q10', 'Company Foo' );
+		$this->saveCompany( 'Q12', 'Company Foo Bar' );
+		$this->saveCompany( 'Q15', 'Business Foo' );
 
 		$this->saveEntity(
 			new Item(
