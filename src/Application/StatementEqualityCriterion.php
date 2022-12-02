@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Application;
 
 use DataValues\DataValue;
+use DataValues\DataValueObject;
 use DataValues\StringValue;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -45,7 +46,11 @@ class StatementEqualityCriterion implements EntityCriterion {
 			return $dataValue->getEntityId()->getSerialization() === $this->expectedValue->getValue();
 		}
 
-		return $dataValue->equals( $this->expectedValue );
+		if ( $dataValue instanceof DataValueObject ) {
+			return $dataValue->equals( $this->expectedValue );
+		}
+
+		return false;
 	}
 
 }
