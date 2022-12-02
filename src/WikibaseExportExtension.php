@@ -11,7 +11,6 @@ use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
-use ProfessionalWiki\WikibaseExport\Application\PropertyValueStatementFilter;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
@@ -27,7 +26,6 @@ use ProfessionalWiki\WikibaseExport\Persistence\AuthorityBasedExportAuthorizer;
 use Title;
 use ValueFormatters\FormatterOptions;
 use Wikibase\DataModel\Entity\NumericPropertyId;
-use Wikibase\DataModel\Services\Statement\Filter\PropertySetStatementFilter;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Repo\WikibaseRepo;
 use WMDE\Clock\SystemClock;
@@ -132,27 +130,13 @@ class WikibaseExportExtension {
 
 	public function newSearchEntitiesUseCase( SearchEntitiesPresenter $presenter ): SearchEntitiesUseCase {
 		return new SearchEntitiesUseCase(
-			shouldFilterSubjects: $this->newConfigLookup()->getConfig()->shouldFilterSubjects(),
+			config: $this->newConfigLookup()->getConfig(),
 			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
 			contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
 			entitySourceFactory: new EntitySourceFactory(
 				lookup: WikibaseRepo::getEntityLookup()
 			),
-			subjectFilter: $this->newPropertyValueStatementFilter(),
 			presenter: $presenter
-		);
-	}
-
-	private function newPropertyValueStatementFilter(): PropertyValueStatementFilter {
-		$config = $this->newConfigLookup()->getConfig();
-
-		return new PropertyValueStatementFilter(
-			propertyId: $config->subjectFilterPropertyId ?? '',
-			propertyValue: $config->subjectFilterPropertyValue ?? '',
-			snakFormatter: WikibaseRepo::getSnakFormatterFactory()->getSnakFormatter(
-				SnakFormatter::FORMAT_PLAIN,
-				new FormatterOptions()
-			)
 		);
 	}
 

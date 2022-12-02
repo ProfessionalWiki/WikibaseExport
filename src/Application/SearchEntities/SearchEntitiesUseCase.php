@@ -4,23 +4,27 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\SearchEntities;
 
+use DataValues\StringValue;
+use ProfessionalWiki\WikibaseExport\Application\Config;
+use ProfessionalWiki\WikibaseExport\Application\EntityCriterion;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
+use ProfessionalWiki\WikibaseExport\Application\StatementEqualityCriterion;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Statement\StatementFilter;
-use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Statement\StatementListProvider;
+use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Entity\StatementListProvidingEntity;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Repo\Api\EntitySearchHelper;
 
 class SearchEntitiesUseCase {
 
+	private EntityCriterion $entityCriterion;
+
 	public function __construct(
-		private bool $shouldFilterSubjects,
+		private Config $config,
 		private EntitySearchHelper $entitySearchHelper,
 		private string $contentLanguage,
 		private EntitySourceFactory $entitySourceFactory,
-		private StatementFilter $subjectFilter,
 		private SearchEntitiesPresenter $presenter
 	) {
 	}
@@ -55,6 +59,8 @@ class SearchEntitiesUseCase {
 			$this->getIdsFromSearchResults( $results )
 		);
 
+		$this->entityCriterion = $this->newEntityCriterion();
+
 		while ( true ) {
 			$entity = $entitySource->next();
 
@@ -80,15 +86,21 @@ class SearchEntitiesUseCase {
 	}
 
 	private function entityMatches( EntityDocument $entity ): bool {
-		if ( !$this->shouldFilterSubjects ) {
+		if ( !$this->config->shouldFilterSubjects() ) {
 			return true;
 		}
 
-		if ( $entity instanceof StatementListProvider ) {
-			return !$entity->getStatements()->filter( $this->subjectFilter )->isEmpty();
+		if ( $entity instanceof StatementListProvidingEntity ) {
+			return $this->entityCriterion->matches( $entity );
 		}
 
 		return false;
 	}
 
+	private function newEntityCriterion(): StatementEqualityCriterion {
+		return new StatementEqualityCriterion(
+			propertyId: new NumericPropertyId( $this->config->subjectFilterPropertyId ?? '' ),
+			expectedValue: new StringValue( $this->config->subjectFilterPropertyValue ?? '' )
+		);
+	}
 }
