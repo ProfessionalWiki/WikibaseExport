@@ -19,14 +19,26 @@ use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\Lib\Interactors\TermSearchResult;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase
  */
 class SearchEntitiesUseCaseTest extends TestCase {
 
+	private const LANGUAGE = 'en';
 	private const INSTANCE_OF_ID = 'P1';
 	private const INSTANCE_OF_VALUE = 'company';
+
+	private function createTermSearchResult( string $id, string $label ): TermSearchResult {
+		return new TermSearchResult(
+			matchedTerm: new Term( self::LANGUAGE, 'Irrelevant' ),
+			matchedTermType: 'match',
+			entityId: new ItemId( $id ),
+			displayLabel: new Term( self::LANGUAGE, $label )
+		);
+	}
 
 	private function createPerson( string $id, string $label ): Item {
 		return new Item(
@@ -65,7 +77,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	private function newSearchEntitiesUseCase(
-		array $searchEntities,
+		array $searchResults,
 		SearchEntitiesPresenter $presenter,
 		?string $propertyId = self::INSTANCE_OF_ID,
 		?string $propertyValue = self::INSTANCE_OF_VALUE
@@ -73,7 +85,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 		return new SearchEntitiesUseCase(
 			subjectFilterPropertyId: $propertyId,
 			subjectFilterPropertyValue: $propertyValue,
-			entitySearchHelper: new StubEntitySearchHelper( ...$searchEntities ),
+			entitySearchHelper: new StubEntitySearchHelper( ...$searchResults ),
 			contentLanguage: 'en',
 			entityLookup: new InMemoryEntityLookup( ...$this->getAllEntities() ),
 			presenter: $presenter
@@ -81,13 +93,13 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	public function testResultsAreNotFilteredWhenPropertyIdIsNull(): void {
-		$searchEntities = [
-			$this->createPerson( 'Q1', 'John Doe' ),
-			$this->createPerson( 'Q10', 'Joe Bloggs' )
+		$searchResults = [
+			$this->createTermSearchResult( 'Q1', 'John Doe' ),
+			$this->createTermSearchResult( 'Q10', 'Joe Bloggs' )
 		];
 
 		$presenter = new SpySearchEntitiesPresenter();
-		$searcher = $this->newSearchEntitiesUseCase( $searchEntities, $presenter, propertyId: null );
+		$searcher = $this->newSearchEntitiesUseCase( $searchResults, $presenter, propertyId: null );
 		$searcher->search( 'Jo' );
 
 		$this->assertSame(
@@ -100,13 +112,13 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	public function testResultsAreNotFilteredWhenPropertyValueIsNull(): void {
-		$searchEntities = [
-			$this->createPerson( 'Q1', 'John Doe' ),
-			$this->createPerson( 'Q10', 'Joe Bloggs' )
+		$searchResults = [
+			$this->createTermSearchResult( 'Q1', 'John Doe' ),
+			$this->createTermSearchResult( 'Q10', 'Joe Bloggs' )
 		];
 
 		$presenter = new SpySearchEntitiesPresenter();
-		$searcher = $this->newSearchEntitiesUseCase( $searchEntities, $presenter, propertyValue: null );
+		$searcher = $this->newSearchEntitiesUseCase( $searchResults, $presenter, propertyValue: null );
 		$searcher->search( 'Jo' );
 
 		$this->assertSame(
@@ -131,8 +143,8 @@ class SearchEntitiesUseCaseTest extends TestCase {
 
 	public function testNoResultsFoundWithFiltering(): void {
 		$seachEntites = [
-			$this->createPerson( 'Q1', 'John Doe' ),
-			$this->createPerson( 'Q10', 'Joe Bloggs' )
+			$this->createTermSearchResult( 'Q1', 'John Doe' ),
+			$this->createTermSearchResult( 'Q10', 'Joe Bloggs' )
 		];
 
 		$presenter = new SpySearchEntitiesPresenter();
@@ -146,13 +158,13 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	public function testResultsFoundWithFiltering(): void {
-		$searchEntities = [
-			$this->createCompany( 'Q3', 'Company Foo' ),
-			$this->createCompany( 'Q5', 'Company Foo Bar' ),
+		$searchResults = [
+			$this->createTermSearchResult( 'Q3', 'Company Foo' ),
+			$this->createTermSearchResult( 'Q5', 'Company Foo Bar' ),
 		];
 
 		$presenter = new SpySearchEntitiesPresenter();
-		$searcher = $this->newSearchEntitiesUseCase( $searchEntities, $presenter );
+		$searcher = $this->newSearchEntitiesUseCase( $searchResults, $presenter );
 		$searcher->search( 'Company F' );
 
 		$this->assertSame(
