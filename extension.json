@@ -46,6 +46,11 @@
 			"path": "/wikibase-export/v0/export",
 			"method": [ "GET" ],
 			"factory": "ProfessionalWiki\\WikibaseExport\\WikibaseExportExtension::exportApiFactory"
+		},
+		{
+			"path": "/wikibase-export/v0/search-entities",
+			"method": [ "GET" ],
+			"factory": "ProfessionalWiki\\WikibaseExport\\WikibaseExportExtension::searchEntitiesApiFactory"
 		}
 	],
 

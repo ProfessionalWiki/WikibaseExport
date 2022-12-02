@@ -99,13 +99,12 @@
 			// Do nothing. This is just so OOUI doesn't break due to abort being undefined.
 		} };
 
-		const req = new mw.Api().get( {
-			action: 'wbsearchentities',
-			type: this.entityType,
-			language: this.language,
-			uselang: this.language,
-			search: this.getQueryValue()
-		} );
+		const req = new mw.Rest().get(
+			'/wikibase-export/v0/search-entities',
+			{
+				search: this.getQueryValue()
+			}
+		);
 
 		promiseAbortObject.abort = req.abort.bind( req );
 

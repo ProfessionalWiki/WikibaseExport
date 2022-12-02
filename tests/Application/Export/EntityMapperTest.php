@@ -8,6 +8,7 @@ use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\EntityMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\EntityHelper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FakeSnakFormatter;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubStatementGrouper;
 use Wikibase\DataModel\Entity\Item;
@@ -96,7 +97,7 @@ class EntityMapperTest extends TestCase {
 			$this->newMapper()->map(
 				new Item(
 					id: new ItemId( 'Q42' ),
-					fingerprint: new Fingerprint( new Termlist( [ new Term( 'en', 'Foo Bar' ) ] ) )
+					fingerprint: EntityHelper::newLabelFingerprint( 'Foo Bar' )
 				)
 			)->label
 		);

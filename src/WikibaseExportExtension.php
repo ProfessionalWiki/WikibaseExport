@@ -11,7 +11,10 @@ use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
+use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
+use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
+use ProfessionalWiki\WikibaseExport\EntryPoints\SearchEntitiesApi;
 use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
 use ProfessionalWiki\WikibaseExport\Persistence\CombiningConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigDeserializer;
@@ -114,6 +117,27 @@ class WikibaseExportExtension {
 			authorizer: new AuthorityBasedExportAuthorizer(
 				authority: $authority
 			)
+		);
+	}
+
+	public static function searchEntitiesApiFactory(): SearchEntitiesApi {
+		return self::getInstance()->newSearchEntitiesApi();
+	}
+
+	private function newSearchEntitiesApi(): SearchEntitiesApi {
+		return new SearchEntitiesApi();
+	}
+
+	public function newSearchEntitiesUseCase( SearchEntitiesPresenter $presenter ): SearchEntitiesUseCase {
+		$config = $this->newConfigLookup()->getConfig();
+
+		return new SearchEntitiesUseCase(
+			subjectFilterPropertyId: $config->subjectFilterPropertyId,
+			subjectFilterPropertyValue: $config->subjectFilterPropertyValue,
+			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
+			contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
+			entityLookup: WikibaseRepo::getEntityLookup(),
+			presenter: $presenter
 		);
 	}
 
