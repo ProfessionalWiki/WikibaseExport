@@ -10,7 +10,7 @@ use ProfessionalWiki\WikibaseExport\Application\StatementEqualityCriterion;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\StatementListProvidingEntity;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
@@ -24,7 +24,7 @@ use Wikibase\DataModel\Statement\StatementList;
 class StatementEqualityCriterionTest extends TestCase {
 
 	public function testNoStatements_doNotMatch(): void {
-		$criterion = new StatementEqualityCriterion( new PropertyId( 'P1' ), new StringValue( 'foo' ) );
+		$criterion = new StatementEqualityCriterion( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) );
 		$input = $this->newEntityWithStatements();
 
 		$this->assertFalse( $criterion->matches( $input ) );
@@ -35,45 +35,45 @@ class StatementEqualityCriterionTest extends TestCase {
 	}
 
 	public function testMatchingStatement_matches(): void {
-		$criterion = new StatementEqualityCriterion( new PropertyId( 'P1' ), new StringValue( 'foo' ) );
+		$criterion = new StatementEqualityCriterion( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) );
 
 		$input = $this->newEntityWithStatements(
-			new Statement( new PropertyValueSnak( new PropertyId( 'P1' ), new StringValue( 'wrong' ) ) ),
-			new Statement( new PropertyValueSnak( new PropertyId( 'P2' ), new StringValue( 'bar' ) ) ),
-			new Statement( new PropertyValueSnak( new PropertyId( 'P1' ), new StringValue( 'foo' ) ) ),
-			new Statement( new PropertyValueSnak( new PropertyId( 'P3' ), new StringValue( 'baz' ) ) ),
+			new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'wrong' ) ) ),
+			new Statement( new PropertyValueSnak( new NumericPropertyId( 'P2' ), new StringValue( 'bar' ) ) ),
+			new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) ) ),
+			new Statement( new PropertyValueSnak( new NumericPropertyId( 'P3' ), new StringValue( 'baz' ) ) ),
 		);
 
 		$this->assertTrue( $criterion->matches( $input ) );
 	}
 
 	public function testStatementWithWrongValue_doesNotMatch(): void {
-		$criterion = new StatementEqualityCriterion( new PropertyId( 'P1' ), new StringValue( 'foo' ) );
+		$criterion = new StatementEqualityCriterion( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) );
 
 		$input = $this->newEntityWithStatements(
-			new Statement( new PropertyValueSnak( new PropertyId( 'P1' ), new StringValue( 'wrong' ) ) ),
+			new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'wrong' ) ) ),
 		);
 
 		$this->assertFalse( $criterion->matches( $input ) );
 	}
 
-	public function testStatementWithWrongPropertyId_doesNotMatch(): void {
-		$criterion = new StatementEqualityCriterion( new PropertyId( 'P404' ), new StringValue( 'foo' ) );
+	public function testStatementWithWrongNumericPropertyId_doesNotMatch(): void {
+		$criterion = new StatementEqualityCriterion( new NumericPropertyId( 'P404' ), new StringValue( 'foo' ) );
 
 		$input = $this->newEntityWithStatements(
-			new Statement( new PropertyValueSnak( new PropertyId( 'P1' ), new StringValue( 'foo' ) ) ),
+			new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) ) ),
 		);
 
 		$this->assertFalse( $criterion->matches( $input ) );
 	}
 
 	public function testUsesBestStatements(): void {
-		$criterion = new StatementEqualityCriterion( new PropertyId( 'P1' ), new StringValue( 'foo' ) );
+		$criterion = new StatementEqualityCriterion( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) );
 
-		$a = new Statement( new PropertyValueSnak( new PropertyId( 'P1' ), new StringValue( 'wrong' ) ) );
+		$a = new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'wrong' ) ) );
 		$a->setRank( Statement::RANK_PREFERRED );
 
-		$b = new Statement( new PropertyValueSnak( new PropertyId( 'P1' ), new StringValue( 'foo' ) ) );
+		$b = new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) ) );
 		$b->setRank( Statement::RANK_NORMAL );
 
 		$input = $this->newEntityWithStatements( $a, $b );
@@ -82,21 +82,21 @@ class StatementEqualityCriterionTest extends TestCase {
 	}
 
 	public function testEntityIdValueMatches(): void {
-		$criterion = new StatementEqualityCriterion( new PropertyId( 'P1' ), new StringValue( 'Q42' ) );
+		$criterion = new StatementEqualityCriterion( new NumericPropertyId( 'P1' ), new StringValue( 'Q42' ) );
 
 		$input = $this->newEntityWithStatements(
-			new Statement( new PropertyValueSnak( new PropertyId( 'P1' ), new EntityIdValue( new ItemId( 'Q42' ) ) ) ),
+			new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new EntityIdValue( new ItemId( 'Q42' ) ) ) ),
 		);
 
 		$this->assertTrue( $criterion->matches( $input ) );
 	}
 
 	public function testNonValueSnakDoesNotMatch(): void {
-		$criterion = new StatementEqualityCriterion( new PropertyId( 'P1' ), new StringValue( 'Q42' ) );
+		$criterion = new StatementEqualityCriterion( new NumericPropertyId( 'P1' ), new StringValue( 'Q42' ) );
 
 		$input = $this->newEntityWithStatements(
-			new Statement( new PropertySomeValueSnak( new PropertyId( 'P1' ) ) ),
-			new Statement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) ),
+			new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P1' ) ) ),
+			new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) ),
 		);
 
 		$this->assertFalse( $criterion->matches( $input ) );
