@@ -27,7 +27,8 @@ class ConfigDeserializerTest extends TestCase {
 				startTimePropertyId: 'P1',
 				endTimePropertyId: 'P2',
 				pointInTimePropertyId: 'P3',
-				properties: [ 'P4', 'P5' ],
+				propertiesWithQualifiers: [ 'P4', 'P5' ],
+				propertiesWithoutQualifiers: [ 'P6', 'P7' ],
 				subjectFilterPropertyId: 'P10',
 				subjectFilterPropertyValue: 'company'
 			),

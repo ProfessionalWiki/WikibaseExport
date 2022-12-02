@@ -24,7 +24,13 @@
 		"pointInTimePropertyId": {
 			"$ref": "#/$defs/property"
 		},
-		"properties": {
+		"propertiesWithQualifiers": {
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/property"
+			}
+		},
+		"propertiesWithoutQualifiers": {
 			"type": "array",
 			"items": {
 				"$ref": "#/$defs/property"

@@ -11,7 +11,8 @@ class Config {
 
 	/**
 	 * @param string[]|null $defaultSubjects
-	 * @param string[]|null $properties
+	 * @param string[]|null $propertiesWithQualifiers
+	 * @param string[]|null $propertiesWithoutQualifiers
 	 */
 	public function __construct(
 		public /* readonly */ ?array $defaultSubjects = null,
@@ -20,7 +21,8 @@ class Config {
 		public /* readonly */ ?string $startTimePropertyId = null,
 		public /* readonly */ ?string $endTimePropertyId = null,
 		public /* readonly */ ?string $pointInTimePropertyId = null,
-		public /* readonly */ ?array $properties = null,
+		public /* readonly */ ?array $propertiesWithQualifiers = null,
+		public /* readonly */ ?array $propertiesWithoutQualifiers = null,
 		public /* readonly */ ?string $subjectFilterPropertyId = null,
 		public /* readonly */ ?string $subjectFilterPropertyValue = null
 	) {
@@ -34,7 +36,8 @@ class Config {
 			$config->startTimePropertyId ?? $this->startTimePropertyId,
 			$config->endTimePropertyId ?? $this->endTimePropertyId,
 			$config->pointInTimePropertyId ?? $this->pointInTimePropertyId,
-			$config->properties ?? $this->properties,
+			$config->propertiesWithQualifiers ?? $this->propertiesWithQualifiers,
+			$config->propertiesWithoutQualifiers ?? $this->propertiesWithoutQualifiers,
 			$config->subjectFilterPropertyId ?? $this->subjectFilterPropertyId,
 			$config->subjectFilterPropertyValue ?? $this->subjectFilterPropertyValue
 		);
@@ -73,6 +76,13 @@ class Config {
 		} catch ( Exception ) {
 			return false;
 		}
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getAllProperties(): array {
+		return array_merge( $this->propertiesWithQualifiers ?? [], $this->propertiesWithoutQualifiers ?? [] );
 	}
 
 }

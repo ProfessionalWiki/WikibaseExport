@@ -55,7 +55,9 @@ class MediaWikiHooks {
 	"startTimePropertyId": null,
 	"endTimePropertyId": null,
 	"pointInTimePropertyId": null,
-	"properties": [
+	"propertiesWithQualifiers": [
+	],
+	"propertiesWithoutQualifiers": [
 	],
 	"defaultSubjects": [
 	],

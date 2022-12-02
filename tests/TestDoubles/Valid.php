@@ -34,9 +34,13 @@ class Valid {
     "startTimePropertyId": "P1",
     "endTimePropertyId": "P2",
     "pointInTimePropertyId": "P3",
-    "properties": [
+    "propertiesWithQualifiers": [
         "P4",
         "P5"
+    ],
+    "propertiesWithoutQualifiers": [
+        "P6",
+        "P7"
     ],
 	"subjectFilterPropertyId": "P10",
 	"subjectFilterPropertyValue": "company"

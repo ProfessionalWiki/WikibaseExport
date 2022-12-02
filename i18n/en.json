@@ -45,7 +45,8 @@
 	"wikibase-export-config-help-variable-start-time-property-id": "Property ID of the qualifier used for the start of a time range.",
 	"wikibase-export-config-help-variable-end-time-property-id": "Property ID of the qualifier used for the end of a time range.",
 	"wikibase-export-config-help-variable-point-in-time-property-id": "Property ID of the qualifier used for a specific point in time.",
-	"wikibase-export-config-help-variable-properties": "List of IDs of properties for statements that may be included in the export.",
+	"wikibase-export-config-help-variable-properties-with-qualifiers": "List of IDs of properties (with qualifiers) for statements that may be included in the export.",
+	"wikibase-export-config-help-variable-properties-without-qualifiers": "List of IDs of properties (without qualifiers) for statements that may be included in the export.",
 	"wikibase-export-config-help-variable-subject-filter-property-id": "Property ID of the statement used to filter items that may be included in the export.",
 	"wikibase-export-config-help-variable-subject-filter-property-value": "Expected value of the subject filter property."
 }

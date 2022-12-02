@@ -92,7 +92,7 @@ class SpecialWikibaseExport extends SpecialPage {
 			'defaultSubjects' => $config->defaultSubjects,
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,
-			'properties' => $config->properties
+			'properties' => $config->getAllProperties()
 		];
 	}
 

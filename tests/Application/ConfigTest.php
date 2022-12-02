@@ -20,7 +20,8 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P1',
 			endTimePropertyId: 'P2',
 			pointInTimePropertyId: 'P3',
-			properties: [ 'P10', 'P11' ],
+			propertiesWithQualifiers: [ 'P10', 'P11' ],
+			propertiesWithoutQualifiers: [ 'P12', 'P13' ],
 			subjectFilterPropertyId: 'P15',
 			subjectFilterPropertyValue: 'company'
 		);
@@ -34,7 +35,8 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P4',
 			endTimePropertyId: 'P5',
 			pointInTimePropertyId: 'P6',
-			properties: [ 'P20', 'P21' ],
+			propertiesWithQualifiers: [ 'P20', 'P21' ],
+			propertiesWithoutQualifiers: [ 'P22', 'P23' ],
 			subjectFilterPropertyId: 'P25',
 			subjectFilterPropertyValue: 'organization'
 		);
@@ -56,6 +58,15 @@ class ConfigTest extends TestCase {
 		$combined = $original->combine( $new );
 
 		$this->assertEquals( $new, $combined );
+	}
+
+	public function testGetAllProperties(): void {
+		$original = $this->createOriginalConfig();
+
+		$this->assertSame(
+			[ 'P10', 'P11', 'P12', 'P13' ],
+			$original->getAllProperties()
+		);
 	}
 
 }
