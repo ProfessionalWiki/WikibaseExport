@@ -133,9 +133,7 @@ class WikibaseExportExtension {
 			config: $this->newConfigLookup()->getConfig(),
 			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
 			contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
-			entitySourceFactory: new EntitySourceFactory(
-				lookup: WikibaseRepo::getEntityLookup()
-			),
+			entityLookup: WikibaseRepo::getEntityLookup(),
 			presenter: $presenter
 		);
 	}

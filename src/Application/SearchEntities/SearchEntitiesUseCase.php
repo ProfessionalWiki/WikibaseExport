@@ -7,14 +7,11 @@ namespace ProfessionalWiki\WikibaseExport\Application\SearchEntities;
 use DataValues\StringValue;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntityCriterion;
-use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\StatementEqualityCriterion;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\StatementListProvidingEntity;
-use Wikibase\DataModel\Term\LabelsProvider;
-use Wikibase\DataModel\Term\TermList;
+use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Repo\Api\EntitySearchHelper;
 
@@ -26,7 +23,7 @@ class SearchEntitiesUseCase {
 		private Config $config,
 		private EntitySearchHelper $entitySearchHelper,
 		private string $contentLanguage,
-		private EntitySourceFactory $entitySourceFactory,
+		private EntityLookup $entityLookup,
 		private SearchEntitiesPresenter $presenter
 	) {
 	}
@@ -78,43 +75,25 @@ class SearchEntitiesUseCase {
 	 * @param TermSearchResult[] $results
 	 */
 	private function getFilteredSearchResult( array $results ): SearchResult {
-		$entitySource = $this->entitySourceFactory->newEntitySource(
-			$this->getIdsFromSearchResults( $results )
-		);
-
+		$searchResult = new SearchResult();
 		$this->entityCriterion = $this->newEntityCriterion();
 
-		$searchResult = new SearchResult();
-
-		while ( true ) {
-			$entity = $entitySource->next();
+		foreach ( $results as $result ) {
+			$entity = $this->entityLookup->getEntity( $result->getEntityId() );
 
 			if ( $entity === null ) {
-				break;
+				continue;
 			}
 
 			if ( $this->entityMatches( $entity ) ) {
-				if ( $entity instanceof LabelsProvider ) {
-					$searchResult->add(
-						$entity->getId()?->getLocalPart() ?? '',
-						$this->getEntityLabel( $entity->getLabels() )
-					);
-				}
+				$searchResult->add(
+					$result->getEntityId()->getLocalPart(),
+					$result->getDisplayLabel()?->getText() ?? ''
+				);
 			}
 		}
 
 		return $searchResult;
-	}
-
-	/**
-	 * @param TermSearchResult[] $results
-	 * @return EntityId[]
-	 */
-	private function getIdsFromSearchResults( array $results ): array {
-		return array_map(
-			fn( TermSearchResult $result ) => $result->getEntityId(),
-			$results
-		);
 	}
 
 	private function entityMatches( EntityDocument $entity ): bool {
@@ -130,18 +109,6 @@ class SearchEntitiesUseCase {
 			propertyId: new NumericPropertyId( $this->config->subjectFilterPropertyId ?? '' ),
 			expectedValue: new StringValue( $this->config->subjectFilterPropertyValue ?? '' )
 		);
-	}
-
-	private function getEntityLabel( TermList $termList ): string {
-		// TODO: use WB language fallback handling
-		$terms = $termList->toTextArray();
-		$first = reset( $terms );
-
-		if ( $first === false ) {
-			return '';
-		}
-
-		return $first;
 	}
 
 }
