@@ -6,7 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
 use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
-use ProfessionalWiki\AutomatedValues\Domain\StatementEqualityCriterion;
+use ProfessionalWiki\WikibaseExport\Application\StatementEqualityCriterion;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
