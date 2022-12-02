@@ -75,8 +75,4 @@ class Config {
 		}
 	}
 
-	public function shouldFilterSubjects(): bool {
-		return $this->subjectFilterPropertyId !== null && $this->subjectFilterPropertyValue !== null;
-	}
-
 }

@@ -129,8 +129,11 @@ class WikibaseExportExtension {
 	}
 
 	public function newSearchEntitiesUseCase( SearchEntitiesPresenter $presenter ): SearchEntitiesUseCase {
+		$config = $this->newConfigLookup()->getConfig();
+
 		return new SearchEntitiesUseCase(
-			config: $this->newConfigLookup()->getConfig(),
+			subjectFilterPropertyId: $config->subjectFilterPropertyId,
+			subjectFilterPropertyValue: $config->subjectFilterPropertyValue,
 			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
 			contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
 			entityLookup: WikibaseRepo::getEntityLookup(),

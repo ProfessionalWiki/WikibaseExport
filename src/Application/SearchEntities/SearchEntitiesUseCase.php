@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Application\SearchEntities;
 
 use DataValues\StringValue;
-use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntityCriterion;
 use ProfessionalWiki\WikibaseExport\Application\StatementEqualityCriterion;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -20,7 +19,8 @@ class SearchEntitiesUseCase {
 	private EntityCriterion $entityCriterion;
 
 	public function __construct(
-		private Config $config,
+		private ?string $subjectFilterPropertyId,
+		private ?string $subjectFilterPropertyValue,
 		private EntitySearchHelper $entitySearchHelper,
 		private string $contentLanguage,
 		private EntityLookup $entityLookup,
@@ -32,13 +32,17 @@ class SearchEntitiesUseCase {
 		// TOOD: check permission
 		$results = $this->getSearchResults( $text );
 
-		if ( $this->config->shouldFilterSubjects() ) {
+		if ( $this->shouldFilter() ) {
 			$searchResult = $this->getFilteredSearchResult( $results );
 		} else {
 			$searchResult = $this->getUnfilteredSearchResult( $results );
 		}
 
 		$this->presenter->presentSearchResult( $searchResult );
+	}
+
+	private function shouldFilter(): bool {
+		return $this->subjectFilterPropertyId !== null && $this->subjectFilterPropertyValue !== null;
 	}
 
 	/**
@@ -106,8 +110,8 @@ class SearchEntitiesUseCase {
 
 	private function newEntityCriterion(): StatementEqualityCriterion {
 		return new StatementEqualityCriterion(
-			propertyId: new NumericPropertyId( $this->config->subjectFilterPropertyId ?? '' ),
-			expectedValue: new StringValue( $this->config->subjectFilterPropertyValue ?? '' )
+			propertyId: new NumericPropertyId( $this->subjectFilterPropertyId ?? '' ),
+			expectedValue: new StringValue( $this->subjectFilterPropertyValue ?? '' )
 		);
 	}
 
