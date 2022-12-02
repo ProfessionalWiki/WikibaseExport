@@ -97,7 +97,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 			subjectFilterPropertyId: $propertyId,
 			subjectFilterPropertyValue: $propertyValue,
 			entitySearchHelper: new StubEntitySearchHelper( ...$searchResults ),
-			contentLanguage: 'en',
+			contentLanguage: self::LANGUAGE,
 			entityLookup: new InMemoryEntityLookup( ...$this->getAllEntities() ),
 			presenter: $presenter
 		);
@@ -160,7 +160,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	public function testResultsFoundWithFiltering(): void {
 		$presenter = new SpySearchEntitiesPresenter();
 		$searcher = $this->newSearchEntitiesUseCase( $this->getAllSearchResults(), $presenter );
-		$searcher->search( 'jo' );
+		$searcher->search( 'Jo' );
 
 		$this->assertSame(
 			[
