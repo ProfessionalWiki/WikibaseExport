@@ -17,23 +17,13 @@ class StubEntitySearchHelper implements EntitySearchHelper {
 	/**
 	 * @var array<string, EntityDocument>
 	 */
-	private array $entityLabels = [];
+	private array $entities;
 
 	/**
 	 * @param EntityDocument ...$entities
 	 */
 	public function __construct( ...$entities ) {
-		foreach ( $entities as $entity ) {
-			$this->addEntity( $entity );
-		}
-	}
-
-	private function addEntity( EntityDocument $entity ): void {
-		if ( $entity instanceof LabelsProvider ) {
-			$labels = $entity->getLabels()->toTextArray();
-			$label = reset( $labels );
-			$this->entityLabels[$label] = $entity;
-		}
+		$this->entities = $entities;
 	}
 
 	/**
@@ -42,16 +32,27 @@ class StubEntitySearchHelper implements EntitySearchHelper {
 	public function getRankedSearchResults( $text, $languageCode, $entityType, $limit, $strictLanguage ): array {
 		$termResults = [];
 
-		foreach ( $this->entityLabels as $label => $entity ) {
+		foreach ( $this->entities as $entity ) {
 			$termResults[] = new TermSearchResult(
 				matchedTerm: new Term( self::LANGUAGE, $text ),
 				matchedTermType: 'match',
 				entityId: $entity->getId(),
-				displayLabel: new Term( self::LANGUAGE, $label )
+				displayLabel: new Term( self::LANGUAGE, $this->getEntityLabel( $entity ) )
 			);
 		}
 
 		return $termResults;
+	}
+
+	private function getEntityLabel( EntityDocument $entity ): string {
+		$labels = $entity->getLabels()->toTextArray();
+		$label = reset( $labels );
+
+		if ( $label === false ) {
+			return '';
+		}
+
+		return $label;
 	}
 
 }
