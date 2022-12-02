@@ -8,7 +8,6 @@ use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
-use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\EntityHelper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubEntitySearchHelper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\SpySearchEntitiesPresenter;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -33,24 +32,38 @@ class SearchEntitiesUseCaseTest extends TestCase {
 
 	private function createTermSearchResult( string $id, string $label ): TermSearchResult {
 		return new TermSearchResult(
-			matchedTerm: new Term( self::LANGUAGE, 'Irrelevant' ),
+			matchedTerm: new Term( self::LANGUAGE, 'Jo' ),
 			matchedTermType: 'match',
 			entityId: new ItemId( $id ),
 			displayLabel: new Term( self::LANGUAGE, $label )
 		);
 	}
 
-	private function createPerson( string $id, string $label ): Item {
-		return new Item(
-			id: new ItemId( $id ),
-			fingerprint: EntityHelper::newLabelFingerprint( $label )
-		);
+	private function getAllSearchResults(): array {
+		return [
+			// People
+			$this->createTermSearchResult( 'Q1', 'John Doe' ),
+			$this->createTermSearchResult( 'Q2', 'Joe Bloggs' ),
+			// Companies
+			$this->createTermSearchResult( 'Q10', 'Joe Builder Inc.' ),
+			$this->createTermSearchResult( 'Q11', 'Jolly Construction Ltd.' )
+		];
 	}
 
-	private function createCompany( string $id, string $label ): Item {
+	private function getPeopleSearchResults(): array {
+		return [
+			$this->createTermSearchResult( 'Q1', 'John Doe' ),
+			$this->createTermSearchResult( 'Q2', 'Joe Bloggs' ),
+		];
+	}
+
+	private function createPerson( string $id ): Item {
+		return new Item( new ItemId( $id ) );
+	}
+
+	private function createCompany( string $id ): Item {
 		return new Item(
 			id: new ItemId( $id ),
-			fingerprint: EntityHelper::newLabelFingerprint( $label ),
 			statements: new StatementList(
 				new Statement(
 					mainSnak: new PropertyValueSnak(
@@ -67,12 +80,10 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	 */
 	private function getAllEntities(): array {
 		return [
-			$this->createPerson( 'Q1', 'John Doe' ),
-			$this->createCompany( 'Q3', 'Company Foo' ),
-			$this->createCompany( 'Q4', 'Company Not Foo' ),
-			$this->createCompany( 'Q5', 'Company Foo Bar' ),
-			$this->createCompany( 'Q6', 'Company Bar' ),
-			$this->createPerson( 'Q10', 'Joe Bloggs' )
+			$this->createPerson( 'Q1' ),
+			$this->createPerson( 'Q2' ),
+			$this->createCompany( 'Q10' ),
+			$this->createCompany( 'Q11' ),
 		];
 	}
 
@@ -93,38 +104,32 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	public function testResultsAreNotFilteredWhenPropertyIdIsNull(): void {
-		$searchResults = [
-			$this->createTermSearchResult( 'Q1', 'John Doe' ),
-			$this->createTermSearchResult( 'Q10', 'Joe Bloggs' )
-		];
-
 		$presenter = new SpySearchEntitiesPresenter();
-		$searcher = $this->newSearchEntitiesUseCase( $searchResults, $presenter, propertyId: null );
+		$searcher = $this->newSearchEntitiesUseCase( $this->getAllSearchResults(), $presenter, propertyId: null );
 		$searcher->search( 'Jo' );
 
 		$this->assertSame(
 			[
 				[ 'id' => 'Q1', 'label' => 'John Doe' ],
-				[ 'id' => 'Q10', 'label' => 'Joe Bloggs' ]
+				[ 'id' => 'Q2', 'label' => 'Joe Bloggs' ],
+				[ 'id' => 'Q10', 'label' => 'Joe Builder Inc.' ],
+				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ]
 			],
 			$presenter->searchResult
 		);
 	}
 
 	public function testResultsAreNotFilteredWhenPropertyValueIsNull(): void {
-		$searchResults = [
-			$this->createTermSearchResult( 'Q1', 'John Doe' ),
-			$this->createTermSearchResult( 'Q10', 'Joe Bloggs' )
-		];
-
 		$presenter = new SpySearchEntitiesPresenter();
-		$searcher = $this->newSearchEntitiesUseCase( $searchResults, $presenter, propertyValue: null );
+		$searcher = $this->newSearchEntitiesUseCase( $this->getAllSearchResults(), $presenter, propertyValue: null );
 		$searcher->search( 'Jo' );
 
 		$this->assertSame(
 			[
 				[ 'id' => 'Q1', 'label' => 'John Doe' ],
-				[ 'id' => 'Q10', 'label' => 'Joe Bloggs' ]
+				[ 'id' => 'Q2', 'label' => 'Joe Bloggs' ],
+				[ 'id' => 'Q10', 'label' => 'Joe Builder Inc.' ],
+				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ]
 			],
 			$presenter->searchResult
 		);
@@ -142,13 +147,8 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	public function testNoResultsFoundWithFiltering(): void {
-		$seachEntites = [
-			$this->createTermSearchResult( 'Q1', 'John Doe' ),
-			$this->createTermSearchResult( 'Q10', 'Joe Bloggs' )
-		];
-
 		$presenter = new SpySearchEntitiesPresenter();
-		$searcher = $this->newSearchEntitiesUseCase( $seachEntites, $presenter );
+		$searcher = $this->newSearchEntitiesUseCase( $this->getPeopleSearchResults(), $presenter );
 		$searcher->search( 'Jo' );
 
 		$this->assertSame(
@@ -158,19 +158,14 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	public function testResultsFoundWithFiltering(): void {
-		$searchResults = [
-			$this->createTermSearchResult( 'Q3', 'Company Foo' ),
-			$this->createTermSearchResult( 'Q5', 'Company Foo Bar' ),
-		];
-
 		$presenter = new SpySearchEntitiesPresenter();
-		$searcher = $this->newSearchEntitiesUseCase( $searchResults, $presenter );
-		$searcher->search( 'Company F' );
+		$searcher = $this->newSearchEntitiesUseCase( $this->getAllSearchResults(), $presenter );
+		$searcher->search( 'jo' );
 
 		$this->assertSame(
 			[
-				[ 'id' => 'Q3', 'label' => 'Company Foo' ],
-				[ 'id' => 'Q5', 'label' => 'Company Foo Bar' ],
+				[ 'id' => 'Q10', 'label' => 'Joe Builder Inc.' ],
+				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ]
 			],
 			$presenter->searchResult
 		);
