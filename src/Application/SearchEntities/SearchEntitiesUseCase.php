@@ -13,6 +13,8 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\StatementListProvidingEntity;
+use Wikibase\DataModel\Term\LabelsProvider;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Repo\Api\EntitySearchHelper;
 
@@ -32,7 +34,14 @@ class SearchEntitiesUseCase {
 	public function search( string $text ): void {
 		// TOOD: check permission
 		$results = $this->getSearchResults( $text );
-		$this->filterSearchResults( $results );
+
+		if ( $this->config->shouldFilterSubjects() ) {
+			$searchResult = $this->getFilteredSearchResult( $results );
+		} else {
+			$searchResult = $this->getUnfilteredSearchResult( $results );
+		}
+
+		$this->presenter->presentSearchResult( $searchResult );
 	}
 
 	/**
@@ -52,14 +61,30 @@ class SearchEntitiesUseCase {
 	/**
 	 * @param TermSearchResult[] $results
 	 */
-	private function filterSearchResults( array $results ): void {
-		// TODO: maybe don't waste time retrieving entities when the filtering is not configured?
-		// TODO: ID and label are already available
+	private function getUnfilteredSearchResult( array $results ): SearchResult {
+		$searchResult = new SearchResult();
+
+		foreach ( $results as $result ) {
+			$searchResult->add(
+				$result->getEntityId()->getLocalPart(),
+				$result->getDisplayLabel()?->getText() ?? ''
+			);
+		}
+
+		return $searchResult;
+	}
+
+	/**
+	 * @param TermSearchResult[] $results
+	 */
+	private function getFilteredSearchResult( array $results ): SearchResult {
 		$entitySource = $this->entitySourceFactory->newEntitySource(
 			$this->getIdsFromSearchResults( $results )
 		);
 
 		$this->entityCriterion = $this->newEntityCriterion();
+
+		$searchResult = new SearchResult();
 
 		while ( true ) {
 			$entity = $entitySource->next();
@@ -69,9 +94,16 @@ class SearchEntitiesUseCase {
 			}
 
 			if ( $this->entityMatches( $entity ) ) {
-				$this->presenter->presentEntity( $entity );
+				if ( $entity instanceof LabelsProvider ) {
+					$searchResult->add(
+						$entity->getId()?->getLocalPart() ?? '',
+						$this->getEntityLabel( $entity->getLabels() )
+					);
+				}
 			}
 		}
+
+		return $searchResult;
 	}
 
 	/**
@@ -86,10 +118,6 @@ class SearchEntitiesUseCase {
 	}
 
 	private function entityMatches( EntityDocument $entity ): bool {
-		if ( !$this->config->shouldFilterSubjects() ) {
-			return true;
-		}
-
 		if ( $entity instanceof StatementListProvidingEntity ) {
 			return $this->entityCriterion->matches( $entity );
 		}
@@ -103,4 +131,17 @@ class SearchEntitiesUseCase {
 			expectedValue: new StringValue( $this->config->subjectFilterPropertyValue ?? '' )
 		);
 	}
+
+	private function getEntityLabel( TermList $termList ): string {
+		// TODO: use WB language fallback handling
+		$terms = $termList->toTextArray();
+		$first = reset( $terms );
+
+		if ( $first === false ) {
+			return '';
+		}
+
+		return $first;
+	}
+
 }
