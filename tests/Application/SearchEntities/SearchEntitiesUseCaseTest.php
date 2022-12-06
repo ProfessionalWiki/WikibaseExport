@@ -11,6 +11,7 @@ use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUse
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubEntitySearchHelper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\SpySearchEntitiesPresenter;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -27,8 +28,10 @@ use Wikibase\Lib\Interactors\TermSearchResult;
 class SearchEntitiesUseCaseTest extends TestCase {
 
 	private const LANGUAGE = 'en';
-	private const INSTANCE_OF_ID = 'P1';
-	private const INSTANCE_OF_VALUE = 'company';
+	private const STRING_INSTANCE_OF_ID = 'P1';
+	private const STRING_INSTANCE_OF_VALUE = 'company';
+	private const ITEM_INSTANCE_OF_ID = 'P2';
+	private const ITEM_INSTANCE_OF_VALUE = 'Q100';
 
 	private function createTermSearchResult( string $id, string $label ): TermSearchResult {
 		return new TermSearchResult(
@@ -46,7 +49,9 @@ class SearchEntitiesUseCaseTest extends TestCase {
 			$this->createTermSearchResult( 'Q2', 'Joe Bloggs' ),
 			// Companies
 			$this->createTermSearchResult( 'Q10', 'Joe Builder Inc.' ),
-			$this->createTermSearchResult( 'Q11', 'Jolly Construction Ltd.' )
+			$this->createTermSearchResult( 'Q11', 'Jolly Construction Ltd.' ),
+			$this->createTermSearchResult( 'Q20', 'Johnson Roofs Inc.' ),
+			$this->createTermSearchResult( 'Q21', 'Johnson Windows Ltd.' )
 		];
 	}
 
@@ -67,8 +72,22 @@ class SearchEntitiesUseCaseTest extends TestCase {
 			statements: new StatementList(
 				new Statement(
 					mainSnak: new PropertyValueSnak(
-						new NumericPropertyId( self::INSTANCE_OF_ID ),
-						new StringValue( self::INSTANCE_OF_VALUE )
+						new NumericPropertyId( self::STRING_INSTANCE_OF_ID ),
+						new StringValue( self::STRING_INSTANCE_OF_VALUE )
+					)
+				)
+			)
+		);
+	}
+
+	private function createCompanyInstanceOfItem( string $id ): Item {
+		return new Item(
+			id: new ItemId( $id ),
+			statements: new StatementList(
+				new Statement(
+					mainSnak: new PropertyValueSnak(
+						new NumericPropertyId( self::ITEM_INSTANCE_OF_ID ),
+						new EntityIdValue( new ItemId( self::ITEM_INSTANCE_OF_VALUE ) )
 					)
 				)
 			)
@@ -84,14 +103,16 @@ class SearchEntitiesUseCaseTest extends TestCase {
 			$this->createPerson( 'Q2' ),
 			$this->createCompany( 'Q10' ),
 			$this->createCompany( 'Q11' ),
+			$this->createCompanyInstanceOfItem( 'Q20' ),
+			$this->createCompanyInstanceOfItem( 'Q21' )
 		];
 	}
 
 	private function newSearchEntitiesUseCase(
 		array $searchResults,
 		SearchEntitiesPresenter $presenter,
-		?string $propertyId = self::INSTANCE_OF_ID,
-		?string $propertyValue = self::INSTANCE_OF_VALUE
+		?string $propertyId = self::STRING_INSTANCE_OF_ID,
+		?string $propertyValue = self::STRING_INSTANCE_OF_VALUE
 	): SearchEntitiesUseCase {
 		return new SearchEntitiesUseCase(
 			subjectFilterPropertyId: $propertyId,
@@ -113,7 +134,9 @@ class SearchEntitiesUseCaseTest extends TestCase {
 				[ 'id' => 'Q1', 'label' => 'John Doe' ],
 				[ 'id' => 'Q2', 'label' => 'Joe Bloggs' ],
 				[ 'id' => 'Q10', 'label' => 'Joe Builder Inc.' ],
-				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ]
+				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ],
+				[ 'id' => 'Q20', 'label' => 'Johnson Roofs Inc.' ],
+				[ 'id' => 'Q21', 'label' => 'Johnson Windows Ltd.' ]
 			],
 			$presenter->searchResult
 		);
@@ -129,7 +152,9 @@ class SearchEntitiesUseCaseTest extends TestCase {
 				[ 'id' => 'Q1', 'label' => 'John Doe' ],
 				[ 'id' => 'Q2', 'label' => 'Joe Bloggs' ],
 				[ 'id' => 'Q10', 'label' => 'Joe Builder Inc.' ],
-				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ]
+				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ],
+				[ 'id' => 'Q20', 'label' => 'Johnson Roofs Inc.' ],
+				[ 'id' => 'Q21', 'label' => 'Johnson Windows Ltd.' ]
 			],
 			$presenter->searchResult
 		);
@@ -166,6 +191,25 @@ class SearchEntitiesUseCaseTest extends TestCase {
 			[
 				[ 'id' => 'Q10', 'label' => 'Joe Builder Inc.' ],
 				[ 'id' => 'Q11', 'label' => 'Jolly Construction Ltd.' ]
+			],
+			$presenter->searchResult
+		);
+	}
+
+	public function testResultsFoundWithFilteringWhenPropertyValueIsAnId(): void {
+		$presenter = new SpySearchEntitiesPresenter();
+		$searcher = $this->newSearchEntitiesUseCase(
+			$this->getAllSearchResults(),
+			$presenter,
+			self::ITEM_INSTANCE_OF_ID,
+			self::ITEM_INSTANCE_OF_VALUE
+		);
+		$searcher->search( 'Jo' );
+
+		$this->assertSame(
+			[
+				[ 'id' => 'Q20', 'label' => 'Johnson Roofs Inc.' ],
+				[ 'id' => 'Q21', 'label' => 'Johnson Windows Ltd.' ]
 			],
 			$presenter->searchResult
 		);
