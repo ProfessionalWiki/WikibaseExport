@@ -6,13 +6,14 @@ namespace ProfessionalWiki\WikibaseExport\Application;
 
 use Exception;
 use RuntimeException;
+use Wikibase\DataModel\Entity\PropertyId;
 
 class Config {
 
 	/**
 	 * @param string[]|null $defaultSubjects
-	 * @param string[]|null $propertiesToGroupByYear
-	 * @param string[]|null $propertiesWithoutQualifiers
+	 * @param PropertyId[]|null $propertiesGroupedByYear
+	 * @param PropertyId[]|null $ungroupedProperties
 	 */
 	public function __construct(
 		public /* readonly */ ?array $defaultSubjects = null,
@@ -21,8 +22,8 @@ class Config {
 		public /* readonly */ ?string $startTimePropertyId = null,
 		public /* readonly */ ?string $endTimePropertyId = null,
 		public /* readonly */ ?string $pointInTimePropertyId = null,
-		public /* readonly */ ?array $propertiesToGroupByYear = null,
-		public /* readonly */ ?array $propertiesWithoutQualifiers = null,
+		public /* readonly */ ?array $propertiesGroupedByYear = null,
+		public /* readonly */ ?array $ungroupedProperties = null,
 		public /* readonly */ ?string $subjectFilterPropertyId = null,
 		public /* readonly */ ?string $subjectFilterPropertyValue = null
 	) {
@@ -36,8 +37,8 @@ class Config {
 			$config->startTimePropertyId ?? $this->startTimePropertyId,
 			$config->endTimePropertyId ?? $this->endTimePropertyId,
 			$config->pointInTimePropertyId ?? $this->pointInTimePropertyId,
-			$config->propertiesToGroupByYear ?? $this->propertiesToGroupByYear,
-			$config->propertiesWithoutQualifiers ?? $this->propertiesWithoutQualifiers,
+			$config->propertiesGroupedByYear ?? $this->propertiesGroupedByYear,
+			$config->ungroupedProperties ?? $this->ungroupedProperties,
 			$config->subjectFilterPropertyId ?? $this->subjectFilterPropertyId,
 			$config->subjectFilterPropertyValue ?? $this->subjectFilterPropertyValue
 		);
@@ -79,12 +80,12 @@ class Config {
 	}
 
 	/**
-	 * @return string[]
+	 * @return PropertyId[]
 	 */
 	public function getAllProperties(): array {
 		return array_merge(
-			$this->propertiesToGroupByYear ?? [],
-				$this->propertiesWithoutQualifiers ?? []
+			$this->propertiesGroupedByYear ?? [],
+				$this->ungroupedProperties ?? []
 		);
 	}
 

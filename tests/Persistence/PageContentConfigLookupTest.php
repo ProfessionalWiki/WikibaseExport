@@ -39,8 +39,8 @@ class PageContentConfigLookupTest extends WikibaseExportIntegrationTest {
 				startTimePropertyId: 'P1',
 				endTimePropertyId: 'P2',
 				pointInTimePropertyId: 'P3',
-				propertiesToGroupByYear: [ 'P4', 'P5' ],
-				propertiesWithoutQualifiers: [ 'P6', 'P7' ],
+				propertiesGroupedByYear: [ 'P4', 'P5' ],
+				ungroupedProperties: [ 'P6', 'P7' ],
 				subjectFilterPropertyId: 'P10',
 				subjectFilterPropertyValue: 'company'
 			),

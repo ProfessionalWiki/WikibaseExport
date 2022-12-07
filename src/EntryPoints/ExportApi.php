@@ -7,6 +7,7 @@ namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdListParser;
 use ProfessionalWiki\WikibaseExport\Presentation\HttpExportPresenter;
 use ProfessionalWiki\WikibaseExport\Presentation\WideCsvPresenter;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
@@ -54,7 +55,7 @@ class ExportApi extends SimpleHandler {
 
 		return new ExportRequest(
 			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
-			statementPropertyIds: $this->parsePropertyIds( $params[self::PARAM_STATEMENT_PROPERTY_IDS] ),
+			statementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_STATEMENT_PROPERTY_IDS] ),
 			startYear: (int)$params[self::PARAM_START_YEAR],
 			endYear: (int)$params[self::PARAM_END_YEAR]
 		);
@@ -78,17 +79,6 @@ class ExportApi extends SimpleHandler {
 		}
 
 		return $idObjects;
-	}
-
-	/**
-	 * @param string[] $ids
-	 * @return PropertyId[]
-	 */
-	private function parsePropertyIds( array $ids ): array {
-		return array_filter(
-			$this->parseIds( $ids ),
-			fn( EntityId $id ) => $id instanceof PropertyId
-		);
 	}
 
 	/**

@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Config;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\Config
@@ -20,8 +21,8 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P1',
 			endTimePropertyId: 'P2',
 			pointInTimePropertyId: 'P3',
-			propertiesToGroupByYear: [ 'P10', 'P11' ],
-			propertiesWithoutQualifiers: [ 'P12', 'P13' ],
+			propertiesGroupedByYear: [ new NumericPropertyId( 'P10' ), new NumericPropertyId( 'P11' ) ],
+			ungroupedProperties: [ new NumericPropertyId( 'P12' ), new NumericPropertyId( 'P13' ) ],
 			subjectFilterPropertyId: 'P15',
 			subjectFilterPropertyValue: 'company'
 		);
@@ -35,8 +36,8 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P4',
 			endTimePropertyId: 'P5',
 			pointInTimePropertyId: 'P6',
-			propertiesToGroupByYear: [ 'P20', 'P21' ],
-			propertiesWithoutQualifiers: [ 'P22', 'P23' ],
+			propertiesGroupedByYear: [ new NumericPropertyId( 'P20' ), new NumericPropertyId( 'P21' ) ],
+			ungroupedProperties: [ new NumericPropertyId( 'P22' ), new NumericPropertyId( 'P23' ) ],
 			subjectFilterPropertyId: 'P25',
 			subjectFilterPropertyValue: 'organization'
 		);
@@ -63,8 +64,13 @@ class ConfigTest extends TestCase {
 	public function testGetAllProperties(): void {
 		$original = $this->createOriginalConfig();
 
-		$this->assertSame(
-			[ 'P10', 'P11', 'P12', 'P13' ],
+		$this->assertEquals(
+			[
+				new NumericPropertyId( 'P10' ),
+				new NumericPropertyId( 'P11' ),
+				new NumericPropertyId( 'P12' ),
+				new NumericPropertyId( 'P13' ),
+			],
 			$original->getAllProperties()
 		);
 	}

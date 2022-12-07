@@ -9,19 +9,6 @@ use ProfessionalWiki\WikibaseExport\Application\Export\MappedYear;
 
 class Valid {
 
-	/**
-	 * @param MappedYear[] $statementsByYear
-	 */
-	public static function mappedEntity(
-		string $id = 'Q1000',
-		array $statementsByYear = []
-	): MappedEntity {
-		return new MappedEntity(
-			id: $id,
-			statementsByYear: $statementsByYear
-		);
-	}
-
 	public static function configJson(): string {
 		return '
 {

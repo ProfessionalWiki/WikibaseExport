@@ -18,12 +18,14 @@ class EntityMapperFactory {
 	}
 
 	/**
-	 * @param PropertyId[] $propertyIds
+	 * @param PropertyId[] $basicProperties
+	 * @param PropertyId[] $propertiesGroupedByYear
 	 */
-	public function newEntityMapper( array $propertyIds, int $startYear, int $endYear ): EntityMapper {
+	public function newEntityMapper( array $basicProperties, array $propertiesGroupedByYear, int $startYear, int $endYear ): EntityMapper {
 		return new EntityMapper(
 			statementFilter: new ExportStatementFilter(
-				propertyIds: $propertyIds,
+				alwaysIncludedProperties: $basicProperties,
+				timeQualifiedProperties: $propertiesGroupedByYear,
 				timeRange: TimeRange::newFromStartAndEndYear( $startYear, $endYear ),
 				qualifierProperties: $this->timeQualifierProperties
 			),

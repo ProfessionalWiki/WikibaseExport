@@ -26,6 +26,8 @@ class ExportUseCaseTest extends TestCase {
 
 	private function newExportUseCase( ExportPresenter $presenter, ExportAuthorizer $authorizer ): ExportUseCase {
 		return new ExportUseCase(
+			ungroupedProperties: [],
+			propertiesGroupedByYear: [],
 			entitySourceFactory: new EntitySourceFactory(
 				lookup: WikibaseRepo::getEntityLookup()
 			),

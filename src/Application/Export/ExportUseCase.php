@@ -7,10 +7,18 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 use ProfessionalWiki\WikibaseExport\Application\EntityMapperFactory;
 use ProfessionalWiki\WikibaseExport\Application\EntitySource;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
+use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Entity\PropertyId;
 
 class ExportUseCase {
 
+	/**
+	 * @param PropertyId[] $ungroupedProperties
+	 * @param PropertyId[] $propertiesGroupedByYear
+	 */
 	public function __construct(
+		private array $ungroupedProperties,
+		private array $propertiesGroupedByYear,
 		private EntitySourceFactory $entitySourceFactory,
 		private EntityMapperFactory $entityMapperFactory,
 		private ExportPresenter $presenter,
@@ -49,9 +57,26 @@ class ExportUseCase {
 
 	private function newEntityMapper( ExportRequest $request ): EntityMapper {
 		return $this->entityMapperFactory->newEntityMapper(
-			$request->statementPropertyIds,
+			$this->idsInBoth( $this->ungroupedProperties, $request->statementPropertyIds ),
+			$this->idsInBoth( $this->propertiesGroupedByYear, $request->statementPropertyIds ),
 			$request->startYear,
 			$request->endYear
+		);
+	}
+
+	/**
+	 * @param PropertyId[] $a
+	 * @param PropertyId[] $b
+	 *
+	 * @return PropertyId[]
+	 */
+	private function idsInBoth( array $a, array $b ): array {
+		return array_map(
+			fn ( string $id ) => new NumericPropertyId( $id ),
+			array_intersect(
+				array_map( fn( PropertyId $id ) => $id->getSerialization(), $a ),
+				array_map( fn( PropertyId $id ) => $id->getSerialization(), $b ),
+			)
 		);
 	}
 

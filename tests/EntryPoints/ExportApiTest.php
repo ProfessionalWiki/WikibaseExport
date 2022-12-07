@@ -36,7 +36,9 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 {
     "startTimePropertyId": "' . TimeHelper::START_TIME_ID . '",
     "endTimePropertyId": "' . TimeHelper::END_TIME_ID . '",
-    "pointInTimePropertyId": "' . TimeHelper::POINT_IN_TIME_ID . '"
+    "pointInTimePropertyId": "' . TimeHelper::POINT_IN_TIME_ID . '",
+	"propertiesToGroupByYear": ["' . self::LEGAL_NAME_ID . '", "' . self::EMPLOYEE_COUNT_ID . '"],
+	"ungroupedProperties": ["P3"]
 }
 '
 		);
