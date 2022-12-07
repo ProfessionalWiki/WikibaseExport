@@ -8,10 +8,6 @@ use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\TimeHelper;
 use Wikibase\DataModel\Entity\NumericPropertyId;
-use Wikibase\DataModel\Snak\PropertyNoValueSnak;
-use Wikibase\DataModel\Snak\PropertyValueSnak;
-use Wikibase\DataModel\Snak\SnakList;
-use Wikibase\DataModel\Statement\Statement;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\ExportStatementFilter
@@ -25,15 +21,7 @@ class ExportStatementFilterTest extends TestCase {
 			TimeHelper::newTimeQualifierProperties()
 		);
 
-		$statement = new Statement(
-			mainSnak: new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ),
-			qualifiers: new SnakList( [
-				new PropertyValueSnak(
-					new NumericPropertyId( TimeHelper::POINT_IN_TIME_ID ),
-					TimeHelper::newDay( '+2001-01-01T00:00:00Z' )
-				)
-			] )
-		);
+		$statement = TimeHelper::newPointInTimeStatement( day: '2001-01-01' );
 
 		$this->assertTrue( $filter->statementMatches( $statement ) );
 	}
