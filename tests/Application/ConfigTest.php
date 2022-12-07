@@ -20,7 +20,7 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P1',
 			endTimePropertyId: 'P2',
 			pointInTimePropertyId: 'P3',
-			propertiesWithQualifiers: [ 'P10', 'P11' ],
+			propertiesToGroupByYear: [ 'P10', 'P11' ],
 			propertiesWithoutQualifiers: [ 'P12', 'P13' ],
 			subjectFilterPropertyId: 'P15',
 			subjectFilterPropertyValue: 'company'
@@ -35,7 +35,7 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P4',
 			endTimePropertyId: 'P5',
 			pointInTimePropertyId: 'P6',
-			propertiesWithQualifiers: [ 'P20', 'P21' ],
+			propertiesToGroupByYear: [ 'P20', 'P21' ],
 			propertiesWithoutQualifiers: [ 'P22', 'P23' ],
 			subjectFilterPropertyId: 'P25',
 			subjectFilterPropertyValue: 'organization'

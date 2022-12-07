@@ -11,7 +11,7 @@ class Config {
 
 	/**
 	 * @param string[]|null $defaultSubjects
-	 * @param string[]|null $propertiesWithQualifiers
+	 * @param string[]|null $propertiesToGroupByYear
 	 * @param string[]|null $propertiesWithoutQualifiers
 	 */
 	public function __construct(
@@ -21,7 +21,7 @@ class Config {
 		public /* readonly */ ?string $startTimePropertyId = null,
 		public /* readonly */ ?string $endTimePropertyId = null,
 		public /* readonly */ ?string $pointInTimePropertyId = null,
-		public /* readonly */ ?array $propertiesWithQualifiers = null,
+		public /* readonly */ ?array $propertiesToGroupByYear = null,
 		public /* readonly */ ?array $propertiesWithoutQualifiers = null,
 		public /* readonly */ ?string $subjectFilterPropertyId = null,
 		public /* readonly */ ?string $subjectFilterPropertyValue = null
@@ -36,7 +36,7 @@ class Config {
 			$config->startTimePropertyId ?? $this->startTimePropertyId,
 			$config->endTimePropertyId ?? $this->endTimePropertyId,
 			$config->pointInTimePropertyId ?? $this->pointInTimePropertyId,
-			$config->propertiesWithQualifiers ?? $this->propertiesWithQualifiers,
+			$config->propertiesToGroupByYear ?? $this->propertiesToGroupByYear,
 			$config->propertiesWithoutQualifiers ?? $this->propertiesWithoutQualifiers,
 			$config->subjectFilterPropertyId ?? $this->subjectFilterPropertyId,
 			$config->subjectFilterPropertyValue ?? $this->subjectFilterPropertyValue
@@ -82,7 +82,10 @@ class Config {
 	 * @return string[]
 	 */
 	public function getAllProperties(): array {
-		return array_merge( $this->propertiesWithQualifiers ?? [], $this->propertiesWithoutQualifiers ?? [] );
+		return array_merge(
+			$this->propertiesToGroupByYear ?? [],
+				$this->propertiesWithoutQualifiers ?? []
+		);
 	}
 
 }

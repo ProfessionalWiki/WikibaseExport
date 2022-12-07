@@ -34,11 +34,11 @@ class Valid {
     "startTimePropertyId": "P1",
     "endTimePropertyId": "P2",
     "pointInTimePropertyId": "P3",
-    "propertiesWithQualifiers": [
+    "propertiesToGroupByYear": [
         "P4",
         "P5"
     ],
-    "propertiesWithoutQualifiers": [
+    "ungroupedProperties": [
         "P6",
         "P7"
     ],

@@ -24,13 +24,13 @@
 		"pointInTimePropertyId": {
 			"$ref": "#/$defs/property"
 		},
-		"propertiesWithQualifiers": {
+		"propertiesToGroupByYear": {
 			"type": "array",
 			"items": {
 				"$ref": "#/$defs/property"
 			}
 		},
-		"propertiesWithoutQualifiers": {
+		"ungroupedProperties": {
 			"type": "array",
 			"items": {
 				"$ref": "#/$defs/property"

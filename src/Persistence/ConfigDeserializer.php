@@ -36,8 +36,8 @@ class ConfigDeserializer {
 			$configArray['startTimePropertyId'] ?? null,
 			$configArray['endTimePropertyId'] ?? null,
 			$configArray['pointInTimePropertyId'] ?? null,
-			$configArray['propertiesWithQualifiers'] ?? null,
-			$configArray['propertiesWithoutQualifiers'] ?? null,
+			$configArray['propertiesToGroupByYear'] ?? null,
+			$configArray['ungroupedProperties'] ?? null,
 			$configArray['subjectFilterPropertyId'] ?? null,
 			$configArray['subjectFilterPropertyValue'] ?? null
 		);
