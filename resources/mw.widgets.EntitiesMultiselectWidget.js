@@ -15,7 +15,10 @@
 			{
 				clearInputOnChoose: true,
 				inputPosition: 'inline',
-				allowEditTags: false
+				allowEditTags: false,
+				menu: {
+					filterFromInput: false
+				}
 			},
 			config
 		) );
