@@ -7,6 +7,7 @@ namespace ProfessionalWiki\WikibaseExport\Presentation;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\ResponseFactory;
 use MediaWiki\Rest\Stream;
+use ProfessionalWiki\WikibaseExport\Application\Export\ColumnHeaders;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
 
@@ -18,6 +19,10 @@ class HttpExportPresenter implements ExportPresenter {
 		private WideCsvPresenter $presenter,
 		private ResponseFactory $responseFactory
 	) {
+	}
+
+	public function presentExportStarted( ColumnHeaders $headers ): void {
+		$this->presenter->presentExportStarted( $headers );
 	}
 
 	public function presentEntity( MappedEntity $entity ): void {

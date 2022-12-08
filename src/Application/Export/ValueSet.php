@@ -4,14 +4,13 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
-/**
- * @psalm-immutable
- */
-class MappedStatement {
+class ValueSet {
 
+	/**
+	 * @param string[] $values
+	 */
 	public function __construct(
-		public /* readonly */ string $propertyId,
-		public /* readonly */ string $mainValue
+		public /* readonly */ array $values
 	) {
 	}
 

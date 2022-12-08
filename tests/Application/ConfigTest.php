@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Config;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 
 /**
@@ -21,8 +22,14 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P1',
 			endTimePropertyId: 'P2',
 			pointInTimePropertyId: 'P3',
-			propertiesGroupedByYear: [ new NumericPropertyId( 'P10' ), new NumericPropertyId( 'P11' ) ],
-			ungroupedProperties: [ new NumericPropertyId( 'P12' ), new NumericPropertyId( 'P13' ) ],
+			propertiesGroupedByYear: new PropertyIdList( [
+				new NumericPropertyId( 'P10' ),
+				new NumericPropertyId( 'P11' )
+			] ),
+			ungroupedProperties: new PropertyIdList( [
+				new NumericPropertyId( 'P12' ),
+				new NumericPropertyId( 'P13' )
+			] ),
 			subjectFilterPropertyId: 'P15',
 			subjectFilterPropertyValue: 'company'
 		);
@@ -36,8 +43,14 @@ class ConfigTest extends TestCase {
 			startTimePropertyId: 'P4',
 			endTimePropertyId: 'P5',
 			pointInTimePropertyId: 'P6',
-			propertiesGroupedByYear: [ new NumericPropertyId( 'P20' ), new NumericPropertyId( 'P21' ) ],
-			ungroupedProperties: [ new NumericPropertyId( 'P22' ), new NumericPropertyId( 'P23' ) ],
+			propertiesGroupedByYear: new PropertyIdList( [
+				new NumericPropertyId( 'P20' ),
+				new NumericPropertyId( 'P21' )
+			] ),
+			ungroupedProperties: new PropertyIdList( [
+				new NumericPropertyId( 'P22' ),
+				new NumericPropertyId( 'P23' )
+			] ),
 			subjectFilterPropertyId: 'P25',
 			subjectFilterPropertyValue: 'organization'
 		);
@@ -71,7 +84,7 @@ class ConfigTest extends TestCase {
 				new NumericPropertyId( 'P12' ),
 				new NumericPropertyId( 'P13' ),
 			],
-			$original->getAllProperties()
+			$original->getAllProperties()->ids
 		);
 	}
 

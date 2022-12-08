@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
@@ -14,7 +15,6 @@ use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ExportApi extends SimpleHandler {
@@ -35,12 +35,7 @@ class ExportApi extends SimpleHandler {
 	}
 
 	private function newWideCsvPresenter(): WideCsvPresenter {
-		$params = $this->getValidatedParams();
-
-		return new WideCsvPresenter(
-			years: range( (int)$params[self::PARAM_START_YEAR], (int)$params[self::PARAM_END_YEAR] ),
-			properties: $params[self::PARAM_STATEMENT_PROPERTY_IDS]
-		);
+		return new WideCsvPresenter();
 	}
 
 	private function newHttpPresenter(): HttpExportPresenter {
@@ -54,6 +49,7 @@ class ExportApi extends SimpleHandler {
 		$params = $this->getValidatedParams();
 
 		return new ExportRequest(
+			languageCode: MediaWikiServices::getInstance()->getContentLanguage()->getCode(), // TODO: get from instance
 			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
 			statementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_STATEMENT_PROPERTY_IDS] ),
 			startYear: (int)$params[self::PARAM_START_YEAR],

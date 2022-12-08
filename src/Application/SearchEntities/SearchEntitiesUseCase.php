@@ -29,7 +29,7 @@ class SearchEntitiesUseCase {
 	}
 
 	public function search( string $text ): void {
-		// TOOD: check permission
+		// TODO: check permission
 		$results = $this->getSearchResults( $text );
 
 		if ( $this->shouldFilter() ) {

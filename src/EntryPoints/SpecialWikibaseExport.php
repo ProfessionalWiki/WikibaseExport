@@ -95,7 +95,7 @@ class SpecialWikibaseExport extends SpecialPage {
 			'defaultEndYear' => $config->defaultEndYear,
 			'properties' => array_map(
 				fn( PropertyId $id ) => $id->getSerialization(),
-				$config->getAllProperties()
+				$config->getAllProperties()->ids
 			)
 		];
 	}

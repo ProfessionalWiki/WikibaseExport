@@ -27,7 +27,7 @@ class PropertyIdListParserTest extends TestCase {
 					'P2',
 					'P42wrong'
 				]
-			)
+			)->ids
 		);
 	}
 

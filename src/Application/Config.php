@@ -12,8 +12,8 @@ class Config {
 
 	/**
 	 * @param string[]|null $defaultSubjects
-	 * @param PropertyId[]|null $propertiesGroupedByYear
-	 * @param PropertyId[]|null $ungroupedProperties
+	 * @param PropertyIdList|null $propertiesGroupedByYear
+	 * @param PropertyIdList|null $ungroupedProperties
 	 */
 	public function __construct(
 		public /* readonly */ ?array $defaultSubjects = null,
@@ -22,8 +22,8 @@ class Config {
 		public /* readonly */ ?string $startTimePropertyId = null,
 		public /* readonly */ ?string $endTimePropertyId = null,
 		public /* readonly */ ?string $pointInTimePropertyId = null,
-		public /* readonly */ ?array $propertiesGroupedByYear = null,
-		public /* readonly */ ?array $ungroupedProperties = null,
+		public /* readonly */ ?PropertyIdList $propertiesGroupedByYear = null,
+		public /* readonly */ ?PropertyIdList $ungroupedProperties = null,
 		public /* readonly */ ?string $subjectFilterPropertyId = null,
 		public /* readonly */ ?string $subjectFilterPropertyValue = null
 	) {
@@ -79,13 +79,12 @@ class Config {
 		}
 	}
 
-	/**
-	 * @return PropertyId[]
-	 */
-	public function getAllProperties(): array {
-		return array_merge(
-			$this->propertiesGroupedByYear ?? [],
-				$this->ungroupedProperties ?? []
+	public function getAllProperties(): PropertyIdList {
+		return new PropertyIdList(
+			array_merge(
+				$this->propertiesGroupedByYear?->ids ?? [],
+				$this->ungroupedProperties?->ids ?? []
+			)
 		);
 	}
 

@@ -5,9 +5,11 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Presenation;
 
 use PHPUnit\Framework\TestCase;
+use ProfessionalWiki\WikibaseExport\Application\Export\ColumnHeader;
+use ProfessionalWiki\WikibaseExport\Application\Export\ColumnHeaders;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
-use ProfessionalWiki\WikibaseExport\Application\Export\MappedStatement;
-use ProfessionalWiki\WikibaseExport\Application\Export\MappedYear;
+use ProfessionalWiki\WikibaseExport\Application\Export\ValueSet;
+use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetList;
 use ProfessionalWiki\WikibaseExport\Presentation\WideCsvPresenter;
 
 /**
@@ -16,37 +18,29 @@ use ProfessionalWiki\WikibaseExport\Presentation\WideCsvPresenter;
 class WideCsvPresenterTest extends TestCase {
 
 	public function testMultipleEntities(): void {
-		$presenter = new WideCsvPresenter(
-			years: [ 2022 ],
-			properties: [ 'P1', 'P2' ]
-		);
+		$presenter = new WideCsvPresenter();
+
+		$presenter->presentExportStarted( new ColumnHeaders( [
+			new ColumnHeader( 'P1 2022' ),
+			new ColumnHeader( 'P2 2022' ),
+		] ) );
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q42',
 			label: 'Item One',
-			statementsByYear: [
-				new MappedYear(
-					year: 2022,
-					statements: [
-						new MappedStatement( 'P1', 'Foo' ),
-						new MappedStatement( 'P2', 'Bar' ),
-					]
-				),
-			]
+			valueSetList: new ValueSetList( [
+				new ValueSet( [ 'Foo' ] ),
+				new ValueSet( [ 'Bar' ] ),
+			] ),
 		) );
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q43',
 			label: 'Item Two',
-			statementsByYear: [
-				new MappedYear(
-					year: 2022,
-					statements: [
-						new MappedStatement( 'P2', 'MoreBar' ),
-						new MappedStatement( 'P1', 'MoreFoo' ),
-					]
-				),
-			]
+			valueSetList: new ValueSetList( [
+				new ValueSet( [ 'MoreFoo' ] ),
+				new ValueSet( [ 'MoreBar' ] ),
+			] ),
 		) );
 
 		$this->assertPresenterHasCsv(
@@ -66,25 +60,20 @@ CSV,
 	}
 
 	public function testMultipleValuesPerProperty(): void {
-		$presenter = new WideCsvPresenter(
-			years: [ 2022 ],
-			properties: [ 'P1', 'P2' ]
-		);
+		$presenter = new WideCsvPresenter();
+
+		$presenter->presentExportStarted( new ColumnHeaders( [
+			new ColumnHeader( 'P1 2022' ),
+			new ColumnHeader( 'P2 2022' ),
+		] ) );
 
 		$presenter->presentEntity( new MappedEntity(
 			id: 'Q42',
 			label: 'Foo Bar',
-			statementsByYear: [
-				new MappedYear(
-					year: 2022,
-					statements: [
-						new MappedStatement( 'P1', 'One' ),
-						new MappedStatement( 'P2', 'Two' ),
-						new MappedStatement( 'P2', 'Three' ),
-						new MappedStatement( 'P1', 'Four' ),
-					]
-				),
-			]
+			valueSetList: new ValueSetList( [
+				new ValueSet( [ 'One', 'Four' ] ),
+				new ValueSet( [ 'Two', 'Three' ] ),
+			] ),
 		) );
 
 		$this->assertPresenterHasCsv(
@@ -103,87 +92,6 @@ CSV,
 		$this->assertSame(
 			$expected,
 			$this->getCsvString( $presenter )
-		);
-	}
-
-	public function testMultipleYears(): void {
-		$presenter = new WideCsvPresenter(
-			years: [ 2022, 2023 ],
-			properties: [ 'P1', 'P2' ]
-		);
-
-		$presenter->presentEntity( new MappedEntity(
-			id: 'Q42',
-			label: 'Foo Bar',
-			statementsByYear: [
-				new MappedYear(
-					year: 2022,
-					statements: [
-						new MappedStatement( 'P1', 'P1_2022' ),
-						new MappedStatement( 'P2', 'P2_2022' ),
-					]
-				),
-				new MappedYear(
-					year: 2023,
-					statements: [
-						new MappedStatement( 'P1', 'P1_2023' ),
-						new MappedStatement( 'P2', 'P2_2023' ),
-					]
-				),
-			]
-		) );
-
-		$this->assertPresenterHasCsv(
-			<<<CSV
-ID,Label,"P1 2023","P1 2022","P2 2023","P2 2022"
-Q42,"Foo Bar",P1_2023,P1_2022,P2_2023,P2_2022
-
-CSV,
-			$presenter
-		);
-	}
-
-	public function testIsNoYearsMatchTheResultIsEmpty(): void {
-		$presenter = new WideCsvPresenter(
-			years: [ 2022 ],
-			properties: [ 'P1', 'P2' ]
-		);
-
-		$presenter->presentEntity( new MappedEntity(
-			id: 'Q42',
-			label: 'Foo Bar',
-			statementsByYear: [
-				new MappedYear(
-					year: 2021,
-					statements: [
-						new MappedStatement( 'P1', 'P1_2021' ),
-						new MappedStatement( 'P2', 'P2_2021' ),
-					]
-				),
-				new MappedYear(
-					year: 2023,
-					statements: [
-						new MappedStatement( 'P1', 'P1_2023' ),
-						new MappedStatement( 'P2', 'P2_2023' ),
-					]
-				),
-			]
-		) );
-
-		$presenter->presentEntity( new MappedEntity(
-			id: 'Q41',
-			label: 'Bar Baz',
-			statementsByYear: []
-		) );
-
-		$this->assertPresenterHasCsv(
-			<<<CSV
-ID,Label,"P1 2022","P2 2022"
-Q42,"Foo Bar",,
-Q41,"Bar Baz",,
-
-CSV,
-			$presenter
 		);
 	}
 

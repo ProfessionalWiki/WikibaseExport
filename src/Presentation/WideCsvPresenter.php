@@ -4,59 +4,28 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Presentation;
 
+use ProfessionalWiki\WikibaseExport\Application\Export\ColumnHeader;
+use ProfessionalWiki\WikibaseExport\Application\Export\ColumnHeaders;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
 use RuntimeException;
 
 class WideCsvPresenter implements ExportPresenter {
 
-	private bool $initialized = false;
-
 	/**
 	 * @var resource
 	 */
 	private $stream;
 
-	/**
-	 * @param int[] $years
-	 * @param string[] $properties
-	 */
-	public function __construct(
-		private array $years,
-		private array $properties
-	) {
-		arsort( $this->years );
+	public function presentExportStarted( ColumnHeaders $headers ): void {
+		$this->openStream();
+		$this->writeHeaderRow( $headers );
 	}
 
-	public function presentEntity( MappedEntity $entity ): void {
-		$rowValues = [ $entity->id, $entity->label ];
-
-		foreach ( $this->properties as $propertyId ) {
-			foreach ( $this->years as $year ) {
-				$rowValues[] = implode(
-					"\n",
-					$entity->getYear( $year )->getValuesForProperty( $propertyId )
-				);
-			}
-		}
-
-		$this->writeRow( $rowValues );
-	}
-
-	/**
-	 * @param string[] $values
-	 */
-	private function writeRow( array $values ): void {
-		$this->initialize();
-		fputcsv( $this->stream, $values );
-	}
-
-	private function initialize(): void {
-		if ( $this->initialized ) {
+	private function openStream(): void {
+		if ( isset( $this->stream ) ) {
 			return;
 		}
-
-		$this->initialized = true;
 
 		$stream = fopen( 'php://temp', 'r+' );
 
@@ -65,41 +34,42 @@ class WideCsvPresenter implements ExportPresenter {
 		}
 
 		$this->stream = $stream;
-		$this->writeHeader();
 	}
 
-	private function writeHeader(): void {
-		fputcsv(
-			$this->stream,
+	private function writeHeaderRow( ColumnHeaders $headers ): void {
+		$this->writeRow(
 			array_merge(
 				[ 'ID', 'Label' ],
-				...$this->buildHeadersForEachProperty()
+				array_map(
+					fn( ColumnHeader $header ) => $header->text,
+					$headers->headers
+				)
 			)
 		);
 	}
 
 	/**
-	 * @return array<mixed, string[]>
+	 * @param string[] $values
 	 */
-	private function buildHeadersForEachProperty(): array {
-		return array_map(
-			fn( string $propertyId ) => array_map(
-				fn( int $year ) => $this->buildPropertyHeader( $propertyId, $year ),
-				$this->years
-			),
-			$this->properties
-		);
+	private function writeRow( array $values ): void {
+		fputcsv( $this->stream, $values );
 	}
 
-	private function buildPropertyHeader( string $propertyId, int $year ): string {
-		return "$propertyId $year";
+	public function presentEntity( MappedEntity $entity ): void {
+		$rowValues = [ $entity->id, $entity->label ];
+
+		foreach ( $entity->valueSetList->sets as $valueSet ) {
+			$rowValues[] = implode( "\n", $valueSet->values );
+		}
+
+		$this->writeRow( $rowValues );
 	}
 
 	/**
 	 * @return resource
 	 */
 	public function getStream() {
-		$this->initialize();
+		$this->openStream();
 		return $this->stream;
 	}
 

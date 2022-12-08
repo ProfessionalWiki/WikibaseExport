@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Persistence;
 
 use ProfessionalWiki\WikibaseExport\Application\Config;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
 use ProfessionalWiki\WikibaseExport\Application\PropertyIdListParser;
 use Wikibase\DataModel\Entity\PropertyId;
 
@@ -48,9 +49,9 @@ class ConfigDeserializer {
 
 	/**
 	 * @param array<string, mixed> $configArray
-	 * @return ?PropertyId[]
+	 * @return ?PropertyIdList
 	 */
-	private function getPropertiesToGroupByYear( array $configArray ): ?array {
+	private function getPropertiesToGroupByYear( array $configArray ): ?PropertyIdList {
 		if ( array_key_exists( 'propertiesToGroupByYear', $configArray ) ) {
 			return $this->idListParser->parse( $configArray['propertiesToGroupByYear'] );
 		}
@@ -60,9 +61,9 @@ class ConfigDeserializer {
 
 	/**
 	 * @param array<string, mixed> $configArray
-	 * @return ?PropertyId[]
+	 * @return ?PropertyIdList
 	 */
-	private function getUngroupedProperties( array $configArray ): ?array {
+	private function getUngroupedProperties( array $configArray ): ?PropertyIdList {
 		if ( array_key_exists( 'ungroupedProperties', $configArray ) ) {
 			return $this->idListParser->parse( $configArray['ungroupedProperties'] );
 		}

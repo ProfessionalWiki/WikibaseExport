@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\Tests\Persistence;
 
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Config;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -28,8 +29,14 @@ class ConfigDeserializerTest extends TestCase {
 				startTimePropertyId: 'P1',
 				endTimePropertyId: 'P2',
 				pointInTimePropertyId: 'P3',
-				propertiesGroupedByYear: [ new NumericPropertyId( 'P4' ), new NumericPropertyId( 'P5' ) ],
-				ungroupedProperties: [ new NumericPropertyId( 'P6' ), new NumericPropertyId( 'P7' ) ],
+				propertiesGroupedByYear: new PropertyIdList( [
+					new NumericPropertyId( 'P4' ),
+					new NumericPropertyId( 'P5' )
+				] ),
+				ungroupedProperties: new PropertyIdList( [
+					new NumericPropertyId( 'P6' ),
+					new NumericPropertyId( 'P7' )
+				] ),
 				subjectFilterPropertyId: 'P10',
 				subjectFilterPropertyValue: 'company'
 			),

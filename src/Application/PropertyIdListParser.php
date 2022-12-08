@@ -20,7 +20,7 @@ class PropertyIdListParser {
 
 	private function newPropertyIdParser(): EntityIdParser {
 		return new DispatchingEntityIdParser( [
-			PropertyId::PATTERN => static function( string $serialization ) {
+			'/^P[1-9]\d{0,9}\z/i' => static function( string $serialization ) {
 				return new NumericPropertyId( $serialization );
 			},
 		] );
@@ -31,10 +31,9 @@ class PropertyIdListParser {
 	 * silently dropping everything that is not a valid property id.
 	 *
 	 * @param string[] $idStrings
-	 * @return array<int, PropertyId>
 	 * @throws EntityIdParsingException
 	 */
-	public function parse( array $idStrings ): array {
+	public function parse( array $idStrings ): PropertyIdList {
 		$ids = [];
 
 		foreach ( $idStrings as $idString ) {
@@ -49,7 +48,7 @@ class PropertyIdListParser {
 			}
 		}
 
-		return $ids;
+		return new PropertyIdList( $ids );
 	}
 
 }
