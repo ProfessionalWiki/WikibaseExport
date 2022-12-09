@@ -121,7 +121,8 @@ class WikibaseExportExtension {
 			authorizer: new AuthorityBasedExportAuthorizer(
 				authority: $authority
 			),
-			valueSetCreator: $this->newProductionValueSetCreator()
+			valueSetCreator: $this->newProductionValueSetCreator(),
+			termLookup: WikibaseRepo::getTermLookup(),
 		);
 	}
 

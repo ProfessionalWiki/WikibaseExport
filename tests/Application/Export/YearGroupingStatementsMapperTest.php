@@ -13,6 +13,7 @@ use ProfessionalWiki\WikibaseExport\Application\Export\ValueSet;
 use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetList;
 use ProfessionalWiki\WikibaseExport\Application\Export\YearGroupingStatementsMapper;
 use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FakeHeaderBuilder;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FakeValueSetCreator;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\TimeHelper;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -35,6 +36,7 @@ class YearGroupingStatementsMapperTest extends TestCase {
 			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
 			startYear: 2000,
 			endYear: 2002,
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$this->assertEquals(
@@ -60,6 +62,7 @@ class YearGroupingStatementsMapperTest extends TestCase {
 			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
 			startYear: 2148,
 			endYear: 2151,
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$statements = new StatementList(
@@ -100,6 +103,7 @@ class YearGroupingStatementsMapperTest extends TestCase {
 			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
 			startYear: 2022,
 			endYear: 2023,
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$statements = new StatementList(
@@ -134,6 +138,7 @@ class YearGroupingStatementsMapperTest extends TestCase {
 			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
 			startYear: 2022,
 			endYear: 2022,
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$normalRankP1 = TimeHelper::newPointInTimeStatement( day: '2022-12-09', pId: 'P11', value: 'Normal' );

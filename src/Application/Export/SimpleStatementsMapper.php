@@ -11,7 +11,8 @@ class SimpleStatementsMapper implements StatementsMapper {
 
 	public function __construct(
 		private ValueSetCreator $valueSetCreator,
-		private PropertyIdList $propertyIds
+		private PropertyIdList $propertyIds,
+		private HeaderBuilder $headerBuilder
 	) {
 	}
 
@@ -19,7 +20,7 @@ class SimpleStatementsMapper implements StatementsMapper {
 		$headers = [];
 
 		foreach ( $this->propertyIds->ids as $property ) {
-			$headers[] = new ColumnHeader( $property->getSerialization() );
+			$headers[] = new ColumnHeader( $this->headerBuilder->propertyIdToHeader( $property ) );
 		}
 
 		return new ColumnHeaders( $headers );

@@ -52,7 +52,7 @@ class ExportApi extends SimpleHandler {
 		return new ExportRequest(
 			languageCode: MediaWikiServices::getInstance()->getContentLanguage()->getCode(), // TODO: get from instance
 			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
-			useLabelsInHeaders: true, // TODO
+			useLabelsInHeaders: false, // TODO
 			groupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_GROUPED_STATEMENT_PROPERTY_IDS] ),
 			ungroupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_UNGROUPED_STATEMENT_PROPERTY_IDS] ),
 			startYear: (int)$params[self::PARAM_START_YEAR],

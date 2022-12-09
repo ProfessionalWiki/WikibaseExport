@@ -23,7 +23,8 @@ class YearGroupingStatementsMapper implements StatementsMapper {
 		private PropertyIdList $yearGroupedProperties,
 		private TimeQualifierProperties $timeQualifierProperties,
 		private int $startYear,
-		private int $endYear
+		private int $endYear,
+		private HeaderBuilder $headerBuilder
 	) {
 		$this->years = $this->buildYears();
 	}
@@ -33,7 +34,7 @@ class YearGroupingStatementsMapper implements StatementsMapper {
 
 		foreach ( $this->yearGroupedProperties->ids as $property ) {
 			foreach ( $this->years as $year ) {
-				$headers[] = new ColumnHeader( $property->getSerialization() . ' ' . $year );
+				$headers[] = new ColumnHeader( $this->headerBuilder->propertyIdToHeader( $property ) . ' ' . $year );
 			}
 		}
 
