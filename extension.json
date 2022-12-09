@@ -93,10 +93,10 @@
 			"messages": [
 				"wikibase-export-subjects-heading",
 				"wikibase-export-subjects-placeholder",
-				"wikibase-export-filters-heading",
+				"wikibase-export-grouped-statements-heading",
 				"wikibase-export-start-year",
 				"wikibase-export-end-year",
-				"wikibase-export-statements-heading",
+				"wikibase-export-ungrouped-statements-heading",
 				"wikibase-export-statement-group-all",
 				"wikibase-export-statements-placeholder",
 				"wikibase-export-download"

@@ -93,10 +93,11 @@ class SpecialWikibaseExport extends SpecialPage {
 			'defaultSubjects' => $config->defaultSubjects,
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,
-			'properties' => array_map(
+			'groupedProperties' => array_map(
 				fn( PropertyId $id ) => $id->getSerialization(),
 				$config->getAllProperties()->ids
-			)
+			),
+			'ungroupedProperties' => [] // TOOD
 		];
 	}
 
