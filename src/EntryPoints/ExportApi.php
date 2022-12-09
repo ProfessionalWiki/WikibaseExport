@@ -50,7 +50,7 @@ class ExportApi extends SimpleHandler {
 		$params = $this->getValidatedParams();
 
 		return new ExportRequest(
-			languageCode: MediaWikiServices::getInstance()->getContentLanguage()->getCode(), // TODO: get from instance
+			languageCode: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
 			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
 			groupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_GROUPED_STATEMENT_PROPERTY_IDS] ),
 			ungroupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_UNGROUPED_STATEMENT_PROPERTY_IDS] ),
