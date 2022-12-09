@@ -94,8 +94,8 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 			new RequestData( [
 				'queryParams' => [
 					'subject_ids' => 'Q42|Q43|Q44|Q45',
-					'grouped_statement_property_ids' => implode( '|', [ self::LEGAL_NAME_ID, self::EMPLOYEE_COUNT_ID, self::FOUNDER_NAME_ID ] ),
-					'ungrouped_statement_property_ids' => [],
+					'grouped_statement_property_ids' => implode( '|', [ self::LEGAL_NAME_ID, self::EMPLOYEE_COUNT_ID ] ),
+					'ungrouped_statement_property_ids' => [ self::FOUNDER_NAME_ID ],
 					'start_year' => 2021,
 					'end_year' => 2022
 				]

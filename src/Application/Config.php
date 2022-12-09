@@ -79,13 +79,12 @@ class Config {
 		}
 	}
 
-	public function getAllProperties(): PropertyIdList {
-		return new PropertyIdList(
-			array_merge(
-				$this->propertiesGroupedByYear?->ids ?? [],
-				$this->ungroupedProperties?->ids ?? []
-			)
-		);
+	public function getPropertiesGroupedByYear(): PropertyIdList {
+		return $this->propertiesGroupedByYear ?? new PropertyIdList();
+	}
+
+	public function getUngroupedProperties(): PropertyIdList {
+		return $this->ungroupedProperties ?? new PropertyIdList();
 	}
 
 }

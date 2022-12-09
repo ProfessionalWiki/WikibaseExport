@@ -74,18 +74,4 @@ class ConfigTest extends TestCase {
 		$this->assertEquals( $new, $combined );
 	}
 
-	public function testGetAllProperties(): void {
-		$original = $this->createOriginalConfig();
-
-		$this->assertEquals(
-			[
-				new NumericPropertyId( 'P10' ),
-				new NumericPropertyId( 'P11' ),
-				new NumericPropertyId( 'P12' ),
-				new NumericPropertyId( 'P13' ),
-			],
-			$original->getAllProperties()->ids
-		);
-	}
-
 }

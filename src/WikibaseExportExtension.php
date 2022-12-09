@@ -111,8 +111,8 @@ class WikibaseExportExtension {
 
 	public function newExportUseCase( ExportPresenter $presenter, Authority $authority ): ExportUseCase {
 		return new ExportUseCase(
-			ungroupedProperties: $this->getConfig()->ungroupedProperties ?? new PropertyIdList(),
-			propertiesGroupedByYear: $this->getConfig()->propertiesGroupedByYear ?? new PropertyIdList(),
+			ungroupedProperties: $this->getConfig()->getUngroupedProperties(),
+			propertiesGroupedByYear: $this->getConfig()->getPropertiesGroupedByYear(),
 			timeQualifierProperties: $this->newTimeQualifierProperties(),
 			entitySourceFactory: new EntitySourceFactory(
 				lookup: WikibaseRepo::getEntityLookup()
