@@ -29,7 +29,6 @@ $( function () {
 				this.createSubjectsSection(),
 				this.createFiltersSection(),
 				this.createStatementsSection(),
-				this.createFormatsSection(),
 				this.createActions()
 			] );
 
@@ -234,32 +233,6 @@ $( function () {
 		},
 
 		/**
-		 * @return {OO.ui.PanelLayout}
-		 */
-		createFormatsSection: function () {
-			this.formats = new OO.ui.RadioSelectWidget( {
-				id: 'formats',
-				items: [
-					new OO.ui.RadioOptionWidget( {
-						data: 'csvwide',
-						label: mw.msg( 'wikibase-export-format-csv-wide' )
-					} ),
-					new OO.ui.RadioOptionWidget( {
-						data: 'csvlong',
-						label: mw.msg( 'wikibase-export-format-csv-long' )
-					} )
-				]
-			} );
-			this.formats.selectItemByData( 'csvwide' );
-
-			return this.createSection(
-				'formats',
-				mw.msg( 'wikibase-export-formats-heading' ),
-				[ this.formats ]
-			);
-		},
-
-		/**
 		 * @return {OO.ui.ButtonWidget}
 		 */
 		createActions: function () {
@@ -297,15 +270,13 @@ $( function () {
 			const startYear = this.startYear.getValue();
 			const endYear = this.endYear.getValue();
 			const propertyIds = this.statements.getValue().join( '|' );
-			const format = this.formats.findSelectedItem().data;
 
 			/* eslint-disable camelcase */
 			return new URLSearchParams( {
 				subject_ids: subjectIds,
 				statement_property_ids: propertyIds,
 				start_year: startYear,
-				end_year: endYear,
-				format: format
+				end_year: endYear
 			} );
 			/* eslint-enable camelcase */
 		}

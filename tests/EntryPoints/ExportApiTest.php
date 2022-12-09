@@ -84,8 +84,7 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 					'subject_ids' => 'Q42|Q43|Q44|Q45',
 					'statement_property_ids' => self::LEGAL_NAME_ID . '|' . self::EMPLOYEE_COUNT_ID,
 					'start_year' => 2021,
-					'end_year' => 2022,
-					'format' => 'csvwide'
+					'end_year' => 2022
 				]
 			] )
 		);
@@ -133,8 +132,7 @@ CSV
 					'subject_ids' => 'Q1|Q2|Q3',
 					'statement_property_ids' => 'P1|P2',
 					'start_year' => 2022,
-					'end_year' => 2020, // Lower end-year makes the request invalid
-					'format' => 'csvwide'
+					'end_year' => 2020 // Lower end-year makes the request invalid
 				]
 			] )
 		);
@@ -150,8 +148,7 @@ CSV
 					'subject_ids' => 'Q1|Q2|Q3',
 					'statement_property_ids' => 'P1|P2',
 					'start_year' => 2020,
-					'end_year' => 2022,
-					'format' => 'csvwide'
+					'end_year' => 2022
 				]
 			] ),
 			authority: $this->mockAnonNullAuthority()
