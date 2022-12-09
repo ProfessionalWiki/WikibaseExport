@@ -94,7 +94,8 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 			new RequestData( [
 				'queryParams' => [
 					'subject_ids' => 'Q42|Q43|Q44|Q45',
-					'statement_property_ids' => implode( '|', [ self::LEGAL_NAME_ID, self::EMPLOYEE_COUNT_ID, self::FOUNDER_NAME_ID ] ),
+					'grouped_statement_property_ids' => implode( '|', [ self::LEGAL_NAME_ID, self::EMPLOYEE_COUNT_ID ] ),
+					'ungrouped_statement_property_ids' => [ self::FOUNDER_NAME_ID ],
 					'start_year' => 2021,
 					'end_year' => 2022
 				]
@@ -142,7 +143,8 @@ CSV
 			new RequestData( [
 				'queryParams' => [
 					'subject_ids' => 'Q1|Q2|Q3',
-					'statement_property_ids' => 'P1|P2',
+					'grouped_statement_property_ids' => 'P1|P2',
+					'ungrouped_statement_property_ids' => [],
 					'start_year' => 2022,
 					'end_year' => 2020 // Lower end-year makes the request invalid
 				]
@@ -158,7 +160,8 @@ CSV
 			new RequestData( [
 				'queryParams' => [
 					'subject_ids' => 'Q1|Q2|Q3',
-					'statement_property_ids' => 'P1|P2',
+					'grouped_statement_property_ids' => 'P1|P2',
+					'ungrouped_statement_property_ids' => [],
 					'start_year' => 2020,
 					'end_year' => 2022
 				]

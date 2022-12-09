@@ -20,7 +20,8 @@ use Wikimedia\ParamValidator\ParamValidator;
 class ExportApi extends SimpleHandler {
 
 	private const PARAM_SUBJECT_IDS = 'subject_ids';
-	private const PARAM_STATEMENT_PROPERTY_IDS = 'statement_property_ids';
+	private const PARAM_GROUPED_STATEMENT_PROPERTY_IDS = 'grouped_statement_property_ids';
+	private const PARAM_UNGROUPED_STATEMENT_PROPERTY_IDS = 'ungrouped_statement_property_ids';
 	private const PARAM_START_YEAR = 'start_year';
 	private const PARAM_END_YEAR = 'end_year';
 
@@ -51,7 +52,8 @@ class ExportApi extends SimpleHandler {
 		return new ExportRequest(
 			languageCode: MediaWikiServices::getInstance()->getContentLanguage()->getCode(), // TODO: get from instance
 			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
-			statementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_STATEMENT_PROPERTY_IDS] ),
+			groupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_GROUPED_STATEMENT_PROPERTY_IDS] ),
+			ungroupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_UNGROUPED_STATEMENT_PROPERTY_IDS] ),
 			startYear: (int)$params[self::PARAM_START_YEAR],
 			endYear: (int)$params[self::PARAM_END_YEAR]
 		);
@@ -90,7 +92,7 @@ class ExportApi extends SimpleHandler {
 				ParamValidator::PARAM_ISMULTI_LIMIT1 => 256,
 				ParamValidator::PARAM_ISMULTI_LIMIT2 => 1024,
 			],
-			self::PARAM_STATEMENT_PROPERTY_IDS => [
+			self::PARAM_GROUPED_STATEMENT_PROPERTY_IDS => [
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
@@ -107,6 +109,14 @@ class ExportApi extends SimpleHandler {
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'integer',
 				ParamValidator::PARAM_REQUIRED => false,
+			],
+			self::PARAM_UNGROUPED_STATEMENT_PROPERTY_IDS => [
+				self::PARAM_SOURCE => 'query',
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
+				ParamValidator::PARAM_ISMULTI => true,
+				ParamValidator::PARAM_ISMULTI_LIMIT1 => 256,
+				ParamValidator::PARAM_ISMULTI_LIMIT2 => 1024,
 			]
 		];
 	}

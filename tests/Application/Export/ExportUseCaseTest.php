@@ -53,7 +53,8 @@ class ExportUseCaseTest extends TestCase {
 		return new ExportRequest(
 			languageCode: 'en',
 			subjectIds: [],
-			statementPropertyIds: new PropertyIdList(),
+			groupedStatementPropertyIds: new PropertyIdList(),
+			ungroupedStatementPropertyIds: new PropertyIdList(),
 			startYear: 2020,
 			endYear: 2022
 		);
@@ -67,7 +68,8 @@ class ExportUseCaseTest extends TestCase {
 			new ExportRequest(
 				languageCode: 'en',
 				subjectIds: [],
-				statementPropertyIds: new PropertyIdList(),
+				groupedStatementPropertyIds: new PropertyIdList(),
+				ungroupedStatementPropertyIds: new PropertyIdList(),
 				startYear: 2022,
 				endYear: 2020
 			)

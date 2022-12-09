@@ -15,7 +15,8 @@ class ExportRequest {
 	public function __construct(
 		public /* readonly */ string $languageCode,
 		public /* readonly */ array $subjectIds,
-		public /* readonly */ PropertyIdList $statementPropertyIds,
+		public /* readonly */ PropertyIdList $groupedStatementPropertyIds,
+		public /* readonly */ PropertyIdList $ungroupedStatementPropertyIds,
 		public /* readonly */ int $startYear,
 		public /* readonly */ int $endYear,
 	) {

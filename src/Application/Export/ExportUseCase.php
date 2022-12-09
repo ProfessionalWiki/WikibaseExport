@@ -35,12 +35,12 @@ class ExportUseCase {
 
 		$simpleMapper = new SimpleStatementsMapper(
 			valueSetCreator: $this->valueSetCreator,
-			propertyIds: $request->statementPropertyIds->intersect( $this->ungroupedProperties )
+			propertyIds: $request->ungroupedStatementPropertyIds->intersect( $this->ungroupedProperties )
 		);
 
 		$yearlyGroupingMapper = new YearGroupingStatementsMapper(
 			valueSetCreator: $this->valueSetCreator,
-			yearGroupedProperties: $request->statementPropertyIds->intersect( $this->propertiesGroupedByYear ),
+			yearGroupedProperties: $request->groupedStatementPropertyIds->intersect( $this->propertiesGroupedByYear ),
 			timeQualifierProperties: $this->timeQualifierProperties,
 			startYear: $request->startYear,
 			endYear: $request->endYear

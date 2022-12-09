@@ -27,10 +27,12 @@ $( function () {
 
 			this.form.addItems( [
 				this.createSubjectsSection(),
-				this.createFiltersSection(),
-				this.createStatementsSection(),
+				this.createGroupedStatementsSection(),
+				this.createUngroupedStatementsSection(),
 				this.createActions()
 			] );
+
+			this.addAllowedProperties();
 
 			return this.form;
 		},
@@ -114,7 +116,7 @@ $( function () {
 		/**
 		 * @return {OO.ui.PanelLayout}
 		 */
-		createFiltersSection: function () {
+		createGroupedStatementsSection: function () {
 			const widget = this;
 			const yearDiff = 100;
 
@@ -139,16 +141,38 @@ $( function () {
 				}
 			} );
 
+			const allStatementsLayout = this.createCheckbox( 'all', mw.msg( 'wikibase-export-statement-group-all' ), true );
+			this.allGroupedStatements = allStatementsLayout.getField();
+
+			this.groupedStatements = new OO.ui.MenuTagMultiselectWidget( {
+				id: 'grouped-statements',
+				inputPosition: 'outline',
+				placeholder: mw.msg( 'wikibase-export-statements-placeholder' )
+			} );
+			this.groupedStatements.toggle( false );
+
+			this.allGroupedStatements.on( 'change', function ( selected ) {
+				if ( selected ) {
+					widget.groupedStatements.toggle( false );
+					widget.groupedStatements.setValue( widget.groupedStatements.menu.getItems() );
+				} else {
+					widget.groupedStatements.removeItems( widget.groupedStatements.getItems() );
+					widget.groupedStatements.toggle( true );
+				}
+			} );
+
 			return this.createSection(
-				'filters',
-				mw.msg( 'wikibase-export-filters-heading' ),
+				'grouped-statements',
+				mw.msg( 'wikibase-export-grouped-statements-heading' ),
 				[
 					new OO.ui.FieldLayout( this.startYear, {
 						label: mw.msg( 'wikibase-export-start-year' )
 					} ),
 					new OO.ui.FieldLayout( this.endYear, {
 						label: mw.msg( 'wikibase-export-end-year' )
-					} )
+					} ),
+					allStatementsLayout,
+					this.groupedStatements
 				]
 			);
 		},
@@ -156,35 +180,33 @@ $( function () {
 		/**
 		 * @return {OO.ui.PanelLayout}
 		 */
-		createStatementsSection: function () {
+		createUngroupedStatementsSection: function () {
 			const widget = this;
 
 			const allStatementsLayout = this.createCheckbox( 'all', mw.msg( 'wikibase-export-statement-group-all' ), true );
-			this.allStatements = allStatementsLayout.getField();
+			this.allUngroupedStatements = allStatementsLayout.getField();
 
-			this.statements = new OO.ui.MenuTagMultiselectWidget( {
-				id: 'statements',
+			this.ungroupedStatements = new OO.ui.MenuTagMultiselectWidget( {
+				id: 'ungrouped-statements',
 				inputPosition: 'outline',
 				placeholder: mw.msg( 'wikibase-export-statements-placeholder' )
 			} );
-			this.statements.toggle( false );
+			this.ungroupedStatements.toggle( false );
 
-			this.allStatements.on( 'change', function ( selected ) {
+			this.allUngroupedStatements.on( 'change', function ( selected ) {
 				if ( selected ) {
-					widget.statements.toggle( false );
-					widget.statements.setValue( widget.statements.menu.getItems() );
+					widget.ungroupedStatements.toggle( false );
+					widget.ungroupedStatements.setValue( widget.ungroupedStatements.menu.getItems() );
 				} else {
-					widget.statements.removeItems( widget.statements.getItems() );
-					widget.statements.toggle( true );
+					widget.ungroupedStatements.removeItems( widget.ungroupedStatements.getItems() );
+					widget.ungroupedStatements.toggle( true );
 				}
 			} );
 
-			this.addAllowedProperties();
-
 			return this.createSection(
-				'statements',
-				mw.msg( 'wikibase-export-statements-heading' ),
-				[ allStatementsLayout, this.statements ]
+				'ungrouped-statements',
+				mw.msg( 'wikibase-export-ungrouped-statements-heading' ),
+				[ allStatementsLayout, this.ungroupedStatements ]
 			);
 		},
 
@@ -193,13 +215,25 @@ $( function () {
 
 			new mw.Api().get( {
 				action: 'wbgetentities',
-				ids: widget.config.properties,
+				ids: widget.config.groupedProperties.concat( widget.config.ungroupedProperties ),
 				languages: this.config.language,
 				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
-				widget.statements.addOptions( options );
-				widget.statements.setValue( options );
+
+				const groupedOptions = options.filter(
+					( option ) => widget.config.groupedProperties.indexOf( option.data ) >= 0
+				);
+
+				widget.groupedStatements.addOptions( groupedOptions );
+				widget.groupedStatements.setValue( groupedOptions );
+
+				const ungroupedOptions = options.filter(
+					( option ) => widget.config.ungroupedProperties.indexOf( option.data ) >= 0
+				);
+
+				widget.ungroupedStatements.addOptions( ungroupedOptions );
+				widget.ungroupedStatements.setValue( ungroupedOptions );
 			} );
 		},
 
@@ -269,12 +303,14 @@ $( function () {
 			const subjectIds = this.subjects.getValue().join( '|' );
 			const startYear = this.startYear.getValue();
 			const endYear = this.endYear.getValue();
-			const propertyIds = this.statements.getValue().join( '|' );
+			const groupedPropertyIds = this.groupedStatements.getValue().join( '|' );
+			const ungroupedPropertyIds = this.ungroupedStatements.getValue().join( '|' );
 
 			/* eslint-disable camelcase */
 			return new URLSearchParams( {
 				subject_ids: subjectIds,
-				statement_property_ids: propertyIds,
+				grouped_statement_property_ids: groupedPropertyIds,
+				ungrouped_statement_property_ids: ungroupedPropertyIds,
 				start_year: startYear,
 				end_year: endYear
 			} );
