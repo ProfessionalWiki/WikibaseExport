@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
-  <file src="src/Application/Export/ExportUcFactory.php">
-    <PossiblyNullArgument occurrences="3">
-      <code>$config-&gt;endTimePropertyId</code>
-      <code>$config-&gt;pointInTimePropertyId</code>
-      <code>$config-&gt;startTimePropertyId</code>
-    </PossiblyNullArgument>
-  </file>
-  <file src="src/EntryPoints/ExportApi.php">
-    <MixedArgument occurrences="2">
-      <code>$params[self::PARAM_STATEMENT_PROPERTY_IDS]</code>
-      <code>$params[self::PARAM_SUBJECT_IDS]</code>
-    </MixedArgument>
+  <file src="src/Application/PropertyIdList.php">
+    <ImpureFunctionCall occurrences="3">
+      <code>array_map</code>
+      <code>array_map</code>
+      <code>array_map</code>
+    </ImpureFunctionCall>
   </file>
   <file src="src/Presentation/ConfigJsonErrorFormatter.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$key</code>
     </MixedArgumentTypeCoercion>
+  </file>
+  <file src="src/Presentation/WideCsvPresenter.php">
+    <RedundantPropertyInitializationCheck occurrences="1">
+      <code>isset( $this-&gt;stream )</code>
+    </RedundantPropertyInitializationCheck>
   </file>
 </files>

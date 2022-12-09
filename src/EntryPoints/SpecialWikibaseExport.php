@@ -9,6 +9,7 @@ use MediaWiki\MediaWikiServices;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use SpecialPage;
+use Wikibase\DataModel\Entity\PropertyId;
 
 class SpecialWikibaseExport extends SpecialPage {
 
@@ -46,7 +47,7 @@ class SpecialWikibaseExport extends SpecialPage {
 	}
 
 	private function configIsComplete(): bool {
-		return WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig()->isComplete();
+		return WikibaseExportExtension::getInstance()->getConfig()->isComplete();
 	}
 
 	private function getConfigIncompleteWarning(): string {
@@ -77,7 +78,7 @@ class SpecialWikibaseExport extends SpecialPage {
 	 * @return array<string, mixed>
 	 */
 	private function getJsConfigVars(): array {
-		$config = WikibaseExportExtension::getInstance()->newConfigLookup()->getConfig();
+		$config = WikibaseExportExtension::getInstance()->getConfig();
 
 		return [
 			'wgWikibaseExport' => $this->configToVars( $config )
@@ -92,7 +93,10 @@ class SpecialWikibaseExport extends SpecialPage {
 			'defaultSubjects' => $config->defaultSubjects,
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,
-			'properties' => $config->properties
+			'properties' => array_map(
+				fn( PropertyId $id ) => $id->getSerialization(),
+				$config->getAllProperties()->ids
+			)
 		];
 	}
 

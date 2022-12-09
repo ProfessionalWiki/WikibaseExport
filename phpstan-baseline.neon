@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Property ProfessionalWiki\\\\WikibaseExport\\\\Presentation\\\\WideCsvPresenter\\:\\:\\$stream \\(resource\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: src/Presentation/WideCsvPresenter.php
+
+		-
+			message: "#^Property ProfessionalWiki\\\\WikibaseExport\\\\Presentation\\\\WideCsvPresenter\\:\\:\\$stream is never written, only read\\.$#"
+			count: 1
+			path: src/Presentation/WideCsvPresenter.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/Presentation/WideCsvPresenter.php
+
+		-
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: src/WikibaseExportExtension.php

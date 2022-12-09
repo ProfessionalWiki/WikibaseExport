@@ -65,9 +65,15 @@ class ExportConfigEditPageTextBuilder {
 				true
 			) .
 			$this->createTableRow(
-				'properties',
-				'wikibase-export-config-help-variable-properties',
+				'propertiesToGroupByYear',
+				'wikibase-export-config-help-variable-properties-with-qualifiers',
 				'[ "P1", "P2" ]',
+				true
+			) .
+			$this->createTableRow(
+				'ungroupedProperties',
+				'wikibase-export-config-help-variable-properties-without-qualifiers',
+				'[ "P3", "P4" ]',
 				true
 			) .
 			$this->createTableRow(

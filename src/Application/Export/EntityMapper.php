@@ -4,21 +4,19 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
-use ProfessionalWiki\WikibaseExport\Application\StatementGrouper;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Statement\StatementFilter;
-use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
 use Wikibase\DataModel\Term\TermList;
 
 class EntityMapper {
 
+	/**
+	 * @param StatementsMapper[] $statementsMappers
+	 */
 	public function __construct(
-		private StatementFilter $statementFilter,
-		private StatementGrouper $statementGrouper,
-		private StatementMapper $statementMapper,
-		private string $contentLanguage
+		private string $languageCode,
+		private array $statementsMappers
 	) {
 	}
 
@@ -26,35 +24,8 @@ class EntityMapper {
 		return new MappedEntity(
 			id: (string)$entity->getId(),
 			label: $this->getLabel( $entity ),
-			statementsByYear: $this->buildYears( $entity )
+			valueSetList: $this->buildValueSetList( $entity )
 		);
-	}
-
-	/**
-	 * @return MappedYear[]
-	 */
-	private function buildYears( EntityDocument $entity ): array {
-		$years = [];
-
-		foreach ( $this->statementGrouper->groupByYear( $this->getFilteredStatements( $entity ) ) as $year => $statements ) {
-			$years[] = new MappedYear(
-				year: $year,
-				statements: array_map(
-					[ $this->statementMapper, 'mapStatement' ],
-					$statements->toArray()
-				)
-			);
-		}
-
-		return $years;
-	}
-
-	private function getFilteredStatements( EntityDocument $entity ): StatementList {
-		if ( $entity instanceof StatementListProvider ) {
-			return $entity->getStatements()->filter( $this->statementFilter );
-		}
-
-		return new StatementList();
 	}
 
 	private function getLabels( EntityDocument $entity ): TermList {
@@ -68,11 +39,25 @@ class EntityMapper {
 	private function getLabel( EntityDocument $entity ): string {
 		$labels = $this->getLabels( $entity );
 
-		if ( $labels->hasTermForLanguage( $this->contentLanguage ) ) {
-			return $labels->getByLanguage( $this->contentLanguage )->getText();
+		if ( $labels->hasTermForLanguage( $this->languageCode ) ) {
+			return $labels->getByLanguage( $this->languageCode )->getText();
 		}
 
 		return '';
+	}
+
+	private function buildValueSetList( EntityDocument $entity ): ValueSetList {
+		$lists = [];
+
+		if ( $entity instanceof StatementListProvider ) {
+			foreach ( $this->statementsMappers as $mapper ) {
+				$lists[] = $mapper->buildValueSetList( $entity->getStatements() );
+			}
+		}
+
+		return new ValueSetList(
+			array_merge( ...array_map( fn( ValueSetList $l ) => $l->sets, $lists ) )
+		);
 	}
 
 }

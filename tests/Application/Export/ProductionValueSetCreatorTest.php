@@ -13,8 +13,8 @@ use DataValues\QuantityValue;
 use DataValues\StringValue;
 use DataValues\TimeValue;
 use MediaWikiIntegrationTestCase;
-use ProfessionalWiki\WikibaseExport\Application\Export\MappedStatement;
-use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
+use ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreator;
+use ProfessionalWiki\WikibaseExport\Application\Export\ValueSet;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
@@ -24,13 +24,12 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
+use Wikibase\DataModel\Statement\StatementList;
 
 /**
- * @group Database
- *
- * @covers \ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper
+ * @covers \ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreator
  */
-class StatementMapperTest extends MediaWikiIntegrationTestCase {
+class ProductionValueSetCreatorTest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		parent::setUp();
@@ -66,33 +65,40 @@ class StatementMapperTest extends MediaWikiIntegrationTestCase {
 		return $dataTypeLookup;
 	}
 
-	private function newMapper(): StatementMapper {
-		return WikibaseExportExtension::getInstance()->newStatementMapper();
+	private function newValueSetCreator(): ProductionValueSetCreator {
+		return WikibaseExportExtension::getInstance()->newProductionValueSetCreator();
 	}
 
-	public function testMapsStringValue(): void {
+	public function testHandlesEmptyStatementList(): void {
 		$this->assertEquals(
-			new MappedStatement( 'P1', 'foo' ),
-			$this->newMapper()->mapStatement(
-				new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) ) )
+			new ValueSet( [] ),
+			$this->newValueSetCreator()->statementsToValueSet(
+				new StatementList(
+				)
+			)
+		);
+	}
+
+	public function testMapsStringValues(): void {
+		$this->assertEquals(
+			new ValueSet( [ 'foo', 'bar' ] ),
+			$this->newValueSetCreator()->statementsToValueSet(
+				new StatementList(
+					new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'foo' ) ) ),
+					new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'bar' ) ) ),
+				)
 			)
 		);
 	}
 
 	public function testMapsSomeValueAndNoValueSnaks(): void {
-		$mapper = $this->newMapper();
-
 		$this->assertEquals(
-			new MappedStatement( 'P1', 'no value' ),
-			$mapper->mapStatement(
-				new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
-			)
-		);
-
-		$this->assertEquals(
-			new MappedStatement( 'P1', 'unknown value' ),
-			$mapper->mapStatement(
-				new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P1' ) ) )
+			new ValueSet( [ 'no value', 'unknown value' ] ),
+			$this->newValueSetCreator()->statementsToValueSet(
+				new StatementList(
+					new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) ),
+					new Statement( new PropertySomeValueSnak( new NumericPropertyId( 'P1' ) ) )
+				)
 			)
 		);
 	}
@@ -102,9 +108,11 @@ class StatementMapperTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testMapsValue( string $pId, DataValue $value, string $expected ): void {
 		$this->assertEquals(
-			new MappedStatement( $pId, $expected ),
-			$this->newMapper()->mapStatement(
-				new Statement( new PropertyValueSnak( new NumericPropertyId( $pId ), $value ) )
+			new ValueSet( [ $expected ] ),
+			$this->newValueSetCreator()->statementsToValueSet(
+				new StatementList(
+					new Statement( new PropertyValueSnak( new NumericPropertyId( $pId ), $value ) )
+				)
 			)
 		);
 	}

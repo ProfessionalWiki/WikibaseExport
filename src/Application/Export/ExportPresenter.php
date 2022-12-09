@@ -6,10 +6,12 @@ namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
 interface ExportPresenter {
 
-	public function presentEntity( MappedEntity $entity ): void;
-
 	public function presentInvalidRequest(): void;
 
 	public function presentPermissionDenied(): void;
+
+	public function presentExportStarted( ColumnHeaders $headers ): void;
+
+	public function presentEntity( MappedEntity $entity ): void;
 
 }

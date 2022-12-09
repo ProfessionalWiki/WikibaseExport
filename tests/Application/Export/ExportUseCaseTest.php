@@ -5,18 +5,17 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Application\Export;
 
 use PHPUnit\Framework\TestCase;
-use ProfessionalWiki\WikibaseExport\Application\EntityMapperFactory;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportAuthorizer;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportRequest;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
-use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FailingExportAuthorizer;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FakeValueSetCreator;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\SpyExportPresenter;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\SucceedingExportAuthorizer;
-use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
-use Wikibase\DataModel\Entity\NumericPropertyId;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\TimeHelper;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -26,20 +25,15 @@ class ExportUseCaseTest extends TestCase {
 
 	private function newExportUseCase( ExportPresenter $presenter, ExportAuthorizer $authorizer ): ExportUseCase {
 		return new ExportUseCase(
+			ungroupedProperties: new PropertyIdList(),
+			propertiesGroupedByYear: new PropertyIdList(),
+			timeQualifierProperties: TimeHelper::newTimeQualifierProperties(),
 			entitySourceFactory: new EntitySourceFactory(
 				lookup: WikibaseRepo::getEntityLookup()
 			),
-			entityMapperFactory: new EntityMapperFactory(
-				timeQualifierProperties: new TimeQualifierProperties(
-					pointInTime: new NumericPropertyId( 'P1' ),
-					startTime: new NumericPropertyId( 'P2' ),
-					endTime: new NumericPropertyId( 'P3' ),
-				),
-				statementMapper: WikibaseExportExtension::getInstance()->newStatementMapper(),
-				contentLanguage: 'en'
-			),
 			presenter: $presenter,
-			authorizer: $authorizer
+			authorizer: $authorizer,
+			valueSetCreator: new FakeValueSetCreator()
 		);
 	}
 
@@ -47,18 +41,21 @@ class ExportUseCaseTest extends TestCase {
 		$presenter = new SpyExportPresenter();
 		$useCase = $this->newExportUseCase( $presenter, new SucceedingExportAuthorizer() );
 
-		$useCase->export(
-			new ExportRequest(
-				subjectIds: [],
-				statementPropertyIds: [],
-				startYear: 2020,
-				endYear: 2022
-			)
-		);
+		$useCase->export( $this->newValidRequest() );
 
 		$this->assertCount(
 			0,
 			$presenter->presentedEntitiesById
+		);
+	}
+
+	private function newValidRequest(): ExportRequest {
+		return new ExportRequest(
+			languageCode: 'en',
+			subjectIds: [],
+			statementPropertyIds: new PropertyIdList(),
+			startYear: 2020,
+			endYear: 2022
 		);
 	}
 
@@ -68,8 +65,9 @@ class ExportUseCaseTest extends TestCase {
 
 		$useCase->export(
 			new ExportRequest(
+				languageCode: 'en',
 				subjectIds: [],
-				statementPropertyIds: [],
+				statementPropertyIds: new PropertyIdList(),
 				startYear: 2022,
 				endYear: 2020
 			)
@@ -84,14 +82,7 @@ class ExportUseCaseTest extends TestCase {
 		$presenter = new SpyExportPresenter();
 		$useCase = $this->newExportUseCase( $presenter, new FailingExportAuthorizer() );
 
-		$useCase->export(
-			new ExportRequest(
-				subjectIds: [],
-				statementPropertyIds: [],
-				startYear: 2020,
-				endYear: 2022
-			)
-		);
+		$useCase->export( $this->newValidRequest() );
 
 		$this->assertTrue(
 			$presenter->presentedPermissionDenied

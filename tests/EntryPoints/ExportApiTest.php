@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\Tests\EntryPoints;
 
 use DataValues\DecimalValue;
 use DataValues\QuantityValue;
+use DataValues\StringValue;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
@@ -15,6 +16,9 @@ use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 
 /**
@@ -27,6 +31,7 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 
 	private const LEGAL_NAME_ID = 'P1';
 	private const EMPLOYEE_COUNT_ID = 'P2';
+	private const FOUNDER_NAME_ID = 'P4';
 
 	public function setUp(): void {
 		parent::setUp();
@@ -36,7 +41,9 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 {
     "startTimePropertyId": "' . TimeHelper::START_TIME_ID . '",
     "endTimePropertyId": "' . TimeHelper::END_TIME_ID . '",
-    "pointInTimePropertyId": "' . TimeHelper::POINT_IN_TIME_ID . '"
+    "pointInTimePropertyId": "' . TimeHelper::POINT_IN_TIME_ID . '",
+	"propertiesToGroupByYear": ["' . self::LEGAL_NAME_ID . '", "' . self::EMPLOYEE_COUNT_ID . '"],
+	"ungroupedProperties": ["P3", "' . self::FOUNDER_NAME_ID . '"]
 }
 '
 		);
@@ -50,6 +57,7 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->saveProperty( TimeHelper::POINT_IN_TIME_ID, 'time', 'Point in time' );
 		$this->saveProperty( self::LEGAL_NAME_ID, 'string', 'Legal name' );
 		$this->saveProperty( self::EMPLOYEE_COUNT_ID, 'quantity', 'Revenue' );
+		$this->saveProperty( self::FOUNDER_NAME_ID, 'string', 'Founded by' );
 
 		$this->saveEntity(
 			new Item(
@@ -71,6 +79,10 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 					TimeHelper::newTimeRangeStatement( 2000, 2021, self::EMPLOYEE_COUNT_ID, $this->newQuantity( 1337 ) ),
 					TimeHelper::newTimeRangeStatement( 2021, 2022, self::EMPLOYEE_COUNT_ID, $this->newQuantity( 5000 ) ),
 					TimeHelper::newTimeRangeStatement( 2022, 2050, self::EMPLOYEE_COUNT_ID, $this->newQuantity( 9001 ) ),
+					new Statement( new PropertyValueSnak(
+						new NumericPropertyId( self::FOUNDER_NAME_ID ),
+						new StringValue( 'Chuck Norris' )
+					) )
 				)
 			)
 		);
@@ -82,7 +94,7 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 			new RequestData( [
 				'queryParams' => [
 					'subject_ids' => 'Q42|Q43|Q44|Q45',
-					'statement_property_ids' => self::LEGAL_NAME_ID . '|' . self::EMPLOYEE_COUNT_ID,
+					'statement_property_ids' => implode( '|', [ self::LEGAL_NAME_ID, self::EMPLOYEE_COUNT_ID, self::FOUNDER_NAME_ID ] ),
 					'start_year' => 2021,
 					'end_year' => 2022
 				]
@@ -95,13 +107,13 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->assertResponseHasContent(
 			$response,
 			<<<CSV
-ID,Label,"P1 2022","P1 2021","P2 2022","P2 2021"
-Q42,,"Hello future
+ID,Label,P4,"P1 2022","P1 2021","P2 2022","P2 2021"
+Q42,,,"Hello future
 Included upper bound","Included lower bound",,
-Q43,,,,"5,000±0 EUR
+Q43,,"Chuck Norris",,,"5,000±0 EUR
 9,001±0 EUR","1,337±0 EUR
 5,000±0 EUR"
-Q45,,,,,
+Q45,,,,,,
 CSV
 		);
 	}

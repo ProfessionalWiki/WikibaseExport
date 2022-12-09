@@ -4,18 +4,18 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application\Export;
 
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Entity\PropertyId;
 
 class ExportRequest {
 
 	/**
 	 * @param EntityId[] $subjectIds
-	 * @param PropertyId[] $statementPropertyIds
 	 */
 	public function __construct(
+		public /* readonly */ string $languageCode,
 		public /* readonly */ array $subjectIds,
-		public /* readonly */ array $statementPropertyIds,
+		public /* readonly */ PropertyIdList $statementPropertyIds,
 		public /* readonly */ int $startYear,
 		public /* readonly */ int $endYear,
 	) {

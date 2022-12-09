@@ -4,23 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\TestDoubles;
 
-use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
-use ProfessionalWiki\WikibaseExport\Application\Export\MappedYear;
-
 class Valid {
-
-	/**
-	 * @param MappedYear[] $statementsByYear
-	 */
-	public static function mappedEntity(
-		string $id = 'Q1000',
-		array $statementsByYear = []
-	): MappedEntity {
-		return new MappedEntity(
-			id: $id,
-			statementsByYear: $statementsByYear
-		);
-	}
 
 	public static function configJson(): string {
 		return '
@@ -34,9 +18,13 @@ class Valid {
     "startTimePropertyId": "P1",
     "endTimePropertyId": "P2",
     "pointInTimePropertyId": "P3",
-    "properties": [
+    "propertiesToGroupByYear": [
         "P4",
         "P5"
+    ],
+    "ungroupedProperties": [
+        "P6",
+        "P7"
     ],
 	"subjectFilterPropertyId": "P10",
 	"subjectFilterPropertyValue": "company"

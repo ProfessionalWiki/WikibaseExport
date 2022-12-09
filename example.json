@@ -2,9 +2,13 @@
 	"startTimePropertyId": "P100",
 	"endTimePropertyId": "P200",
 	"pointInTimePropertyId": "P300",
-	"properties": [
+	"propertiesToGroupByYear": [
 		"P1",
 		"P2"
+	],
+	"ungroupedProperties": [
+		"P3",
+		"P4"
 	],
 	"defaultSubjects": [
 		"Q1",

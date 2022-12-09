@@ -14,6 +14,11 @@ use Wikibase\Repo\WikibaseRepo;
 
 class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 
+	protected function setUp(): void {
+		parent::setUp();
+		WikibaseExportExtension::getInstance()->clearConfig();
+	}
+
 	protected function editConfigPage( string $config ): void {
 		$this->editPage(
 			'MediaWiki:' . WikibaseExportExtension::CONFIG_PAGE_TITLE,

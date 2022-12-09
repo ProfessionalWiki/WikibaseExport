@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\TestDoubles;
 
+use ProfessionalWiki\WikibaseExport\Application\Export\ColumnHeaders;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\MappedEntity;
 
@@ -27,6 +28,9 @@ class SpyExportPresenter implements ExportPresenter {
 
 	public function presentPermissionDenied(): void {
 		$this->presentedPermissionDenied = true;
+	}
+
+	public function presentExportStarted( ColumnHeaders $headers ): void {
 	}
 
 }

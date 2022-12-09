@@ -6,11 +6,14 @@ namespace ProfessionalWiki\WikibaseExport;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
-use ProfessionalWiki\WikibaseExport\Application\EntityMapperFactory;
+use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
-use ProfessionalWiki\WikibaseExport\Application\Export\StatementMapper;
+use ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreator;
+use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetCreator;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdListParser;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
@@ -48,6 +51,8 @@ class WikibaseExportExtension {
 		return self::getInstance()->newExportApi();
 	}
 
+	private ?Config $config;
+
 	private function newExportApi(): ExportApi {
 		return new ExportApi();
 	}
@@ -57,7 +62,16 @@ class WikibaseExportExtension {
 			&& $title->getText() === self::CONFIG_PAGE_TITLE;
 	}
 
-	public function newConfigLookup(): ConfigLookup {
+	public function getConfig(): Config {
+		 $this->config ??= $this->newConfigLookup()->getConfig();
+		 return $this->config;
+	}
+
+	public function clearConfig(): void {
+		$this->config = null;
+	}
+
+	private function newConfigLookup(): ConfigLookup {
 		return new CombiningConfigLookup(
 			baseConfig: (string)MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExport' ),
 			deserializer: $this->newConfigDeserializer(),
@@ -80,12 +94,13 @@ class WikibaseExportExtension {
 
 	public function newConfigDeserializer(): ConfigDeserializer {
 		return new ConfigDeserializer(
-			ConfigJsonValidator::newInstance()
+			ConfigJsonValidator::newInstance(),
+			new PropertyIdListParser()
 		);
 	}
 
 	public function newTimeQualifierProperties(): TimeQualifierProperties {
-		$config = $this->newConfigLookup()->getConfig();
+		$config = $this->getConfig();
 
 		return new TimeQualifierProperties(
 			pointInTime: new NumericPropertyId( $config->getPointInTimePropertyId() ),
@@ -94,28 +109,27 @@ class WikibaseExportExtension {
 		);
 	}
 
-	public function newStatementMapper(): StatementMapper {
-		return new StatementMapper(
-			snakFormatter: WikibaseRepo::getSnakFormatterFactory()->getSnakFormatter(
-				SnakFormatter::FORMAT_PLAIN,
-				new FormatterOptions()
-			)
-		);
-	}
-
 	public function newExportUseCase( ExportPresenter $presenter, Authority $authority ): ExportUseCase {
 		return new ExportUseCase(
+			ungroupedProperties: $this->getConfig()->ungroupedProperties ?? new PropertyIdList(),
+			propertiesGroupedByYear: $this->getConfig()->propertiesGroupedByYear ?? new PropertyIdList(),
+			timeQualifierProperties: $this->newTimeQualifierProperties(),
 			entitySourceFactory: new EntitySourceFactory(
 				lookup: WikibaseRepo::getEntityLookup()
-			),
-			entityMapperFactory: new EntityMapperFactory(
-				timeQualifierProperties: $this->newTimeQualifierProperties(),
-				statementMapper: $this->newStatementMapper(),
-				contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode()
 			),
 			presenter: $presenter,
 			authorizer: new AuthorityBasedExportAuthorizer(
 				authority: $authority
+			),
+			valueSetCreator: $this->newProductionValueSetCreator()
+		);
+	}
+
+	public function newProductionValueSetCreator(): ProductionValueSetCreator {
+		return new ProductionValueSetCreator(
+			snakFormatter: WikibaseRepo::getSnakFormatterFactory()->getSnakFormatter(
+				SnakFormatter::FORMAT_PLAIN,
+				new FormatterOptions()
 			)
 		);
 	}
@@ -129,11 +143,9 @@ class WikibaseExportExtension {
 	}
 
 	public function newSearchEntitiesUseCase( SearchEntitiesPresenter $presenter ): SearchEntitiesUseCase {
-		$config = $this->newConfigLookup()->getConfig();
-
 		return new SearchEntitiesUseCase(
-			subjectFilterPropertyId: $config->subjectFilterPropertyId,
-			subjectFilterPropertyValue: $config->subjectFilterPropertyValue,
+			subjectFilterPropertyId: $this->getConfig()->subjectFilterPropertyId,
+			subjectFilterPropertyValue: $this->getConfig()->subjectFilterPropertyValue,
 			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
 			contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
 			entityLookup: WikibaseRepo::getEntityLookup(),

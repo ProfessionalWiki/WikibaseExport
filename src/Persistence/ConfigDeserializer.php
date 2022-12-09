@@ -5,11 +5,15 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Persistence;
 
 use ProfessionalWiki\WikibaseExport\Application\Config;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
+use ProfessionalWiki\WikibaseExport\Application\PropertyIdListParser;
+use Wikibase\DataModel\Entity\PropertyId;
 
 class ConfigDeserializer {
 
 	public function __construct(
-		private ConfigJsonValidator $validator
+		private ConfigJsonValidator $validator,
+		private PropertyIdListParser $idListParser
 	) {
 	}
 
@@ -36,10 +40,35 @@ class ConfigDeserializer {
 			$configArray['startTimePropertyId'] ?? null,
 			$configArray['endTimePropertyId'] ?? null,
 			$configArray['pointInTimePropertyId'] ?? null,
-			$configArray['properties'] ?? null,
+			$this->getPropertiesToGroupByYear( $configArray ),
+			$this->getUngroupedProperties( $configArray ),
 			$configArray['subjectFilterPropertyId'] ?? null,
 			$configArray['subjectFilterPropertyValue'] ?? null
 		);
+	}
+
+	/**
+	 * @param array<string, mixed> $configArray
+	 * @return ?PropertyIdList
+	 */
+	private function getPropertiesToGroupByYear( array $configArray ): ?PropertyIdList {
+		if ( array_key_exists( 'propertiesToGroupByYear', $configArray ) ) {
+			return $this->idListParser->parse( $configArray['propertiesToGroupByYear'] );
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param array<string, mixed> $configArray
+	 * @return ?PropertyIdList
+	 */
+	private function getUngroupedProperties( array $configArray ): ?PropertyIdList {
+		if ( array_key_exists( 'ungroupedProperties', $configArray ) ) {
+			return $this->idListParser->parse( $configArray['ungroupedProperties'] );
+		}
+
+		return null;
 	}
 
 }
