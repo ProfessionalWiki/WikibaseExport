@@ -99,9 +99,6 @@
 				"wikibase-export-statements-heading",
 				"wikibase-export-statement-group-all",
 				"wikibase-export-statements-placeholder",
-				"wikibase-export-formats-heading",
-				"wikibase-export-format-csv-wide",
-				"wikibase-export-format-csv-long",
 				"wikibase-export-download"
 			]
 		}

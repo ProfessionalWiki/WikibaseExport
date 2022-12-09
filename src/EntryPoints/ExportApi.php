@@ -22,7 +22,6 @@ class ExportApi extends SimpleHandler {
 	private const PARAM_STATEMENT_PROPERTY_IDS = 'statement_property_ids';
 	private const PARAM_START_YEAR = 'start_year';
 	private const PARAM_END_YEAR = 'end_year';
-	private const PARAM_FORMAT = 'format';
 
 	public function run(): Response {
 		$presenter = $this->newHttpPresenter();
@@ -121,11 +120,6 @@ class ExportApi extends SimpleHandler {
 			self::PARAM_END_YEAR => [
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'integer',
-				ParamValidator::PARAM_REQUIRED => false,
-			],
-			self::PARAM_FORMAT => [
-				self::PARAM_SOURCE => 'query',
-				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => false,
 			]
 		];
