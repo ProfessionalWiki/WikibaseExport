@@ -33,18 +33,8 @@ class ExportUseCase {
 			return;
 		}
 
-		$simpleMapper = new SimpleStatementsMapper(
-			valueSetCreator: $this->valueSetCreator,
-			propertyIds: $request->ungroupedStatementPropertyIds->intersect( $this->ungroupedProperties )
-		);
-
-		$yearlyGroupingMapper = new YearGroupingStatementsMapper(
-			valueSetCreator: $this->valueSetCreator,
-			yearGroupedProperties: $request->groupedStatementPropertyIds->intersect( $this->propertiesGroupedByYear ),
-			timeQualifierProperties: $this->timeQualifierProperties,
-			startYear: $request->startYear,
-			endYear: $request->endYear
-		);
+		$simpleMapper = $this->newSimpleMapper( $request );
+		$yearlyGroupingMapper = $this->newYearlyGroupingMapper( $request );
 
 		$this->exportHeaders( $simpleMapper, $yearlyGroupingMapper );
 		$this->exportEntities( $request, $simpleMapper, $yearlyGroupingMapper );
@@ -53,6 +43,23 @@ class ExportUseCase {
 	private function requestIsValid( ExportRequest $request ): bool {
 		return $request->startYear <= $request->endYear
 			&& $request->endYear - $request->startYear <= 100;
+	}
+
+	private function newSimpleMapper( ExportRequest $request ): StatementsMapper {
+		return new SimpleStatementsMapper(
+			valueSetCreator: $this->valueSetCreator,
+			propertyIds: $request->ungroupedStatementPropertyIds->intersect( $this->ungroupedProperties )
+		);
+	}
+
+	private function newYearlyGroupingMapper( ExportRequest $request ): StatementsMapper {
+		return new YearGroupingStatementsMapper(
+			valueSetCreator: $this->valueSetCreator,
+			yearGroupedProperties: $request->groupedStatementPropertyIds->intersect( $this->propertiesGroupedByYear ),
+			timeQualifierProperties: $this->timeQualifierProperties,
+			startYear: $request->startYear,
+			endYear: $request->endYear
+		);
 	}
 
 	private function exportHeaders( StatementsMapper ...$mappers ): void {
