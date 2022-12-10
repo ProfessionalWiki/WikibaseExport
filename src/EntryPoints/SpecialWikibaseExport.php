@@ -90,6 +90,7 @@ class SpecialWikibaseExport extends SpecialPage {
 	 */
 	private function configToVars( Config $config ): array {
 		return [
+			'showPropertiesGroupedByYear' => $this->shouldShowPropertiesGroupedByYear(),
 			'defaultSubjects' => $config->defaultSubjects,
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,
@@ -97,11 +98,20 @@ class SpecialWikibaseExport extends SpecialPage {
 				fn( PropertyId $id ) => $id->getSerialization(),
 				$config->getPropertiesGroupedByYear()->ids
 			),
+			'showUngroupedProperties' => $this->shouldShowUngroupedProperties( $config ),
 			'ungroupedProperties' => array_map(
 				fn( PropertyId $id ) => $id->getSerialization(),
 				$config->getUngroupedProperties()->ids
 			),
 		];
+	}
+
+	private function shouldShowPropertiesGroupedByYear(): bool {
+		return $this->configIsComplete();
+	}
+
+	private function shouldShowUngroupedProperties( Config $config ): bool {
+		return !$config->getUngroupedProperties()->isEmpty();
 	}
 
 }
