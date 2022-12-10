@@ -15,6 +15,7 @@ class ExportRequest {
 	public function __construct(
 		public /* readonly */ string $languageCode,
 		public /* readonly */ array $subjectIds,
+		public /* readonly */ bool $useLabelsInHeaders,
 		public /* readonly */ PropertyIdList $groupedStatementPropertyIds,
 		public /* readonly */ PropertyIdList $ungroupedStatementPropertyIds,
 		public /* readonly */ int $startYear,

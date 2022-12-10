@@ -33,7 +33,8 @@ class ExportUseCaseTest extends TestCase {
 			),
 			presenter: $presenter,
 			authorizer: $authorizer,
-			valueSetCreator: new FakeValueSetCreator()
+			valueSetCreator: new FakeValueSetCreator(),
+			termLookup: WikibaseRepo::getTermLookup()
 		);
 	}
 
@@ -53,6 +54,7 @@ class ExportUseCaseTest extends TestCase {
 		return new ExportRequest(
 			languageCode: 'en',
 			subjectIds: [],
+			useLabelsInHeaders: false,
 			groupedStatementPropertyIds: new PropertyIdList(),
 			ungroupedStatementPropertyIds: new PropertyIdList(),
 			startYear: 2020,
@@ -68,6 +70,7 @@ class ExportUseCaseTest extends TestCase {
 			new ExportRequest(
 				languageCode: 'en',
 				subjectIds: [],
+				useLabelsInHeaders: false,
 				groupedStatementPropertyIds: new PropertyIdList(),
 				ungroupedStatementPropertyIds: new PropertyIdList(),
 				startYear: 2022,

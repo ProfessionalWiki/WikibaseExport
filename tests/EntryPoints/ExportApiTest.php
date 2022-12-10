@@ -89,6 +89,13 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 
 		$this->saveEntity( new Item( new ItemId( 'Q45' ) ) );
 
+		$this->testTypicalResponse();
+		$this->testLabelHeaders();
+	}
+
+	public function testTypicalResponse(): void {
+		$this->skipOnPhp81AndLater();
+
 		$response = $this->executeHandler(
 			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
@@ -115,6 +122,31 @@ Q43,,"Chuck Norris",,,"5,000±0 EUR
 9,001±0 EUR","1,337±0 EUR
 5,000±0 EUR"
 Q45,,,,,,
+CSV
+		);
+	}
+
+	public function testLabelHeaders(): void {
+		$this->skipOnPhp81AndLater();
+
+		$response = $this->executeHandler(
+			WikibaseExportExtension::exportApiFactory(),
+			new RequestData( [
+				'queryParams' => [
+					'use_labels_in_headers' => 'true',
+					'subject_ids' => '',
+					'grouped_statement_property_ids' => implode( '|', [ self::LEGAL_NAME_ID, self::EMPLOYEE_COUNT_ID ] ),
+					'ungrouped_statement_property_ids' => [ 'P3', self::FOUNDER_NAME_ID ],
+					'start_year' => 2021,
+					'end_year' => 2022
+				]
+			] )
+		);
+
+		$this->assertResponseHasContent(
+			$response,
+			<<<CSV
+ID,Label,P3,"Founded by","Legal name 2022","Legal name 2021","Revenue 2022","Revenue 2021"
 CSV
 		);
 	}

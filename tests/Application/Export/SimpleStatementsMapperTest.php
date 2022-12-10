@@ -12,6 +12,7 @@ use ProfessionalWiki\WikibaseExport\Application\Export\SimpleStatementsMapper;
 use ProfessionalWiki\WikibaseExport\Application\Export\ValueSet;
 use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetList;
 use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FakeHeaderBuilder;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\FakeValueSetCreator;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
@@ -31,6 +32,7 @@ class SimpleStatementsMapperTest extends TestCase {
 				new NumericPropertyId( 'P3' ),
 				new NumericPropertyId( 'P2' ),
 			] ),
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$this->assertEquals(
@@ -47,6 +49,7 @@ class SimpleStatementsMapperTest extends TestCase {
 		$mapper = new SimpleStatementsMapper(
 			valueSetCreator: new FakeValueSetCreator(),
 			propertyIds: new PropertyIdList(),
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$statements = new StatementList(
@@ -66,6 +69,7 @@ class SimpleStatementsMapperTest extends TestCase {
 				new NumericPropertyId( 'P1' ),
 				new NumericPropertyId( 'P2' ),
 			] ),
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$statements = new StatementList(
@@ -88,6 +92,7 @@ class SimpleStatementsMapperTest extends TestCase {
 				new NumericPropertyId( 'P1' ),
 				new NumericPropertyId( 'P2' ),
 			] ),
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$statements = new StatementList(
@@ -115,6 +120,7 @@ class SimpleStatementsMapperTest extends TestCase {
 				new NumericPropertyId( 'P1' ),
 				new NumericPropertyId( 'P2' ),
 			] ),
+			headerBuilder: new FakeHeaderBuilder()
 		);
 
 		$normalRankP1 = new Statement( new PropertyValueSnak( new NumericPropertyId( 'P1' ), new StringValue( 'Normal' ) ) );
