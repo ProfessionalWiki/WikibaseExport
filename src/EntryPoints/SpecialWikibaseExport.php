@@ -27,13 +27,9 @@ class SpecialWikibaseExport extends SpecialPage {
 		$output->addModuleStyles( 'ext.wikibase.export.styles' );
 		$output->addHTML( '<div id="wikibase-export" class="container">' );
 
-		if ( $this->configIsComplete() ) {
-			$output->addModules( 'ext.wikibase.export' );
-			$output->addHTML( $this->getIntroText() );
-			$output->addJsConfigVars( $this->getJsConfigVars() );
-		} else {
-			$output->addHTML( $this->getConfigIncompleteWarning() );
-		}
+		$output->addModules( 'ext.wikibase.export' );
+		$output->addHTML( $this->getIntroText() );
+		$output->addJsConfigVars( $this->getJsConfigVars() );
 
 		$output->addHTML( '</div>' );
 	}
@@ -48,16 +44,6 @@ class SpecialWikibaseExport extends SpecialPage {
 
 	private function configIsComplete(): bool {
 		return WikibaseExportExtension::getInstance()->getConfig()->isComplete();
-	}
-
-	private function getConfigIncompleteWarning(): string {
-		$text = $this->msg( 'wikibase-export-config-incomplete' )->parse();
-
-		if ( $this->shouldShowConfigLink() ) {
-			$text .= '<br/>' . $this->msg( 'wikibase-export-config-incomplete-link' )->parse();
-		}
-
-		return Html::errorBox( $text );
 	}
 
 	private function shouldShowConfigLink(): bool {
@@ -90,6 +76,7 @@ class SpecialWikibaseExport extends SpecialPage {
 	 */
 	private function configToVars( Config $config ): array {
 		return [
+			'showPropertiesGroupedByYear' => $this->shouldShowPropertiesGroupedByYear( $config ),
 			'defaultSubjects' => $config->defaultSubjects,
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,
@@ -97,11 +84,21 @@ class SpecialWikibaseExport extends SpecialPage {
 				fn( PropertyId $id ) => $id->getSerialization(),
 				$config->getPropertiesGroupedByYear()->ids
 			),
+			'showUngroupedProperties' => $this->shouldShowUngroupedProperties( $config ),
 			'ungroupedProperties' => array_map(
 				fn( PropertyId $id ) => $id->getSerialization(),
 				$config->getUngroupedProperties()->ids
 			),
+			'showConfigLink' => $this->shouldShowConfigLink()
 		];
+	}
+
+	private function shouldShowPropertiesGroupedByYear( Config $config ): bool {
+		return $this->configIsComplete() && !$config->getPropertiesGroupedByYear()->isEmpty();
+	}
+
+	private function shouldShowUngroupedProperties( Config $config ): bool {
+		return !$config->getUngroupedProperties()->isEmpty();
 	}
 
 }

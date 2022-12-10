@@ -25,12 +25,25 @@ $( function () {
 				method: 'get'
 			} );
 
-			this.form.addItems( [
-				this.createSubjectsSection(),
-				this.createGroupedStatementsSection(),
-				this.createUngroupedStatementsSection(),
-				this.createActions()
-			] );
+			const items = [
+				this.createSubjectsSection()
+			];
+
+			if ( this.config.showPropertiesGroupedByYear ) {
+				items.push( this.createGroupedStatementsSection() );
+			}
+
+			if ( this.config.showUngroupedProperties ) {
+				items.push( this.createUngroupedStatementsSection() );
+			}
+
+			if ( !this.config.showPropertiesGroupedByYear && !this.config.showUngroupedProperties ) {
+				items.push( this.createIncompleteConfigSection() );
+			}
+
+			items.push( this.createActions() );
+
+			this.form.addItems( items );
 
 			this.addAllowedProperties();
 
@@ -210,30 +223,62 @@ $( function () {
 			);
 		},
 
+		/**
+		 * @return {OO.ui.PanelLayout}
+		 */
+		createIncompleteConfigSection: function () {
+			let html = mw.msg( 'wikibase-export-config-incomplete' );
+
+			if ( this.config.showConfigLink ) {
+				html += '<br/>' + mw.message( 'wikibase-export-config-incomplete-link' ).parse();
+			}
+
+			const message = new OO.ui.HtmlSnippet( html );
+
+			return this.createSection(
+				'incomplete-config',
+				'',
+				[
+					new OO.ui.Element( {
+						content: [ message ]
+					} )
+				]
+			);
+		},
+
 		addAllowedProperties: function () {
 			const widget = this;
+			const ids = widget.config.groupedProperties.concat( widget.config.ungroupedProperties );
+
+			if ( ids.length === 0 ) {
+				return;
+			}
 
 			new mw.Api().get( {
 				action: 'wbgetentities',
-				ids: widget.config.groupedProperties.concat( widget.config.ungroupedProperties ),
+				ids: ids,
 				languages: this.config.language,
 				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
 
-				const groupedOptions = options.filter(
-					( option ) => widget.config.groupedProperties.indexOf( option.data ) >= 0
-				);
+				if ( widget.config.showPropertiesGroupedByYear ) {
+					const groupedOptions = options.filter(
+						( option ) => widget.config.groupedProperties.indexOf( option.data ) >= 0
+					);
 
-				widget.groupedStatements.addOptions( groupedOptions );
-				widget.groupedStatements.setValue( groupedOptions );
+					widget.groupedStatements.addOptions( groupedOptions );
+					widget.groupedStatements.setValue( groupedOptions );
+				}
 
-				const ungroupedOptions = options.filter(
-					( option ) => widget.config.ungroupedProperties.indexOf( option.data ) >= 0
-				);
+				if ( widget.config.showUngroupedProperties ) {
+					const ungroupedOptions = options.filter(
+						( option ) => widget.config.ungroupedProperties.indexOf( option.data ) >= 0
+					);
 
-				widget.ungroupedStatements.addOptions( ungroupedOptions );
-				widget.ungroupedStatements.setValue( ungroupedOptions );
+					widget.ungroupedStatements.addOptions( ungroupedOptions );
+					widget.ungroupedStatements.setValue( ungroupedOptions );
+				}
 			} );
 		},
 
@@ -301,20 +346,24 @@ $( function () {
 
 		getQueryParams: function () {
 			const subjectIds = this.subjects.getValue().join( '|' );
-			const startYear = this.startYear.getValue();
-			const endYear = this.endYear.getValue();
-			const groupedPropertyIds = this.groupedStatements.getValue().join( '|' );
-			const ungroupedPropertyIds = this.ungroupedStatements.getValue().join( '|' );
 
 			/* eslint-disable camelcase */
-			return new URLSearchParams( {
-				subject_ids: subjectIds,
-				grouped_statement_property_ids: groupedPropertyIds,
-				ungrouped_statement_property_ids: ungroupedPropertyIds,
-				start_year: startYear,
-				end_year: endYear
-			} );
+			const params = {
+				subject_ids: subjectIds
+			};
+
+			if ( this.config.showPropertiesGroupedByYear ) {
+				params.start_year = this.startYear.getValue();
+				params.end_year = this.endYear.getValue();
+				params.grouped_statement_property_ids = this.groupedStatements.getValue().join( '|' );
+			}
+
+			if ( this.config.showUngroupedProperties ) {
+				params.ungrouped_statement_property_ids = this.ungroupedStatements.getValue().join( '|' );
+			}
 			/* eslint-enable camelcase */
+
+			return new URLSearchParams( params );
 		}
 	};
 

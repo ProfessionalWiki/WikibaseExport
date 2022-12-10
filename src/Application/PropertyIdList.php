@@ -36,4 +36,8 @@ class PropertyIdList {
 		);
 	}
 
+	public function isEmpty(): bool {
+		return $this->ids === [];
+	}
+
 }
