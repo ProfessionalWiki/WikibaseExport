@@ -44,10 +44,6 @@ class Config {
 		);
 	}
 
-	public function isComplete(): bool {
-		return false; // TODO
-	}
-
 	public function getPropertiesGroupedByYear(): PropertyIdList {
 		return $this->propertiesGroupedByYear ?? new PropertyIdList();
 	}
