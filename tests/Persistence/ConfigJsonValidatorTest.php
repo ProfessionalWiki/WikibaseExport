@@ -31,9 +31,19 @@ class ConfigJsonValidatorTest extends TestCase {
 		);
 	}
 
-	public function testInvalidJsonValueFailsValidation(): void {
+	public function testInvalidPropertyIdFailsValidation(): void {
 		$this->assertFalse(
-			ConfigJsonValidator::newInstance()->validate( '{ "pointInTimePropertyId": "Q123abc" }' )
+			ConfigJsonValidator::newInstance()->validate( '{ "pointInTimePropertyId": "Q123" }' )
+		);
+
+		$this->assertFalse(
+			ConfigJsonValidator::newInstance()->validate( '{ "pointInTimePropertyId": "p123" }' )
+		);
+	}
+
+	public function testValidPropertyIdPassesValidation(): void {
+		$this->assertTrue(
+			ConfigJsonValidator::newInstance()->validate( '{ "pointInTimePropertyId": "P123" }' )
 		);
 	}
 

@@ -6,7 +6,7 @@
 			"type": "array",
 			"items": {
 				"type": "string",
-				"pattern": "^[qQ][1-9]\\d{0,9}$"
+				"pattern": "^[Q][1-9]\\d{0,9}$"
 			}
 		},
 		"defaultStartYear": {
@@ -57,7 +57,7 @@
 	"$defs": {
 		"property": {
 			"type": [ "string", "null" ],
-			"pattern": "^[pP][1-9]\\d{0,9}$"
+			"pattern": "^[P][1-9]\\d{0,9}$"
 		}
 	}
 }
