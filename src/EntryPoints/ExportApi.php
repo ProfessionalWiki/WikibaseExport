@@ -20,11 +20,14 @@ use Wikimedia\ParamValidator\ParamValidator;
 class ExportApi extends SimpleHandler {
 
 	private const PARAM_SUBJECT_IDS = 'subject_ids';
-	private const PARAM_USE_LABELS_IN_HEADERS = 'use_labels_in_headers';
 	private const PARAM_GROUPED_STATEMENT_PROPERTY_IDS = 'grouped_statement_property_ids';
 	private const PARAM_UNGROUPED_STATEMENT_PROPERTY_IDS = 'ungrouped_statement_property_ids';
 	private const PARAM_START_YEAR = 'start_year';
 	private const PARAM_END_YEAR = 'end_year';
+	private const PARAM_HEADER_TYPE = 'header_type';
+
+	private const OPTION_HEADER_TYPE_ID = 'id';
+	private const OPTION_HEADER_TYPE_LABEL = 'label';
 
 	public function run(): Response {
 		$presenter = $this->newHttpPresenter();
@@ -53,7 +56,7 @@ class ExportApi extends SimpleHandler {
 		return new ExportRequest(
 			languageCode: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
 			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
-			useLabelsInHeaders: $params[self::PARAM_USE_LABELS_IN_HEADERS],
+			useLabelsInHeaders: $params[self::PARAM_HEADER_TYPE] === self::OPTION_HEADER_TYPE_LABEL,
 			groupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_GROUPED_STATEMENT_PROPERTY_IDS] ),
 			ungroupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_UNGROUPED_STATEMENT_PROPERTY_IDS] ),
 			startYear: (int)$params[self::PARAM_START_YEAR],
@@ -94,11 +97,6 @@ class ExportApi extends SimpleHandler {
 				ParamValidator::PARAM_ISMULTI_LIMIT1 => 256,
 				ParamValidator::PARAM_ISMULTI_LIMIT2 => 1024,
 			],
-			self::PARAM_USE_LABELS_IN_HEADERS => [
-				self::PARAM_SOURCE => 'query',
-				ParamValidator::PARAM_TYPE => 'boolean',
-				ParamValidator::PARAM_DEFAULT => false,
-			],
 			self::PARAM_GROUPED_STATEMENT_PROPERTY_IDS => [
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'string',
@@ -122,6 +120,11 @@ class ExportApi extends SimpleHandler {
 				ParamValidator::PARAM_ISMULTI_LIMIT1 => 256,
 				ParamValidator::PARAM_ISMULTI_LIMIT2 => 1024,
 				ParamValidator::PARAM_DEFAULT => []
+			],
+			self::PARAM_HEADER_TYPE => [
+				self::PARAM_SOURCE => 'query',
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_DEFAULT => self::OPTION_HEADER_TYPE_ID
 			]
 		];
 	}

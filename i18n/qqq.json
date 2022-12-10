@@ -20,6 +20,9 @@
 	"wikibase-export-ungrouped-statements-heading": "This is a section header.",
 	"wikibase-export-statement-group-all": "This is the text of an option.",
 	"wikibase-export-statements-placeholder": "This is the text used as a placeholder.",
+	"wikibase-export-config-heading": "This is a section header.",
+	"wikibase-export-config-header-id": "This is the text of an option.",
+	"wikibase-export-config-header-label": "This is the text of an option.",
 	"wikibase-export-download": "This is the text on a button.",
 
 	"wikibase-export-config-invalid": "Error message shown when attempting to save invalid configuration on MediaWiki:WikibaseExport",
