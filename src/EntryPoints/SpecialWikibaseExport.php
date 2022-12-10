@@ -42,10 +42,6 @@ class SpecialWikibaseExport extends SpecialPage {
 		return $this->msg( 'special-wikibase-export' )->escaped();
 	}
 
-	private function configIsComplete(): bool {
-		return WikibaseExportExtension::getInstance()->getConfig()->isComplete();
-	}
-
 	private function shouldShowConfigLink(): bool {
 		return MediaWikiServices::getInstance()->getMainConfig()->get( 'WikibaseExportEnableInWikiConfig' ) === true
 			&& $this->getUser()->isAllowed( 'editinterface' );
@@ -94,7 +90,7 @@ class SpecialWikibaseExport extends SpecialPage {
 	}
 
 	private function shouldShowPropertiesGroupedByYear( Config $config ): bool {
-		return $this->configIsComplete() && !$config->getPropertiesGroupedByYear()->isEmpty();
+		return !$config->getPropertiesGroupedByYear()->isEmpty();
 	}
 
 	private function shouldShowUngroupedProperties( Config $config ): bool {
