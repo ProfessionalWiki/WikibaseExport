@@ -18,6 +18,11 @@ class YearGroupingStatementsMapper implements StatementsMapper {
 	 */
 	private array $years;
 
+	/**
+	 * @var StatementFilter[]
+	 */
+	private array $filtersByYear;
+
 	public function __construct(
 		private ValueSetCreator $valueSetCreator,
 		private PropertyIdList $yearGroupedProperties,
@@ -55,13 +60,17 @@ class YearGroupingStatementsMapper implements StatementsMapper {
 		foreach ( $this->yearGroupedProperties->ids as $propertyId ) {
 			foreach ( $this->years as $year ) {
 				$valueSets[] = $this->valueSetCreator->statementsToValueSet(
-					// TODO: avoid creating filter over and over again
-					$statements->getByPropertyId( $propertyId )->getBestStatements()->filter( $this->newFilter( $year ) )
+					$statements->getByPropertyId( $propertyId )->getBestStatements()->filter( $this->getFilter( $year ) )
 				);
 			}
 		}
 
 		return new ValueSetList( $valueSets );
+	}
+
+	private function getFilter( int $year ): StatementFilter {
+		$this->filtersByYear[$year] ??= $this->newFilter( $year );
+		return $this->filtersByYear[$year];
 	}
 
 	private function newFilter( int $year ): StatementFilter {
