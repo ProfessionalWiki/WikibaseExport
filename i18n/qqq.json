@@ -11,6 +11,7 @@
 	"special-wikibase-export-config": "This is the label on \"Special:WikibaseExportConfig\" linking to \"MediaWiki:WikibaseExport\".",
 
 	"wikibase-export-intro": "Text displayed at the top of \"Special:WikibaseExport\".",
+	"wikibase-export-intro-admin-notice": "Text displayed at the top of \"Special:WikibaseExport\" to users with the interface-admin right.",
 	"wikibase-export-subjects-heading": "This is a section header.",
 	"wikibase-export-subjects-placeholder": "This is the text used as a placeholder.",
 	"wikibase-export-grouped-statements-heading": "This is a section header.",
