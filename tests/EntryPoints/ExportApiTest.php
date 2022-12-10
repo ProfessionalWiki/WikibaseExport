@@ -93,9 +93,7 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->testLabelHeaders();
 	}
 
-	public function testTypicalResponse(): void {
-		$this->skipOnPhp81AndLater();
-
+	private function testTypicalResponse(): void {
 		$response = $this->executeHandler(
 			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
@@ -126,9 +124,7 @@ CSV
 		);
 	}
 
-	public function testLabelHeaders(): void {
-		$this->skipOnPhp81AndLater();
-
+	private function testLabelHeaders(): void {
 		$response = $this->executeHandler(
 			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
