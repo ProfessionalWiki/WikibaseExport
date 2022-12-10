@@ -4,10 +4,11 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Application;
 
+use DataValues\DataValue;
 use DataValues\TimeValue;
 use DateTimeImmutable;
 use LogicException;
-use RuntimeException;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementFilter;
 
@@ -20,16 +21,14 @@ class TimeQualifierStatementFilter implements StatementFilter {
 	}
 
 	public function statementMatches( Statement $statement ): bool {
-		$niceStatement = new NiceStatement( $statement );
-
-		$pointInTime = $niceStatement->getQualifierValue( $this->qualifierProperties->pointInTime );
+		$pointInTime = $this->getQualifierValue( $statement, $this->qualifierProperties->pointInTime );
 
 		if ( $pointInTime instanceof TimeValue ) {
 			return $this->timeRange->contains( $this->timeValueToDateTimeImmutable( $pointInTime ) );
 		}
 
-		$startTime = $niceStatement->getQualifierValue( $this->qualifierProperties->startTime );
-		$endTime = $niceStatement->getQualifierValue( $this->qualifierProperties->endTime );
+		$startTime = $this->getQualifierValue( $statement, $this->qualifierProperties->startTime );
+		$endTime = $this->getQualifierValue( $statement, $this->qualifierProperties->endTime );
 
 		if ( $startTime === null && $endTime === null ) {
 			return false;
@@ -41,6 +40,14 @@ class TimeQualifierStatementFilter implements StatementFilter {
 		}
 
 		return false;
+	}
+
+	private function getQualifierValue( Statement $statement, ?PropertyId $propertyId ): ?DataValue {
+		if ( $propertyId === null ) {
+			return null;
+		}
+
+		return ( new NiceStatement( $statement ) )->getQualifierValue( $propertyId );
 	}
 
 	private function timeValueToDateTimeImmutable( TimeValue $timeValue ): DateTimeImmutable {
