@@ -102,11 +102,11 @@ Caution: invalid JSON will be ignored. No error will be shown, the intended conf
 | `subjectFilterPropertyId`    | Property ID of the statement used to filter items that may be included in the export.              | `P50`            |
 | `subjectFilterPropertyValue` | Expected value of the subject filter property.                                                     | `company`        |
 
-The following variables are required and must be defined in either [LocalSettings.php] or using the in-wiki configuration page:
+When specifying `propertiesToGroupByYear` the following variables are required and must be defined in either
+[LocalSettings.php] or using the in-wiki configuration page:
 * `startTimePropertyId`
 * `endTimePropertyId`
 * `pointInTimePropertyId`
-* `properties`
 
 ### Enable in-wiki configuration
 
