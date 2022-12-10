@@ -99,7 +99,9 @@
 				"wikibase-export-ungrouped-statements-heading",
 				"wikibase-export-statement-group-all",
 				"wikibase-export-statements-placeholder",
-				"wikibase-export-download"
+				"wikibase-export-download",
+				"wikibase-export-config-incomplete",
+				"wikibase-export-config-incomplete-link"
 			]
 		}
 	},

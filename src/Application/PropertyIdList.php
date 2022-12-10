@@ -37,7 +37,7 @@ class PropertyIdList {
 	}
 
 	public function isEmpty(): bool {
-		return count( $this->ids ) === 0;
+		return $this->ids === [];
 	}
 
 }

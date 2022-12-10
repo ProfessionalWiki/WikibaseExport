@@ -37,6 +37,10 @@ $( function () {
 				items.push( this.createUngroupedStatementsSection() );
 			}
 
+			if ( !this.config.showPropertiesGroupedByYear && !this.config.showUngroupedProperties ) {
+				items.push( this.createIncompleteConfigSection() );
+			}
+
 			items.push( this.createActions() );
 
 			this.form.addItems( items );
@@ -216,6 +220,29 @@ $( function () {
 				'ungrouped-statements',
 				mw.msg( 'wikibase-export-ungrouped-statements-heading' ),
 				[ allStatementsLayout, this.ungroupedStatements ]
+			);
+		},
+
+		/**
+		 * @return {OO.ui.PanelLayout}
+		 */
+		createIncompleteConfigSection: function () {
+			let html = mw.msg( 'wikibase-export-config-incomplete' );
+
+			if ( this.config.showConfigLink ) {
+				html += '<br/>' + mw.message( 'wikibase-export-config-incomplete-link' ).parse();
+			}
+
+			const message = new OO.ui.HtmlSnippet( html );
+
+			return this.createSection(
+				'incomplete-config',
+				'',
+				[
+					new OO.ui.Element( {
+						content: [ message ]
+					} )
+				]
 			);
 		},
 
