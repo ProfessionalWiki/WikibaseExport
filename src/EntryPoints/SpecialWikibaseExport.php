@@ -48,12 +48,18 @@ class SpecialWikibaseExport extends SpecialPage {
 	}
 
 	private function getIntroText(): string {
-		$output = $this->getOutput();
+		$intro = '<p>'
+			. $this->msg(
+				'wikibase-export-intro',
+				$this->msg( 'wikibase-export-download' )->text()
+			)->text()
+			. '</p>';
 
-		return $output->msg(
-			'wikibase-export-intro',
-			$output->msg( 'wikibase-export-download' )->text()
-		)->text();
+		if ( $this->shouldShowConfigLink() ) {
+			$intro .= '<p>' . $this->msg( 'wikibase-export-intro-admin-notice' )->parse() . '</p>';
+		}
+
+		return $intro;
 	}
 
 	/**
