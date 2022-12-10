@@ -23,3 +23,4 @@ curl "http://localhost:8484/rest.php/wikibase-export/v0/export?subject_ids=Q1|Q2
 | `ungrouped_statement_property_ids` | no       | `[]`    | `P1\|P2` for Properties P1 and P2    | The property IDs, separated with \| |
 | `start_year`                       | no       |         | `2021`                               | The start year                      |
 | `end_year`                         | no       |         | `2022`                               | The end year                        |
+| `header_type`                      | no       | `id` or `label`                      | Whether to use property IDs or labels for the headers |
