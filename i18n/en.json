@@ -20,7 +20,7 @@
 	"wikibase-export-ungrouped-statements-heading": "Ungrouped values",
 	"wikibase-export-statement-group-all": "Values for all properties",
 	"wikibase-export-statements-placeholder": "Search properties",
-	"wikibase-export-config-heading": "Configure export",
+	"wikibase-export-config-heading": "Column headers",
 	"wikibase-export-config-header-id": "Property ID (i.e. \"P1 2022\")",
 	"wikibase-export-config-header-label": "Property Label (i.e. \"Operating revenue 2022\")",
 	"wikibase-export-download": "Download",
