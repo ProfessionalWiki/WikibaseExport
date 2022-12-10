@@ -19,9 +19,9 @@ class ConfigTest extends TestCase {
 			defaultSubjects: [ 'Q1', 'Q2' ],
 			defaultStartYear: 2000,
 			defaultEndYear: 2022,
-			startTimePropertyId: 'P1',
-			endTimePropertyId: 'P2',
-			pointInTimePropertyId: 'P3',
+			startTimePropertyId: new NumericPropertyId( 'P1' ),
+			endTimePropertyId: new NumericPropertyId( 'P2' ),
+			pointInTimePropertyId: new NumericPropertyId( 'P3' ),
 			propertiesGroupedByYear: new PropertyIdList( [
 				new NumericPropertyId( 'P10' ),
 				new NumericPropertyId( 'P11' )
@@ -40,9 +40,9 @@ class ConfigTest extends TestCase {
 			defaultSubjects: [ 'Q3', 'Q4' ],
 			defaultStartYear: 1990,
 			defaultEndYear: 2000,
-			startTimePropertyId: 'P4',
-			endTimePropertyId: 'P5',
-			pointInTimePropertyId: 'P6',
+			startTimePropertyId: new NumericPropertyId( 'P4' ),
+			endTimePropertyId: new NumericPropertyId( 'P5' ),
+			pointInTimePropertyId: new NumericPropertyId( 'P6' ),
 			propertiesGroupedByYear: new PropertyIdList( [
 				new NumericPropertyId( 'P20' ),
 				new NumericPropertyId( 'P21' )

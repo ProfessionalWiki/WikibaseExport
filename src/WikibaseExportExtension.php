@@ -101,9 +101,9 @@ class WikibaseExportExtension {
 		$config = $this->getConfig();
 
 		return new TimeQualifierProperties(
-			pointInTime: new NumericPropertyId( $config->getPointInTimePropertyId() ),
-			startTime: new NumericPropertyId( $config->getStartTimePropertyId() ),
-			endTime: new NumericPropertyId( $config->getEndTimePropertyId() ),
+			pointInTime: $config->pointInTimePropertyId,
+			startTime: $config->startTimePropertyId,
+			endTime: $config->endTimePropertyId
 		);
 	}
 
