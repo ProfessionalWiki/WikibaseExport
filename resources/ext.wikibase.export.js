@@ -41,7 +41,9 @@ $( function () {
 				items.push( this.createIncompleteConfigSection() );
 			}
 
-			items.push( this.createConfigSection() );
+			if ( this.config.showPropertiesGroupedByUear || this.config.showUngroupedProperties ) {
+				items.push( this.createConfigSection() );
+			}
 
 			items.push( this.createActions() );
 
@@ -382,7 +384,9 @@ $( function () {
 				params.ungrouped_statement_property_ids = this.ungroupedStatements.getValue().join( '|' );
 			}
 
-			params.header_type = self.headerType.getValue();
+			if ( this.config.showPropertiesGroupedByYear || this.config.showUngroupedProperties ) {
+				params.header_type = self.headerType.getValue();
+			}
 			/* eslint-enable camelcase */
 
 			return new URLSearchParams( params );
