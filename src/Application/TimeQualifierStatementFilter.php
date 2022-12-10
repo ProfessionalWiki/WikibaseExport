@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport\Application;
 
 use DataValues\TimeValue;
 use DateTimeImmutable;
+use LogicException;
 use RuntimeException;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementFilter;
@@ -31,7 +32,6 @@ class TimeQualifierStatementFilter implements StatementFilter {
 		$endTime = $niceStatement->getQualifierValue( $this->qualifierProperties->endTime );
 
 		if ( $startTime === null && $endTime === null ) {
-			// TODO: #98
 			return false;
 		}
 
@@ -65,8 +65,7 @@ class TimeQualifierStatementFilter implements StatementFilter {
 		}
 
 		if ( $endTime === null ) {
-			// TODO: #98
-			throw new RuntimeException( 'Statement without qualifier not supported' );
+			throw new LogicException( 'Statement without qualifier not supported' );
 		}
 
 		// When the qualifier start time is open-ended, allow any time not after the qualifier end time.
@@ -84,8 +83,7 @@ class TimeQualifierStatementFilter implements StatementFilter {
 		}
 
 		if ( $startTime === null ) {
-			// TODO: #98
-			throw new RuntimeException( 'Statement without qualifier not supported' );
+			throw new LogicException( 'Statement without qualifier not supported' );
 		}
 
 		// When the qualifier end time is open-ended, allow any time not before the qualifier start time.
