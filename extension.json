@@ -101,7 +101,10 @@
 				"wikibase-export-statements-placeholder",
 				"wikibase-export-download",
 				"wikibase-export-config-incomplete",
-				"wikibase-export-config-incomplete-link"
+				"wikibase-export-config-incomplete-link",
+				"wikibase-export-config-heading",
+				"wikibase-export-config-header-id",
+				"wikibase-export-config-header-label"
 			]
 		}
 	},

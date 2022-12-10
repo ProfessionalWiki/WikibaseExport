@@ -16,10 +16,11 @@ curl "http://localhost:8484/rest.php/wikibase-export/v0/export?subject_ids=Q1|Q2
 
 **Query**
 
-| parameter                          | required | default | example                              | description                         |
-|------------------------------------|----------|---------|--------------------------------------|-------------------------------------|
-| `subject_ids`                      | yes      |         | `Q1\|Q2\|Q3` for Items Q1, Q2 and Q3 | The item IDs, separated with \|     |
-| `grouped_statement_property_ids`   | no       | `[]`    | `P1\|P2` for Properties P1 and P2    | The property IDs, separated with \| |
-| `ungrouped_statement_property_ids` | no       | `[]`    | `P1\|P2` for Properties P1 and P2    | The property IDs, separated with \| |
-| `start_year`                       | no       |         | `2021`                               | The start year                      |
-| `end_year`                         | no       |         | `2022`                               | The end year                        |
+| parameter                          | required | default | example                              | description                                           |
+|------------------------------------|----------|---------|--------------------------------------|-------------------------------------------------------|
+| `subject_ids`                      | yes      |         | `Q1\|Q2\|Q3` for Items Q1, Q2 and Q3 | The item IDs, separated with \|                       |
+| `grouped_statement_property_ids`   | no       | `[]`    | `P1\|P2` for Properties P1 and P2    | The property IDs, separated with \|                   |
+| `ungrouped_statement_property_ids` | no       | `[]`    | `P1\|P2` for Properties P1 and P2    | The property IDs, separated with \|                   |
+| `start_year`                       | no       |         | `2021`                               | The start year                                        |
+| `end_year`                         | no       |         | `2022`                               | The end year                                          |
+| `header_type`                      | no       | `id`    | `id` or `label`                      | Whether to use property IDs or labels for the headers |

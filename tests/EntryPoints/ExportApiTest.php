@@ -129,12 +129,12 @@ CSV
 			WikibaseExportExtension::exportApiFactory(),
 			new RequestData( [
 				'queryParams' => [
-					'use_labels_in_headers' => 'true',
 					'subject_ids' => '',
 					'grouped_statement_property_ids' => implode( '|', [ self::LEGAL_NAME_ID, self::EMPLOYEE_COUNT_ID ] ),
 					'ungrouped_statement_property_ids' => [ 'P3', self::FOUNDER_NAME_ID ],
 					'start_year' => 2021,
-					'end_year' => 2022
+					'end_year' => 2022,
+					'header_type' => 'label'
 				]
 			] )
 		);

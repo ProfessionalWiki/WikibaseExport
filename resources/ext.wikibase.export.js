@@ -41,6 +41,10 @@ $( function () {
 				items.push( this.createIncompleteConfigSection() );
 			}
 
+			if ( this.config.showPropertiesGroupedByUear || this.config.showUngroupedProperties ) {
+				items.push( this.createConfigSection() );
+			}
+
 			items.push( this.createActions() );
 
 			this.form.addItems( items );
@@ -246,6 +250,24 @@ $( function () {
 			);
 		},
 
+		/**
+		 * @return {OO.ui.PanelLayout}
+		 */
+		createConfigSection: function () {
+			self.headerType = new OO.ui.RadioSelectInputWidget( {
+				options: [
+					{ data: 'id', label: mw.msg( 'wikibase-export-config-header-id' ) },
+					{ data: 'label', label: mw.msg( 'wikibase-export-config-header-label' ) }
+				]
+			} );
+
+			return this.createSection(
+				'export-config',
+				mw.msg( 'wikibase-export-config-heading' ),
+				[ self.headerType ]
+			);
+		},
+
 		addAllowedProperties: function () {
 			const widget = this;
 			const ids = widget.config.groupedProperties.concat( widget.config.ungroupedProperties );
@@ -360,6 +382,10 @@ $( function () {
 
 			if ( this.config.showUngroupedProperties ) {
 				params.ungrouped_statement_property_ids = this.ungroupedStatements.getValue().join( '|' );
+			}
+
+			if ( this.config.showPropertiesGroupedByYear || this.config.showUngroupedProperties ) {
+				params.header_type = self.headerType.getValue();
 			}
 			/* eslint-enable camelcase */
 
