@@ -11,21 +11,19 @@ use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreator;
-use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetCreator;
-use ProfessionalWiki\WikibaseExport\Application\PropertyIdList;
 use ProfessionalWiki\WikibaseExport\Application\PropertyIdListParser;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
-use ProfessionalWiki\WikibaseExport\EntryPoints\SearchEntitiesApi;
 use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
+use ProfessionalWiki\WikibaseExport\EntryPoints\SearchEntitiesApi;
+use ProfessionalWiki\WikibaseExport\Persistence\AuthorityBasedExportAuthorizer;
 use ProfessionalWiki\WikibaseExport\Persistence\CombiningConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigDeserializer;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigLookup;
-use ProfessionalWiki\WikibaseExport\Persistence\PageContentFetcher;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentConfigLookup;
-use ProfessionalWiki\WikibaseExport\Persistence\AuthorityBasedExportAuthorizer;
+use ProfessionalWiki\WikibaseExport\Persistence\PageContentFetcher;
 use Title;
 use ValueFormatters\FormatterOptions;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -103,9 +101,9 @@ class WikibaseExportExtension {
 		$config = $this->getConfig();
 
 		return new TimeQualifierProperties(
-			pointInTime: new NumericPropertyId( $config->getPointInTimePropertyId() ),
-			startTime: new NumericPropertyId( $config->getStartTimePropertyId() ),
-			endTime: new NumericPropertyId( $config->getEndTimePropertyId() ),
+			pointInTime: $config->pointInTimePropertyId,
+			startTime: $config->startTimePropertyId,
+			endTime: $config->endTimePropertyId
 		);
 	}
 

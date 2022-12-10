@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
+use ProfessionalWiki\WikibaseExport\Application\TimeQualifierProperties;
 use ProfessionalWiki\WikibaseExport\Application\TimeQualifierStatementFilter;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\TimeHelper;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -218,6 +219,21 @@ class TimeQualifierStatementFilterTest extends TestCase {
 
 		$this->assertFalse( $filter->statementMatches(
 			TimeHelper::newTimeRangeStatement( startYear: 2006, endYear: null )
+		) );
+	}
+
+	public function testDoesNotMatchWhenQualifierIdsAreNull(): void {
+		$filter = new TimeQualifierStatementFilter(
+			TimeHelper::newJan2000ToDec2005(),
+			new TimeQualifierProperties(
+				pointInTime: null,
+				startTime: null,
+				endTime: null
+			)
+		);
+
+		$this->assertFalse( $filter->statementMatches(
+			TimeHelper::newTimeRangeStatement( startYear: 2000, endYear: 2005 )
 		) );
 	}
 

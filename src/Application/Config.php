@@ -19,9 +19,9 @@ class Config {
 		public /* readonly */ ?array $defaultSubjects = null,
 		public /* readonly */ ?int $defaultStartYear = null,
 		public /* readonly */ ?int $defaultEndYear = null,
-		public /* readonly */ ?string $startTimePropertyId = null,
-		public /* readonly */ ?string $endTimePropertyId = null,
-		public /* readonly */ ?string $pointInTimePropertyId = null,
+		public /* readonly */ ?PropertyId $startTimePropertyId = null,
+		public /* readonly */ ?PropertyId $endTimePropertyId = null,
+		public /* readonly */ ?PropertyId $pointInTimePropertyId = null,
 		public /* readonly */ ?PropertyIdList $propertiesGroupedByYear = null,
 		public /* readonly */ ?PropertyIdList $ungroupedProperties = null,
 		public /* readonly */ ?string $subjectFilterPropertyId = null,
@@ -44,39 +44,8 @@ class Config {
 		);
 	}
 
-	public function getStartTimePropertyId(): string {
-		if ( $this->startTimePropertyId === null ) {
-			throw new RuntimeException( 'Config is incomplete' );
-		}
-
-		return $this->startTimePropertyId;
-	}
-
-	public function getEndTimePropertyId(): string {
-		if ( $this->endTimePropertyId === null ) {
-			throw new RuntimeException( 'Config is incomplete' );
-		}
-
-		return $this->endTimePropertyId;
-	}
-
-	public function getPointInTimePropertyId(): string {
-		if ( $this->pointInTimePropertyId === null ) {
-			throw new RuntimeException( 'Config is incomplete' );
-		}
-
-		return $this->pointInTimePropertyId;
-	}
-
 	public function isComplete(): bool {
-		try {
-			$this->getStartTimePropertyId();
-			$this->getEndTimePropertyId();
-			$this->getPointInTimePropertyId();
-			return true;
-		} catch ( Exception ) {
-			return false;
-		}
+		return false; // TODO
 	}
 
 	public function getPropertiesGroupedByYear(): PropertyIdList {

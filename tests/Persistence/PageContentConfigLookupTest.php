@@ -38,9 +38,9 @@ class PageContentConfigLookupTest extends WikibaseExportIntegrationTest {
 				defaultSubjects: [ 'Q1', 'Q2' ],
 				defaultStartYear: 2010,
 				defaultEndYear: 2022,
-				startTimePropertyId: 'P1',
-				endTimePropertyId: 'P2',
-				pointInTimePropertyId: 'P3',
+				startTimePropertyId: new NumericPropertyId( 'P1' ),
+				endTimePropertyId: new NumericPropertyId( 'P2' ),
+				pointInTimePropertyId: new NumericPropertyId( 'P3' ),
 				propertiesGroupedByYear: new PropertyIdList( [
 					new NumericPropertyId( 'P4' ),
 					new NumericPropertyId( 'P5' )
