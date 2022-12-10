@@ -90,7 +90,10 @@ class SpecialWikibaseExport extends SpecialPage {
 	}
 
 	private function shouldShowPropertiesGroupedByYear( Config $config ): bool {
-		return !$config->getPropertiesGroupedByYear()->isEmpty();
+		return !$config->getPropertiesGroupedByYear()->isEmpty()
+			&& $config->startTimePropertyId !== null
+			&& $config->endTimePropertyId !== null
+			&& $config->pointInTimePropertyId !== null;
 	}
 
 	private function shouldShowUngroupedProperties( Config $config ): bool {
