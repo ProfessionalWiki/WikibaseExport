@@ -91,6 +91,7 @@
 				"ext.wikibase.export.js"
 			],
 			"messages": [
+				"wikibase-export-language-heading",
 				"wikibase-export-subjects-heading",
 				"wikibase-export-subjects-placeholder",
 				"wikibase-export-grouped-statements-heading",

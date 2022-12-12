@@ -12,6 +12,7 @@
 
 	"wikibase-export-intro": "Text displayed at the top of \"Special:WikibaseExport\".",
 	"wikibase-export-intro-admin-notice": "Text displayed at the top of \"Special:WikibaseExport\" to users with the interface-admin right.",
+	"wikibase-export-language-heading": "This is a section header.",
 	"wikibase-export-subjects-heading": "This is a section header.",
 	"wikibase-export-subjects-placeholder": "This is the text used as a placeholder.",
 	"wikibase-export-grouped-statements-heading": "This is a section header.",
@@ -52,5 +53,6 @@
 	"wikibase-export-config-help-variable-properties-with-qualifiers": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-variable-properties-without-qualifiers": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-variable-subject-filter-property-id": "Help text displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-variable-subject-filter-property-value": "Help text displayed on \"MediaWiki:WikibaseExport\""
+	"wikibase-export-config-help-variable-subject-filter-property-value": "Help text displayed on \"MediaWiki:WikibaseExport\"",
+	"wikibase-export-config-help-variable-export-languages": "Help text displayed on \"MediaWiki:WikibaseExport\""
 }

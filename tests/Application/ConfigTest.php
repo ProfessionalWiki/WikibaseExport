@@ -31,7 +31,8 @@ class ConfigTest extends TestCase {
 				new NumericPropertyId( 'P13' )
 			] ),
 			subjectFilterPropertyId: 'P15',
-			subjectFilterPropertyValue: 'company'
+			subjectFilterPropertyValue: 'company',
+			exportLanguages: null
 		);
 	}
 
@@ -52,7 +53,8 @@ class ConfigTest extends TestCase {
 				new NumericPropertyId( 'P23' )
 			] ),
 			subjectFilterPropertyId: 'P25',
-			subjectFilterPropertyValue: 'organization'
+			subjectFilterPropertyValue: 'organization',
+			exportLanguages: [ 'en', 'nl' ]
 		);
 	}
 

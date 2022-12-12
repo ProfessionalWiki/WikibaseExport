@@ -8,7 +8,6 @@ $( function () {
 	mw.WikibaseExport = {
 		init: function () {
 			this.config = mw.config.get( 'wgWikibaseExport' );
-			this.config.language = mw.config.get( 'wgContentLanguage' );
 
 			this.$wikibaseExport = $( document.getElementById( 'wikibase-export' ) );
 
@@ -25,9 +24,13 @@ $( function () {
 				method: 'get'
 			} );
 
-			const items = [
-				this.createSubjectsSection()
-			];
+			const items = [];
+
+			if ( this.config.showExportLanguages ) {
+				items.push( this.createLanguageSection() );
+			}
+
+			items.push( this.createSubjectsSection() );
 
 			if ( this.config.showPropertiesGroupedByYear ) {
 				items.push( this.createGroupedStatementsSection() );
@@ -98,12 +101,44 @@ $( function () {
 		/**
 		 * @return {OO.ui.PanelLayout}
 		 */
+		createLanguageSection: function () {
+			const widget = this;
+
+			this.language = new OO.ui.DropdownInputWidget( {
+				id: 'language',
+				options: Object.keys( this.config.exportLanguages ).map(
+					( languageCode ) => ( {
+						data: languageCode,
+						label: this.config.exportLanguages[ languageCode ]
+					} )
+				)
+			} );
+
+			// this.language.on( 'change', function () {
+			// 	const language = widget.language.getValue();
+			// 	widget.subjects.language = language;
+			// 	// TOOD: retranslate selected item labels?
+			// 	// TODO: translate property names?
+			// } );
+
+			this.language.setValue( Object.keys( this.config.exportLanguages )[ 0 ] );
+
+			return this.createSection(
+				'language',
+				mw.msg( 'wikibase-export-language-heading' ),
+				[ this.language ]
+			);
+		},
+
+		/**
+		 * @return {OO.ui.PanelLayout}
+		 */
 		createSubjectsSection: function () {
 			this.subjects = new mw.widgets.EntitiesMultiselectWidget( {
 				id: 'subjects',
 				inputPosition: 'outline',
 				placeholder: mw.msg( 'wikibase-export-subjects-placeholder' ),
-				language: this.config.language
+				language: this.getLanguage()
 			} );
 
 			this.addDefaultSubjects();
@@ -121,7 +156,7 @@ $( function () {
 			new mw.Api().get( {
 				action: 'wbgetentities',
 				ids: widget.config.defaultSubjects,
-				languages: this.config.language,
+				languages: this.getLanguage(),
 				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
@@ -279,7 +314,7 @@ $( function () {
 			new mw.Api().get( {
 				action: 'wbgetentities',
 				ids: ids,
-				languages: this.config.language,
+				languages: this.getLanguage(),
 				languagefallback: true
 			} ).then( function ( data ) {
 				const options = widget.getOptionsFromEntityData( data );
@@ -321,8 +356,8 @@ $( function () {
 		getOptionFromEntity: function ( entity ) {
 			let label = '';
 
-			if ( entity.labels[ this.config.language ] !== undefined ) {
-				label = entity.labels[ this.config.language ].value;
+			if ( entity.labels[ this.getLanguage() ] !== undefined ) {
+				label = entity.labels[ this.getLanguage() ].value;
 			}
 
 			label += ' (' + entity.id + ') ';
@@ -387,9 +422,19 @@ $( function () {
 			if ( this.config.showPropertiesGroupedByYear || this.config.showUngroupedProperties ) {
 				params.header_type = self.headerType.getValue();
 			}
+
+			params.language = this.getLanguage();
 			/* eslint-enable camelcase */
 
 			return new URLSearchParams( params );
+		},
+
+		getLanguage: function () {
+			if ( this.config.showExportLanguages ) {
+				return this.language.getValue();
+			}
+
+			return Object.keys( this.config.exportLanguages )[ 0 ];
 		}
 	};
 

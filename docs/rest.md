@@ -17,6 +17,7 @@ curl -G "http://localhost:8484/rest.php/wikibase-export/v0/export" \
      -d "start_year=2021" \
      -d "end_year=2022" \
      -d "header_type=label" \
+     -d "language=en" \
      -o export.csv
 ```
 
@@ -32,6 +33,7 @@ curl -G "http://localhost:8484/rest.php/wikibase-export/v0/export" \
 | `start_year`                       | no       |         | `2021`                               | The start year                                                    |
 | `end_year`                         | no       |         | `2022`                               | The end year                                                      |
 | `header_type`                      | no       | `id`    | `id` or `label`                      | Whether to use property IDs or labels for the headers             |
+| `language`                         | no       | `null`  | `en`                                 | The export language (if defined in config)                        |
 
 When specifying `grouped_statement_property_ids` you need to include `start_year` and `end_year`.
 

@@ -29,6 +29,7 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 	private const INSTANCE_OF_ID = 'P1';
 	private const INSTANCE_OF_VALUE = 'company';
 	private const SOMETHING_ELSE_ID = 'P2';
+	private const LANGUAGE = 'en';
 
 	public function setUp(): void {
 		parent::setUp();
@@ -101,7 +102,8 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 			WikibaseExportExtension::searchEntitiesApiFactory(),
 			new RequestData( [
 				'queryParams' => [
-					'search' => 'Company'
+					'search' => 'Company',
+					'language' => self::LANGUAGE
 				]
 			] )
 		);
@@ -131,6 +133,7 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 			new RequestData( [
 				'queryParams' => [
 					'search' => 'DefinitelyWillNotMatch',
+					'language' => self::LANGUAGE
 				]
 			] )
 		);

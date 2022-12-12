@@ -141,12 +141,15 @@ class WikibaseExportExtension {
 		return new SearchEntitiesApi();
 	}
 
-	public function newSearchEntitiesUseCase( SearchEntitiesPresenter $presenter ): SearchEntitiesUseCase {
+	public function newSearchEntitiesUseCase(
+		SearchEntitiesPresenter $presenter,
+		string $languageCode
+	): SearchEntitiesUseCase {
 		return new SearchEntitiesUseCase(
 			subjectFilterPropertyId: $this->getConfig()->subjectFilterPropertyId,
 			subjectFilterPropertyValue: $this->getConfig()->subjectFilterPropertyValue,
 			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
-			contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
+			contentLanguage: $languageCode,
 			entityLookup: WikibaseRepo::getEntityLookup(),
 			presenter: $presenter
 		);

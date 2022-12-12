@@ -91,7 +91,9 @@ class SpecialWikibaseExport extends SpecialPage {
 				fn( PropertyId $id ) => $id->getSerialization(),
 				$config->getUngroupedProperties()->ids
 			),
-			'showConfigLink' => $this->shouldShowConfigLink()
+			'showConfigLink' => $this->shouldShowConfigLink(),
+			'showExportLanguages' => $this->shouldShowExportLanguages( $config ),
+			'exportLanguages' => $this->getExportLanguages( $config )
 		];
 	}
 
@@ -111,6 +113,30 @@ class SpecialWikibaseExport extends SpecialPage {
 
 	private function shouldShowUngroupedProperties( Config $config ): bool {
 		return !$config->getUngroupedProperties()->isEmpty();
+	}
+
+	private function shouldShowExportLanguages( Config $config ): bool {
+		return $config->exportLanguages !== null && count( $config->exportLanguages ) > 1;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private function getExportLanguages( Config $config ): array {
+		$languageNameUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
+
+		$languages = [];
+
+		foreach ( $config->exportLanguages ?? [] as $language ) {
+			$languages[$language] = $languageNameUtils->getLanguageName( $language );
+		}
+
+		if ( $languages === [] ) {
+			$contentLanguage = MediaWikiServices::getInstance()->getContentLanguage();
+			$languages[$contentLanguage->getCode()] = $languageNameUtils->getLanguageName( $contentLanguage->getCode() );
+		}
+
+		return $languages;
 	}
 
 }

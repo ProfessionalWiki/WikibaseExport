@@ -25,6 +25,7 @@ class ExportApi extends SimpleHandler {
 	private const PARAM_START_YEAR = 'start_year';
 	private const PARAM_END_YEAR = 'end_year';
 	private const PARAM_HEADER_TYPE = 'header_type';
+	private const PARAM_LANGUAGE = 'language';
 
 	private const OPTION_HEADER_TYPE_ID = 'id';
 	private const OPTION_HEADER_TYPE_LABEL = 'label';
@@ -54,7 +55,7 @@ class ExportApi extends SimpleHandler {
 		$params = $this->getValidatedParams();
 
 		return new ExportRequest(
-			languageCode: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
+			languageCode: $params[self::PARAM_LANGUAGE] ?? MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
 			subjectIds: $this->parseIds( $params[self::PARAM_SUBJECT_IDS] ),
 			useLabelsInHeaders: $params[self::PARAM_HEADER_TYPE] === self::OPTION_HEADER_TYPE_LABEL,
 			groupedStatementPropertyIds: ( new PropertyIdListParser() )->parse( $params[self::PARAM_GROUPED_STATEMENT_PROPERTY_IDS] ),
@@ -125,6 +126,11 @@ class ExportApi extends SimpleHandler {
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_DEFAULT => self::OPTION_HEADER_TYPE_ID
+			],
+			self::PARAM_LANGUAGE => [
+				self::PARAM_SOURCE => 'query',
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_DEFAULT => null
 			]
 		];
 	}
