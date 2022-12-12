@@ -55,7 +55,7 @@ class SearchEntitiesUseCase {
 			entityType: 'item',
 			// TODO: what is a sane limit for performance and UI?
 			limit: 50,
-			strictLanguage: false
+			strictLanguage: true
 		);
 	}
 

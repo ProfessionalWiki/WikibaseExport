@@ -102,8 +102,6 @@ $( function () {
 		 * @return {OO.ui.PanelLayout}
 		 */
 		createLanguageSection: function () {
-			const widget = this;
-
 			this.language = new OO.ui.DropdownInputWidget( {
 				id: 'language',
 				options: Object.keys( this.config.exportLanguages ).map(
@@ -114,12 +112,11 @@ $( function () {
 				)
 			} );
 
-			// this.language.on( 'change', function () {
-			// 	const language = widget.language.getValue();
-			// 	widget.subjects.language = language;
-			// 	// TOOD: retranslate selected item labels?
-			// 	// TODO: translate property names?
-			// } );
+			const widget = this;
+
+			this.language.on( 'change', function () {
+				widget.subjects.language = widget.language.getValue();
+			} );
 
 			this.language.setValue( Object.keys( this.config.exportLanguages )[ 0 ] );
 
