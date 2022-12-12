@@ -25,16 +25,16 @@
 
 TODO
 
-This extension provides a special page `Special:WikibaseExport` that can be used to export statement values applicable
-to a specific date range.
+This extension provides a special page `Special:WikibaseExport` that can be used to export statement values. These
+values may be either ungrouped, or grouped by year and limited to a specific date range.
 
-Statement date qualifiers can be defined in two ways:
+Statements that may be grouped by year need to have date qualifiers that can be defined in two ways:
 * Using a single "Point in time" property; or
 * As a range, using two "Point in time" properties for "start date" and "end date"
 
-When exporting, statement qualifiers are compared against the export date range. For single point qualifiers the
-statement value will be included if the date is contained in the export date range. For qualifier ranges the statements
-will be included for the period where the qualifier range overlaps with the export range.
+When exporting, groupable statement qualifiers are compared against the export date range. For single point qualifiers
+the statement value will be included if the date is contained in the export date range. For qualifier ranges the
+statements will be included for the period where the qualifier range overlaps with the export range.
 
 ### REST API
 
@@ -107,6 +107,9 @@ When specifying `propertiesToGroupByYear` the following variables are required a
 * `startTimePropertyId`
 * `endTimePropertyId`
 * `pointInTimePropertyId`
+
+If neither `grouped_statement_property_ids` nor `ungrouped_statement_property_ids` is specified then the export will
+contain only item IDs and labels.
 
 ### Enable in-wiki configuration
 
