@@ -50,6 +50,7 @@ class ConfigDeserializer {
 
 	private function propertyIdOrNull( array $configArray, string $configKey ): ?PropertyId {
 		if ( array_key_exists( $configKey, $configArray ) && $configArray[$configKey] !== null ) {
+			// The ConfigJsonValidator already verified the ID format is valid, so we do not need to catch any exceptions.
 			return new NumericPropertyId( $configArray[$configKey] );
 		}
 

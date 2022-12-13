@@ -62,4 +62,13 @@ class ConfigDeserializerTest extends TestCase {
 		$this->assertEquals( $emptyConfig, $config );
 	}
 
+	public function testInvalidPropertyIdReturnsNull(): void {
+		$deserializer = WikibaseExportExtension::getInstance()->newConfigDeserializer();
+
+		$config = $deserializer->deserialize( '{ "startTimePropertyId": "Q1" }' );
+		$emptyConfig = new Config();
+
+		$this->assertEquals( $emptyConfig, $config );
+	}
+
 }
