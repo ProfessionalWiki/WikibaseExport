@@ -114,6 +114,7 @@ $( function () {
 
 			this.language.on( 'change', () => {
 				this.subjects.language = this.language.getValue();
+				this.subjects.requestCache = {};
 			} );
 
 			this.language.setValue( Object.keys( this.config.exportLanguages )[ 0 ] );
