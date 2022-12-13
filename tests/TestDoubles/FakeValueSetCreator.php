@@ -6,11 +6,12 @@ namespace ProfessionalWiki\WikibaseExport\Tests\TestDoubles;
 
 use ProfessionalWiki\WikibaseExport\Application\Export\ValueSet;
 use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetCreator;
+use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetCreatorFactory;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Snak\Snak;
 use Wikibase\DataModel\Statement\StatementList;
 
-class FakeValueSetCreator implements ValueSetCreator {
+class FakeValueSetCreator implements ValueSetCreator, ValueSetCreatorFactory {
 
 	public function statementsToValueSet( StatementList $statements ): ValueSet {
 		$values = [];
@@ -28,6 +29,10 @@ class FakeValueSetCreator implements ValueSetCreator {
 		}
 
 		return $snak->getPropertyId()->getSerialization();
+	}
+
+	public function newValueSetCreator( string $languageCode ): ValueSetCreator {
+		return $this;
 	}
 
 }

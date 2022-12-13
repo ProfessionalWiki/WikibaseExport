@@ -10,7 +10,7 @@ use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportUseCase;
-use ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreator;
+use ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreatorFactory;
 use ProfessionalWiki\WikibaseExport\Application\PropertyIdListParser;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
@@ -25,9 +25,6 @@ use ProfessionalWiki\WikibaseExport\Persistence\ConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentFetcher;
 use Title;
-use ValueFormatters\FormatterOptions;
-use Wikibase\DataModel\Entity\NumericPropertyId;
-use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Repo\WikibaseRepo;
 use WMDE\Clock\SystemClock;
 
@@ -119,17 +116,8 @@ class WikibaseExportExtension {
 			authorizer: new AuthorityBasedExportAuthorizer(
 				authority: $authority
 			),
-			valueSetCreator: $this->newProductionValueSetCreator(),
+			valueSetCreatorFactory: new ProductionValueSetCreatorFactory(),
 			termLookup: WikibaseRepo::getTermLookup(),
-		);
-	}
-
-	public function newProductionValueSetCreator(): ProductionValueSetCreator {
-		return new ProductionValueSetCreator(
-			snakFormatter: WikibaseRepo::getSnakFormatterFactory()->getSnakFormatter(
-				SnakFormatter::FORMAT_PLAIN,
-				new FormatterOptions()
-			)
 		);
 	}
 
