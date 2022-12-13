@@ -106,7 +106,8 @@
 			'/wikibase-export/v0/search-entities',
 			{
 				search: this.getQueryValue(),
-				language: this.language
+				language: this.language,
+				uselang: this.language
 			}
 		);
 
