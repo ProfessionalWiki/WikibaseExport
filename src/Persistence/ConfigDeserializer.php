@@ -50,7 +50,7 @@ class ConfigDeserializer {
 	}
 
 	private function propertyIdOrNull( array $configArray, string $configKey ): ?PropertyId {
-		if ( array_key_exists( $configKey, $configArray ) ) {
+		if ( array_key_exists( $configKey, $configArray ) && $configArray[$configKey] !== null ) {
 			return new NumericPropertyId( $configArray[$configKey] );
 		}
 
