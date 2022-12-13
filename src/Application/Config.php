@@ -14,6 +14,7 @@ class Config {
 	 * @param string[]|null $defaultSubjects
 	 * @param PropertyIdList|null $propertiesGroupedByYear
 	 * @param PropertyIdList|null $ungroupedProperties
+	 * @param string[]|null $exportLanguages
 	 */
 	public function __construct(
 		public /* readonly */ ?array $defaultSubjects = null,
@@ -25,7 +26,8 @@ class Config {
 		public /* readonly */ ?PropertyIdList $propertiesGroupedByYear = null,
 		public /* readonly */ ?PropertyIdList $ungroupedProperties = null,
 		public /* readonly */ ?string $subjectFilterPropertyId = null,
-		public /* readonly */ ?string $subjectFilterPropertyValue = null
+		public /* readonly */ ?string $subjectFilterPropertyValue = null,
+		public /* readonly */ ?array $exportLanguages = null
 	) {
 	}
 
@@ -40,7 +42,8 @@ class Config {
 			$config->propertiesGroupedByYear ?? $this->propertiesGroupedByYear,
 			$config->ungroupedProperties ?? $this->ungroupedProperties,
 			$config->subjectFilterPropertyId ?? $this->subjectFilterPropertyId,
-			$config->subjectFilterPropertyValue ?? $this->subjectFilterPropertyValue
+			$config->subjectFilterPropertyValue ?? $this->subjectFilterPropertyValue,
+			$config->exportLanguages ?? $this->exportLanguages
 		);
 	}
 

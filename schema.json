@@ -41,6 +41,12 @@
 		},
 		"subjectFilterPropertyValue": {
 			"type": [ "string", "null" ]
+		},
+		"exportLanguages": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
 		}
 	},
 	"dependentSchemas": {

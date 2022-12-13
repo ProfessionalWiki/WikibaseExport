@@ -44,7 +44,8 @@ class ConfigDeserializer {
 			propertiesGroupedByYear: $this->getPropertiesToGroupByYear( $configArray ),
 			ungroupedProperties: $this->getUngroupedProperties( $configArray ),
 			subjectFilterPropertyId: $configArray['subjectFilterPropertyId'] ?? null,
-			subjectFilterPropertyValue: $configArray['subjectFilterPropertyValue'] ?? null
+			subjectFilterPropertyValue: $configArray['subjectFilterPropertyValue'] ?? null,
+			exportLanguages: $configArray['exportLanguages'] ?? null
 		);
 	}
 

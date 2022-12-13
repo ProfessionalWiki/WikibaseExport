@@ -50,7 +50,8 @@ class PageContentConfigLookupTest extends WikibaseExportIntegrationTest {
 					new NumericPropertyId( 'P7' )
 				] ),
 				subjectFilterPropertyId: 'P10',
-				subjectFilterPropertyValue: 'company'
+				subjectFilterPropertyValue: 'company',
+				exportLanguages: [ 'en', 'nl' ]
 			),
 			$config
 		);

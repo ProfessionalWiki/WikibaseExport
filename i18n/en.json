@@ -12,6 +12,7 @@
 
 	"wikibase-export-intro": "First, choose the items for which you need data. Second, choose the time range for which you need the data. Third, choose the variables you need in the CSV file. Finally, click \"$1\" to retrieve the CSV file.",
 	"wikibase-export-intro-admin-notice": "As an administrator, you can [[Special:WikibaseExportConfig|configure this form]].",
+	"wikibase-export-language-heading": "Export language",
 	"wikibase-export-subjects-heading": "Subjects to export",
 	"wikibase-export-subjects-placeholder": "Search subjects (items)",
 	"wikibase-export-grouped-statements-heading": "Values grouped by year",
@@ -52,5 +53,6 @@
 	"wikibase-export-config-help-variable-properties-with-qualifiers": "List of IDs of properties (with qualifiers) for statements that may be included in the export.",
 	"wikibase-export-config-help-variable-properties-without-qualifiers": "List of IDs of properties (without qualifiers) for statements that may be included in the export.",
 	"wikibase-export-config-help-variable-subject-filter-property-id": "Property ID of the statement used to filter items that may be included in the export.",
-	"wikibase-export-config-help-variable-subject-filter-property-value": "Expected value of the subject filter property."
+	"wikibase-export-config-help-variable-subject-filter-property-value": "Expected value of the subject filter property.",
+	"wikibase-export-config-help-variable-export-languages": "Allowed export languages."
 }

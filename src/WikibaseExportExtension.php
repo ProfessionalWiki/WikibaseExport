@@ -146,7 +146,6 @@ class WikibaseExportExtension {
 			subjectFilterPropertyId: $this->getConfig()->subjectFilterPropertyId,
 			subjectFilterPropertyValue: $this->getConfig()->subjectFilterPropertyValue,
 			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
-			contentLanguage: MediaWikiServices::getInstance()->getContentLanguage()->getCode(),
 			entityLookup: WikibaseRepo::getEntityLookup(),
 			presenter: $presenter
 		);

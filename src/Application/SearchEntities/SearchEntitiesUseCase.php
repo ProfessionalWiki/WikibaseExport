@@ -22,15 +22,14 @@ class SearchEntitiesUseCase {
 		private ?string $subjectFilterPropertyId,
 		private ?string $subjectFilterPropertyValue,
 		private EntitySearchHelper $entitySearchHelper,
-		private string $contentLanguage,
 		private EntityLookup $entityLookup,
 		private SearchEntitiesPresenter $presenter
 	) {
 	}
 
-	public function search( string $text ): void {
+	public function search( string $text, string $languageCode ): void {
 		// TODO: check permission
-		$results = $this->getSearchResults( $text );
+		$results = $this->getSearchResults( $text, $languageCode );
 
 		if ( $this->shouldFilter() ) {
 			$searchResult = $this->getFilteredSearchResult( $results );
@@ -48,10 +47,10 @@ class SearchEntitiesUseCase {
 	/**
 	 * @return TermSearchResult[]
 	 */
-	private function getSearchResults( string $text ): array {
+	private function getSearchResults( string $text, string $languageCode ): array {
 		return $this->entitySearchHelper->getRankedSearchResults(
 			text: $text,
-			languageCode: $this->contentLanguage,
+			languageCode: $languageCode,
 			entityType: 'item',
 			// TODO: what is a sane limit for performance and UI?
 			limit: 50,

@@ -17,5 +17,6 @@
 	"defaultStartYear": 2010,
 	"defaultEndYear": 2022,
 	"subjectFilterPropertyId": "P50",
-	"subjectFilterPropertyValue": "company"
+	"subjectFilterPropertyValue": "company",
+	"exportLanguages": [ "en", "nl" ]
 }

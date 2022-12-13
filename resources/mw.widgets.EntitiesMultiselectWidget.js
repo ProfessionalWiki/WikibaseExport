@@ -105,7 +105,9 @@
 		const req = new mw.Rest().get(
 			'/wikibase-export/v0/search-entities',
 			{
-				search: this.getQueryValue()
+				search: this.getQueryValue(),
+				language: this.language,
+				uselang: this.language
 			}
 		);
 

@@ -106,6 +106,12 @@ class ExportConfigEditPageTextBuilder {
 				'"company"',
 				false
 			) .
+			$this->createTableRow(
+				'exportLanguages',
+				'wikibase-export-config-help-variable-export-languages',
+				'[ "en", "nl" ]',
+				false
+			) .
 			'</tbody>' .
 			'</table>';
 	}
