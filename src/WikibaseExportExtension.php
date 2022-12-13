@@ -142,14 +142,12 @@ class WikibaseExportExtension {
 	}
 
 	public function newSearchEntitiesUseCase(
-		SearchEntitiesPresenter $presenter,
-		string $languageCode
+		SearchEntitiesPresenter $presenter
 	): SearchEntitiesUseCase {
 		return new SearchEntitiesUseCase(
 			subjectFilterPropertyId: $this->getConfig()->subjectFilterPropertyId,
 			subjectFilterPropertyValue: $this->getConfig()->subjectFilterPropertyValue,
 			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
-			contentLanguage: $languageCode,
 			entityLookup: WikibaseRepo::getEntityLookup(),
 			presenter: $presenter
 		);

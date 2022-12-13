@@ -118,7 +118,6 @@ class SearchEntitiesUseCaseTest extends TestCase {
 			subjectFilterPropertyId: $propertyId,
 			subjectFilterPropertyValue: $propertyValue,
 			entitySearchHelper: new StubEntitySearchHelper( ...$searchResults ),
-			contentLanguage: self::LANGUAGE,
 			entityLookup: new InMemoryEntityLookup( ...$this->getAllEntities() ),
 			presenter: $presenter
 		);
@@ -127,7 +126,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	public function testResultsAreNotFilteredWhenPropertyIdIsNull(): void {
 		$presenter = new SpySearchEntitiesPresenter();
 		$searcher = $this->newSearchEntitiesUseCase( $this->getAllSearchResults(), $presenter, propertyId: null );
-		$searcher->search( 'Jo' );
+		$searcher->search( 'Jo', self::LANGUAGE );
 
 		$this->assertSame(
 			[
@@ -145,7 +144,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	public function testResultsAreNotFilteredWhenPropertyValueIsNull(): void {
 		$presenter = new SpySearchEntitiesPresenter();
 		$searcher = $this->newSearchEntitiesUseCase( $this->getAllSearchResults(), $presenter, propertyValue: null );
-		$searcher->search( 'Jo' );
+		$searcher->search( 'Jo', self::LANGUAGE );
 
 		$this->assertSame(
 			[
@@ -163,7 +162,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	public function testNoResultsFoundWithoutFiltering(): void {
 		$presenter = new SpySearchEntitiesPresenter();
 		$searcher = $this->newSearchEntitiesUseCase( [], $presenter, propertyId: null );
-		$searcher->search( 'Nothing' );
+		$searcher->search( 'Nothing', self::LANGUAGE );
 
 		$this->assertSame(
 			[],
@@ -174,7 +173,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	public function testNoResultsFoundWithFiltering(): void {
 		$presenter = new SpySearchEntitiesPresenter();
 		$searcher = $this->newSearchEntitiesUseCase( $this->getPeopleSearchResults(), $presenter );
-		$searcher->search( 'Jo' );
+		$searcher->search( 'Jo', self::LANGUAGE );
 
 		$this->assertSame(
 			[],
@@ -185,7 +184,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	public function testResultsFoundWithFiltering(): void {
 		$presenter = new SpySearchEntitiesPresenter();
 		$searcher = $this->newSearchEntitiesUseCase( $this->getAllSearchResults(), $presenter );
-		$searcher->search( 'Jo' );
+		$searcher->search( 'Jo', self::LANGUAGE );
 
 		$this->assertSame(
 			[
@@ -204,7 +203,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 			self::ITEM_INSTANCE_OF_ID,
 			self::ITEM_INSTANCE_OF_VALUE
 		);
-		$searcher->search( 'Jo' );
+		$searcher->search( 'Jo', self::LANGUAGE );
 
 		$this->assertSame(
 			[
