@@ -141,9 +141,7 @@ class WikibaseExportExtension {
 		return new SearchEntitiesApi();
 	}
 
-	public function newSearchEntitiesUseCase(
-		SearchEntitiesPresenter $presenter
-	): SearchEntitiesUseCase {
+	public function newSearchEntitiesUseCase( SearchEntitiesPresenter $presenter ): SearchEntitiesUseCase {
 		return new SearchEntitiesUseCase(
 			subjectFilterPropertyId: $this->getConfig()->subjectFilterPropertyId,
 			subjectFilterPropertyValue: $this->getConfig()->subjectFilterPropertyValue,
