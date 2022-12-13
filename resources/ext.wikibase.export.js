@@ -112,10 +112,8 @@ $( function () {
 				)
 			} );
 
-			const widget = this;
-
-			this.language.on( 'change', function () {
-				widget.subjects.language = widget.language.getValue();
+			this.language.on( 'change', () => {
+				this.subjects.language = this.language.getValue();
 			} );
 
 			this.language.setValue( Object.keys( this.config.exportLanguages )[ 0 ] );
