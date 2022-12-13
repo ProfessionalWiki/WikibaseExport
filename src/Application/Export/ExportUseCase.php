@@ -19,7 +19,7 @@ class ExportUseCase {
 		private EntitySourceFactory $entitySourceFactory,
 		private ExportPresenter $presenter,
 		private ExportAuthorizer $authorizer,
-		private ValueSetCreator $valueSetCreator,
+		private ValueSetCreatorFactory $valueSetCreatorFactory,
 		private TermLookup $termLookup
 	) {
 	}
@@ -59,7 +59,7 @@ class ExportUseCase {
 
 	private function newSimpleMapper( ExportRequest $request, HeaderBuilder $headerBuilder ): StatementsMapper {
 		return new SimpleStatementsMapper(
-			valueSetCreator: $this->valueSetCreator,
+			valueSetCreator: $this->valueSetCreatorFactory->newValueSetCreator( $request->languageCode ),
 			propertyIds: $request->ungroupedStatementPropertyIds->intersect( $this->ungroupedProperties ),
 			headerBuilder: $headerBuilder
 		);
@@ -67,7 +67,7 @@ class ExportUseCase {
 
 	private function newYearlyGroupingMapper( ExportRequest $request, HeaderBuilder $headerBuilder ): StatementsMapper {
 		return new YearGroupingStatementsMapper(
-			valueSetCreator: $this->valueSetCreator,
+			valueSetCreator: $this->valueSetCreatorFactory->newValueSetCreator( $request->languageCode ),
 			yearGroupedProperties: $request->groupedStatementPropertyIds->intersect( $this->propertiesGroupedByYear ),
 			timeQualifierProperties: $this->timeQualifierProperties,
 			startYear: $request->startYear,

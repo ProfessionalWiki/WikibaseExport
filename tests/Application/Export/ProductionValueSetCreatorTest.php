@@ -13,9 +13,9 @@ use DataValues\QuantityValue;
 use DataValues\StringValue;
 use DataValues\TimeValue;
 use MediaWikiIntegrationTestCase;
-use ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreator;
+use ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreatorFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ValueSet;
-use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
+use ProfessionalWiki\WikibaseExport\Application\Export\ValueSetCreator;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -65,8 +65,8 @@ class ProductionValueSetCreatorTest extends MediaWikiIntegrationTestCase {
 		return $dataTypeLookup;
 	}
 
-	private function newValueSetCreator(): ProductionValueSetCreator {
-		return WikibaseExportExtension::getInstance()->newProductionValueSetCreator();
+	private function newValueSetCreator(): ValueSetCreator {
+		return ( new ProductionValueSetCreatorFactory() )->newValueSetCreator( 'en' );
 	}
 
 	public function testHandlesEmptyStatementList(): void {

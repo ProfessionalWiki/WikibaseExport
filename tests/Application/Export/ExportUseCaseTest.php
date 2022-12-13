@@ -33,7 +33,7 @@ class ExportUseCaseTest extends TestCase {
 			),
 			presenter: $presenter,
 			authorizer: $authorizer,
-			valueSetCreator: new FakeValueSetCreator(),
+			valueSetCreatorFactory: new FakeValueSetCreator(),
 			termLookup: WikibaseRepo::getTermLookup()
 		);
 	}
