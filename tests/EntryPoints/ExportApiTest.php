@@ -47,10 +47,12 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 }
 '
 		);
+		print_r('after setup');
 	}
 
 	public function testEdgeToEdge(): void {
-		$this->skipOnPhp81AndLater();
+//		$this->skipOnPhp81AndLater();
+		print_r('before properties');
 
 		$this->saveProperty( TimeHelper::START_TIME_ID, 'time', 'Start time' );
 		$this->saveProperty( TimeHelper::END_TIME_ID, 'time', 'End time' );
@@ -58,6 +60,8 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 		$this->saveProperty( self::LEGAL_NAME_ID, 'string', 'Legal name' );
 		$this->saveProperty( self::EMPLOYEE_COUNT_ID, 'quantity', 'Revenue' );
 		$this->saveProperty( self::FOUNDER_NAME_ID, 'string', 'Founded by' );
+
+		print_r('after properties');
 
 		$this->saveEntity(
 			new Item(
@@ -71,6 +75,8 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 				)
 			)
 		);
+
+		print_r('after entity 1');
 
 		$this->saveEntity(
 			new Item(
@@ -87,7 +93,11 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 			)
 		);
 
+		print_r('after entity 2');
+
 		$this->saveEntity( new Item( new ItemId( 'Q45' ) ) );
+
+		print_r('after entity 3');
 
 		$this->testTypicalResponse();
 		$this->testLabelHeaders();
