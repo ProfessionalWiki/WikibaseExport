@@ -17,6 +17,8 @@ jobs:
             php: '8.0'
           - mw: 'REL1_38'
             php: '8.1'
+          - mw: 'REL1_39'
+            php: '8.0'
 
     runs-on: ubuntu-latest
 

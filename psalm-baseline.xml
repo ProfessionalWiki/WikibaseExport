@@ -7,6 +7,17 @@
       <code>array_map</code>
     </ImpureFunctionCall>
   </file>
+  <file src="src/Application/SearchEntities/SearchEntitiesUseCase.php">
+    <InvalidNamedArgument occurrences="1">
+      <code>profileContext</code>
+    </InvalidNamedArgument>
+    <MixedArgument occurrences="1">
+      <code>MW_VERSION</code>
+    </MixedArgument>
+    <TooManyArguments occurrences="1">
+      <code>getRankedSearchResults</code>
+    </TooManyArguments>
+  </file>
   <file src="src/Presentation/ConfigJsonErrorFormatter.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$key</code>
