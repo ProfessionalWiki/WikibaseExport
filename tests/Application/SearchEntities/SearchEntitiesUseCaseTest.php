@@ -10,6 +10,7 @@ use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPre
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubEntitySearchHelper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\SpySearchEntitiesPresenter;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubEntitySearchHelper39;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
@@ -21,6 +22,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lib\Interactors\TermSearchResult;
+use Wikibase\Repo\Api\EntitySearchHelper;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase
@@ -108,6 +110,14 @@ class SearchEntitiesUseCaseTest extends TestCase {
 		];
 	}
 
+	private function newStubEntitySearchHelper( array $searchResults ): EntitySearchHelper {
+		if ( version_compare( MW_VERSION, '1.39.0', '>=' ) ) {
+			return new StubEntitySearchHelper39( ...$searchResults );
+		} else {
+			return new StubEntitySearchHelper( ...$searchResults );
+		}
+	}
+
 	private function newSearchEntitiesUseCase(
 		array $searchResults,
 		SearchEntitiesPresenter $presenter,
@@ -117,7 +127,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 		return new SearchEntitiesUseCase(
 			subjectFilterPropertyId: $propertyId,
 			subjectFilterPropertyValue: $propertyValue,
-			entitySearchHelper: new StubEntitySearchHelper( ...$searchResults ),
+			entitySearchHelper: $this->newStubEntitySearchHelper( $searchResults ),
 			entityLookup: new InMemoryEntityLookup( ...$this->getAllEntities() ),
 			presenter: $presenter
 		);

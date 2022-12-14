@@ -48,11 +48,21 @@ class SearchEntitiesUseCase {
 	 * @return TermSearchResult[]
 	 */
 	private function getSearchResults( string $text, string $languageCode ): array {
+		if ( version_compare( MW_VERSION, '1.39.0', '>=' ) ) {
+			return $this->entitySearchHelper->getRankedSearchResults(
+				text: $text,
+				languageCode: $languageCode,
+				entityType: 'item',
+				limit: 50,
+				strictLanguage: false,
+				profileContext: null
+			);
+		}
+
 		return $this->entitySearchHelper->getRankedSearchResults(
 			text: $text,
 			languageCode: $languageCode,
 			entityType: 'item',
-			// TODO: what is a sane limit for performance and UI?
 			limit: 50,
 			strictLanguage: false
 		);
