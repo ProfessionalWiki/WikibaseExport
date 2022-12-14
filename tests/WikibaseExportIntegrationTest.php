@@ -29,7 +29,7 @@ class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 	protected function saveEntity( EntityDocument $entity ): void {
 		WikibaseRepo::getEntityStore()->saveEntity(
 			entity: $entity,
-			summary: __CLASS__,
+			summary: '',
 			user: self::getTestSysop()->getUser()
 		);
 	}
