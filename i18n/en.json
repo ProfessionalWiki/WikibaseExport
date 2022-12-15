@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jeroen De Dauw"
+			"Jeroen De Dauw",
+			"Morne Alberts"
 		]
 	},
 	"wikibase-export-name": "Wikibase Export",
