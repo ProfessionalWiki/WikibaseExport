@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kghbln"
+		]
+	},
+	"wikibase-export-intro": "Vier einfache Schritte zum Datenexport:<br>\n1. Wählen Sie zunächst die Datenobjekte aus, für die Daten benötigt werden.<br>\n2. Wählen Sie den Zeitraum aus, für den die Daten benötigt werden.<br>\n3. Wählen Sie die Variablen aus, die für die CSV-Datei benötigt werden.<br>\n4. Klicken Sie abschließend auf „$1“, um die CSV-Datei abzurufen.",
+	"wikibase-export-intro-admin-notice": "Als Administrator können Sie [[Special:WikibaseExportConfig|dieses Formular konfigurieren]]:",
+	"wikibase-export-config-incomplete-link": "Sie können [[Special:WikibaseExportConfig|dieses Formular konfigurieren]]:",
+	"wikibase-export-config-help-messages": "Sie können die folgenden Textausschnitte der Exportseite ändern:"
+}
