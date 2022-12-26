@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ильгиз"
+		]
+	},
+	"special-wikibase-export": "Викибазаны Экспортлау",
+	"wikibase-export-intro-admin-notice": "Идарәче булачак, сез бу форманы [[Special:WikibaseExportConfig|көйли аласыз]].",
+	"wikibase-export-start-year": "Башлау елы",
+	"wikibase-export-config-heading": "Багана исемнәре",
+	"wikibase-export-download": "Күчереп алу",
+	"wikibase-export-config-invalid": "Үзгәртүләрегез сакланмады. Аларда {{PLURAL:$1|хата|хаталар}} бар:",
+	"wikibase-export-config-help": "Көйләү документациясе",
+	"wikibase-export-config-help-example": "Тулы мисал:",
+	"wikibase-export-config-help-table-variable": "Көйләнмә",
+	"wikibase-export-config-help-table-description": "Тасвирлама",
+	"wikibase-export-config-help-table-required": "Мәҗбүри",
+	"wikibase-export-config-help-table-required-yes": "Әйе",
+	"wikibase-export-config-help-table-required-no": "Юк",
+	"wikibase-export-config-help-table-example": "Мисал"
+}
