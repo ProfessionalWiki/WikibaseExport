@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"wikibase-export-language-heading": "زبان برآمد کرو",
+	"wikibase-export-start-year": "شروع کرݨ دا سال",
+	"wikibase-export-end-year": "مکݨ دا سال",
+	"wikibase-export-config-heading": "کالم ہیڈر",
+	"wikibase-export-download": "ڈاؤن لوڈ",
+	"wikibase-export-config-help-variables": "ترتیباں",
+	"wikibase-export-config-help-example": "پوری مثال:",
+	"wikibase-export-config-help-table-variable": "ترتیباں",
+	"wikibase-export-config-help-table-description": "تفصیل",
+	"wikibase-export-config-help-table-required": "لوڑ ہے",
+	"wikibase-export-config-help-table-required-yes": "جیا",
+	"wikibase-export-config-help-table-required-no": "کو",
+	"wikibase-export-config-help-table-example": "مثال"
+}
