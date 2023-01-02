@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardoaddad"
+			"Eduardoaddad",
+			"Fúlvio"
 		]
 	},
 	"special-wikibase-export": "Exportação Wikibase",
@@ -17,5 +18,6 @@
 	"wikibase-export-config-help-table-required": "Requerido",
 	"wikibase-export-config-help-table-required-yes": "Sim",
 	"wikibase-export-config-help-table-required-no": "Não",
+	"wikibase-export-config-help-table-example": "Exemplo",
 	"wikibase-export-config-help-variable-subject-filter-property-value": "Valor esperado da propriedade de filtragem do assunto."
 }
