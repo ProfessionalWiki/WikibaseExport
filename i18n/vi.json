@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
+			"Minh Nguyen",
 			"Nguyenphutrong2"
 		]
 	},
 	"wikibase-export-description": "Thêm trang xuất Wikibase thân thiện với người dùng",
 	"special-wikibase-export": "Xuất Wikibase",
 	"special-wikibase-export-config": "Wikibase xuất cấu hình",
-	"wikibase-export-intro": "Đầu tiên, chọn các mục mà bạn cần dữ liệu. Thứ hai, chọn khoảng thời gian mà bạn cần dữ liệu. Thứ ba, chọn các biến bạn cần trong tệp CSV. Cuối cùng, nhấp vào \"$1\" để truy xuất tệp CSV.",
-	"wikibase-export-intro-admin-notice": "As an administrator, you can [[Special:WikibaseExportConfig|configure this form]].",
+	"wikibase-export-intro": "Đầu tiên, chọn các khoản mục mà bạn cần dữ liệu. Thứ hai, chọn khoảng thời gian mà bạn cần dữ liệu. Thứ ba, chọn các biến bạn cần trong tập tin CSV. Cuối cùng, nhấp chuột vào “$1” để truy xuất tập tin CSV.",
+	"wikibase-export-intro-admin-notice": "Là quản trị viên, bạn có thể [[Special:WikibaseExportConfig|đặt cấu hình biểu mẫu này]].",
 	"wikibase-export-language-heading": "ngôn ngữ xuất khẩu",
 	"wikibase-export-subjects-heading": "Đối tượng xuất khẩu",
 	"wikibase-export-subjects-placeholder": "Chủ đề tìm kiếm (mặt hàng)",
