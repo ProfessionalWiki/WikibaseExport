@@ -5,7 +5,6 @@
 [![Psalm level](https://shepherd.dev/github/ProfessionalWiki/WikibaseExport/level.svg)](psalm.xml)
 [![Latest Stable Version](https://poser.pugx.org/professional-wiki/wikibase-export/version.png)](https://packagist.org/packages/professional-wiki/wikibase-export)
 [![Download count](https://poser.pugx.org/professional-wiki/wikibase-export/d/total.png)](https://packagist.org/packages/professional-wiki/wikibase-export)
-[![License](https://img.shields.io/packagist/l/professional-wiki/wikibase-export)](LICENSE)
 
 [Wikibase] extension for exporting data as simple CSV.
 
