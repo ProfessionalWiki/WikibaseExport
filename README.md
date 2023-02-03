@@ -12,30 +12,152 @@
 
 **Table of Contents**
 
+- [Demo](#demo)
 - [Usage](#usage)
-  * [REST API](#rest-api)
+- [REST API](#rest-api)
 - [Installation](#installation)
 - [PHP Configuration](#php-configuration)
 - [Export page text configuration](#export-page-text-configuration)
 - [Development](#development)
 - [Release notes](#release-notes)
 
+## Demo
+
+Quickly get an idea about what this extension does by checking out the [demo wiki] or demo video TODO.
+
 ## Usage
 
-TODO
+You can export Wikibase data to CSV via the `Special:WikibaseExport` page. You can navigate directly to this page
+or find it in the "Wikibase" section of the "Special pages" list on `Special:SpecialPages`.
 
-This extension provides a special page `Special:WikibaseExport` that can be used to export statement values. These
-values may be either ungrouped, or grouped by year and limited to a specific date range.
+As a wiki administrator, you can add a link to the export page to the sidebar by modifying `MediaWiki:Sidebar`.
 
-Statements that may be grouped by year need to have date qualifiers that can be defined in two ways:
-* Using a single "Point in time" property; or
-* As a range, using two "Point in time" properties for "start date" and "end date"
+### Choosing the export language
 
-When exporting, groupable statement qualifiers are compared against the export date range. For single point qualifiers
-the statement value will be included if the date is contained in the export date range. For qualifier ranges the
-statements will be included for the period where the qualifier range overlaps with the export range.
+Wiki administrators can configure there to be an option to select the export language at the top of the export page.
 
-### REST API
+TODO pic
+
+The language selection dropdown only shows if there are multiple languages available. If the administrators do not
+configure any language, the wiki's main language is used.
+
+Example configuration on `MediaWiki:WikibaseExportConfig`:
+
+```json
+{
+    "exportLanguages": [
+        "en",
+        "nl",
+        "de"
+    ]
+}
+```
+
+### Selecting entities to export
+
+At the top of the export page, select the entities you wish to export. You can either select a single entity or
+multiple entities. You can search for entities to include in the export by entering their label or ID in the search box.
+
+TODO pic
+
+As a wiki administrator, you can configure the default entities to be selected via `MediaWiki:WikibaseExportConfig`. Example:
+
+```json
+{
+    "defaultSubjects": [
+        "Q1",
+        "Q2"
+    ]
+}
+```
+
+You can also limit which entities show up in the search results via `subjectFilterPropertyId` and `subjectFilterPropertyValue`. Example:
+
+```json
+{
+    "subjectFilterPropertyId": "P1",
+    "subjectFilterPropertyValue": "Q2"
+}
+```
+
+### Exporting ungrouped values
+
+Wikibase Export supports filtering and grouping by year. This is however an optional feature. If you do not want
+all or any of your properties to be grouped by year, use the "Ungrouped values" section. This section only shows if the wiki
+administrators have configured ungrouped properties.
+
+TODO pic
+
+To export values for only some ungrouped properties, untick the "Values for all properties" checkbox and select
+the properties you wish to export.
+
+TODO pic
+
+As a wiki administrator, you can configure the list of ungrouped properties via `MediaWiki:WikibaseExportConfig`. Example:
+
+```json
+{
+    "ungroupedProperties": [
+        "P1",
+        "P2"
+    ]
+}
+```
+
+### Grouping values by year
+
+If you want to group values by year, use the "Values grouped by year" section. This section only shows if the wiki
+administrators have configured grouped properties.
+
+TODO pic
+
+Select the date range you wish to export. You can either select a single year or a range of years. The CSV will
+have one column per year in the range. Example:
+
+TODO pic
+
+To export values for only some grouped properties, untick the "Values for all properties" checkbox and select
+the properties you wish to export.
+
+TODO pic
+
+The grouping feature uses qualifiers to determine the year of a statement. To be included in the export, a statement that
+gets grouped by year needs to have one of these qualifiers:
+
+* Point in time
+* Start time
+* End time
+
+It is common to combine Start time and End time qualifiers to define a closed range, though leaving the range open is
+also supported.
+
+TODO pic
+
+As a wiki administrator, you can configure the grouping by year via `MediaWiki:WikibaseExportConfig`. Example:
+
+```json
+{
+    "propertiesToGroupByYear": [
+        "P3",
+        "P4"
+    ],
+    "startTimePropertyId": "P10",
+    "endTimePropertyId": "P11",
+    "pointInTimePropertyId": "P12",
+    "defaultStartYear": 2019,
+    "defaultEndYear": 2023
+}
+```
+
+Without `propertiesToGroupByYear` and either `pointInTimePropertyId` or both `startTimePropertyId` and `endTimePropertyId`,
+the "Values grouped by year" section will not show.
+
+### Choosing column headers
+
+At the bottom of the export page you can choose which column headers to use. The default is to use the property IDs,
+though you can choose to use property labels instead.
+
+## REST API
 
 This extension provides a REST API endpoint for exporting Wikibase items.
 
@@ -85,30 +207,6 @@ Default: `""`
 Example: [example.json]
 
 Caution: invalid JSON will be ignored. No error will be shown, the intended config will just not be applied.
-
-#### JSON Variables
-
-| Variable                     | Description                                                                                        | Example          |
-|------------------------------|----------------------------------------------------------------------------------------------------|------------------|
-| `startTimePropertyId`        | Property ID of the qualifier used for the start of a time range.                                   | `P100`           |
-| `endTimePropertyId`          | Property ID of the qualifier used for the end of a time range.                                     | `P200`           |
-| `pointInTimePropertyId`      | Property ID of the qualifier used for a specific point in time.                                    | `P300`           |
-| `propertiesToGroupByYear`    | List of property IDs. Values of statements with these properties are included and grouped by year. | `[ "P1", "P2" ]` |
-| `ungroupedProperties`        | List of property IDs. Values of statements with these properties are included without grouping.    | `[ "P3", "P4" ]` |
-| `defaultSubjects`            | List of IDs of items that should be selected by default.                                           | `[ "Q1", "Q2" ]` |
-| `defaultStartYear`           | The default start year.                                                                            | `2010`           |
-| `defaultEndYear`             | The default end year.                                                                              | `2022`           |
-| `subjectFilterPropertyId`    | Property ID of the statement used to filter items that may be included in the export.              | `P50`            |
-| `subjectFilterPropertyValue` | Expected value of the subject filter property.                                                     | `company`        |
-
-When specifying `propertiesToGroupByYear` the following variables are required and must be defined in either
-[LocalSettings.php] or using the in-wiki configuration page:
-* `startTimePropertyId`
-* `endTimePropertyId`
-* `pointInTimePropertyId`
-
-If neither `grouped_statement_property_ids` nor `ungrouped_statement_property_ids` is specified then the export will
-contain only item IDs and labels.
 
 ### Enable in-wiki configuration
 
@@ -183,7 +281,7 @@ TODO
 [Professional.Wiki]: https://professional.wiki
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
 [Wikibase hosting]: https://professional.wiki/en/hosting/wikibase
-[Wikibase development]: https://www.wikibase.consulting/about-the-wikibase-team/
+[Wikibase development]: https://professional.wiki/en/wikibase-software-development
 [Wikibase consulting]: https://wikibase.consulting/
 [MediaWiki]: https://www.mediawiki.org
 [PHP]: https://www.php.net
@@ -194,3 +292,4 @@ TODO
 [schema.json]: https://github.com/ProfessionalWiki/WikibaseExport/blob/master/schema.json
 [example.json]: https://github.com/ProfessionalWiki/WikibaseExport/blob/master/example.json
 [Rest API Documentation]: docs/rest.md
+[demo wiki]: https://export.wikibase.wiki/

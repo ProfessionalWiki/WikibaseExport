@@ -1,22 +1,22 @@
 {
-	"startTimePropertyId": "P100",
-	"endTimePropertyId": "P200",
-	"pointInTimePropertyId": "P300",
-	"propertiesToGroupByYear": [
-		"P1",
-		"P2"
-	],
-	"ungroupedProperties": [
-		"P3",
-		"P4"
-	],
+	"exportLanguages": [ "en", "nl" ],
 	"defaultSubjects": [
 		"Q1",
 		"Q2"
 	],
-	"defaultStartYear": 2010,
-	"defaultEndYear": 2022,
 	"subjectFilterPropertyId": "P50",
 	"subjectFilterPropertyValue": "company",
-	"exportLanguages": [ "en", "nl" ]
+	"ungroupedProperties": [
+		"P3",
+		"P4"
+	],
+	"propertiesToGroupByYear": [
+		"P1",
+		"P2"
+	],
+	"startTimePropertyId": "P100",
+	"endTimePropertyId": "P200",
+	"pointInTimePropertyId": "P300",
+	"defaultStartYear": 2022,
+	"defaultEndYear": null
 }

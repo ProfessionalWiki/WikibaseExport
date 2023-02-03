@@ -42,8 +42,6 @@
 	"wikibase-export-config-help-table-variable": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-table-description": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-table-required": "Help text displayed on \"MediaWiki:WikibaseExport\"",
-	"wikibase-export-config-help-table-required-yes": "Help text displayed on \"MediaWiki:WikibaseExport\"\n{{identical|Yes}}",
-	"wikibase-export-config-help-table-required-no": "Help text displayed on \"MediaWiki:WikibaseExport\"\n{{identical|No}}",
 	"wikibase-export-config-help-table-example": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-variable-default-subjects": "Help text displayed on \"MediaWiki:WikibaseExport\"",
 	"wikibase-export-config-help-variable-default-start-year": "Help text displayed on \"MediaWiki:WikibaseExport\"",

@@ -50,21 +50,21 @@ class MediaWikiHooks {
 		if ( WikibaseExportExtension::getInstance()->isConfigTitle( $title ) ) {
 			$text = trim( '
 {
-	"startTimePropertyId": null,
-	"endTimePropertyId": null,
-	"pointInTimePropertyId": null,
-	"propertiesToGroupByYear": [
-	],
-	"ungroupedProperties": [
+	"exportLanguages": [
 	],
 	"defaultSubjects": [
 	],
-	"defaultStartYear": null,
-	"defaultEndYear": null,
 	"subjectFilterPropertyId": null,
 	"subjectFilterPropertyValue": null,
-	"exportLanguages": [
-	]
+	"ungroupedProperties": [
+	],
+	"propertiesToGroupByYear": [
+	],
+	"startTimePropertyId": null,
+	"endTimePropertyId": null,
+	"pointInTimePropertyId": null,
+	"defaultStartYear": null,
+	"defaultEndYear": null
 }' );
 		}
 	}
