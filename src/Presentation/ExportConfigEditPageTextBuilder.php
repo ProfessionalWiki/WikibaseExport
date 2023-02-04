@@ -6,6 +6,8 @@ namespace ProfessionalWiki\WikibaseExport\Presentation;
 
 use Html;
 use IContextSource;
+use Message;
+use SpecialPage;
 use Title;
 
 class ExportConfigEditPageTextBuilder {
@@ -17,134 +19,186 @@ class ExportConfigEditPageTextBuilder {
 
 	public function createTopHtml(): string {
 		return '<div id="wikibase-export-config-help-top">' .
-			$this->createMessagesSection() .
 			$this->createDocumentationLink() .
 			'</div>';
 	}
 
-	public function createBottomHtml(): string {
-		return '<div id="wikibase-export-config-help-bottom">' .
-			'<h2>' . $this->context->msg( 'wikibase-export-config-help' )->escaped() . '</h2>' .
-			$this->creatVariablesSection() .
-			$this->createExampleSection() .
-			'</div>';
-	}
-
 	private function createDocumentationLink(): string {
-		return '<p><a href="#wikibase-export-config-help-bottom">' .
-			$this->context->msg( 'wikibase-export-config-help-documentation' )->escaped() .
-			'</a></p>';
+		return '<p>'
+			. $this->context->msg( 'wikibase-export-config-help-documentation' )->parse()
+			. '</p>';
 	}
 
-	private function creatVariablesSection(): string {
-		return '<h3>' . $this->context->msg( 'wikibase-export-config-help-variables' )->escaped() . '</h3>' .
-			'<table class="wikitable">' .
-			'<thead><tr>' .
-			'<th>' . $this->context->msg( 'wikibase-export-config-help-table-variable' )->escaped() . '</th>' .
-			'<th>' . $this->context->msg( 'wikibase-export-config-help-table-description' )->escaped() . '</th>' .
-			'<th>' . $this->context->msg( 'wikibase-export-config-help-table-example' )->escaped() . '</th>' .
-			'</tr></thead>' .
-			'<tbody>' .
-			$this->createTableRow(
-				'startTimePropertyId',
-				'wikibase-export-config-help-variable-start-time-property-id',
-				'"P100"',
-			) .
-			$this->createTableRow(
-				'endTimePropertyId',
-				'wikibase-export-config-help-variable-end-time-property-id',
-				'"P200"',
-			) .
-			$this->createTableRow(
-				'pointInTimePropertyId',
-				'wikibase-export-config-help-variable-point-in-time-property-id',
-				'"P300"',
-			) .
-			$this->createTableRow(
-				'propertiesToGroupByYear',
-				'wikibase-export-config-help-variable-properties-with-qualifiers',
-				'[ "P1", "P2" ]',
-			) .
-			$this->createTableRow(
-				'ungroupedProperties',
-				'wikibase-export-config-help-variable-properties-without-qualifiers',
-				'[ "P3", "P4" ]',
-			) .
-			$this->createTableRow(
-				'defaultSubjects',
-				'wikibase-export-config-help-variable-default-subjects',
-				'[ "Q1", "Q2" ]',
-			) .
-			$this->createTableRow(
-				'defaultStartYear',
-				'wikibase-export-config-help-variable-default-start-year',
-				'2010',
-			) .
-			$this->createTableRow(
-				'defaultEndYear',
-				'wikibase-export-config-help-variable-default-end-year',
-				'2022',
-			) .
-			$this->createTableRow(
-				'subjectFilterPropertyId',
-				'wikibase-export-config-help-variable-subject-filter-property-id',
-				'"P50"',
-			) .
-			$this->createTableRow(
-				'subjectFilterPropertyValue',
-				'wikibase-export-config-help-variable-subject-filter-property-value',
-				'"company"',
-			) .
-			$this->createTableRow(
-				'exportLanguages',
-				'wikibase-export-config-help-variable-export-languages',
-				'[ "en", "nl" ]',
-			) .
-			'</tbody>' .
-			'</table>';
-	}
+	public function createBottomHtml(): string {
+		return <<<HTML
+<div id="Documentation">
+	<section>
+		<h2 id="ConfigurationDocumentation">{$this->context->msg( 'wikibase-export-config-help' )->escaped()}</h2>
 
-	private function createTableRow( string $variable, string $messagePart, string $example ): string {
-		return '<tr>' .
-			'<td>' . Html::element( 'code', [], $variable ) . '</td>' .
-			'<td>' . $this->context->msg( $messagePart )->escaped() . '</td>' .
-			'<td>' . Html::element( 'code', [], $example ) . '</td>' .
-			'</tr>';
-	}
+		<p>
+			Besides the configuration reference below, you can consult the Wikibase Export
+			<a href="https://professional.wiki/en/extension/wikibase-export">usage documentation</a> and
+			<a href="https://export.wikibase.wiki">demo wiki</a>.
+		</p>
+	</section>
 
-	private function createMessagesSection(): string {
-		return '<p>' . $this->context->msg( 'wikibase-export-config-help-messages' )->escaped() . '</p>' .
-			'<ul>' .
-			$this->createMessageLinkItem(
-				'wikibase-export-intro',
-				'wikibase-export-config-help-message-intro'
-			) .
-			$this->createMessageLinkItem(
-				'wikibase-export-subjects-heading',
-				'wikibase-export-config-help-message-subjects-heading'
-			) .
-			$this->createMessageLinkItem(
-				'wikibase-export-subjects-placeholder',
-				'wikibase-export-config-help-message-subjects-placeholder'
-			) .
-			'</ul>';
-	}
+	<section>
+		<h2 id="ExportLanguage">Export language</h2>
 
-	private function createMessageLinkItem( string $targetMessage, string $textMessage ): string {
-		$title = Title::newFromText( "MediaWiki:$targetMessage" );
+		<p>
+			By default the export happens in the wikis main language.
+		</p>
 
-		if ( $title === null ) {
-			return '';
-		}
+		<p>
+			You can change the export language or let the user choose by specifying multiple available languages.
+		</p>
 
-		return '<li><a href="' . $title->getLocalURL() . '">' .
-			$this->context->msg( $textMessage )->escaped() .
-			'</a></li>';
-	}
+		<p>
+			Example configuration:
+		</p>
 
-	private function createExampleSection(): string {
-		return '<h3>' . $this->context->msg( 'wikibase-export-config-help-example' )->escaped() . '</h3>' .
-			Html::element( 'pre', [], $this->getExampleContents() );
+		<pre>
+{
+	"exportLanguages": [
+		"en",
+		"nl",
+		"de"
+	]
+}</pre>
+	</section>
+
+	<section>
+		<h2 id="ExportSubjects">Export subjects</h2>
+
+		<p>
+			You can specify the subjects that should be selected for export by default.
+		</p>
+
+		<pre>
+{
+    "defaultSubjects": [
+        "Q1",
+        "Q2"
+    ]
+}</pre>
+
+		<p>
+			This can be any entities defined in this wiki.
+		</p>
+
+		<p>
+			You can also limit which entities show up in the search results via
+			<code>subjectFilterPropertyId</code> and <code>subjectFilterPropertyValue</code>. Example:
+		</p>
+
+		<pre>
+{
+    "subjectFilterPropertyId": "P1",
+    "subjectFilterPropertyValue": "Q2"
+}</pre>
+	</section>
+
+	<section>
+		<h2 id="UngroupedValues">Exporting ungrouped values</h2>
+
+		<p>
+			To have the "ungrouped values" section show on the export page, configure at least one ungroued property.
+		</p>
+
+		<pre>
+{
+    "ungroupedProperties": [
+        "P1",
+        "P2"
+    ]
+}</pre>
+
+		<p>
+			Statements with ungrouped properties will have their values be included in the export without
+			grouping or filtering.
+		</p>
+	</section>
+
+	<section>
+		<h2 id="GroupingByYear">Grouping values by year</h2>
+
+		<p>
+			Values can be filtered and grouped by year. You can configure which properties should have their
+			values be grouped this way.
+		</p>
+
+		<pre>
+{
+    "propertiesToGroupByYear": [
+        "P3",
+        "P4"
+    ]
+}</pre>
+
+		<p>
+			For the "values grouped by year" section to show on the export page, you need to configure at least
+			one property to be grouped by year and at least one time qualifier property:
+		</p>
+
+		<pre>
+{
+    "startTimePropertyId": "P10",
+    "endTimePropertyId": "P11"
+}</pre>
+
+		<p>
+			You can optionally configure the default start and end years to be shown on the export page:
+		</p>
+
+		<pre>
+{
+    "defaultStartYear": 2019,
+    "defaultEndYear": 2023
+}</pre>
+
+		<p>
+			The current year will be used if there is no configuration for the defaults.
+		</p>
+	</section>
+
+	<section>
+		<h2 id="FullExample">{$this->context->msg( 'wikibase-export-config-help-example' )->escaped()}</h2>
+
+		<pre>{$this->getExampleContents()}</pre>
+	</section>
+
+	<section>
+		<h2 id="MessageCustomization">{$this->context->msg( 'wikibase-export-config-help-message-customization' )->escaped()}</h2>
+
+		<p>
+			{$this->context->msg( 'wikibase-export-config-help-messages' )->escaped()}
+		</p>
+
+		<ul>
+			<li>{$this->createMessageLink( 'wikibaseexport-summary' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-intro' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-download' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-intro-admin-notice' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-language-heading' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-subjects-heading' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-subjects-placeholder' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-grouped-statements-heading' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-start-year' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-end-year' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-statement-group-all' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-ungrouped-statements-heading' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-statement-group-all' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-config-heading' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-config-header-id' )}</li>
+			<li>{$this->createMessageLink( 'wikibase-export-config-header-label' )}</li>
+		</ul>
+
+		<p>
+			To see where each message is used, <a href="{$this->getQqxLink()}">view Special:WikibaseExport?uselang=qqx</a>.
+		</p>
+	</section>
+</div>
+HTML;
 	}
 
 	private function getExampleContents(): string {
@@ -155,6 +209,20 @@ class ExportConfigEditPageTextBuilder {
 		}
 
 		return $example;
+	}
+
+	private function createMessageLink( string $targetMessage ): string {
+		$title = Title::newFromText( "MediaWiki:$targetMessage" );
+
+		if ( $title === null ) {
+			return '';
+		}
+
+		return Html::element( 'a', [ 'href' => $title->getLocalURL() ], $targetMessage );
+	}
+
+	private function getQqxLink(): string {
+		return SpecialPage::getTitleFor( 'WikibaseExport' )->getLocalURL( [ 'uselang' => 'qqx' ] );
 	}
 
 }
