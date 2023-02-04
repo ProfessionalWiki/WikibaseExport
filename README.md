@@ -92,17 +92,6 @@ Example: `false`
 
 The page `MediaWiki:WikibaseExportConfig` will always be available. If this configuration is set to `false`, its contents will be ignored.
 
-## Export page text configuration
-
-The following text snippets shown on `Special:WikibaseExport` can be configured by editing the on-wiki system message:
-
-| Text snippet                            | System message                                   |
-|-----------------------------------------|--------------------------------------------------|
-| Introductory text shown before the form | `MediaWiki:Wikibase-export-intro`                |
-| Choose subjects heading                 | `MediaWiki:Wikibase-export-subjects-heading`     |
-| Search subjects placeholder             | `MediaWiki:Wikibase-export-subjects-placeholder` |
-
-
 ## Development
 
 To ensure the dev dependencies get installed, have this in your `composer.local.json`:
