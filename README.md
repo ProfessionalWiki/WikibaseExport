@@ -27,7 +27,7 @@ Quickly get an idea about what this extension does by checking out the [demo wik
 
 ## Usage documentation
 
-See the [usage documentation](https://professional.wiki/en/extension/wikibase-export)
+See the [usage documentation](https://professional.wiki/en/extension/wikibase-export).
 
 ## REST API
 
@@ -61,7 +61,7 @@ Then enable the extension by adding the following to the bottom of your wikis [L
 wfLoadExtension( 'WikibaseExport' );
 ```
 
-You can verify the extension was enabled successfully by opening your wikis Special:Version page in your browser.
+You can verify the extension was enabled successfully by opening your wikis Special:Version page.
 
 ## PHP Configuration
 
