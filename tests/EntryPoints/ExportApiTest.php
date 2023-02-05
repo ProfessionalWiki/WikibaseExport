@@ -11,6 +11,7 @@ use MediaWiki\Rest\RequestData;
 use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
+use ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\TimeHelper;
 use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
@@ -22,6 +23,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 
 /**
+ * @see ExportApi
  * @group Database
  */
 class ExportApiTest extends WikibaseExportIntegrationTest {

@@ -19,7 +19,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 
 /**
- * @covers \ProfessionalWiki\WikibaseExport\EntryPoints\SearchEntitiesApi
+ * @see \ProfessionalWiki\WikibaseExport\EntryPoints\SearchEntitiesApi
  * @group Database
  */
 class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
