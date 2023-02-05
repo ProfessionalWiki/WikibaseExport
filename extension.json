@@ -2,7 +2,7 @@
 	"name": "Wikibase Export",
 	"type": "wikibase",
 
-	"version": "1.0.0-alpha",
+	"version": "1.0.0",
 
 	"author": [
 		"[https://Professional.Wiki/ Professional.Wiki]",
@@ -12,7 +12,7 @@
 
 	"license-name": "GPL-2.0-or-later",
 
-	"url": "https://github.com/ProfessionalWiki/WikibaseExport",
+	"url": "https://professional.wiki/en/extension/wikibase-export",
 
 	"descriptionmsg": "wikibase-export-description",
 
