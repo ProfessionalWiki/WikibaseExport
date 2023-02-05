@@ -76,10 +76,10 @@ class ExportConfigEditPageTextBuilder {
 
 		<pre>
 {
-    "defaultSubjects": [
-        "Q1",
-        "Q2"
-    ]
+	"defaultSubjects": [
+		"Q1",
+		"Q2"
+	]
 }</pre>
 
 		<p>
@@ -93,8 +93,8 @@ class ExportConfigEditPageTextBuilder {
 
 		<pre>
 {
-    "subjectFilterPropertyId": "P1",
-    "subjectFilterPropertyValue": "Q2"
+	"subjectFilterPropertyId": "P1",
+	"subjectFilterPropertyValue": "Q2"
 }</pre>
 	</section>
 
@@ -107,10 +107,10 @@ class ExportConfigEditPageTextBuilder {
 
 		<pre>
 {
-    "ungroupedProperties": [
-        "P1",
-        "P2"
-    ]
+	"ungroupedProperties": [
+		"P1",
+		"P2"
+	]
 }</pre>
 
 		<p>
@@ -129,10 +129,10 @@ class ExportConfigEditPageTextBuilder {
 
 		<pre>
 {
-    "propertiesToGroupByYear": [
-        "P3",
-        "P4"
-    ]
+	"propertiesToGroupByYear": [
+		"P3",
+		"P4"
+	]
 }</pre>
 
 		<p>
@@ -142,8 +142,9 @@ class ExportConfigEditPageTextBuilder {
 
 		<pre>
 {
-    "startTimePropertyId": "P10",
-    "endTimePropertyId": "P11"
+	"startTimePropertyId": "P100",
+	"endTimePropertyId": "P200",
+	"pointInTimePropertyId": "P300"
 }</pre>
 
 		<p>
@@ -152,8 +153,8 @@ class ExportConfigEditPageTextBuilder {
 
 		<pre>
 {
-    "defaultStartYear": 2019,
-    "defaultEndYear": 2023
+	"defaultStartYear": 2019,
+	"defaultEndYear": 2023
 }</pre>
 
 		<p>
