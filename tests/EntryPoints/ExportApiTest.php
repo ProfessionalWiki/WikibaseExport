@@ -22,7 +22,6 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 
 /**
- * @covers \ProfessionalWiki\WikibaseExport\EntryPoints\ExportApi
  * @group Database
  */
 class ExportApiTest extends WikibaseExportIntegrationTest {
