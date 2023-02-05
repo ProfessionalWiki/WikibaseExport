@@ -85,7 +85,7 @@ jobs:
 
       - name: Upload code coverage
         run: bash <(curl -s https://codecov.io/bash)
-        if: matrix.mw == 'master' && github.ref == 'refs/heads/master'
+        if: matrix.mw == 'master'
 
 
 
