@@ -46,7 +46,7 @@ class ExportConfigEditPageTextBuilder {
 		<h2 id="ExportLanguage">Export language</h2>
 
 		<p>
-			By default the export happens in the wikis main language.
+			By default the export happens in the wiki's main language.
 		</p>
 
 		<p>
