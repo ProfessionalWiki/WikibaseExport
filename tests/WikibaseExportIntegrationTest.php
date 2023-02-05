@@ -2,6 +2,7 @@
 
 namespace ProfessionalWiki\WikibaseExport\Tests;
 
+use Article;
 use MediaWikiIntegrationTestCase;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -50,6 +51,17 @@ class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 		if ( version_compare( PHP_VERSION, '8.1.0' ) >= 0 ) {
 			$this->markTestSkipped( 'Wikibase does not yet work with PHP 8.1' );
 		}
+	}
+
+	protected function getPageHtml( string $pageTitle ): string {
+		$title = \Title::newFromText( $pageTitle );
+
+		$article = new Article( $title, 0 );
+		$article->getContext()->getOutput()->setTitle( $title );
+
+		$article->view();
+
+		return $article->getContext()->getOutput()->getHTML();
 	}
 
 }
