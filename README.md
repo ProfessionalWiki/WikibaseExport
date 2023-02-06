@@ -40,8 +40,8 @@ For more information, refer to the [REST API documentation].
 Platform requirements:
 
 * [PHP] 8.0 or later (tested up to 8.1)
-* [MediaWiki] 1.37 or later (tested up to 1.38)
-* [Wikibase] 1.37 or later (tested up to 1.38)
+* [MediaWiki] 1.37 or later (tested up to 1.39)
+* [Wikibase] 1.37 or later (tested up to 1.39)
 
 The recommended way to install Wikibase Export is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].
@@ -129,15 +129,20 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 ## Release notes
 
-### Version 1.0.0 - TBD
-
-TODO
+### Version 1.0.0 - 2023-02-06
 
 * Special page with export UI
+    * Language selector
+    * Subject (entity) selector
+    * Grouping and filtering by year based on point in time or time range qualifiers
+    * Property selection for both grouped and ungrouped values
+    * Header style choice: entity label or entity ID
+* Support for multiple values
 * Configuration that can be set via PHP and a configuration UI on `MediaWiki:WikibaseExportConfig`
 * API endpoint for export
 * TranslateWiki integration
-* Support for PHP 8.0 and 8.1
+* Support for PHP from 8.0 up to 8.2
+* Support for MediaWiki from 1.37 up to 1.39
 
 [Professional.Wiki]: https://professional.wiki
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
