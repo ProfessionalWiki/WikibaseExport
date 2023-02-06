@@ -12,12 +12,5 @@
 	"wikibase-export-config-header-label": "Etiqueta de propriedade (por exemplo, \"Receita operacional 2022\")",
 	"wikibase-export-download": "Baixar",
 	"wikibase-export-config-help": "Documentação da configuração",
-	"wikibase-export-config-help-variables": "Configurações:",
-	"wikibase-export-config-help-example": "Exemplo completo:",
-	"wikibase-export-config-help-table-description": "Descrição",
-	"wikibase-export-config-help-table-required": "Requerido",
-	"wikibase-export-config-help-table-required-yes": "Sim",
-	"wikibase-export-config-help-table-required-no": "Não",
-	"wikibase-export-config-help-table-example": "Exemplo",
-	"wikibase-export-config-help-variable-subject-filter-property-value": "Valor esperado da propriedade de filtragem do assunto."
+	"wikibase-export-config-help-example": "Exemplo completo:"
 }
