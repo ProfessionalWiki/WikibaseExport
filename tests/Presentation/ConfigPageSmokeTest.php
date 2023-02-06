@@ -15,6 +15,26 @@ class ConfigPageSmokeTest extends WikibaseExportIntegrationTest {
 		);
 	}
 
-	// TODO: smoke test for the edit page
+	public function testEditSmoke(): void {
+		$html = $this->getEditPageHtml( 'MediaWiki:WikibaseExport' );
+
+		// Default value
+		$this->assertStringContainsString(
+			'"startTimePropertyId": "P1"',
+			$html
+		);
+
+		// Intro text
+		$this->assertStringContainsString(
+			'view the configuration documentation',
+			$html
+		);
+
+		// Documentation section
+		$this->assertStringContainsString(
+			'Configuration documentation',
+			$html
+		);
+	}
 
 }
