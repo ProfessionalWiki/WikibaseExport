@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProfessionalWiki\WikibaseExport\Tests\Presenation;
+namespace ProfessionalWiki\WikibaseExport\Tests\Presentation;
 
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\Export\ColumnHeader;
