@@ -10,8 +10,8 @@
 	"wikibase-export-intro": "Primo, elige le elementos pro le quales tu vole datos. Secundo, elige le intervallo de tempore pro le qual tu vole le datos. Tertio, elige le variabiles desirate in le file CSV. Finalmente, clicca sur \"$1\" pro obtener le file CSV.",
 	"wikibase-export-intro-admin-notice": "Como administrator, tu pote [[Special:WikibaseExportConfig|configurar iste formulario]].",
 	"wikibase-export-language-heading": "Exportar lingua",
-	"wikibase-export-subjects-heading": "Subjectos a exportar",
-	"wikibase-export-subjects-placeholder": "Subjectos (elementos) a cercar",
+	"wikibase-export-subjects-heading": "Entitates a exportar",
+	"wikibase-export-subjects-placeholder": "Subjectos a cercar",
 	"wikibase-export-grouped-statements-heading": "Valores gruppate per anno",
 	"wikibase-export-start-year": "Anno de initio",
 	"wikibase-export-end-year": "Anno de fin",
@@ -25,8 +25,9 @@
 	"wikibase-export-config-invalid": "Tu cambiamentos non ha essite salveguardate. Illos contine le sequente error{{PLURAL:$1||es}}:",
 	"wikibase-export-config-incomplete": "Un administrator debe configurar Wikibase Export ante que illo pote esser usate.",
 	"wikibase-export-config-incomplete-link": "Tu pote [[Special:WikibaseExportConfig|configurar iste formulario]].",
-	"wikibase-export-config-help-documentation": "Vider le documentation de configuration",
+	"wikibase-export-config-help-documentation": "Tu pote [[#Documentation|vider le documentation del configuration]] sub le area de modification.",
 	"wikibase-export-config-help": "Documentation de configuration",
-	"wikibase-export-config-help-example": "Exemplo complete:",
-	"wikibase-export-config-help-messages": "Tu pote cambiar le sequente fragmentos de texto del pagina de exportation:"
+	"wikibase-export-config-help-example": "Exemplo complete",
+	"wikibase-export-config-help-messages": "Tu pote cambiar le sequente fragmentos de texto del pagina de exportation:",
+	"wikibase-export-config-help-message-customization": "Personalisation del messages del interfacie"
 }

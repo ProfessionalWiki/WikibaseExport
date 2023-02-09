@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Gomoko",
 			"Verdy p"
 		]
 	},
@@ -10,8 +11,8 @@
 	"wikibase-export-intro": "Tout d’abord, choisissez les éléments pour lesquels vous avez besoin de données. Deuxièmement, choisissez la plage de temps pour laquelle vous avez besoin des données. Troisièmement, choisissez les variables dont vous avez besoin dans le fichier CSV. Enfin, cliquez sur « $1 » pour récupérer le fichier CSV.",
 	"wikibase-export-intro-admin-notice": "En tant qu’administrateur, vous pouvez [[Special:WikibaseExportConfig|configurer ce formulaire]].",
 	"wikibase-export-language-heading": "Langue d’exportation",
-	"wikibase-export-subjects-heading": "Sujets à exporter",
-	"wikibase-export-subjects-placeholder": "Rechercher des sujets (éléments)",
+	"wikibase-export-subjects-heading": "Entités à exporter",
+	"wikibase-export-subjects-placeholder": "Rechercher des entités",
 	"wikibase-export-grouped-statements-heading": "Valeurs groupées par année",
 	"wikibase-export-start-year": "Année de début",
 	"wikibase-export-end-year": "Année de fin",
@@ -25,8 +26,9 @@
 	"wikibase-export-config-invalid": "Vos modifications n’ont pas été enregistrées. Elles comportent {{PLURAL:$1|l’erreur|les erreurs}} suivante{{PLURAL:$1||s}} :",
 	"wikibase-export-config-incomplete": "Un administrateur doit configurer l’exportation de Wikibase avant qu’elle puisse être utilisée.",
 	"wikibase-export-config-incomplete-link": "Vous pouvez [[Special:WikibaseExportConfig|configurer ce formulaire]].",
-	"wikibase-export-config-help-documentation": "Afficher la documentation de configuration",
+	"wikibase-export-config-help-documentation": "Vous pouvez [[#Documentation|afficher la documentation de la configuration]] sous la zone de modification.",
 	"wikibase-export-config-help": "Documentation de la configuration",
-	"wikibase-export-config-help-example": "Exemple complet :",
-	"wikibase-export-config-help-messages": "Vous pouvez modifier les extraits de texte de page d’exportation suivants :"
+	"wikibase-export-config-help-example": "Exemple complet",
+	"wikibase-export-config-help-messages": "Vous pouvez modifier les extraits de texte de page d’exportation suivants :",
+	"wikibase-export-config-help-message-customization": "Personnalisation des messages de l’interface"
 }

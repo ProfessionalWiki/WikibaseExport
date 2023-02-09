@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eduardoaddad",
-			"Fúlvio"
+			"Fúlvio",
+			"Re demz"
 		]
 	},
 	"special-wikibase-export": "Exportação Wikibase",
@@ -11,6 +12,7 @@
 	"wikibase-export-start-year": "Ano de início",
 	"wikibase-export-config-header-label": "Etiqueta de propriedade (por exemplo, \"Receita operacional 2022\")",
 	"wikibase-export-download": "Baixar",
+	"wikibase-export-config-help-documentation": "Você pode [[#Documentation|vizualizar a documentação da configuração]] abaixo da área de edição.",
 	"wikibase-export-config-help": "Documentação da configuração",
-	"wikibase-export-config-help-example": "Exemplo completo:"
+	"wikibase-export-config-help-example": "Exemplo completo"
 }

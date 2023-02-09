@@ -10,8 +10,8 @@
 	"wikibase-export-intro": "Primeiro, escolha os elementos para os quais necessita de dados. Em segundo lugar, escolha o intervalo de tempo para o qual precisa de dados. Em terceiro lugar, escolha as variáveis que necessita no ficheiro CSV. Por fim, clique \"$1\" para obter o ficheiro CSV.",
 	"wikibase-export-intro-admin-notice": "Como administrador, pode [[Special:WikibaseExportConfig|configurar este formulário]].",
 	"wikibase-export-language-heading": "Língua de exportação",
-	"wikibase-export-subjects-heading": "Assuntos a exportar",
-	"wikibase-export-subjects-placeholder": "Assuntos a pesquisar (elementos)",
+	"wikibase-export-subjects-heading": "Entidades a exportar",
+	"wikibase-export-subjects-placeholder": "Entidades a pesquisar",
 	"wikibase-export-grouped-statements-heading": "Valores agrupados por ano",
 	"wikibase-export-start-year": "Ano de início",
 	"wikibase-export-end-year": "Ano de fim",
@@ -25,8 +25,9 @@
 	"wikibase-export-config-invalid": "As suas alterações não foram gravadas. Contêm {{PLURAL:$1|o seguinte erro|os seguintes erros}}:",
 	"wikibase-export-config-incomplete": "Um administrador tem de configurar a exportação Wikibase antes de esta poder ser usada.",
 	"wikibase-export-config-incomplete-link": "Pode [[Special:WikibaseExportConfig|configurar este formulário]].",
-	"wikibase-export-config-help-documentation": "Ver a documentação da configuração",
+	"wikibase-export-config-help-documentation": "Pode [[#Documentation|ver a documentação da configuração]] abaixo da área de edição.",
 	"wikibase-export-config-help": "Documentação da configuração",
-	"wikibase-export-config-help-example": "Exemplo completo:",
-	"wikibase-export-config-help-messages": "Pode alterar os seguintes fragmentos de texto da página de exportação:"
+	"wikibase-export-config-help-example": "Exemplo completo",
+	"wikibase-export-config-help-messages": "Pode alterar os seguintes fragmentos de texto da página de exportação:",
+	"wikibase-export-config-help-message-customization": "Personalização das mensagens da interface"
 }
