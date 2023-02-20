@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Agam Riyandana"
+			"Agam Riyandana",
+			"Rachmat04"
 		]
 	},
 	"wikibase-export-description": "Menambahkan halaman ekspor Wikibase yang mudah digunakan",
@@ -10,8 +11,8 @@
 	"wikibase-export-intro": "Pertama, pilih item yang Anda perlukan datanya. Kedua, pilih rentang waktu yang Anda perlukan datanya. Ketiga, pilih variabel yang Anda butuhkan di file CSV. Terakhir, klik \" $1 \" untuk mengambil file CSV.",
 	"wikibase-export-intro-admin-notice": "Sebagai administrator, Anda dapat [[Special:WikibaseExportConfig|mengonfigurasi formulir ini]].",
 	"wikibase-export-language-heading": "Bahasa ekspor",
-	"wikibase-export-subjects-heading": "Subjek untuk diekspor",
-	"wikibase-export-subjects-placeholder": "Cari subjek (item)",
+	"wikibase-export-subjects-heading": "Entitas yang akan diekspor",
+	"wikibase-export-subjects-placeholder": "Cari entitas",
 	"wikibase-export-grouped-statements-heading": "Nilai dikelompokkan berdasarkan tahun",
 	"wikibase-export-start-year": "Awal tahun",
 	"wikibase-export-end-year": "Akhir tahun",
@@ -27,6 +28,6 @@
 	"wikibase-export-config-incomplete-link": "Anda dapat [[Special:WikibaseExportConfig|mengonfigurasi formulir ini]].",
 	"wikibase-export-config-help-documentation": "Lihat dokumentasi konfigurasi",
 	"wikibase-export-config-help": "Dokumentasi konfigurasi",
-	"wikibase-export-config-help-example": "Contoh lengkap:",
+	"wikibase-export-config-help-example": "Contoh lengkap",
 	"wikibase-export-config-help-messages": "Anda dapat mengubah cuplikan teks halaman ekspor berikut:"
 }
