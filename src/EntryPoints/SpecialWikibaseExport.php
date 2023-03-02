@@ -24,10 +24,10 @@ class SpecialWikibaseExport extends SpecialPage {
 		parent::execute( $subPage );
 		$output = $this->getOutput();
 		$output->enableOOUI();
-		$output->addModuleStyles( 'ext.wikibase.export.styles' );
+		$output->addModuleStyles( [ 'ext.wikibase.export.styles' ] );
 		$output->addHTML( '<div id="wikibase-export" class="container">' );
 
-		$output->addModules( 'ext.wikibase.export' );
+		$output->addModules( [ 'ext.wikibase.export' ] );
 		$output->addHTML( $this->getIntroText() );
 		$output->addJsConfigVars( $this->getJsConfigVars() );
 
