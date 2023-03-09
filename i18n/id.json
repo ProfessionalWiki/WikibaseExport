@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Agam Riyandana",
+			"RXerself",
 			"Rachmat04"
 		]
 	},
@@ -17,8 +18,8 @@
 	"wikibase-export-start-year": "Awal tahun",
 	"wikibase-export-end-year": "Akhir tahun",
 	"wikibase-export-ungrouped-statements-heading": "Nilai yang tidak dikelompokkan",
-	"wikibase-export-statement-group-all": "Nilai untuk semua properti",
-	"wikibase-export-statements-placeholder": "Cari properti",
+	"wikibase-export-statement-group-all": "Nilai untuk semua atribut",
+	"wikibase-export-statements-placeholder": "Cari atribut",
 	"wikibase-export-config-heading": "Header kolom",
 	"wikibase-export-config-header-id": "ID Properti (yaitu \"P1 2022\")",
 	"wikibase-export-config-header-label": "Label Properti (yaitu \"Pendapatan usaha 2022\")",
@@ -26,7 +27,7 @@
 	"wikibase-export-config-invalid": "Perubahan Anda tidak disimpan. Ini berisi {{PLURAL:$1| kesalahan|kesalahan}}:",
 	"wikibase-export-config-incomplete": "Administrator perlu mengonfigurasi Ekspor Wikibase sebelum dapat digunakan.",
 	"wikibase-export-config-incomplete-link": "Anda dapat [[Special:WikibaseExportConfig|mengonfigurasi formulir ini]].",
-	"wikibase-export-config-help-documentation": "Lihat dokumentasi konfigurasi",
+	"wikibase-export-config-help-documentation": "Anda dapat [[#Documentation|melihat dokumentasi konfigurasi]] di bawah kotak penyuntingan.",
 	"wikibase-export-config-help": "Dokumentasi konfigurasi",
 	"wikibase-export-config-help-example": "Contoh lengkap",
 	"wikibase-export-config-help-messages": "Anda dapat mengubah cuplikan teks halaman ekspor berikut:"
