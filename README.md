@@ -23,7 +23,7 @@
 
 ## Demo
 
-Quickly get an idea about what this extension does by checking out the [demo wiki] or demo video TODO.
+Quickly get an idea about what this extension does by checking out the [demo wiki] or [demo video].
 
 ## Usage documentation
 
@@ -159,3 +159,4 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 [example.json]: https://github.com/ProfessionalWiki/WikibaseExport/blob/master/example.json
 [Rest API Documentation]: docs/rest.md
 [demo wiki]: https://export.wikibase.wiki/
+[demo video]: https://www.youtube.com/watch?v=uBdzDcYChOI
