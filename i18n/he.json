@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80",
+			"Xnet1234"
+		]
+	},
+	"wikibase-export-description": "הוספת דף יצוא ויקיבייס ידידותי למשתמש",
+	"special-wikibase-export": "יצוא ויקיבייס",
+	"special-wikibase-export-config": "הגדרות יצוא ויקיבייס",
+	"wikibase-export-intro": "אחד: יש לבחור את הפריטים שעבורם נחוצים לך נתונים. שתיים: יש לבחור את טווח הזמן שעבורו נחוצים לך הנתונים. שלוש: יש לבחור את המשתנים שנחוצים לך בקובץ ה־CSV. לסיום: יש ללחוץ על \"$1\" כדי לאחזר את קובץ ה־CSV.",
+	"wikibase-export-intro-admin-notice": "בתור מפעיל, יש לך אפשרות [[Special:WikibaseExportConfig|להגדיר את הטופס הזה]].",
+	"wikibase-export-language-heading": "שפה ליצוא",
+	"wikibase-export-subjects-heading": "ישויות ליצוא",
+	"wikibase-export-subjects-placeholder": "חיפוש ישויות",
+	"wikibase-export-grouped-statements-heading": "ערכים מקובצים לפי שנה",
+	"wikibase-export-start-year": "שנת התחלה",
+	"wikibase-export-end-year": "שנת סיום",
+	"wikibase-export-ungrouped-statements-heading": "ערכים לא מקובצים",
+	"wikibase-export-statement-group-all": "ערכים לכל המאפייניים",
+	"wikibase-export-statements-placeholder": "חיפוש מאפיינים",
+	"wikibase-export-config-heading": "כותרות עמודות",
+	"wikibase-export-config-header-id": "מזהה מאפיין (כלומר \"P1 2022\")",
+	"wikibase-export-config-header-label": "תווית מאפיין (כלומר \"הכנסות מפעילות 2022\")",
+	"wikibase-export-download": "הורדה",
+	"wikibase-export-config-invalid": "השינויים שלך לא נשמרו. הם מכילים את {{PLURAL:$1|השגיאה הבאה|השגיאות הבאות}}:",
+	"wikibase-export-config-incomplete": "מפעיל צריך להגדיר את ההרחבה Wikibase Export לפני שיהיה אפשר להשתמש בה.",
+	"wikibase-export-config-incomplete-link": "באפשרותך [[Special:WikibaseExportConfig|להגדיר את הטופס הזה]].",
+	"wikibase-export-config-help-documentation": "באפשרותך [[#Documentation|להציג את תיעוד התצורה]] מתחת לאזור העריכה.",
+	"wikibase-export-config-help": "תיעוד תצורה",
+	"wikibase-export-config-help-example": "דוגמה מלאה",
+	"wikibase-export-config-help-messages": "באפשרותך לשנות את קטעי הטקסט הבאים של דף היצוא:",
+	"wikibase-export-config-help-message-customization": "התאמה אישית של הודעות ממשק"
+}
