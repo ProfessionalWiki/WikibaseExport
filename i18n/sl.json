@@ -22,7 +22,7 @@
 	"wikibase-export-config-header-id": "ID lastnosti (tj. »P1 2022«)",
 	"wikibase-export-config-header-label": "Oznaka lastnosti (tj. »Poslovni prihodki 2022«)",
 	"wikibase-export-download": "Prenesi",
-	"wikibase-export-config-invalid": "Vaše spremembe niso bile shranjene. Vsebuje {{PLURAL:$1|naslednjo napako|naslednji napaki|naslednje napake}}:",
+	"wikibase-export-config-invalid": "Vaše spremembe niso bile shranjene. Vsebujejo {{PLURAL:$1|naslednjo napako|naslednji napaki|naslednje napake}}:",
 	"wikibase-export-config-incomplete": "Administrator mora konfigurirati Wikibase Export, preden se ta lahko uporablja.",
 	"wikibase-export-config-incomplete-link": "Ta obrazec lahko [[Special:WikibaseExportConfig|konfigurirate]].",
 	"wikibase-export-config-help-documentation": "[[#Documentation|Konfiguracijsko dokumentacijo si lahko ogledate]] pod območjem urejanja.",

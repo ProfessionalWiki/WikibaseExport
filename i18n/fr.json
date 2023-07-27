@@ -23,7 +23,7 @@
 	"wikibase-export-config-header-id": "Identifiant de propriété (par ex. « P1 2022 »)",
 	"wikibase-export-config-header-label": "Libellé de la propriété (par ex. « Revenu d’exploitation 2022 »)",
 	"wikibase-export-download": "Télécharger",
-	"wikibase-export-config-invalid": "Vos modifications n’ont pas été enregistrées. Elles comportent {{PLURAL:$1|l’erreur|les erreurs}} suivante{{PLURAL:$1||s}} :",
+	"wikibase-export-config-invalid": "Vos modifications n’ont pas été enregistrées. Elles comportent {{PLURAL:$1|l’erreur suivante|les erreurs suivantes}} :",
 	"wikibase-export-config-incomplete": "Un administrateur doit configurer l’exportation de Wikibase avant qu’elle puisse être utilisée.",
 	"wikibase-export-config-incomplete-link": "Vous pouvez [[Special:WikibaseExportConfig|configurer ce formulaire]].",
 	"wikibase-export-config-help-documentation": "Vous pouvez [[#Documentation|afficher la documentation de la configuration]] sous la zone de modification.",
