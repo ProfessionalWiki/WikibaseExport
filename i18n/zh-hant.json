@@ -22,7 +22,7 @@
 	"wikibase-export-config-header-id": "屬性 ID（例如：「P1 2022」）",
 	"wikibase-export-config-header-label": "屬性標籤（例如：「Operating revenue 2022」）",
 	"wikibase-export-download": "下載",
-	"wikibase-export-config-invalid": "尚未保存您的更改。它含有以下{{PLURAL:$1|錯誤}}：",
+	"wikibase-export-config-invalid": "尚未保存您的更改。包含有以下{{PLURAL:$1|錯誤}}：",
 	"wikibase-export-config-incomplete": "管理員需要先配置 Wikibase Export 才能使用。",
 	"wikibase-export-config-incomplete-link": "您可以[[Special:WikibaseExportConfig|設置此表單]]。",
 	"wikibase-export-config-help-documentation": "您可以在編輯區下方[[#Documentation|查看配置文件]]。",
