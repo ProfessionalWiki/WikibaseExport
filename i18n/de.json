@@ -10,8 +10,8 @@
 	"wikibase-export-description": "Stellt eine benutzerfreundliche Datenexportseite für Wikibase bereit",
 	"special-wikibase-export": "Wikibase-Export",
 	"special-wikibase-export-config": "Konfiguration für Wikibase-Export",
-	"wikibase-export-intro": "Vier einfache Schritte zum Datenexport:<br>\n1. Wähl zunächst die Datenobjekte aus, für die Daten benötigt werden.<br>\n2. Wähl den Zeitraum aus, für den die Daten benötigt werden.<br>\n3. Wähl die Variablen aus, die für die CSV-Datei benötigt werden.<br>\n4. Klick abschließend auf „$1“, um die CSV-Datei abzurufen.",
-	"wikibase-export-intro-admin-notice": "Als Administrator kannst du [[Special:WikibaseExportConfig|dieses Formular konfigurieren]]:",
+	"wikibase-export-intro": "Vier einfache Schritte zum Datenexport:<br>\n1. {{#FORMAL:Wähl|Wählen Sie}} zunächst die Datenobjekte aus, für die Daten benötigt werden.<br>\n2. {{#FORMAL:Wähl|Wählen Sie}} den Zeitraum aus, für den die Daten benötigt werden.<br>\n3. {{#FORMAL:Wähl|Wählen Sie}} die Variablen aus, die für die CSV-Datei benötigt werden.<br>\n4. {{#FORMAL:Klick|Klicken Sie}} abschließend auf „$1“, um die CSV-Datei abzurufen.",
+	"wikibase-export-intro-admin-notice": "Als Administrator {{#FORMAL:kannst du|können Sie}} [[Special:WikibaseExportConfig|dieses Formular konfigurieren]]:",
 	"wikibase-export-language-heading": "Sprache für den Export",
 	"wikibase-export-subjects-heading": "Zu exportierende Entitäten",
 	"wikibase-export-subjects-placeholder": "Entitäten suchen",
@@ -27,10 +27,10 @@
 	"wikibase-export-download": "Herunterladen",
 	"wikibase-export-config-invalid": "Die Änderungen wurden nicht gespeichet. Sie enthalten {{PLURAL:$1|den folgenden Fehler|die folgenden Fehler}}:",
 	"wikibase-export-config-incomplete": "Ein Administrator muss den Export von Daten konfigurieren, bevor er verwendet werden kann.",
-	"wikibase-export-config-incomplete-link": "Du kannst [[Special:WikibaseExportConfig|dieses Formular konfigurieren]]:",
+	"wikibase-export-config-incomplete-link": "{{#FORMAL:Du kannst|Sie können}} [[Special:WikibaseExportConfig|dieses Formular konfigurieren]]:",
 	"wikibase-export-config-help-documentation": "Du kannst die [[#Documentation|die Konfigurationsdokumentation]] unterhalb des Bearbeitungsbereichs einsehen.",
 	"wikibase-export-config-help": "Dokumentation zu den Konfigurationsmöglichkeiten",
 	"wikibase-export-config-help-example": "Vollständiges Beispiel",
-	"wikibase-export-config-help-messages": "Du kannst die folgenden Textausschnitte der Exportseite ändern:",
+	"wikibase-export-config-help-messages": "{{#FORMAL:Du kannst|Sie können}} die folgenden Textausschnitte der Exportseite ändern:",
 	"wikibase-export-config-help-message-customization": "Anpassung der Schnittstellenmeldungen"
 }
