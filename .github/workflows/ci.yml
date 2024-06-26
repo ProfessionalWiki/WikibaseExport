@@ -40,7 +40,7 @@ jobs:
 
       - name: Cache MediaWiki
         id: cache-mediawiki
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             mediawiki
@@ -49,12 +49,12 @@ jobs:
           key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
 
       - name: Cache Composer cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.composer/cache
           key: composer-php${{ matrix.php }}
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
             path: EarlyCopy
 
@@ -63,7 +63,7 @@ jobs:
         working-directory: ~
         run: bash EarlyCopy/.github/workflows/installMediaWiki.sh ${{ matrix.mw }} WikibaseExport
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: mediawiki/extensions/WikibaseExport
 
@@ -117,7 +117,7 @@ jobs:
 
       - name: Cache MediaWiki
         id: cache-mediawiki
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             mediawiki
@@ -126,12 +126,12 @@ jobs:
           key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
 
       - name: Cache Composer cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.composer/cache
           key: composer_static_analysis
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
             path: EarlyCopy
 
@@ -140,7 +140,7 @@ jobs:
         working-directory: ~
         run: bash EarlyCopy/.github/workflows/installMediaWiki.sh ${{ matrix.mw }} WikibaseExport
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: mediawiki/extensions/WikibaseExport
 
@@ -185,7 +185,7 @@ jobs:
 
           - name: Cache MediaWiki
             id: cache-mediawiki
-            uses: actions/cache@v3
+            uses: actions/cache@v4
             with:
                 path: |
                     mediawiki
@@ -194,12 +194,12 @@ jobs:
                 key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
 
           - name: Cache Composer cache
-            uses: actions/cache@v3
+            uses: actions/cache@v4
             with:
                 path: ~/.composer/cache
                 key: composer_static_analysis
 
-          - uses: actions/checkout@v3
+          - uses: actions/checkout@v4
             with:
                 path: EarlyCopy
 
@@ -208,7 +208,7 @@ jobs:
             working-directory: ~
             run: bash EarlyCopy/.github/workflows/installMediaWiki.sh ${{ matrix.mw }} WikibaseExport
 
-          - uses: actions/checkout@v3
+          - uses: actions/checkout@v4
             with:
                 path: mediawiki/extensions/WikibaseExport
 
@@ -255,7 +255,7 @@ jobs:
 
       - name: Cache MediaWiki
         id: cache-mediawiki
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             mediawiki
@@ -264,7 +264,7 @@ jobs:
           key: mw_static_analysis
 
       - name: Cache Composer cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.composer/cache
           key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
@@ -274,7 +274,7 @@ jobs:
         working-directory: ~
         run: curl https://gist.githubusercontent.com/JeroenDeDauw/49a3858653ff4b5be7ec849019ede06c/raw/installMediaWiki.sh | bash -s ${{ matrix.mw }} WikibaseExport
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: mediawiki/extensions/WikibaseExport
 
@@ -289,8 +289,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - run: npm install
