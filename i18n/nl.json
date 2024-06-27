@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie",
+			"Romaine",
+			"Vistaus"
+		]
+	},
+	"wikibase-export-description": "Voegt een gebruiksvriendelijke Wikibase-exportpagina toe",
+	"special-wikibase-export": "Wikibase-export",
+	"special-wikibase-export-config": "Instellingen voor Wikibase-export",
+	"wikibase-export-intro": "Kies eerst de items waarvoor u gegevens nodig heeft en dan het gewenste tijdsbereik. Ten derde kiest u de variabelen die u in het CSV-bestand wilt hebben. Ten slotte klikt u op “$1” om het CSV-bestand op te halen.",
+	"wikibase-export-intro-admin-notice": "Als moderator kunt u [[Special:WikibaseExportConfig|dit formulier configureren]].",
+	"wikibase-export-language-heading": "Exporttaal",
+	"wikibase-export-subjects-heading": "Entiteiten om te exporteren",
+	"wikibase-export-subjects-placeholder": "Entiteiten zoeken",
+	"wikibase-export-grouped-statements-heading": "Op jaar gegroepeerde waarden",
+	"wikibase-export-start-year": "Beginjaar",
+	"wikibase-export-end-year": "Eindjaar",
+	"wikibase-export-ungrouped-statements-heading": "Niet gegroepeerde waarden",
+	"wikibase-export-statement-group-all": "Waarden voor alle eigenschappen",
+	"wikibase-export-statements-placeholder": "Eigenschappen zoeken",
+	"wikibase-export-config-heading": "Kolomkoppen",
+	"wikibase-export-config-header-id": "Eigenschaps-ID (bv. “P1 2022”)",
+	"wikibase-export-config-header-label": "Eigenschapslabel (bv. “Bedrijfsopbrengsten 2022”)",
+	"wikibase-export-download": "Downloaden",
+	"wikibase-export-config-invalid": "Uw wijzigingen zijn niet opgeslagen. Ze bevatten de volgende fout{{PLURAL:$1||en}}:",
+	"wikibase-export-config-incomplete": "Een moderator moet Wikibase Export configureren voordat het kan worden gebruikt.",
+	"wikibase-export-config-incomplete-link": "U kunt [[Special:WikibaseExportConfig|dit formulier configureren]].",
+	"wikibase-export-config-help-documentation": "Onder het bewerkingsgebied kunt u [[#Documentation|de configuratiedocumentatie bekijken]].",
+	"wikibase-export-config-help": "Configuratiedocumentatie",
+	"wikibase-export-config-help-example": "Volledig voorbeeld",
+	"wikibase-export-config-help-messages": "{{#FORMAL:U|Je}} kunt de volgende tekstfragmenten voor exportpagina’s wijzigen:",
+	"wikibase-export-config-help-message-customization": "Aanpassing van interfaceberichten"
+}
