@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hehua",
+			"Lakejason0",
+			"沈澄心"
+		]
+	},
+	"wikibase-export-description": "添加用户友好的Wikibase导出页面",
+	"special-wikibase-export": "Wikibase导出",
+	"special-wikibase-export-config": "Wikibase导出配置",
+	"wikibase-export-intro": "首先，选择您需要的数据项目。然后，选择您需要的数据时间范围。最后，选择CSV文件中您需要的变量。最后，点击“$1”以检索CSV文件。",
+	"wikibase-export-intro-admin-notice": "作为管理员，您可以[[Special:WikibaseExportConfig|配置此表单]]。",
+	"wikibase-export-language-heading": "导出语言",
+	"wikibase-export-subjects-heading": "要导出的实体",
+	"wikibase-export-subjects-placeholder": "搜索实体",
+	"wikibase-export-grouped-statements-heading": "按年份分组的值",
+	"wikibase-export-start-year": "开始年份",
+	"wikibase-export-end-year": "结束年份",
+	"wikibase-export-ungrouped-statements-heading": "未分组的值",
+	"wikibase-export-statement-group-all": "所有属性的值",
+	"wikibase-export-statements-placeholder": "搜索属性",
+	"wikibase-export-config-heading": "列标题",
+	"wikibase-export-config-header-id": "属性ID（例如：“P1 2022”）",
+	"wikibase-export-config-header-label": "属性标签（例如：“2022年营业收入”）",
+	"wikibase-export-download": "下载",
+	"wikibase-export-config-invalid": "您的更改未保存。更改包含以下{{PLURAL:$1|错误}}：",
+	"wikibase-export-config-incomplete": "管理员需要先配置Wikibase导出才能使用。",
+	"wikibase-export-config-incomplete-link": "您可以[[Special:WikibaseExportConfig|配置此表单]]。",
+	"wikibase-export-config-help-documentation": "您可以在编辑区域下方[[#Documentation|查看配置文档]]。",
+	"wikibase-export-config-help": "配置文档",
+	"wikibase-export-config-help-example": "完整示例",
+	"wikibase-export-config-help-messages": "您可以更改以下导出页面文本片段：",
+	"wikibase-export-config-help-message-customization": "界面消息自定义"
+}
