@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly"
+			"Kly",
+			"Winston Sung"
 		]
 	},
 	"wikibase-export-description": "添加讓使用者易上手用的 Wikibase 匯出頁面",
