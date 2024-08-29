@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Minh Nguyen",
+			"NguyenHung",
 			"Nguyenphutrong2"
 		]
 	},
@@ -12,7 +13,7 @@
 	"wikibase-export-intro-admin-notice": "Là quản trị viên, bạn có thể [[Special:WikibaseExportConfig|đặt cấu hình biểu mẫu này]].",
 	"wikibase-export-language-heading": "ngôn ngữ xuất khẩu",
 	"wikibase-export-subjects-heading": "Đối tượng xuất khẩu",
-	"wikibase-export-subjects-placeholder": "Chủ đề tìm kiếm (mặt hàng)",
+	"wikibase-export-subjects-placeholder": "Tìm kiếm đối tượng",
 	"wikibase-export-grouped-statements-heading": "Các giá trị được nhóm theo năm",
 	"wikibase-export-start-year": "Đầu năm",
 	"wikibase-export-end-year": "Cuối năm",
@@ -20,14 +21,14 @@
 	"wikibase-export-statement-group-all": "Giá trị cho tất cả các thuộc tính",
 	"wikibase-export-statements-placeholder": "Tìm kiếm tài sản",
 	"wikibase-export-config-heading": "tiêu đề cột",
-	"wikibase-export-config-header-id": "ID thuộc tính (tức là \"P1 2022\")",
-	"wikibase-export-config-header-label": "Nhãn tài sản (tức là \"Doanh thu hoạt động năm 2022\")",
+	"wikibase-export-config-header-id": "ID thuộc tính (v.d. \"P1 2022\")",
+	"wikibase-export-config-header-label": "Nhãn tài sản (v.d. \"Doanh thu hoạt động năm 2022\")",
 	"wikibase-export-download": "Tải xuống",
-	"wikibase-export-config-invalid": "Thay đổi của bạn không được lưu. Nó chứa {{PLURAL:$1| sau đây lỗi|lỗi}}:",
+	"wikibase-export-config-invalid": "Thay đổi của bạn không được lưu. Nó chứa {{PLURAL:$1|lỗi|các lỗi}} sau đây:",
 	"wikibase-export-config-incomplete": "Quản trị viên cần định cấu hình Xuất Wikibase trước khi có thể sử dụng.",
-	"wikibase-export-config-incomplete-link": "Bạn có thể [[Đặc biệt:WikibaseExportConfig|đặt cấu hình biểu mẫu này]].",
-	"wikibase-export-config-help-documentation": "Xem tài liệu cấu hình",
+	"wikibase-export-config-incomplete-link": "Bạn có thể [[Special:WikibaseExportConfig|đặt cấu hình biểu mẫu này]].",
+	"wikibase-export-config-help-documentation": "Bạn có thể  [[#Documentation|xem tài liệu cấu hình]] bên dưới khu vưc sửa đổi.",
 	"wikibase-export-config-help": "Tài liệu cấu hình",
-	"wikibase-export-config-help-example": "Ví dụ đầy đủ:",
+	"wikibase-export-config-help-example": "Ví dụ đầy đủ",
 	"wikibase-export-config-help-messages": "Bạn có thể thay đổi các đoạn văn bản trang xuất sau:"
 }
