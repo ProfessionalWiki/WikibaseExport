@@ -3,8 +3,8 @@
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ProfessionalWiki/WikibaseExport/ci.yml?branch=master)](https://github.com/ProfessionalWiki/WikibaseExport/actions?query=workflow%3ACI)
 [![Type Coverage](https://shepherd.dev/github/ProfessionalWiki/WikibaseExport/coverage.svg)](https://shepherd.dev/github/ProfessionalWiki/WikibaseExport)
 [![Psalm level](https://shepherd.dev/github/ProfessionalWiki/WikibaseExport/level.svg)](psalm.xml)
-[![Latest Stable Version](https://poser.pugx.org/professional-wiki/wikibase-export/version.png)](https://packagist.org/packages/professional-wiki/wikibase-export)
-[![Download count](https://poser.pugx.org/professional-wiki/wikibase-export/d/total.png)](https://packagist.org/packages/professional-wiki/wikibase-export)
+[![Latest Stable Version](https://poser.pugx.org/professional-wiki/wikibase-export/v/stable)](https://packagist.org/packages/professional-wiki/wikibase-export)
+[![Download count](https://poser.pugx.org/professional-wiki/wikibase-export/downloads)](https://packagist.org/packages/professional-wiki/wikibase-export)
 
 [Wikibase] extension for exporting data as simple CSV.
 
