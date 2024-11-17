@@ -13,7 +13,7 @@
 **Table of Contents**
 
 - [Demo](#demo)
-- [Usage](#usage)
+- [Usage](#usage-documentation)
 - [REST API](#rest-api)
 - [Installation](#installation)
 - [PHP Configuration](#php-configuration)
