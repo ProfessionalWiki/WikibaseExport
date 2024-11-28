@@ -145,7 +145,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 * Support for PHP from 8.0 up to 8.2
 * Support for MediaWiki from 1.37 up to 1.39
 
-[Professional.Wiki]: https://professional.wiki
+[Professional Wiki]: https://professional.wiki
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
 [Wikibase hosting]: https://professional.wiki/en/hosting/wikibase
 [Wikibase development]: https://professional.wiki/en/wikibase-software-development
