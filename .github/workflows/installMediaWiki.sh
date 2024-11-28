@@ -41,7 +41,7 @@ cat <<EOT >> composer.local.json
 EOT
 
 cd extensions
-git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase --branch=$MW_BRANCH --recurse-submodules -j8
+git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase --branch=$MW_BRANCH -j8
 
 cd Wikibase
 git submodule set-url view/lib/wikibase-serialization https://github.com/wmde/WikibaseSerializationJavaScript.git
