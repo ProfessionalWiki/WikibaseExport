@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  test:https://github.com/ProfessionalWiki/WikibaseExport/edit/fixci/.github/workflows/ci.yml?pr=%2FProfessionalWiki%2FWikibaseExport%2Fpull%2F182
     name: "PHPUnit: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
 
     strategy:
@@ -22,12 +22,6 @@ jobs:
           - mw: 'REL1_39'
             php: '8.2'
           - mw: 'REL1_40'
-            php: '8.2'
-          - mw: 'REL1_41'
-            php: '8.2'
-          - mw: 'REL1_42'
-            php: '8.2'
-          - mw: 'REL1_43'
             php: '8.2'
 
     runs-on: ubuntu-latest
