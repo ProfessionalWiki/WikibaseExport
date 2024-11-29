@@ -46,7 +46,7 @@ jobs:
             mediawiki
             !mediawiki/extensions/
             !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v5
 
       - name: Cache Composer cache
         uses: actions/cache@v4
@@ -123,7 +123,7 @@ jobs:
             mediawiki
             mediawiki/extensions/
             mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v5
 
       - name: Cache Composer cache
         uses: actions/cache@v4
@@ -191,7 +191,7 @@ jobs:
                     mediawiki
                     mediawiki/extensions/
                     mediawiki/vendor/
-                key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
+                key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v5
 
           - name: Cache Composer cache
             uses: actions/cache@v4
@@ -232,10 +232,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - mw: 'REL1_37'
-            php: '8.0'
-          - mw: 'REL1_38'
-            php: '8.1'
           - mw: 'REL1_39'
             php: '8.2'
 
@@ -267,7 +263,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.composer/cache
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v5
 
       - name: Install MediaWiki
         if: steps.cache-mediawiki.outputs.cache-hit != 'true'
