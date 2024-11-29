@@ -9,6 +9,7 @@ use SpecialPageTestBase;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\EntryPoints\SpecialWikibaseExport
+ * @group Database
  */
 class SpecialWikibaseExportTest extends SpecialPageTestBase {
 
