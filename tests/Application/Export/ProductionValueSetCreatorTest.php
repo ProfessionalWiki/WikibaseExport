@@ -28,6 +28,7 @@ use Wikibase\DataModel\Statement\StatementList;
 
 /**
  * @covers \ProfessionalWiki\WikibaseExport\Application\Export\ProductionValueSetCreator
+ * @group Database
  */
 class ProductionValueSetCreatorTest extends MediaWikiIntegrationTestCase {
 

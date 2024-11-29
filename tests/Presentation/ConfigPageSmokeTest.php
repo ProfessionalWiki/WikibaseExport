@@ -6,6 +6,9 @@ namespace ProfessionalWiki\WikibaseExport\Tests\Presentation;
 
 use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 
+/**
+ * @group Database
+ */
 class ConfigPageSmokeTest extends WikibaseExportIntegrationTest {
 
 	public function testSmoke(): void {
