@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  test:https://github.com/ProfessionalWiki/WikibaseExport/edit/fixci/.github/workflows/ci.yml?pr=%2FProfessionalWiki%2FWikibaseExport%2Fpull%2F182
+  test:
     name: "PHPUnit: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
 
     strategy:
