@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
-use Html;
 use MediaWiki\MediaWikiServices;
+use Message;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use SpecialPage;
@@ -38,8 +38,8 @@ class SpecialWikibaseExport extends SpecialPage {
 		return 'wikibase';
 	}
 
-	public function getDescription(): string {
-		return $this->msg( 'special-wikibase-export' )->escaped();
+	public function getDescription(): Message {
+		return $this->msg( 'special-wikibase-export' );
 	}
 
 	private function shouldShowConfigLink(): bool {

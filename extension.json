@@ -67,8 +67,7 @@
 	},
 
 	"SpecialPages": {
-		"WikibaseExport": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\SpecialWikibaseExport",
-		"WikibaseExportConfig": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\SpecialWikibaseExportConfig"
+		"WikibaseExport": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\SpecialWikibaseExport"
 	},
 
 	"ResourceFileModulePaths": {
@@ -112,7 +111,7 @@
 	},
 
 	"ExtensionMessagesFiles": {
-		"WikibaseExportAlias": "WikibaseExport.i18n.alias.php"
+		"WikibaseExportAlias": "WikibaseExport.alias.php"
 	},
 
 	"manifest_version": 2
