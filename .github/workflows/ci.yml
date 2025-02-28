@@ -54,7 +54,7 @@ jobs:
             mediawiki
             !mediawiki/extensions/
             !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v6
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v7
 
       - name: Cache Composer cache
         uses: actions/cache@v4
@@ -75,8 +75,8 @@ jobs:
         with:
           path: mediawiki/extensions/WikibaseExport
 
-#      - name: Composer allow-plugins
-#        run: composer config --no-plugins allow-plugins.composer/installers true
+      - name: Composer allow-plugins
+        run: composer config --no-plugins allow-plugins.composer/installers true
 
       - run: composer update
 
@@ -129,7 +129,7 @@ jobs:
             mediawiki
             mediawiki/extensions/
             mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v6
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v7
 
       - name: Cache Composer cache
         uses: actions/cache@v4
@@ -202,7 +202,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.composer/cache
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v6
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v7
 
       - uses: actions/checkout@v4
         with:
