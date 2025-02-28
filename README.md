@@ -71,7 +71,7 @@ Configuration can be changed via [LocalSettings.php].
 ### Export configuration
 
 In JSON format, following the JSON Schema at [schema.json].
-Gets combined with rules defined on page `MediaWiki:WikibaseExportConfig`.
+Gets combined with rules defined on page `MediaWiki:WikibaseExport`.
 
 Variable: `$wgWikibaseExport`
 
@@ -83,7 +83,7 @@ Caution: invalid JSON will be ignored. No error will be shown, the intended conf
 
 ### Enable in-wiki configuration
 
-If it should be possible to configure this extension via `MediaWiki:WikibaseExportConfig`.
+If it should be possible to configure this extension via `MediaWiki:WikibaseExport`.
 
 Variable: `$wgWikibaseExportEnableInWikiConfig`
 
@@ -91,7 +91,7 @@ Default: `true`
 
 Example: `false`
 
-The page `MediaWiki:WikibaseExportConfig` will always be available. If this configuration is set to `false`, its contents will be ignored.
+The page `MediaWiki:WikibaseExport` will always be available. If this configuration is set to `false`, its contents will be ignored.
 
 ## Development
 
@@ -139,7 +139,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
     * Property selection for both grouped and ungrouped values
     * Header style choice: entity label or entity ID
 * Support for multiple values
-* Configuration that can be set via PHP and a configuration UI on `MediaWiki:WikibaseExportConfig`
+* Configuration that can be set via PHP and a configuration UI on `MediaWiki:WikibaseExport`
 * API endpoint for export
 * TranslateWiki integration
 * Support for PHP from 8.0 up to 8.2
