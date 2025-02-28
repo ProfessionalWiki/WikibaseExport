@@ -152,9 +152,9 @@ jobs:
 
       - name: Composer allow-plugins
         run: composer config --no-plugins allow-plugins.composer/installers true
-      
+
       - run: composer update
-  
+
       - name: Composer install
         run: cd extensions/WikibaseExport && composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
