@@ -8,9 +8,8 @@ use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesPresenter;
 use ProfessionalWiki\WikibaseExport\Application\SearchEntities\SearchEntitiesUseCase;
-use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubEntitySearchHelper;
 use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\SpySearchEntitiesPresenter;
-use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubEntitySearchHelper39;
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\StubEntitySearchHelper;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
@@ -111,11 +110,7 @@ class SearchEntitiesUseCaseTest extends TestCase {
 	}
 
 	private function newStubEntitySearchHelper( array $searchResults ): EntitySearchHelper {
-		if ( version_compare( MW_VERSION, '1.39.0', '>=' ) ) {
-			return new StubEntitySearchHelper39( ...$searchResults );
-		} else {
-			return new StubEntitySearchHelper( ...$searchResults );
-		}
+		return new StubEntitySearchHelper( ...$searchResults );
 	}
 
 	private function newSearchEntitiesUseCase(

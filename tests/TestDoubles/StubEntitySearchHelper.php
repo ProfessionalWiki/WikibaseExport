@@ -24,7 +24,14 @@ class StubEntitySearchHelper implements EntitySearchHelper {
 	/**
 	 * @return TermSearchResult[]
 	 */
-	public function getRankedSearchResults( $text, $languageCode, $entityType, $limit, $strictLanguage ): array {
+	public function getRankedSearchResults(
+		$text,
+		$languageCode,
+		$entityType,
+		$limit,
+		$strictLanguage,
+		?string $profileContext
+	): array {
 		return $this->searchResults;
 	}
 

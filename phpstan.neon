@@ -13,3 +13,5 @@ parameters:
 	excludePaths:
 		analyse:
 			- src/Persistence/ConfigDeserializer.php
+	bootstrapFiles:
+		- ../../includes/AutoLoader.php

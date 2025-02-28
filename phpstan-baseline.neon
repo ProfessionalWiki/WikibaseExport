@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: src/Application/SearchEntities/SearchEntitiesUseCase.php
-
-		-
-			message: "#^Unknown parameter \\$profileContext in call to method Wikibase\\\\Repo\\\\Api\\\\EntitySearchHelper\\:\\:getRankedSearchResults\\(\\)\\.$#"
-			count: 1
-			path: src/Application/SearchEntities/SearchEntitiesUseCase.php
-
-		-
 			message: "#^Property ProfessionalWiki\\\\WikibaseExport\\\\Presentation\\\\WideCsvPresenter\\:\\:\\$stream \\(resource\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/Presentation/WideCsvPresenter.php

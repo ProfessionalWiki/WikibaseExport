@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Tests\Presentation;
 
+use ProfessionalWiki\WikibaseExport\Tests\TestDoubles\Valid;
 use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 
 /**
@@ -12,6 +13,7 @@ use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
 class ConfigPageSmokeTest extends WikibaseExportIntegrationTest {
 
 	public function testSmoke(): void {
+		$this->editConfigPage( config: Valid::configJson() );
 		$this->assertStringContainsString(
 			'defaultSubjects',
 			$this->getPageHtml( 'MediaWiki:WikibaseExport' )
@@ -23,7 +25,7 @@ class ConfigPageSmokeTest extends WikibaseExportIntegrationTest {
 
 		// Default value
 		$this->assertStringContainsString(
-			'"startTimePropertyId": "P1"',
+			'"startTimePropertyId": null',
 			$html
 		);
 
