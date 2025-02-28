@@ -340,6 +340,10 @@ $( function () {
 		 * @return {{data: *, label: *}[]}
 		 */
 		getOptionsFromEntityData: function ( data ) {
+			if ( !data || !data.entities ) {
+				return [];
+			}
+
 			return Object.keys( data.entities ).map(
 				( key ) => this.getOptionFromEntity( data.entities[ key ] )
 			);
