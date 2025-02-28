@@ -156,12 +156,13 @@ jobs:
       - run: composer update
   
       - name: Composer install
-        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+        run: cd extensions/WikibaseExport && composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
       - name: PHPStan
-        run: php vendor/bin/phpstan analyse --error-format=checkstyle --no-progress | cs2pr
+        run: cd extensions/WikibaseExport && php vendor/bin/phpstan analyse --error-format=checkstyle --no-progress | cs2pr
 
-      - run: php vendor/bin/psalm --shepherd --stats
+      - name: Psalm
+        run: cd extensions/WikibaseExport && php vendor/bin/psalm --shepherd --stats
         if: true
 
 
