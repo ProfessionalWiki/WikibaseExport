@@ -67,7 +67,8 @@
 	},
 
 	"SpecialPages": {
-		"WikibaseExport": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\SpecialWikibaseExport"
+		"WikibaseExport": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\SpecialWikibaseExport",
+		"WikibaseExportConfig": "ProfessionalWiki\\WikibaseExport\\EntryPoints\\SpecialWikibaseExportConfig"
 	},
 
 	"ResourceFileModulePaths": {

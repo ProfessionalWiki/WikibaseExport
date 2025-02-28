@@ -11,4 +11,5 @@ $specialPageAliases = [];
 /** English (English) */
 $specialPageAliases['en'] = [
 	'WikibaseExport' => [ 'WikibaseExport' ],
+	'WikibaseExportConfig' => [ 'WikibaseExportConfig' ],
 ];
