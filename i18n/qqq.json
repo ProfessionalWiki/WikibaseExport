@@ -12,7 +12,7 @@
 	"wikibase-export-name": "{{notranslate}}",
 	"wikibase-export-description": "{{Desc|name=Wikibase Export|url=https://github.com/ProfessionalWiki/WikibaseExport}}",
 	"special-wikibase-export": "This is the label on \"Special:WikibaseExport\".",
-	"special-wikibase-export-config": "This is the label on \"Special:WikibaseExportConfig\" linking to \"MediaWiki:WikibaseExport\".",
+	"special-wikibase-export-config": "This is the label on \"MediaWiki:WikibaseExport\" linking to \"MediaWiki:WikibaseExport\".",
 	"wikibase-export-intro": "Text displayed at the top of \"Special:WikibaseExport\".\n\nParameters:\n* $1 - Label of the button allowing to export data. See {{Msg-mw|Wikibase-export-download}}",
 	"wikibase-export-intro-admin-notice": "Text displayed at the top of \"Special:WikibaseExport\" to users with the interface-admin right.",
 	"wikibase-export-language-heading": "This is a section header.",
