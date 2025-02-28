@@ -24,7 +24,7 @@
 		"wmde/clock": "^1.0.0"
 	},
 	"require-dev": {
-		"vimeo/psalm": "^4.22.0",
+		"vimeo/psalm": "^4.30.0",
 		"phpstan/phpstan": "^1.8.11",
 		"mediawiki/mediawiki-codesniffer": "^40.0.0"
 	},
@@ -33,7 +33,8 @@
 	},
 	"config": {
 		"allow-plugins": {
-			"composer/installers": true
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}
 }

@@ -5,7 +5,7 @@
 		]
 	},
 	"special-wikibase-export": "Викибазаны Экспортлау",
-	"wikibase-export-intro-admin-notice": "Идарәче булачак, сез бу форманы [[Special:WikibaseExportConfig|көйли аласыз]].",
+	"wikibase-export-intro-admin-notice": "Идарәче булачак, сез бу форманы [[MediaWiki:WikibaseExport|көйли аласыз]].",
 	"wikibase-export-start-year": "Башлау елы",
 	"wikibase-export-config-heading": "Багана исемнәре",
 	"wikibase-export-download": "Күчереп алу",

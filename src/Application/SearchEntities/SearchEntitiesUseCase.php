@@ -31,11 +31,9 @@ class SearchEntitiesUseCase {
 		// TODO: check permission
 		$results = $this->getSearchResults( $text, $languageCode );
 
-		if ( $this->shouldFilter() ) {
-			$searchResult = $this->getFilteredSearchResult( $results );
-		} else {
-			$searchResult = $this->getUnfilteredSearchResult( $results );
-		}
+		$searchResult = $this->shouldFilter() 
+			? $this->getFilteredSearchResult( $results )
+			: $this->getUnfilteredSearchResult( $results );
 
 		$this->presenter->presentSearchResult( $searchResult );
 	}
@@ -48,23 +46,13 @@ class SearchEntitiesUseCase {
 	 * @return TermSearchResult[]
 	 */
 	private function getSearchResults( string $text, string $languageCode ): array {
-		if ( version_compare( MW_VERSION, '1.39.0', '>=' ) ) {
-			return $this->entitySearchHelper->getRankedSearchResults(
-				text: $text,
-				languageCode: $languageCode,
-				entityType: 'item',
-				limit: 50,
-				strictLanguage: false,
-				profileContext: null
-			);
-		}
-
 		return $this->entitySearchHelper->getRankedSearchResults(
 			text: $text,
 			languageCode: $languageCode,
 			entityType: 'item',
 			limit: 50,
-			strictLanguage: false
+			strictLanguage: false,
+			profileContext: null
 		);
 	}
 
@@ -75,8 +63,13 @@ class SearchEntitiesUseCase {
 		$searchResult = new SearchResult();
 
 		foreach ( $results as $result ) {
+			$entityId = $result->getEntityId();
+			if ( $entityId === null ) {
+				continue;
+			}
+			
 			$searchResult->add(
-				$result->getEntityId()->getLocalPart(),
+				$entityId->getSerialization(),
 				$result->getDisplayLabel()?->getText() ?? ''
 			);
 		}
@@ -92,7 +85,12 @@ class SearchEntitiesUseCase {
 		$this->entityCriterion = $this->newEntityCriterion();
 
 		foreach ( $results as $result ) {
-			$entity = $this->entityLookup->getEntity( $result->getEntityId() );
+			$entityId = $result->getEntityId();
+			if ( $entityId === null ) {
+				continue;
+			}
+			
+			$entity = $this->entityLookup->getEntity( $entityId );
 
 			if ( $entity === null ) {
 				continue;
@@ -100,7 +98,7 @@ class SearchEntitiesUseCase {
 
 			if ( $this->entityMatches( $entity ) ) {
 				$searchResult->add(
-					$result->getEntityId()->getLocalPart(),
+					$entityId->getSerialization(),
 					$result->getDisplayLabel()?->getText() ?? ''
 				);
 			}

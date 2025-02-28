@@ -2,7 +2,7 @@
 	"name": "Wikibase Export",
 	"type": "wikibase",
 
-	"version": "1.0.0",
+	"version": "2.0.0",
 
 	"author": [
 		"[https://Professional.Wiki/ Professional.Wiki]",
@@ -17,7 +17,7 @@
 	"descriptionmsg": "wikibase-export-description",
 
 	"requires": {
-		"MediaWiki": ">= 1.37.0",
+		"MediaWiki": ">= 1.39.0",
 		"extensions": {
 			"WikibaseRepository": "*"
 		}
@@ -112,7 +112,7 @@
 	},
 
 	"ExtensionMessagesFiles": {
-		"WikibaseExportAlias": "WikibaseExport.i18n.alias.php"
+		"WikibaseExportAlias": "WikibaseExport.alias.php"
 	},
 
 	"manifest_version": 2

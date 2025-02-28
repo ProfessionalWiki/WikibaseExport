@@ -12,7 +12,7 @@
 	"special-wikibase-export-config": "Wikibase Export Config",
 
 	"wikibase-export-intro": "First, choose the items for which you need data. Second, choose the time range for which you need the data. Third, choose the variables you need in the CSV file. Finally, click \"$1\" to retrieve the CSV file.",
-	"wikibase-export-intro-admin-notice": "As an administrator, you can [[Special:WikibaseExportConfig|configure this form]].",
+	"wikibase-export-intro-admin-notice": "As an administrator, you can [[MediaWiki:WikibaseExport|configure this form]].",
 	"wikibase-export-language-heading": "Export language",
 	"wikibase-export-subjects-heading": "Entities to export",
 	"wikibase-export-subjects-placeholder": "Search entities",
@@ -29,7 +29,7 @@
 
 	"wikibase-export-config-invalid": "Your changes were not saved. They contain the following {{PLURAL:$1|error|errors}}:",
 	"wikibase-export-config-incomplete": "An administrator needs to configure Wikibase Export before it can be used.",
-	"wikibase-export-config-incomplete-link": "You can [[Special:WikibaseExportConfig|configure this form]].",
+	"wikibase-export-config-incomplete-link": "You can [[MediaWiki:WikibaseExport|configure this form]].",
 
 	"wikibase-export-config-help-documentation": "You can [[#Documentation|view the configuration documentation]] below the edit area.",
 	"wikibase-export-config-help": "Configuration documentation",
