@@ -54,13 +54,13 @@ jobs:
             mediawiki
             !mediawiki/extensions/
             !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v7
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v8
 
       - name: Cache Composer cache
         uses: actions/cache@v4
         with:
           path: ~/.composer/cache
-          key: composer-php${{ matrix.php }}
+          key: composer-php${{ matrix.php }}_v2
 
       - uses: actions/checkout@v4
         with:
@@ -129,7 +129,7 @@ jobs:
             mediawiki
             mediawiki/extensions/
             mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v7
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v8
 
       - name: Cache Composer cache
         uses: actions/cache@v4
@@ -202,7 +202,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.composer/cache
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v7
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v8
 
       - uses: actions/checkout@v4
         with:
