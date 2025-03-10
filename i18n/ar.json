@@ -25,7 +25,7 @@
 	"wikibase-export-download": "تنزيل",
 	"wikibase-export-config-invalid": "لم يتم حفظ التغييرات التي أجريتها. فهي تحتوي على {{PLURAL:$1|خطأ}} التالية:",
 	"wikibase-export-config-incomplete": "يحتاج المسؤول إلى تكوين Wikibase Export قبل أن يتمكن من استخدامه.",
-	"wikibase-export-config-incomplete-link": "يمكنك [[MediaWiki:WikibaseExport|تكوين هذا النموذج]].",
+	"wikibase-export-config-incomplete-link": "يمكنك [[MediaWiki:WikibaseExport|تهيئة هذا النموذج]].",
 	"wikibase-export-config-help-documentation": "يمكنك [[#Documentation|عرض وثائق التكوين]] أسفل منطقة التحرير.",
 	"wikibase-export-config-help": "وثائق التكوين",
 	"wikibase-export-config-help-example": "المثال الكامل",
