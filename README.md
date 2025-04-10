@@ -8,7 +8,7 @@
 [![License](https://poser.pugx.org/professional-wiki/wikibase-export/license)](LICENSE)
 
 [Wikibase] extension for exporting data as simple CSV.
-
+`
 [Professional Wiki] created and maintains Wikibase Export. We provide [Wikibase hosting], [Wikibase development], and [Wikibase consulting].
 
 **Table of Contents**
@@ -40,9 +40,9 @@ For more information, refer to the [REST API documentation].
 
 Platform requirements:
 
-* [PHP] 8.0 or later (tested up to 8.1)
-* [MediaWiki] 1.37 or later (tested up to 1.39)
-* [Wikibase] 1.37 or later (tested up to 1.39)
+* [PHP] 8.0 or later (tested up to 8.4)
+* [MediaWiki] 1.37 or later (tested up to 1.43) (versions 1.37 and 1.38 require Wikibase Export 1.0.0)
+* [Wikibase] 1.37 or later (tested up to 1.43)
 
 The recommended way to install Wikibase Export is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].
@@ -152,10 +152,10 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 * Support for MediaWiki from 1.37 up to 1.39
 
 [Professional Wiki]: https://professional.wiki
-[Wikibase]: https://wikibase.consulting/what-is-wikibase/
+[Wikibase]: https://professional.wiki/en/wikibase-wikidata-and-knowledge-graphs
 [Wikibase hosting]: https://professional.wiki/en/hosting/wikibase
 [Wikibase development]: https://professional.wiki/en/wikibase-software-development
-[Wikibase consulting]: https://wikibase.consulting/
+[Wikibase consulting]: https://professional.wiki/en/wikibase-wikidata-and-knowledge-graphs#Wikibase-Services
 [MediaWiki]: https://www.mediawiki.org
 [PHP]: https://www.php.net
 [Composer]: https://getcomposer.org
