@@ -130,7 +130,7 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 ## Release notes
 
-### Version 2.0.0 - 2025-04-10
+### Version 2.0.0 - 2025-04-14
 
 * Dropped support for MediaWiki older than 1.39
 * Added support for MediaWiki 1.40 up to 1.43
