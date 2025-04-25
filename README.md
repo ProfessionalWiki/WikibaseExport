@@ -130,6 +130,10 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 
 ## Release notes
 
+### Version 2.0.1 - 2025-04-25
+
+* Fixed compatibility issue with MediaWiki 1.39 and 1.40, causing an error on Special:SpecialPages 
+
 ### Version 2.0.0 - 2025-04-14
 
 * Dropped support for MediaWiki older than 1.39
