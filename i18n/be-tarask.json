@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Renessaince"
+		]
+	},
+	"wikibase-export-description": "Дадае зручную для карыстальніка старонку экспарту Вікібазы",
+	"special-wikibase-export": "Экспарт Вікібазы",
+	"special-wikibase-export-config": "Канфігурацыя экспарту Вікібазы",
+	"wikibase-export-intro": "Сьпярша абярыце элемэнты, для якіх патрабуеце зьвесткі. Пасьля абярыце часавы дыяпазон, для якога вам патрабуеце зьвесткі. Тады абярыце зьменныя, якія патрабуеце ў CSV-файле. Урэшце націсьніце „$1“, каб атрымаць CSV-файл.",
+	"wikibase-export-intro-admin-notice": "Як адміністратар, можаце [[MediaWiki:WikibaseExport|наладзіць гэтую форму]].",
+	"wikibase-export-language-heading": "Экспарт мовы",
+	"wikibase-export-subjects-heading": "Існасьці для экспарту",
+	"wikibase-export-subjects-placeholder": "Пошук існасьцей",
+	"wikibase-export-grouped-statements-heading": "Значэньні, згрупаваныя паводле гадоў",
+	"wikibase-export-start-year": "Пачатковы год",
+	"wikibase-export-end-year": "Канчатковы год",
+	"wikibase-export-ungrouped-statements-heading": "Негрупаваныя значэньні",
+	"wikibase-export-statement-group-all": "Значэньні для ўсіх уласьцівасьцей",
+	"wikibase-export-statements-placeholder": "Пошук уласьцівасьцей",
+	"wikibase-export-config-heading": "Загалоўкі слупкоў",
+	"wikibase-export-config-header-id": "Ідэнтыфікатар уласьцівасьці (напр. „P1 2022“)",
+	"wikibase-export-config-header-label": "Метка ўласьцівасьці (напр. „Апэрацыйны даход-2022“)",
+	"wikibase-export-download": "Загрузіць",
+	"wikibase-export-config-invalid": "Вашыя зьмены не захаваныя. Які маюць {{PLURAL:$1|такую памылку|такія памылкі}}:",
+	"wikibase-export-config-incomplete": "Перад выкарыстаньнем адміністратар мусіць наладзіць экспарт Вікібазы."
+}
