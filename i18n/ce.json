@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"wikibase-export-language-heading": "Меттан экспорт",
+	"wikibase-export-subjects-placeholder": "Леха субъекташ",
+	"wikibase-export-start-year": "Йуьхьанцара шо",
+	"wikibase-export-end-year": "Чаккхенан шо",
+	"wikibase-export-download": "Чуйаккха",
+	"wikibase-export-config-help": "Конфигурацин документаци",
+	"wikibase-export-config-help-example": "Дуьззина масал"
+}
