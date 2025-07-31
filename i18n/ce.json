@@ -7,9 +7,16 @@
 	"wikibase-export-language-heading": "Меттан экспорт",
 	"wikibase-export-subjects-heading": "Экспортан объекташ",
 	"wikibase-export-subjects-placeholder": "Леха субъекташ",
+	"wikibase-export-grouped-statements-heading": "Шерашца тобане дерзийна маьӀна.",
 	"wikibase-export-start-year": "Йуьхьанцара шо",
 	"wikibase-export-end-year": "Чаккхенан шо",
+	"wikibase-export-ungrouped-statements-heading": "Тобанаш йоцуш маьӀнаш",
+	"wikibase-export-statement-group-all": "Массо а башхаллашна маьӀнаш",
+	"wikibase-export-statements-placeholder": "Леха хьашташ",
+	"wikibase-export-config-heading": "БӀогӀамийн кортош",
+	"wikibase-export-config-header-id": "Бахаман ID (масала, \"РӀ 2022\")",
 	"wikibase-export-download": "Чуйаккха",
 	"wikibase-export-config-help": "Конфигурацин документаци",
-	"wikibase-export-config-help-example": "Дуьззина масал"
+	"wikibase-export-config-help-example": "Дуьззина масал",
+	"wikibase-export-config-help-message-customization": "Интерфейсан хаамаш нисбан"
 }
