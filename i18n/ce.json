@@ -4,6 +4,8 @@
 			"Умар"
 		]
 	},
+	"special-wikibase-export": "Викибазан экспорт",
+	"special-wikibase-export-config": "Викибазан экспортан конфигураци",
 	"wikibase-export-language-heading": "Меттан экспорт",
 	"wikibase-export-subjects-heading": "Экспортан объекташ",
 	"wikibase-export-subjects-placeholder": "Леха субъекташ",
