@@ -4,8 +4,11 @@
 			"Умар"
 		]
 	},
+	"wikibase-export-description": "ТӀетуху лело атта йолу Викибазан экспортан агӀо",
 	"special-wikibase-export": "Викибазан экспорт",
 	"special-wikibase-export-config": "Викибазан экспортан конфигураци",
+	"wikibase-export-intro": "Цкъа хьалха, хьайна хаамаш оьшуш болу элементаш схьахаржа. ШолгӀа делахь, хьайна хаамаш оьшуш йолу хенан диапазон харжа. КхоалгӀа делахь, CSV файлехь хьайна оьшуш долу хийцамаш схьахаржа. Цул тӀаьхьа, «$1» тӀетаӀайе, CSV файл схьаэца.",
+	"wikibase-export-intro-admin-notice": "Администратор санна, хьан йиш йу [[MediaWiki:WikibaseExport|хӀара форма хӀоттайан]].",
 	"wikibase-export-language-heading": "Меттан экспорт",
 	"wikibase-export-subjects-heading": "Экспортан объекташ",
 	"wikibase-export-subjects-placeholder": "Леха субъекташ",
@@ -17,8 +20,14 @@
 	"wikibase-export-statements-placeholder": "Леха хьашташ",
 	"wikibase-export-config-heading": "БӀогӀамийн кортош",
 	"wikibase-export-config-header-id": "Бахаман ID (масала, \"РӀ 2022\")",
+	"wikibase-export-config-header-label": "Бахаман объектан билгало (масала, «Операцин пайда 2022 ш.»)",
 	"wikibase-export-download": "Чуйаккха",
+	"wikibase-export-config-invalid": "Хьан хийцамаш Ӏалашбина бацара. Царна йукъахь ду хӀара {{PLURAL:$1|гӀалат|гӀалаташ}}:",
+	"wikibase-export-config-incomplete": "Wikibase Export лелоле, администраторо иза нисйан йеза.",
+	"wikibase-export-config-incomplete-link": "Хьан йиш йу [[MediaWiki:WikibaseExport|хӀара форма нисйан]].",
+	"wikibase-export-config-help-documentation": "Хьан йиш йу [[#Documentation|хьажа конфигурацин документаци]], хийцаран меттигна бухахь.",
 	"wikibase-export-config-help": "Конфигурацин документаци",
 	"wikibase-export-config-help-example": "Дуьззина масал",
+	"wikibase-export-config-help-messages": "Хьан йиш йу хийца экспортан агӀонан текстан хӀара фрагменташ:",
 	"wikibase-export-config-help-message-customization": "Интерфейсан хаамаш нисбан"
 }

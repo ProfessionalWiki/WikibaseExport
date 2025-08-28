@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby",
+			"Volvox"
+		]
+	},
+	"special-wikibase-export": "Wikibase-Export",
+	"special-wikibase-export-config": "Konfiguratioun vum Wikibase-Export",
+	"wikibase-export-intro-admin-notice": "Als Administrateur kënnt Dir [[MediaWiki:WikibaseExport|dëse Formulaire konfiguréieren]].",
+	"wikibase-export-language-heading": "Sprooch fir den Export",
+	"wikibase-export-statements-placeholder": "Eegenschafte sichen",
+	"wikibase-export-download": "Eroflueden",
+	"wikibase-export-config-invalid": "Är Ännerunge goufen net gespäichert. Si enthalen déi follgend {{PLURAL:$1|Feeler}}:"
+}
