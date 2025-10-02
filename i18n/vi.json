@@ -3,17 +3,33 @@
 		"authors": [
 			"Minh Nguyen",
 			"NguyenHung",
-			"Nguyenphutrong2"
+			"Nguyenphutrong2",
+			"Nvdtn19"
 		]
 	},
+	"special-wikibase-export": "Xuất Wikibase",
+	"special-wikibase-export-config": "Cấu hình xuất Wikibase",
 	"wikibase-export-intro": "Đầu tiên, chọn các khoản mục mà bạn cần dữ liệu. Thứ hai, chọn khoảng thời gian mà bạn cần dữ liệu. Thứ ba, chọn các biến bạn cần trong tập tin CSV. Cuối cùng, nhấp chuột vào “$1” để truy xuất tập tin CSV.",
 	"wikibase-export-intro-admin-notice": "Là quản trị viên, bạn có thể [[MediaWiki:WikibaseExport|đặt cấu hình biểu mẫu này]].",
+	"wikibase-export-language-heading": "Ngôn ngữ xuất",
 	"wikibase-export-subjects-heading": "Đối tượng xuất khẩu",
 	"wikibase-export-subjects-placeholder": "Tìm kiếm thực thể",
+	"wikibase-export-grouped-statements-heading": "Giá trị theo năm",
+	"wikibase-export-start-year": "Năm bắt đầu",
+	"wikibase-export-end-year": "Năm kết thúc",
+	"wikibase-export-ungrouped-statements-heading": "Giá trị không nhóm",
+	"wikibase-export-statement-group-all": "Giá trị cho tất cả các thuộc tính",
+	"wikibase-export-statements-placeholder": "Tìm kiếm thuộc tính",
+	"wikibase-export-config-heading": "Tiêu đề cột",
 	"wikibase-export-config-header-id": "ID thuộc tính (v.d. \"P1 2022\")",
 	"wikibase-export-config-header-label": "Nhãn tài sản (v.d. \"Doanh thu hoạt động năm 2022\")",
+	"wikibase-export-download": "Tải xuống",
 	"wikibase-export-config-invalid": "Thay đổi của bạn không được lưu. Nó chứa {{PLURAL:$1|lỗi|các lỗi}} sau đây:",
+	"wikibase-export-config-incomplete": "Một bảo quản viên cần cấu hình tính năng xuất Wikibase trước khi có thể sử dụng.",
 	"wikibase-export-config-incomplete-link": "Bạn có thể [[MediaWiki:WikibaseExport|đặt cấu hình biểu mẫu này]].",
 	"wikibase-export-config-help-documentation": "Bạn có thể  [[#Documentation|xem tài liệu cấu hình]] bên dưới khu vưc sửa đổi.",
-	"wikibase-export-config-help-example": "Ví dụ đầy đủ"
+	"wikibase-export-config-help": "Tài liệu cấu hình",
+	"wikibase-export-config-help-example": "Ví dụ đầy đủ",
+	"wikibase-export-config-help-messages": "Bạn có thể thay đổi các đoạn văn bản của trang xuất sau:",
+	"wikibase-export-config-help-message-customization": "Tùy chỉnh thông điệp giao diện"
 }
