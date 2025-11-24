@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"wikibase-export-description": "Engade unha páxina de exportación de Wikibase que é intuitiva",
+	"special-wikibase-export": "Exportación de Wikibase",
+	"special-wikibase-export-config": "Configuración de exportación de Wikibase",
+	"wikibase-export-intro": "Primeiro, escolle os elementos para os que necesitas datos. Segundo, escolle o intervalo de tempo para o que necesitas os datos. Terceiro, escolle as variables que necesitas no ficheiro CSV. Finalmente, fai clic en «$1» para recuperares o ficheiro CSV.",
+	"wikibase-export-intro-admin-notice": "Como parte da administración, podes [[MediaWiki:WikibaseExport|configurar este formulario]].",
+	"wikibase-export-language-heading": "Lingua de exportación",
+	"wikibase-export-subjects-heading": "Entidades a exportar",
+	"wikibase-export-subjects-placeholder": "Procura entidades",
+	"wikibase-export-grouped-statements-heading": "Valores agrupados por ano",
+	"wikibase-export-start-year": "Ano de inicio",
+	"wikibase-export-end-year": "Ano de fin",
+	"wikibase-export-ungrouped-statements-heading": "Valores non agrupados",
+	"wikibase-export-statement-group-all": "Valores para todas as propiedades",
+	"wikibase-export-statements-placeholder": "Procura propiedades",
+	"wikibase-export-config-heading": "Cabeceiras de columna",
+	"wikibase-export-config-header-id": "Identificador da propiedade (por exemplo, «P1 2022»)",
+	"wikibase-export-config-header-label": "Etiqueta da propiedade (por exemplo, «Ingresos operativos de 2022»)",
+	"wikibase-export-download": "Descargar",
+	"wikibase-export-config-invalid": "Non se gardaron os cambios. Conteñen {{PLURAL:$1|o seguinte erro|os seguintes erros}}:",
+	"wikibase-export-config-incomplete": "Alguén da administración debe configurar a exportación de Wikibase antes de que se poida usar.",
+	"wikibase-export-config-incomplete-link": "Podes [[MediaWiki:WikibaseExport|configurar este formulario]].",
+	"wikibase-export-config-help-documentation": "Podes [[#Documentation|ver a documentación da configuración]] debaixo da área de edición.",
+	"wikibase-export-config-help": "Documentación da configuración",
+	"wikibase-export-config-help-example": "Exemplo completo",
+	"wikibase-export-config-help-messages": "Podes cambiar os seguintes fragmentos de texto da páxina de exportación:",
+	"wikibase-export-config-help-message-customization": "Personalización das mensaxes da interface"
+}
