@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Agam Riyandana",
+			"Penyuwangi",
 			"RXerself",
 			"Rachmat04"
 		]
@@ -10,7 +11,7 @@
 	"special-wikibase-export": "Ekspor Wikibase",
 	"special-wikibase-export-config": "Konfigurasi Ekspor Wikibase",
 	"wikibase-export-intro": "Pertama, pilih item yang Anda perlukan datanya. Kedua, pilih rentang waktu yang Anda perlukan datanya. Ketiga, pilih variabel yang Anda butuhkan di file CSV. Terakhir, klik \" $1 \" untuk mengambil file CSV.",
-	"wikibase-export-intro-admin-notice": "Sebagai administrator, Anda dapat [[MediaWiki:WikibaseExport|mengonfigurasi formulir ini]].",
+	"wikibase-export-intro-admin-notice": "Sebagai pengurus, Anda dapat [[MediaWiki:WikibaseExport|mengonfigurasi formulir ini]].",
 	"wikibase-export-language-heading": "Bahasa ekspor",
 	"wikibase-export-subjects-heading": "Entitas yang akan diekspor",
 	"wikibase-export-subjects-placeholder": "Cari entitas",
@@ -25,7 +26,7 @@
 	"wikibase-export-config-header-label": "Label Properti (yaitu \"Pendapatan usaha 2022\")",
 	"wikibase-export-download": "Unduh",
 	"wikibase-export-config-invalid": "Perubahan Anda tidak disimpan. Ini berisi {{PLURAL:$1| kesalahan|kesalahan}}:",
-	"wikibase-export-config-incomplete": "Administrator perlu mengonfigurasi Ekspor Wikibase sebelum dapat digunakan.",
+	"wikibase-export-config-incomplete": "Pengurus perlu mengonfigurasi Ekspor Wikibase sebelum dapat digunakan.",
 	"wikibase-export-config-incomplete-link": "Anda dapat [[MediaWiki:WikibaseExport|mengonfigurasi formulir ini]].",
 	"wikibase-export-config-help-documentation": "Anda dapat [[#Documentation|melihat dokumentasi konfigurasi]] di bawah kotak penyuntingan.",
 	"wikibase-export-config-help": "Dokumentasi konfigurasi",
