@@ -12,6 +12,8 @@
 	"wikibase-export-subjects-placeholder": "Buscar entidades",
 	"wikibase-export-grouped-statements-heading": "Valores agrupados por ano",
 	"wikibase-export-start-year": "Ano de início",
+	"wikibase-export-end-year": "Ano de fim",
+	"wikibase-export-ungrouped-statements-heading": "Valores não agrupados",
 	"wikibase-export-config-header-label": "Etiqueta de propriedade (por exemplo, \"Receita operacional 2022\")",
 	"wikibase-export-download": "Baixar",
 	"wikibase-export-config-help-documentation": "Você pode [[#Documentation|vizualizar a documentação da configuração]] abaixo da área de edição.",
