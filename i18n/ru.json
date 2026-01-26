@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yurina Tatiana"
+		]
+	},
+	"wikibase-export-language-heading": "Экспорт языка",
+	"wikibase-export-subjects-heading": "Сущности для экспорта",
+	"wikibase-export-subjects-placeholder": "Поиск сущностей",
+	"wikibase-export-grouped-statements-heading": "Сгруппированные по годам значения",
+	"wikibase-export-start-year": "Начальный год",
+	"wikibase-export-end-year": "Конечный год",
+	"wikibase-export-ungrouped-statements-heading": "Несгруппированные значения",
+	"wikibase-export-statements-placeholder": "Поиск свойств",
+	"wikibase-export-config-heading": "Заголовки столбцов",
+	"wikibase-export-config-header-id": "ID свойства (например, «P1 2022»)",
+	"wikibase-export-download": "Загрузить",
+	"wikibase-export-config-help-example": "Полный пример"
+}
