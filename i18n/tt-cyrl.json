@@ -8,7 +8,7 @@
 	"wikibase-export-intro-admin-notice": "Идарәче булачак, сез бу форманы [[MediaWiki:WikibaseExport|көйли аласыз]].",
 	"wikibase-export-start-year": "Башлау елы",
 	"wikibase-export-config-heading": "Багана исемнәре",
-	"wikibase-export-download": "Йөкләп ал",
+	"wikibase-export-download": "Йөкләп алу",
 	"wikibase-export-config-invalid": "Үзгәртүләрегез сакланмады. Аларда {{PLURAL:$1|хата|хаталар}} бар:",
 	"wikibase-export-config-help": "Көйләү документациясе",
 	"wikibase-export-config-help-example": "Тулы мисал:"
