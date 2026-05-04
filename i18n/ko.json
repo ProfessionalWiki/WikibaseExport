@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tensama0415",
+			"Ykhwong"
+		]
+	},
+	"special-wikibase-export": "위키베이스 내보내기",
+	"special-wikibase-export-config": "위키베이스 내보내기 설정",
+	"wikibase-export-language-heading": "언어 내보내기",
+	"wikibase-export-subjects-heading": "내보낼 항목",
+	"wikibase-export-subjects-placeholder": "항목 선택",
+	"wikibase-export-start-year": "시작 연도",
+	"wikibase-export-ungrouped-statements-heading": "그룹화되지 않은 값",
+	"wikibase-export-statement-group-all": "모든 속성에 대한 값",
+	"wikibase-export-statements-placeholder": "속성 검색",
+	"wikibase-export-config-heading": "열 헤더",
+	"wikibase-export-config-header-id": "속성 ID (예: \"P1 2022\")",
+	"wikibase-export-config-header-label": "속성 레이블 (예: \"Operating revenue 2022\")",
+	"wikibase-export-download": "다운로드",
+	"wikibase-export-config-help": "구성 문서",
+	"wikibase-export-config-help-example": "전체 예시",
+	"wikibase-export-config-help-message-customization": "인터페이스 메시지 사용자 정의"
+}
