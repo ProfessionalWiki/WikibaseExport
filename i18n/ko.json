@@ -5,6 +5,7 @@
 			"Ykhwong"
 		]
 	},
+	"wikibase-export-description": "사용자 친화적인 위키베이스 내보내기 문서를 추가합니다",
 	"special-wikibase-export": "위키베이스 내보내기",
 	"special-wikibase-export-config": "위키베이스 내보내기 설정",
 	"wikibase-export-language-heading": "언어 내보내기",
