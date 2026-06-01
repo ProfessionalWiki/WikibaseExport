@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"HakanIST"
+		]
+	},
+	"wikibase-export-description": "Kullanıcı dostu bir Wikibase dışa aktarma sayfası ekler",
+	"special-wikibase-export": "Wikibase Dışa Aktarma",
+	"special-wikibase-export-config": "Wikibase Dışa Aktarma Yapılandırması",
+	"wikibase-export-intro": "Önce veriye ihtiyaç duyduğunuz öğeleri seçin. İkinci olarak veriye ihtiyaç duyduğunuz zaman aralığını seçin. Üçüncü olarak dışa aktarılacak özellikleri seçin.",
+	"wikibase-export-intro-admin-notice": "Yönetici olarak bu [[MediaWiki:WikibaseExport|formu yapılandırabilirsiniz]].",
+	"wikibase-export-language-heading": "Dışa aktarma dili",
+	"wikibase-export-subjects-heading": "Dışa aktarılacak varlıklar",
+	"wikibase-export-subjects-placeholder": "Varlıkları ara",
+	"wikibase-export-grouped-statements-heading": "Yıla göre gruplandırılmış değerler",
+	"wikibase-export-start-year": "Başlangıç yılı",
+	"wikibase-export-end-year": "Bitiş yılı",
+	"wikibase-export-ungrouped-statements-heading": "Gruplandırılmamış değerler",
+	"wikibase-export-statement-group-all": "Tüm özellikler için değerler",
+	"wikibase-export-statements-placeholder": "Özellikleri ara",
+	"wikibase-export-config-heading": "Sütun başlıkları",
+	"wikibase-export-config-header-id": "Özellik kimliği (ör. \"P1 2022\")",
+	"wikibase-export-config-header-label": "Özellik etiketi (ör. \"İşletme geliri 2022\")",
+	"wikibase-export-download": "İndir",
+	"wikibase-export-config-invalid": "Değişiklikleriniz kaydedilmedi. Aşağıdaki {{PLURAL:$1|hatayı|hataları}} içeriyor:",
+	"wikibase-export-config-incomplete": "Wikibase Dışa Aktarma kullanılabilmesi için bir yöneticinin yapılandırması gerekiyor.",
+	"wikibase-export-config-incomplete-link": "Bu [[MediaWiki:WikibaseExport|formu yapılandırabilirsiniz]].",
+	"wikibase-export-config-help-documentation": "Düzenleme alanının altında [[#Documentation|yapılandırma belgelerini görüntüleyebilirsiniz]].",
+	"wikibase-export-config-help": "Yapılandırma belgeleri",
+	"wikibase-export-config-help-example": "Tam örnek",
+	"wikibase-export-config-help-messages": "Aşağıdaki dışa aktarma sayfası metin parçacıklarını değiştirebilirsiniz:",
+	"wikibase-export-config-help-message-customization": "Arayüz mesajları özelleştirme"
+}
