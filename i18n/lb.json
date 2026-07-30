@@ -10,6 +10,9 @@
 	"wikibase-export-intro-admin-notice": "Als Administrateur kënnt Dir [[MediaWiki:WikibaseExport|dëse Formulaire konfiguréieren]].",
 	"wikibase-export-language-heading": "Sprooch fir den Export",
 	"wikibase-export-statements-placeholder": "Eegenschafte sichen",
+	"wikibase-export-config-header-id": "Eegenschafts-ID (z. B. „P1 2022“)",
 	"wikibase-export-download": "Eroflueden",
-	"wikibase-export-config-invalid": "Är Ännerunge goufen net gespäichert. Si enthalen déi follgend {{PLURAL:$1|Feeler}}:"
+	"wikibase-export-config-invalid": "Är Ännerunge goufen net gespäichert. Si enthalen déi follgend {{PLURAL:$1|Feeler}}:",
+	"wikibase-export-config-incomplete-link": "Dir kënnt [[MediaWiki:WikibaseExport|dëse Formulaire konfiguréieren]].",
+	"wikibase-export-config-help-example": "Vollstännegt Beispill"
 }
