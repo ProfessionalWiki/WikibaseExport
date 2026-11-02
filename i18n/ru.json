@@ -4,6 +4,7 @@
 			"Yurina Tatiana"
 		]
 	},
+	"wikibase-export-intro-admin-notice": "Как администратор, вы можете [[MediaWiki:WikibaseExport|настроить эту форму]].",
 	"wikibase-export-language-heading": "Экспорт языка",
 	"wikibase-export-subjects-heading": "Сущности для экспорта",
 	"wikibase-export-subjects-placeholder": "Поиск сущностей",
@@ -15,5 +16,6 @@
 	"wikibase-export-config-heading": "Заголовки столбцов",
 	"wikibase-export-config-header-id": "ID свойства (например, «P1 2022»)",
 	"wikibase-export-download": "Загрузить",
+	"wikibase-export-config-invalid": "Ваши изменения не были сохранены. Они содержат {{PLURAL:$1|следующую ошибку|следующие ошибки}}:",
 	"wikibase-export-config-help-example": "Полный пример"
 }
