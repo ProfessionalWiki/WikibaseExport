@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Agam Riyandana",
+			"Exploraz",
 			"Penyuwangi",
 			"RXerself",
 			"Rachmat04"
@@ -22,10 +23,10 @@
 	"wikibase-export-statement-group-all": "Nilai untuk semua atribut",
 	"wikibase-export-statements-placeholder": "Cari atribut",
 	"wikibase-export-config-heading": "Header kolom",
-	"wikibase-export-config-header-id": "ID Properti (yaitu \"P1 2022\")",
-	"wikibase-export-config-header-label": "Label Properti (yaitu \"Pendapatan usaha 2022\")",
+	"wikibase-export-config-header-id": "ID Properti (misal: \"P1 2022\")",
+	"wikibase-export-config-header-label": "Label Properti (misal: \"Pendapatan usaha 2022\")",
 	"wikibase-export-download": "Unduh",
-	"wikibase-export-config-invalid": "Perubahan Anda tidak disimpan. Ini berisi {{PLURAL:$1| kesalahan|kesalahan}}:",
+	"wikibase-export-config-invalid": "Perubahan Anda tidak disimpan. Perubahan Anda berisi {{PLURAL:$1|galat|galat-galat}} berikut:",
 	"wikibase-export-config-incomplete": "Pengurus perlu mengonfigurasi Ekspor Wikibase sebelum dapat digunakan.",
 	"wikibase-export-config-incomplete-link": "Anda dapat [[MediaWiki:WikibaseExport|mengonfigurasi formulir ini]].",
 	"wikibase-export-config-help-documentation": "Anda dapat [[#Documentation|melihat dokumentasi konfigurasi]] di bawah kotak penyuntingan.",
