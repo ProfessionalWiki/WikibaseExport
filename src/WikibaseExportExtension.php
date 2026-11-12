@@ -79,7 +79,7 @@ class WikibaseExportExtension {
 	public function newPageContentConfigLookup(): PageContentConfigLookup {
 		return new PageContentConfigLookup(
 			contentFetcher: new PageContentFetcher(
-				MediaWikiServices::getInstance()->getTitleParser(),
+				MediaWikiServices::getInstance()->getPageStore(),
 				MediaWikiServices::getInstance()->getRevisionLookup()
 			),
 			deserializer: $this->newConfigDeserializer(),

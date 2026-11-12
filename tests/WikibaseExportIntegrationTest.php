@@ -14,7 +14,6 @@ use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Repo\WikibaseRepo;
-use WikiPage;
 
 class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 
@@ -28,15 +27,6 @@ class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 			'MediaWiki:' . WikibaseExportExtension::CONFIG_PAGE_TITLE,
 			$config
 		);
-	}
-
-	protected function deleteConfigPage(): void {
-		/**
-		 * @var Title $title
-		 */
-		$title = Title::newFromText( 'MediaWiki:' . WikibaseExportExtension::CONFIG_PAGE_TITLE );
-
-		$this->deletePage( new WikiPage( $title ) );
 	}
 
 	protected function saveEntity( EntityDocument $entity ): void {
