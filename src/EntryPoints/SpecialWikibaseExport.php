@@ -38,15 +38,8 @@ class SpecialWikibaseExport extends SpecialPage {
 		return 'wikibase';
 	}
 
-	/**
-	 * @return string|Message Returns string in MW < 1.41 and Message in MW >= 1.41
-	 */
-	public function getDescription() {
-		if ( version_compare( MW_VERSION, '1.41', '>=' ) ) {
-			return $this->msg( 'special-wikibase-export' );
-		} else {
-			return $this->msg( 'special-wikibase-export' )->escaped();
-		}
+	public function getDescription(): Message {
+		return $this->msg( 'special-wikibase-export' );
 	}
 
 	private function shouldShowConfigLink(): bool {

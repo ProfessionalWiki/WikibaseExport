@@ -40,9 +40,9 @@ For more information, refer to the [REST API documentation].
 
 Platform requirements:
 
-* [PHP] 8.0 or later (tested up to 8.4)
-* [MediaWiki] 1.37 or later (tested up to 1.43) (versions 1.37 and 1.38 require Wikibase Export 1.0.0)
-* [Wikibase] 1.37 or later (tested up to 1.43)
+* [PHP] 8.1 or later (tested up to 8.4)
+* [MediaWiki] 1.43 or later (tested up to 1.43)
+* [Wikibase] 1.43 or later (tested up to 1.43)
 
 The recommended way to install Wikibase Export is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].
