@@ -5,10 +5,10 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use MediaWiki\MediaWikiServices;
-use Message;
+use MediaWiki\Message\Message;
+use MediaWiki\SpecialPage\SpecialPage;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
-use SpecialPage;
 use Wikibase\DataModel\Entity\PropertyId;
 
 class SpecialWikibaseExport extends SpecialPage {

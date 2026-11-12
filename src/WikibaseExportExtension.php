@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
+use MediaWiki\Title\Title;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
@@ -24,7 +25,6 @@ use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentFetcher;
-use Title;
 use Wikibase\Repo\WikibaseRepo;
 use WMDE\Clock\SystemClock;
 
