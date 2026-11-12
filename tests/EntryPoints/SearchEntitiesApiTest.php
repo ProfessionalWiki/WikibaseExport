@@ -126,8 +126,6 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 	}
 
 	public function testNoMatchesReturnsEmptyResult(): void {
-		$this->saveProperty( self::INSTANCE_OF_ID, 'string', 'instance of' );
-
 		$response = $this->executeHandler(
 			WikibaseExportExtension::searchEntitiesApiFactory(),
 			new RequestData( [
