@@ -77,8 +77,7 @@ class ExportApi extends SimpleHandler {
 		foreach ( $ids as $id ) {
 			try {
 				$idObjects[] = $parser->parse( $id );
-			}
-			catch ( EntityIdParsingException ) {
+			} catch ( EntityIdParsingException ) {
 			}
 		}
 

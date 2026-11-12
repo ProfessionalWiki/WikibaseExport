@@ -41,7 +41,7 @@ class WideCsvPresenter implements ExportPresenter {
 			array_merge(
 				[ 'ID', 'Label' ],
 				array_map(
-					fn( ColumnHeader $header ) => $header->text,
+					static fn ( ColumnHeader $header ) => $header->text,
 					$headers->headers
 				)
 			)

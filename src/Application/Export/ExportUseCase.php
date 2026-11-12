@@ -80,7 +80,7 @@ class ExportUseCase {
 		$this->presenter->presentExportStarted(
 			array_reduce(
 				$mappers,
-				fn( ColumnHeaders $c, StatementsMapper $mapper ) => $c->plus( $mapper->createColumnHeaders() ),
+				static fn ( ColumnHeaders $c, StatementsMapper $mapper ) => $c->plus( $mapper->createColumnHeaders() ),
 				new ColumnHeaders()
 			)
 		);

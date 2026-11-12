@@ -47,7 +47,7 @@ class TimeHelper {
 		);
 	}
 
-	public static function newTimeRangeStatement( ?int $startYear, ?int $endYear, string $pId = 'P1', DataValue $value = null ): Statement {
+	public static function newTimeRangeStatement( ?int $startYear, ?int $endYear, string $pId = 'P1', ?DataValue $value = null ): Statement {
 		$snaks = [];
 
 		if ( $startYear !== null ) {
@@ -73,7 +73,7 @@ class TimeHelper {
 		);
 	}
 
-	public static function newDayRangeStatement( ?string $startDay, ?string $endDay, string $pId = 'P1', DataValue $value = null ): Statement {
+	public static function newDayRangeStatement( ?string $startDay, ?string $endDay, string $pId = 'P1', ?DataValue $value = null ): Statement {
 		$snaks = [];
 
 		if ( $startDay !== null ) {

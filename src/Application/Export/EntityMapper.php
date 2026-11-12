@@ -56,7 +56,7 @@ class EntityMapper {
 		}
 
 		return new ValueSetList(
-			array_merge( ...array_map( fn( ValueSetList $l ) => $l->sets, $lists ) )
+			array_merge( ...array_map( static fn ( ValueSetList $l ) => $l->sets, $lists ) )
 		);
 	}
 

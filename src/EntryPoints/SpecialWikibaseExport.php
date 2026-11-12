@@ -90,12 +90,12 @@ class SpecialWikibaseExport extends SpecialPage {
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,
 			'groupedProperties' => array_map(
-				fn( PropertyId $id ) => $id->getSerialization(),
+				static fn ( PropertyId $id ) => $id->getSerialization(),
 				$config->getPropertiesGroupedByYear()->ids
 			),
 			'showUngroupedProperties' => $this->shouldShowUngroupedProperties( $config ),
 			'ungroupedProperties' => array_map(
-				fn( PropertyId $id ) => $id->getSerialization(),
+				static fn ( PropertyId $id ) => $id->getSerialization(),
 				$config->getUngroupedProperties()->ids
 			),
 			'showConfigLink' => $this->shouldShowConfigLink(),

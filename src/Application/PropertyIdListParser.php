@@ -22,8 +22,7 @@ class PropertyIdListParser {
 		foreach ( $idStrings as $idString ) {
 			try {
 				$ids[] = new NumericPropertyId( $idString );
-			}
-			catch ( \InvalidArgumentException ) {
+			} catch ( \InvalidArgumentException ) {
 			}
 		}
 

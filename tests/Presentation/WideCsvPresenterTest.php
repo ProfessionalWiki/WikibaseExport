@@ -49,7 +49,8 @@ ID,Label,"P1 2022","P2 2022"
 Q42,"Item One",Foo,Bar
 Q43,"Item Two",MoreFoo,MoreBar
 
-CSV,
+CSV
+,
 			$presenter
 		);
 	}
@@ -83,7 +84,8 @@ Q42,"Foo Bar","One
 Four","Two
 Three"
 
-CSV,
+CSV
+,
 			$presenter
 		);
 	}
