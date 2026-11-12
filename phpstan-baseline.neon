@@ -21,6 +21,11 @@ parameters:
 			path: src/WikibaseExportExtension.php
 
 		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: src/EntryPoints/SpecialWikibaseExport.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: src/EntryPoints/SpecialWikibaseExport.php

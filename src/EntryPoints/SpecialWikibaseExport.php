@@ -14,10 +14,19 @@ use Wikibase\DataModel\Entity\PropertyId;
 class SpecialWikibaseExport extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct(
-			'WikibaseExport',
-			restriction: 'read'
-		);
+		if ( version_compare( MW_VERSION, '1.46', '>=' ) ) {
+			parent::__construct( 'WikibaseExport' );
+		} else {
+			// Before 1.46, MediaWiki checks the restriction given here, not getRestriction()
+			parent::__construct(
+				'WikibaseExport',
+				restriction: 'read'
+			);
+		}
+	}
+
+	public function getRestriction(): string {
+		return 'read';
 	}
 
 	public function execute( $subPage ): void {
