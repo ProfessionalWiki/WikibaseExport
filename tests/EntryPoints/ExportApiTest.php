@@ -51,8 +51,6 @@ class ExportApiTest extends WikibaseExportIntegrationTest {
 	}
 
 	public function testEdgeToEdge(): void {
-		$this->skipOnPhp81AndLater();
-
 		$this->saveProperty( TimeHelper::START_TIME_ID, 'time', 'Start time' );
 		$this->saveProperty( TimeHelper::END_TIME_ID, 'time', 'End time' );
 		$this->saveProperty( TimeHelper::POINT_IN_TIME_ID, 'time', 'Point in time' );
