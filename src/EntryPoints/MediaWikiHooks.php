@@ -4,14 +4,15 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
-use EditPage;
-use OutputPage;
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Html\Html;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Title\Title;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Presentation\ConfigJsonErrorFormatter;
 use ProfessionalWiki\WikibaseExport\Presentation\ExportConfigEditPageTextBuilder;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Skin;
-use Title;
 
 class MediaWikiHooks {
 
@@ -30,7 +31,7 @@ class MediaWikiHooks {
 
 		if ( !$validator->validate( $text ) ) {
 			$errors = $validator->getErrors();
-			$error = \Html::errorBox(
+			$error = Html::errorBox(
 				wfMessage( 'wikibase-export-config-invalid', count( $errors ) )->escaped() .
 				ConfigJsonErrorFormatter::format( $errors )
 			);

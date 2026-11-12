@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Persistence;
 
-use Content;
-use MalformedTitleException;
+use MediaWiki\Content\Content;
 use MediaWiki\Revision\RevisionLookup;
-use TitleParser;
+use MediaWiki\Title\MalformedTitleException;
+use MediaWiki\Title\TitleParser;
 
 class PageContentFetcher {
 

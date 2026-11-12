@@ -3,9 +3,10 @@
 namespace ProfessionalWiki\WikibaseExport\Tests;
 
 use Article;
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
-use Title;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
@@ -59,7 +60,7 @@ class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 	}
 
 	protected function getPageHtml( string $pageTitle ): string {
-		$title = \Title::newFromText( $pageTitle );
+		$title = Title::newFromText( $pageTitle );
 
 		$article = new Article( $title, 0 );
 		$article->getContext()->getOutput()->setTitle( $title );
@@ -70,12 +71,12 @@ class WikibaseExportIntegrationTest extends MediaWikiIntegrationTestCase {
 	}
 
 	protected function getEditPageHtml( string $pageTitle ): string {
-		$title = \Title::newFromText( $pageTitle );
+		$title = Title::newFromText( $pageTitle );
 
 		$article = new Article( $title, 0 );
 		$article->getContext()->getOutput()->setTitle( $title );
 
-		$editPage = new \EditPage( $article );
+		$editPage = new EditPage( $article );
 		$editPage->setContextTitle( $title );
 		$editPage->getContext()->setUser( $this->getTestSysop()->getUser() );
 		$editPage->edit();

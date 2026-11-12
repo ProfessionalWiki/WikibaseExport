@@ -4,9 +4,9 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
-use Message;
-use SpecialPage;
-use Title;
+use MediaWiki\Message\Message;
+use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\Title\Title;
 
 class SpecialWikibaseExportConfig extends SpecialPage {
 

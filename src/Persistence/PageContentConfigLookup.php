@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Persistence;
 
-use JsonContent;
+use MediaWiki\Content\JsonContent;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 
 class PageContentConfigLookup implements ConfigLookup {
@@ -19,7 +19,7 @@ class PageContentConfigLookup implements ConfigLookup {
 	public function getConfig(): Config {
 		$content = $this->contentFetcher->getPageContent( 'MediaWiki:' . $this->pageName );
 
-		if ( $content instanceof \JsonContent ) {
+		if ( $content instanceof JsonContent ) {
 			return $this->configFromJsonContent( $content );
 		}
 
