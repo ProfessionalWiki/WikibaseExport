@@ -27,10 +27,10 @@ class PropertyIdList {
 	public function intersect( self $ids ): self {
 		return new self(
 			array_map(
-				fn ( string $id ) => new NumericPropertyId( $id ),
+				static fn ( string $id ) => new NumericPropertyId( $id ),
 				array_intersect(
-					array_map( fn( PropertyId $id ) => $id->getSerialization(), $this->ids ),
-					array_map( fn( PropertyId $id ) => $id->getSerialization(), $ids->ids ),
+					array_map( static fn ( PropertyId $id ) => $id->getSerialization(), $this->ids ),
+					array_map( static fn ( PropertyId $id ) => $id->getSerialization(), $ids->ids ),
 				)
 			)
 		);

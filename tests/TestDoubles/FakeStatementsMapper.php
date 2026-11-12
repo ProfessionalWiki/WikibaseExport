@@ -28,7 +28,7 @@ class FakeStatementsMapper implements StatementsMapper {
 	public function buildValueSetList( StatementList $statements ): ValueSetList {
 		return new ValueSetList( [
 			new ValueSet( array_map(
-				fn( Snak $snak ) => $this->header . ' ' . $snak->getPropertyId()->getSerialization(),
+				fn ( Snak $snak ) => $this->header . ' ' . $snak->getPropertyId()->getSerialization(),
 				$statements->getMainSnaks()
 			) )
 		] );

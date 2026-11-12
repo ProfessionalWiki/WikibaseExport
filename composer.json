@@ -26,7 +26,7 @@
 	"require-dev": {
 		"vimeo/psalm": "^4.30.0",
 		"phpstan/phpstan": "^1.8.11",
-		"mediawiki/mediawiki-codesniffer": "^40.0.0"
+		"mediawiki/mediawiki-codesniffer": "^52.0.0"
 	},
 	"extra": {
 		"installer-name": "WikibaseExport"
