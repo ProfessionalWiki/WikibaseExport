@@ -29,3 +29,8 @@ parameters:
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: src/WikibaseExportExtension.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: src/EntryPoints/SpecialWikibaseExport.php
