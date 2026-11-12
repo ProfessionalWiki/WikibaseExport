@@ -60,10 +60,10 @@
 		}
 
 		this.getRequestData()
-			.then( function ( data ) {
+			.then( ( data ) => {
 				widget.menu.clearItems();
 				widget.menu.addItems( widget.getOptionsFromData( data ) );
-			} ).always( function () {
+			} ).always( () => {
 				mw.widgets.EntitiesMultiselectWidget.parent.prototype.onInputChange.call( widget );
 			} );
 	};
