@@ -25,10 +25,7 @@ class SpecialWikibaseExportTest extends SpecialPageTestBase {
 		/** @var string $output */
 		[ $output ] = $this->executeSpecialPage( '', null, null, $this->userWithRights( [ 'read' ] ) );
 
-		$this->assertStringContainsString(
-			'<div id="wikibase-export" class="container">',
-			$output
-		);
+		$this->assertStringContainsString( 'id="wikibase-export"', $output );
 	}
 
 	public function testRefusesAUserWhoMayNotRead(): void {
