@@ -17,4 +17,16 @@
       <code>isset( $this-&gt;stream )</code>
     </RedundantPropertyInitializationCheck>
   </file>
+  <file src="src/WikibaseExportExtension.php">
+    <MixedArgument occurrences="1">
+      <code>WbSearch::class</code>
+    </MixedArgument>
+    <MixedInferredReturnType occurrences="1">
+      <code>EntitySearchHelper</code>
+    </MixedInferredReturnType>
+    <UndefinedClass occurrences="2">
+      <code>WbSearch</code>
+      <code>WbSearch</code>
+    </UndefinedClass>
+  </file>
 </files>
