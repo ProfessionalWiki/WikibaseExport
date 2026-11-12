@@ -74,8 +74,7 @@ class ProductionValueSetCreatorTest extends MediaWikiIntegrationTestCase {
 		$this->assertEquals(
 			new ValueSet( [] ),
 			$this->newValueSetCreator()->statementsToValueSet(
-				new StatementList(
-				)
+				new StatementList()
 			)
 		);
 	}

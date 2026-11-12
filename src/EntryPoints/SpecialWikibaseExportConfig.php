@@ -4,9 +4,9 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
-use Message;
-use SpecialPage;
-use Title;
+use MediaWiki\Message\Message;
+use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\Title\Title;
 
 class SpecialWikibaseExportConfig extends SpecialPage {
 
@@ -28,15 +28,8 @@ class SpecialWikibaseExportConfig extends SpecialPage {
 		return 'wikibase';
 	}
 
-	/**
-	 * @return string|Message Returns string in MW < 1.41 and Message in MW >= 1.41
-	 */
-	public function getDescription() {
-		if ( version_compare( MW_VERSION, '1.41', '>=' ) ) {
-			return $this->msg( 'special-wikibase-export-config' );
-		} else {
-			return $this->msg( 'special-wikibase-export-config' )->escaped();
-		}
+	public function getDescription(): Message {
+		return $this->msg( 'special-wikibase-export-config' );
 	}
 
 }

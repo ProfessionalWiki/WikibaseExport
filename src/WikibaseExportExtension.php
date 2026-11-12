@@ -6,6 +6,7 @@ namespace ProfessionalWiki\WikibaseExport;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
+use MediaWiki\Title\Title;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\Application\EntitySourceFactory;
 use ProfessionalWiki\WikibaseExport\Application\Export\ExportPresenter;
@@ -24,7 +25,8 @@ use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentConfigLookup;
 use ProfessionalWiki\WikibaseExport\Persistence\PageContentFetcher;
-use Title;
+use Wikibase\Repo\Api\EntitySearchHelper;
+use Wikibase\Repo\Domains\Search\WbSearch;
 use Wikibase\Repo\WikibaseRepo;
 use WMDE\Clock\SystemClock;
 
@@ -79,7 +81,7 @@ class WikibaseExportExtension {
 	public function newPageContentConfigLookup(): PageContentConfigLookup {
 		return new PageContentConfigLookup(
 			contentFetcher: new PageContentFetcher(
-				MediaWikiServices::getInstance()->getTitleParser(),
+				MediaWikiServices::getInstance()->getPageStore(),
 				MediaWikiServices::getInstance()->getRevisionLookup()
 			),
 			deserializer: $this->newConfigDeserializer(),
@@ -133,10 +135,19 @@ class WikibaseExportExtension {
 		return new SearchEntitiesUseCase(
 			subjectFilterPropertyId: $this->getConfig()->subjectFilterPropertyId,
 			subjectFilterPropertyValue: $this->getConfig()->subjectFilterPropertyValue,
-			entitySearchHelper: WikibaseRepo::getEntitySearchHelper(),
+			entitySearchHelper: $this->getItemSearchHelper(),
 			entityLookup: WikibaseRepo::getEntityLookup(),
 			presenter: $presenter
 		);
+	}
+
+	private function getItemSearchHelper(): EntitySearchHelper {
+		// Wikibase 1.46 added WbSearch::getItemSearchHelper(), and 1.47 removed WikibaseRepo::getEntitySearchHelper()
+		if ( method_exists( WbSearch::class, 'getItemSearchHelper' ) ) {
+			return WbSearch::getItemSearchHelper();
+		}
+
+		return WikibaseRepo::getEntitySearchHelper();
 	}
 
 }

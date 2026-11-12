@@ -12,11 +12,6 @@ use ProfessionalWiki\WikibaseExport\Tests\WikibaseExportIntegrationTest;
  */
 class ConfigPageSmokeTest extends WikibaseExportIntegrationTest {
 
-	public function tearDown(): void {
-		$this->deleteConfigPage();
-		parent::tearDown();
-	}
-
 	public function testSmoke(): void {
 		$this->editConfigPage( config: Valid::configJson() );
 		$this->assertStringContainsString(

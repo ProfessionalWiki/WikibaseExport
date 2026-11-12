@@ -4,14 +4,19 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
-use EditPage;
-use OutputPage;
+use MediaWiki\Content\Content;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Message\Message;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Status\Status;
+use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use ProfessionalWiki\WikibaseExport\Persistence\ConfigJsonValidator;
 use ProfessionalWiki\WikibaseExport\Presentation\ConfigJsonErrorFormatter;
 use ProfessionalWiki\WikibaseExport\Presentation\ExportConfigEditPageTextBuilder;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
 use Skin;
-use Title;
 
 class MediaWikiHooks {
 
@@ -21,18 +26,28 @@ class MediaWikiHooks {
 		}
 	}
 
-	public static function onEditFilter( EditPage $editPage, ?string $text, ?string $section, string &$error ): void {
-		if ( !is_string( $text ) || !WikibaseExportExtension::getInstance()->isConfigTitle( $editPage->getTitle() ) ) {
+	public static function onEditFilterMergedContent(
+		IContextSource $context,
+		Content $content,
+		Status $status,
+		string $summary,
+		User $user,
+		bool $minorEdit
+	): void {
+		$title = $context->getTitle();
+
+		if ( $title === null || !WikibaseExportExtension::getInstance()->isConfigTitle( $title ) ) {
 			return;
 		}
 
 		$validator = ConfigJsonValidator::newInstance();
 
-		if ( !$validator->validate( $text ) ) {
+		if ( !$validator->validate( $content->serialize() ) ) {
 			$errors = $validator->getErrors();
-			$error = \Html::errorBox(
-				wfMessage( 'wikibase-export-config-invalid', count( $errors ) )->escaped() .
-				ConfigJsonErrorFormatter::format( $errors )
+			$status->fatal(
+				'wikibase-export-config-invalid-errors',
+				count( $errors ),
+				Message::rawParam( ConfigJsonErrorFormatter::format( $errors ) )
 			);
 		}
 	}

@@ -4,11 +4,10 @@ declare( strict_types = 1 );
 
 namespace ProfessionalWiki\WikibaseExport\Presentation;
 
-use Html;
-use IContextSource;
-use Message;
-use SpecialPage;
-use Title;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Html\Html;
+use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\Title\Title;
 
 class ExportConfigEditPageTextBuilder {
 

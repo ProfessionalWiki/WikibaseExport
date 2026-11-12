@@ -7,17 +7,6 @@
       <code>array_map</code>
     </ImpureFunctionCall>
   </file>
-  <file src="src/Application/SearchEntities/SearchEntitiesUseCase.php">
-    <InvalidNamedArgument occurrences="1">
-      <code>profileContext</code>
-    </InvalidNamedArgument>
-    <MixedArgument occurrences="1">
-      <code>MW_VERSION</code>
-    </MixedArgument>
-    <TooManyArguments occurrences="1">
-      <code>getRankedSearchResults</code>
-    </TooManyArguments>
-  </file>
   <file src="src/Presentation/ConfigJsonErrorFormatter.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$key</code>
@@ -27,5 +16,17 @@
     <RedundantPropertyInitializationCheck occurrences="1">
       <code>isset( $this-&gt;stream )</code>
     </RedundantPropertyInitializationCheck>
+  </file>
+  <file src="src/WikibaseExportExtension.php">
+    <MixedArgument occurrences="1">
+      <code>WbSearch::class</code>
+    </MixedArgument>
+    <MixedInferredReturnType occurrences="1">
+      <code>EntitySearchHelper</code>
+    </MixedInferredReturnType>
+    <UndefinedClass occurrences="2">
+      <code>WbSearch</code>
+      <code>WbSearch</code>
+    </UndefinedClass>
   </file>
 </files>

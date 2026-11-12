@@ -5,10 +5,10 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\WikibaseExport\EntryPoints;
 
 use MediaWiki\MediaWikiServices;
-use Message;
+use MediaWiki\Message\Message;
+use MediaWiki\SpecialPage\SpecialPage;
 use ProfessionalWiki\WikibaseExport\Application\Config;
 use ProfessionalWiki\WikibaseExport\WikibaseExportExtension;
-use SpecialPage;
 use Wikibase\DataModel\Entity\PropertyId;
 
 class SpecialWikibaseExport extends SpecialPage {
@@ -47,15 +47,8 @@ class SpecialWikibaseExport extends SpecialPage {
 		return 'wikibase';
 	}
 
-	/**
-	 * @return string|Message Returns string in MW < 1.41 and Message in MW >= 1.41
-	 */
-	public function getDescription() {
-		if ( version_compare( MW_VERSION, '1.41', '>=' ) ) {
-			return $this->msg( 'special-wikibase-export' );
-		} else {
-			return $this->msg( 'special-wikibase-export' )->escaped();
-		}
+	public function getDescription(): Message {
+		return $this->msg( 'special-wikibase-export' );
 	}
 
 	private function shouldShowConfigLink(): bool {
@@ -99,12 +92,12 @@ class SpecialWikibaseExport extends SpecialPage {
 			'defaultStartYear' => $config->defaultStartYear,
 			'defaultEndYear' => $config->defaultEndYear,
 			'groupedProperties' => array_map(
-				fn( PropertyId $id ) => $id->getSerialization(),
+				static fn ( PropertyId $id ) => $id->getSerialization(),
 				$config->getPropertiesGroupedByYear()->ids
 			),
 			'showUngroupedProperties' => $this->shouldShowUngroupedProperties( $config ),
 			'ungroupedProperties' => array_map(
-				fn( PropertyId $id ) => $id->getSerialization(),
+				static fn ( PropertyId $id ) => $id->getSerialization(),
 				$config->getUngroupedProperties()->ids
 			),
 			'showConfigLink' => $this->shouldShowConfigLink(),

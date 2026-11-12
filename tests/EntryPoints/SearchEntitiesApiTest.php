@@ -63,8 +63,6 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 	}
 
 	public function testEdgeToEdge(): void {
-		$this->skipOnPhp81AndLater();
-
 		$this->saveProperty( self::INSTANCE_OF_ID, 'string', 'instance of' );
 
 		$this->saveCompany( 'Q10', 'Company Foo' );
@@ -128,9 +126,6 @@ class SearchEntitiesApiTest extends WikibaseExportIntegrationTest {
 	}
 
 	public function testNoMatchesReturnsEmptyResult(): void {
-		$this->skipOnPhp81AndLater();
-		$this->saveProperty( self::INSTANCE_OF_ID, 'string', 'instance of' );
-
 		$response = $this->executeHandler(
 			WikibaseExportExtension::searchEntitiesApiFactory(),
 			new RequestData( [
