@@ -2,7 +2,7 @@
  * JavaScript for WikibaseExport
  */
 
-$( function () {
+$( () => {
 	'use strict';
 
 	mw.WikibaseExport = {
@@ -154,7 +154,7 @@ $( function () {
 				ids: widget.config.defaultSubjects,
 				languages: this.getLanguage(),
 				languagefallback: true
-			} ).then( function ( data ) {
+			} ).then( ( data ) => {
 				const options = widget.getOptionsFromEntityData( data );
 				widget.subjects.addOptions( options );
 				widget.subjects.setValue( options );
@@ -182,7 +182,7 @@ $( function () {
 				required: true
 			} );
 
-			this.startYear.on( 'change', function () {
+			this.startYear.on( 'change', () => {
 				const startYear = widget.startYear.getValue();
 				if ( widget.startYear.validate( startYear ) ) {
 					widget.endYear.setRange( startYear, parseInt( startYear ) + yearDiff );
@@ -199,7 +199,7 @@ $( function () {
 			} );
 			this.groupedStatements.toggle( false );
 
-			this.allGroupedStatements.on( 'change', function ( selected ) {
+			this.allGroupedStatements.on( 'change', ( selected ) => {
 				if ( selected ) {
 					widget.groupedStatements.toggle( false );
 					widget.groupedStatements.setValue( widget.groupedStatements.menu.getItems() );
@@ -241,7 +241,7 @@ $( function () {
 			} );
 			this.ungroupedStatements.toggle( false );
 
-			this.allUngroupedStatements.on( 'change', function ( selected ) {
+			this.allUngroupedStatements.on( 'change', ( selected ) => {
 				if ( selected ) {
 					widget.ungroupedStatements.toggle( false );
 					widget.ungroupedStatements.setValue( widget.ungroupedStatements.menu.getItems() );
@@ -312,7 +312,7 @@ $( function () {
 				ids: ids,
 				languages: this.getLanguage(),
 				languagefallback: true
-			} ).then( function ( data ) {
+			} ).then( ( data ) => {
 				const options = widget.getOptionsFromEntityData( data );
 
 				if ( widget.config.showPropertiesGroupedByYear ) {
@@ -383,7 +383,7 @@ $( function () {
 
 			const widget = this;
 
-			submitButton.on( 'click', function () {
+			submitButton.on( 'click', () => {
 				if ( widget.form.$element[ 0 ].reportValidity() ) {
 					window.location = widget.buildDownloadUrl();
 				}
