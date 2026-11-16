@@ -22,7 +22,6 @@
 	"wikibase-export-config-header-id": "ID del proprietate (p.ex. “P1 2022”)",
 	"wikibase-export-config-header-label": "Etiquetta del proprietate (p.ex. “Recepta operational 2022”)",
 	"wikibase-export-download": "Discargar",
-	"wikibase-export-config-invalid": "Tu cambiamentos non ha essite salveguardate. Illos contine le sequente error{{PLURAL:$1||es}}:",
 	"wikibase-export-config-incomplete": "Un administrator debe configurar Wikibase Export ante que illo pote esser usate.",
 	"wikibase-export-config-incomplete-link": "Tu pote [[MediaWiki:WikibaseExport|configurar iste formulario]].",
 	"wikibase-export-config-help-documentation": "Tu pote [[#Documentation|vider le documentation del configuration]] sub le area de modification.",

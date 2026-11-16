@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"GuoPC",
 			"Hehua",
 			"Lakejason0",
 			"沈澄心"
@@ -24,7 +25,7 @@
 	"wikibase-export-config-header-id": "属性ID（例如：“P1 2022”）",
 	"wikibase-export-config-header-label": "属性标签（例如：“2022年营业收入”）",
 	"wikibase-export-download": "下载",
-	"wikibase-export-config-invalid": "您的更改未保存。更改包含以下{{PLURAL:$1|错误}}：",
+	"wikibase-export-config-invalid-errors": "您的更改未保存。更改包含以下{{PLURAL:$1|错误}}：$2",
 	"wikibase-export-config-incomplete": "管理员需要先配置Wikibase导出才能使用。",
 	"wikibase-export-config-incomplete-link": "您可以[[MediaWiki:WikibaseExport|配置此表单]]。",
 	"wikibase-export-config-help-documentation": "您可以在编辑区域下方[[#Documentation|查看配置文档]]。",

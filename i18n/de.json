@@ -25,7 +25,6 @@
 	"wikibase-export-config-header-id": "Eigenschaftskennung (z.B. „P1 2022“)",
 	"wikibase-export-config-header-label": "Eigenschaftsbeschriftung (z.B. „Betriebsertrag 2022“)",
 	"wikibase-export-download": "Herunterladen",
-	"wikibase-export-config-invalid": "Deine Änderungen wurden nicht gespeichert. Diese enthalten {{PLURAL:$1|den|die}} folgenden {{PLURAL:$1|Fehler}}:",
 	"wikibase-export-config-incomplete": "Ein Administrator muss den Export von Daten konfigurieren, bevor er verwendet werden kann.",
 	"wikibase-export-config-incomplete-link": "{{#FORMAL:Du kannst|Sie können}} [[MediaWiki:WikibaseExport|dieses Formular konfigurieren]]:",
 	"wikibase-export-config-help-documentation": "Du kannst die [[#Documentation|die Konfigurationsdokumentation]] unterhalb des Bearbeitungsbereichs einsehen.",

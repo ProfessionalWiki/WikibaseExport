@@ -22,7 +22,7 @@
 	"wikibase-export-config-header-id": "Identificador da propiedade (por exemplo, «P1 2022»)",
 	"wikibase-export-config-header-label": "Etiqueta da propiedade (por exemplo, «Ingresos operativos de 2022»)",
 	"wikibase-export-download": "Descargar",
-	"wikibase-export-config-invalid": "Non se gardaron os cambios. Conteñen {{PLURAL:$1|o seguinte erro|os seguintes erros}}:",
+	"wikibase-export-config-invalid-errors": "Non se gardaron os cambios. Conteñen {{PLURAL:$1|o seguinte erro|os seguintes erros}}:$2",
 	"wikibase-export-config-incomplete": "Alguén da administración debe configurar a exportación de Wikibase antes de que se poida usar.",
 	"wikibase-export-config-incomplete-link": "Podes [[MediaWiki:WikibaseExport|configurar este formulario]].",
 	"wikibase-export-config-help-documentation": "Podes [[#Documentation|ver a documentación da configuración]] debaixo da área de edición.",

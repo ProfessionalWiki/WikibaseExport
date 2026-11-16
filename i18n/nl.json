@@ -24,7 +24,6 @@
 	"wikibase-export-config-header-id": "Eigenschaps-ID (bv. “P1 2022”)",
 	"wikibase-export-config-header-label": "Eigenschapslabel (bv. “Bedrijfsopbrengsten 2022”)",
 	"wikibase-export-download": "Downloaden",
-	"wikibase-export-config-invalid": "Uw wijzigingen zijn niet opgeslagen. Ze bevatten de volgende fout{{PLURAL:$1||en}}:",
 	"wikibase-export-config-incomplete": "Een moderator moet Wikibase Export configureren voordat het kan worden gebruikt.",
 	"wikibase-export-config-incomplete-link": "U kunt [[MediaWiki:WikibaseExport|dit formulier configureren]].",
 	"wikibase-export-config-help-documentation": "Onder het bewerkingsgebied kunt u [[#Documentation|de configuratiedocumentatie bekijken]].",

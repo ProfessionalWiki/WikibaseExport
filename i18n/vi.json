@@ -24,7 +24,6 @@
 	"wikibase-export-config-header-id": "ID thuộc tính (v.d. \"P1 2022\")",
 	"wikibase-export-config-header-label": "Nhãn tài sản (v.d. \"Doanh thu hoạt động năm 2022\")",
 	"wikibase-export-download": "Tải xuống",
-	"wikibase-export-config-invalid": "Thay đổi của bạn không được lưu. Nó chứa {{PLURAL:$1|lỗi|các lỗi}} sau đây:",
 	"wikibase-export-config-incomplete": "Một bảo quản viên cần cấu hình tính năng xuất Wikibase trước khi có thể sử dụng.",
 	"wikibase-export-config-incomplete-link": "Bạn có thể [[MediaWiki:WikibaseExport|đặt cấu hình biểu mẫu này]].",
 	"wikibase-export-config-help-documentation": "Bạn có thể  [[#Documentation|xem tài liệu cấu hình]] bên dưới khu vưc sửa đổi.",

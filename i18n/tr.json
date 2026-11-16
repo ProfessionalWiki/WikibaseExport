@@ -22,7 +22,6 @@
 	"wikibase-export-config-header-id": "Özellik kimliği (ör. \"P1 2022\")",
 	"wikibase-export-config-header-label": "Özellik etiketi (ör. \"İşletme geliri 2022\")",
 	"wikibase-export-download": "İndir",
-	"wikibase-export-config-invalid": "Değişiklikleriniz kaydedilmedi. Aşağıdaki {{PLURAL:$1|hatayı|hataları}} içeriyor:",
 	"wikibase-export-config-incomplete": "Wikibase Dışa Aktarma kullanılabilmesi için bir yöneticinin yapılandırması gerekiyor.",
 	"wikibase-export-config-incomplete-link": "Bu [[MediaWiki:WikibaseExport|formu yapılandırabilirsiniz]].",
 	"wikibase-export-config-help-documentation": "Düzenleme alanının altında [[#Documentation|yapılandırma belgelerini görüntüleyebilirsiniz]].",

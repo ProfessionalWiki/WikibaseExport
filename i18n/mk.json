@@ -22,7 +22,6 @@
 	"wikibase-export-config-header-id": "Назнака на својството (на пр. „P1 2022“)",
 	"wikibase-export-config-header-label": "Натпис на својството (на пр. „Работни приходи 2022“)",
 	"wikibase-export-download": "Преземи",
-	"wikibase-export-config-invalid": "Промените не се зачувани. {{PLURAL:$1|Ја содржат следнава грешка|Ги содржат следниве грешки}}:",
 	"wikibase-export-config-incomplete": "Администратор треба да го нагоди Извозот од Википодатоците пред да може да се користи.",
 	"wikibase-export-config-incomplete-link": "Можете да ги [[MediaWiki:WikibaseExport|наместите поставките на образецов]].",
 	"wikibase-export-config-help-documentation": "Можете да ја [[#Documentation|погледате документација за местење поставки]] под полето за уредување.",
