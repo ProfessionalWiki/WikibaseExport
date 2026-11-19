@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"A100Star",
 			"Amire80",
 			"Xnet1234"
 		]
@@ -23,6 +24,7 @@
 	"wikibase-export-config-header-id": "מזהה מאפיין (למשל \"P1 2022\")",
 	"wikibase-export-config-header-label": "תווית מאפיין (למשל \"הכנסות מפעילות 2022\")",
 	"wikibase-export-download": "הורדה",
+	"wikibase-export-config-invalid-errors": "השינויים לא נשמרו. נמצאו בהם {{PLURAL:$1|השגיאה הבאה|השגיאות הבאות}}:$2",
 	"wikibase-export-config-incomplete": "מפעיל צריך להגדיר את ההרחבה Wikibase Export לפני שיהיה אפשר להשתמש בה.",
 	"wikibase-export-config-incomplete-link": "באפשרותך [[MediaWiki:WikibaseExport|להגדיר את הטופס הזה]].",
 	"wikibase-export-config-help-documentation": "באפשרותך [[#Documentation|להציג את תיעוד התצורה]] מתחת לאזור העריכה.",
